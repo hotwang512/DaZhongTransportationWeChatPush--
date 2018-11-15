@@ -867,7 +867,7 @@ var $page = function () {
                     selector.$uEditor().attr("style", "display:none");
                     $("#pushContentText").attr("style", "display:none");
                     selector.$exerciseList().attr("style", "display:none");
-                    elector.$questionList().attr("style", "display:none");
+                    selector.$questionList().attr("style", "display:none");
                     selector.$pushHistory().attr("style", "display:none");
                     $(".personLabel").attr("style", "display:none");
                     $(".revenueType").attr("style", "display:none");
@@ -1603,6 +1603,7 @@ var $page = function () {
         //点击上传工资条按钮
         selector.$btnUploadSalary().on('click', function () {
             //先清空文本框内容
+            $($("#SalaryDialog tr")[3]).show()
             resetSalaryAndMaintence();
             //设置当前点击的是工资条还是车辆保养事件标识,1:代表工资条，2：代表车辆保养
             selector.$btnSave_sa().attr('event-data', "1");
@@ -1613,6 +1614,7 @@ var $page = function () {
         //点击上传车辆保养
         selector.$btnUploadMaintenance().on('click', function () {
             //先清空文本框内容
+            $($("#SalaryDialog tr")[3]).hide()
             resetSalaryAndMaintence();
             //设置当前点击的是工资条还是车辆保养事件标识,1:代表工资条，2：代表车辆保养
             selector.$btnSave_sa().attr('event-data', "2");
@@ -1620,12 +1622,12 @@ var $page = function () {
             $("#SalaryDialog .modal-title").text("保养信息推送");
         })
 
-        //上传工资条弹出框中的取消按钮
+        //上传工资条或者保养信息弹出框中的取消按钮
         selector.$btnCancel_sa().on('click', function () {
             selector.$SalaryDialog().modal('hide');
         });
 
-        //点击上传工资条弹出框中的保存按钮
+        //点击上传工资条，车辆保养弹出框中的保存按钮
         selector.$btnSave_sa().on("click", function () {
             var eventType = selector.$btnSave_sa().attr('event-data');
             if (eventType === "1") {
@@ -1828,8 +1830,8 @@ function Upload() {
         }
     });
 }
-//上传工资条
-function UploadSalary(IDNumber) {
+//上传工资条或者保养信息
+function UploadSalary() {
     showLoading();
     var formData = new FormData();//初始化一个FormData对象
     formData.append("files", $("#importSalary")[0].files[0]);//将文件塞入FormData
@@ -1899,7 +1901,7 @@ function initNotExistTable(IDNumber) {
             columns: [
               { text: '人员姓名', width: 150, datafield: 'Name', align: 'center', cellsAlign: 'center' },
               { text: '手机号', width: 150, datafield: 'MobilePhone', align: 'center', cellsAlign: 'center' },
-              { text: '身份证号', datafield: 'IDNumber', align: 'center', cellsAlign: 'center' }
+              { text: IDNumber, datafield: 'IDNumber', align: 'center', cellsAlign: 'center' }
             ]
         });
 }

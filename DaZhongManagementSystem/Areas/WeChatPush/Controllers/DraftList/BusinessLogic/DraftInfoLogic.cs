@@ -606,7 +606,7 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.DraftList.Busines
                     //判断是否验车
                     bool isVerify = pushObj.IsVerify;
                     string templateValidate = "";
-                    if (isVerify) templateValidate = string.Format(weChatMaintanceValidateTemp, isVerify ? "是" : "否");
+                    if (isVerify) templateValidate = string.Format(weChatMaintanceValidateTemp, isVerify ? "验" : "否");
                     string template = string.Format(weChatMaintanceTemp, pushObj.CarNO, pushObj.Name, pushObj.MaintainDate.ToShortDateString(), pushObj.Mileage, pushObj.Address, pushObj.Type, templateValidate);
 
                     //人员存在
@@ -939,7 +939,7 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.DraftList.Busines
                 dr["MaintainDate"] = dtDate.ToShortDateString();
                 dr["MaintainTime"] = maintainDateTime;
                 dr["Type"] = itemRow["Type"];
-                dr["IsVerify"] = itemRow["IsVerify"].ToString() == "是" ? true : false;
+                dr["IsVerify"] = itemRow["IsVerify"].ToString() == "验" ? true : false;
                 dr["Address"] = itemRow["Address"];
                 dr["Mileage"] = itemRow["Mileage"];
                 dr["CreatedDate"] = DateTime.Now;

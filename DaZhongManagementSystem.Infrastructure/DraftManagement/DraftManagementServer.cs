@@ -1086,7 +1086,7 @@ namespace DaZhongManagementSystem.Infrastructure.DraftManagement
         {
             using (var db = SugarDao_MsSql.GetInstance())
             {
-                db.SqlQuery<string>("drop table NotExistPerson");
+                db.SqlQuery<string>("if exists(select * from sysobjects where name ='NotExistPerson') drop table NotExistPerson");
             }
         }
     }
