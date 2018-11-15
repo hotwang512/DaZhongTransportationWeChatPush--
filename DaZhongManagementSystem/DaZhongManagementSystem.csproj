@@ -2133,6 +2133,7 @@
     <Content Include="ReportTemplate\notExist.xlsx" />
     <None Include="Properties\PublishProfiles\DAZHONGTUISONG.pubxml" />
     <Content Include="ReportTemplate\Errortabel.xlsx" />
+    <Content Include="PushTemplate\保养计划模板.xlsx" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
