@@ -1,0 +1,43 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>大众企业号后台管理系统</title>
+    <link href="@Url.Content("~/_theme/_css/style.default.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/_theme/_css/jquery.gritter.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Views/_css/Login.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/_theme/js/jquery-2.0.3.min.js")"></script>
+    <script src="@Url.Content("~/_theme/_js/jquery.gritter.min.js")"></script>
+    <script src="@Url.Content("~/_theme/_js/menueCookie.js")"></script>
+    <script src="@Url.Content("~/Views/_js/Login.js")"></script>
+</head>
+
+<body>
+    <div>
+        <div id="top">
+        </div>
+        <div id="loginDiv">
+            <div id="loginTop">
+                <span id="title">大众企业号后台管理系统</span>
+            </div>
+            <div id="LoginNameDiv">
+                <span id="spName">登录用户名</span><input id="txtName" name="login" type="text" />
+            </div>
+            <div  class="line"></div>
+            <div id="pwdDiv">
+                <span id="spPwd">密码</span><input id="txtPwd" name="login" type="password" onpaste="return false" onselectstart="return false" />
+            </div>
+            <div class="line"></div>
+        </div>
+    </div>
+    <div id="btnDiv">
+        <input type="button" id="btnLogin" value="Login" />
+    </div>
+</body>
+</html>
+

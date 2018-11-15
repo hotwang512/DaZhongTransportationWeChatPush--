@@ -1,0 +1,100 @@
+﻿@using DaZhongManagementSystem.Entities.TableEntity
+@{
+    ViewBag.Title = "详细信息";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var currentModuleRolePermission = ViewBag.CurrentModulePermission as Sys_Role_Module;
+    var knowledgeInfo = ViewBag.knowledgeInfo as Business_KnowledgeBase_Information;
+}
+
+@section pageTitle
+{
+    @ViewBag.Title
+}
+
+@section js
+{
+    <script src="@Url.Content("~/Areas/KnowledgeBaseManagement/Views/_js/formalDetail.js")"></script>
+    <script src="@Url.Content("~/_theme/bootstrap-datepicker/bootstrap-datepicker.js")"></script>
+    <script src="@Url.Content("~/_theme/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js")"></script>
+    <script src="@Url.Content("~/_theme/utf8net/third-party/video-js/video.js")"></script>
+    <script src="@Url.Content("~/_theme/utf8net/third-party/video-js/html5media.min.js")"></script>
+
+    @*富文本框*@
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <script  charset="utf-8" src="@Url.Content("~/_theme/utf8net/ueditor.config.js")"></script>
+    <script charset="utf-8" src="@Url.Content("~/_theme/utf8net/ueditor.all.min.js")"></script>
+    <script  charset="utf-8"  src="@Url.Content("~/_theme/utf8net/lang/zh-cn/zh-cn.js")"></script>
+
+}
+@section css{
+    <link href="@Url.Content("~/_theme/bootstrap-datepicker/datepicker.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/_theme/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/_theme/utf8net/themes/default/dialogbase.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/_theme/utf8net/third-party/video-js/video-js.css")" rel="stylesheet" />
+}
+
+<!-- 顶部按钮 -->
+<table style="margin-top: 10px;">
+    <tr style="height: 50px;">
+        <td style="width: 95px;">
+            <button id="btnCancel" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe611;</i><span style="margin-left: 7px; float: left;">取消</span></button>
+        </td>
+    </tr>
+</table>
+<!-- 顶部按钮 -->
+<form id="knowledgeDetail">
+    <div class="mk">
+        <div class="header_mk">
+            <div class="header_icon"></div>
+            <div class="header_text_div"><span class="header_text_span">基本信息</span></div>
+        </div>
+        <input type="hidden" id="txtVguid" name="Vguid" value="@knowledgeInfo.Vguid"/>
+        <div class="body_mk" style="height: 580px">
+            <table style="margin-top: 20px; margin-left: 20px;">
+                <tr style="height: 45px;">
+                    <td align="center" style="width: 80px;">名称：</td>
+                    <td style="width: 210px;">
+                        <input id="txtTitle" name="Title" validatetype="required" type="text" class="input_text form-control" value="@knowledgeInfo.Title"  readonly="readonly"/>
+                    </td>
+                    @* <td align="center" style="width: 10px;"><span style="color: red; margin-left: 5px;">*</span></td>
+                    <td align="center" style="width: 80px;">创建人：</td>
+                    <td style="width: 210px;">
+                        <input id="txtCreatedUser" type="text" name="CreatedUser" class="input_text form-control" value="@knowledgeInfo.CreatedUser" readonly="readonly" />
+                    </td>
+                    <td align="right" style="width: 80px;">创建时间：</td>
+                    <td style="width: 210px;">
+                        <input id="txtCreatedDate" type="text" name="CreatedDate" class="input_text form-control" value="@knowledgeInfo.CreatedDate.ToString("yyyy-MM-dd HH:mm")" readonly="readonly" />
+                    </td>*@
+                </tr>
+               <tr style="height: 340px;">
+                    <td align="center" style="width: 80px;">内容：</td>
+                    <td colspan="3">
+                        <textarea id="txtContent" name="Content" maxlength="10000" runat="server" readonly="readonly" style="width: 90%; height: 250px;" rows="3" validatetype="required">@knowledgeInfo.Content</textarea>
+                        <script type="text/javascript">
+                            $(function () {
+                                var um = UE.getEditor('txtContent', {
+                                    readonly: true
+                                });
+                            })
+                        </script>
+                    </td>
+                    @* <td align="center" style="width: 10px;"><span style="color: red; margin-left: 5px;">*</span></td>*@
+                </tr>
+                <tr style="height: 95px;">
+                    <td align="center" style="width: 80px;">备注：</td>
+                    <td colspan="7" style="width: 210px;">
+                        <textarea id="remark" name="Remark" maxlength="500" style="width: 81%;" readonly="readonly" rows="3" class="description form-control">@knowledgeInfo.Remark</textarea>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</form>
+<input type="hidden" id="ReadsPermission" value="@currentModuleRolePermission.Reads" />
+<input type="hidden" id="EditPermission" value="@currentModuleRolePermission.Edit" />
+<input type="hidden" id="DeletesPermission" value="@currentModuleRolePermission.Deletes" />
+<input type="hidden" id="AddsPermission" value="@currentModuleRolePermission.Adds" />
+<input type="hidden" id="SubmitPermission" value="@currentModuleRolePermission.Submit" />
+<input type="hidden" id="ApprovedPermission" value="@currentModuleRolePermission.Approved" />
+<input type="hidden" id="ImportPermission" value="@currentModuleRolePermission.Import" />
+<input type="hidden" id="ExportPermission" value="@currentModuleRolePermission.Export" />

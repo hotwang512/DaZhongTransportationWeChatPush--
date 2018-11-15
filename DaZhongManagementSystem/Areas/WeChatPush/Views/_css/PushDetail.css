@@ -1,0 +1,107 @@
+﻿
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "微软雅黑";
+}
+
+header {
+    /*position: fixed;*/
+    /*width: 100%;*/
+    height: 90%;
+    /*text-align: center;*/
+    padding-top: 5%;
+    overflow-y: auto;
+    padding: 0 12px 0 12px;
+}
+
+    header div {
+        width: 90%;
+        height: auto;
+        margin-bottom: 3%;
+        margin-left: 5%;
+    }
+
+    header h1 {
+        width: auto;
+        height: auto;
+        margin-bottom: 3%;
+        font-size: 1rem;
+        color: red;
+    }
+
+    header p {
+        font-size: 0.6rem;
+    }
+
+    header video {
+        width: 100%;
+    }
+
+    header img {
+        width: 100%;
+        /*height: 5rem;*/
+        height: auto;
+    }
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 45px;
+    background: #146c7f;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    line-height: 45px;
+}
+
+    footer div {
+        width: 25%;
+        height: 100%;
+        border-right: 1px solid yellow;
+        color: #fff;
+    }
+
+.footer_a {
+    border: 0;
+}
+/*答题超过次数失败*/
+.error {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    text-align: center;
+    font-size: 0.8rem;
+    color: green;
+    display: none;
+    z-index: 3;
+    color: red;
+    margin-left: 0!important;
+}
+
+    .error div {
+        width: 35%;
+        height: 50%;
+        margin: 35% 35%;
+    }
+
+        .error div img {
+            width: 90%;
+            height: 35%;
+        }
+
+/*a链接*/
+#unableAnswer {
+    text-align: left!important;
+}
+
+.animate {
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    transition: all .3s;
+}

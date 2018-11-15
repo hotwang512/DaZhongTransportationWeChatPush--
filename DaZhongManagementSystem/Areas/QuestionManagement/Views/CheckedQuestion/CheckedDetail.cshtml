@@ -1,0 +1,270 @@
+﻿@{
+    ViewBag.Title = "查看问卷";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var questionTypeList = ViewData["QuestionType"] as List<CS_Master_2>;//问卷类型
+    Business_Questionnaire questionMainModel = ViewBag.questionMainModel;
+    var currentModuleRolePermission = ViewBag.CurrentModulePermission as Sys_Role_Module;    
+}
+@using DaZhongManagementSystem.Entities.TableEntity;
+
+@section pageTitle
+{
+    @ViewBag.Title
+}
+
+@section js
+{
+    <script src="@Url.Content("~/Areas/QuestionManagement/Views/_js/CheckedQuestionDetail.js")"></script>
+    <script src="@Url.Content("~/_theme/bootstrap-datepicker/bootstrap-datepicker.js")"></script>
+    <script src="@Url.Content("~/_theme/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js")"></script>
+}
+
+@*css*@
+@section css{
+    <link href="@Url.Content("~/Areas/QuestionManagement/Views/_css/QuestionDetail.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/_theme/bootstrap-datepicker/datepicker.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/_theme/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.css")" rel="stylesheet" />
+}
+
+<table style="margin-top: 10px;">
+    <tr style="height: 50px;">
+        <td style="width: 95px;">
+            <button id="btnCancel" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe611; </i><span style="margin-left: 7px; float: left;">返回</span></button>
+        </td>
+    </tr>
+</table>
+<!-- 顶部按钮 -->
+
+<form id="QuestionDetailForm">
+    <div class="mk">
+        <div class="header_mk">
+            <div class="header_icon"></div>
+            <div class="header_text_div"><span class="header_text_span">问卷基本信息</span></div>
+        </div>
+        <div class="body_mk" style="height: 240px">
+            <table style="margin-top: 20px; margin-left: 20px;">
+                <tr style="height: 45px;">
+                    <td align="center" style="width: 80px;">问卷名称：</td>
+                    <td style="width: 210px;">
+                        <input id="QuestionName" name="QuestionName" disabled="disabled" type="text" style="background-color:#f5f5f5!important;" class="input_text form-control" value="@questionMainModel.QuestionnaireName" />
+                    </td>
+                    <td align="center" style="width: 10px;"><span style="color: red; margin-left: 5px;">*</span></td>
+                    <td align="right" style="width: 80px;">创建时间：</td>
+                    <td style="width: 210px;">
+                        <input id="VCRTTIME" type="text" name="CreatedDate" class="input_text form-control" style="background-color:#f5f5f5!important;" value="@questionMainModel.CreatedDate.ToString("yyyy-MM-dd HH:mm")" readonly />
+                    </td>
+                    <td align="right" style="width: 105px;">问卷有效时间：</td>
+                    <td style="width: 210px;">
+                        <input id="EffectiveDate" type="text" name="EffectiveDate" disabled="disabled" style="background-color:#f5f5f5!important;" class="input_text form-control"  value="@questionMainModel.EffectiveDate.ToString("yyyy-MM-dd HH:mm")"/>
+                    </td>
+                    <td align="center" style="width: 10px;"><span style="color: red; margin-left: 5px;">*</span></td>
+                </tr>
+                <tr style="height: 95px;">
+                    <td align="center" style="width: 80px;">描述：</td>
+                    <td colspan="7" style="width: 210px;">
+                        <textarea id="description" name="Description" maxlength="300" disabled="disabled" style="width: 98.9%; background-color: #f5f5f5!important;" rows="3" class="description form-control">@questionMainModel.Description</textarea>
+                    </td>
+                </tr>
+                <tr style="height: 95px;">
+                    <td align="center" style="width: 80px;">备注：</td>
+                    <td colspan="7" style="width: 210px;">
+                        <textarea id="remark" name="Remarks" maxlength="300" style="width: 98.9%; background-color: #f5f5f5!important;" disabled="disabled" rows="3" class="description form-control">@questionMainModel.Remarks</textarea>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <input id="editVguid" name="VGUID" type="hidden" value="@questionMainModel.Vguid" />
+
+    <div class="mk" style="height: 410px;">
+        <div class="header_mk">
+            <div class="header_icon"></div>
+            <div class="header_text_div"><span class="header_text_span">问卷详细信息列表</span></div>
+        </div>
+        <div class="body_mk" style="height: 100px">
+            <div id="QuestionDetailGrid" class="jqxGrid" style="border-left: 0px;">
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@*弹出模态框*@
+<div class="container">
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="QuestionDialog">
+        <div class="modal-dialog modal-sm" style="width: 100%; padding-right: 20px; margin-top: 100px;">
+            <div class="modal-content" style="width: 600px; margin-left: auto; margin-right: auto;">
+                <div class="modal-header" style="width: 100%; margin-left: auto; margin-right: auto;">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel_title"></h4>
+                </div>
+                <div style="width: 100%; margin-left: 16px;">
+                    <form id="QuestionForm">
+                        <table @*style="width: 100%;"*@>
+                            <tr style="height: 50px;">
+                                <td align="right" style="width: 75px;">问卷类型：</td>
+                                <td style="width: 260px;">
+                                    @foreach (var item in questionTypeList)
+                                    {
+                                        string name = "QuestionTypeRadio" + item.MasterCode;
+                                        <label id="@name" style="margin-bottom: -2px; font-weight: normal;">
+                                            <div style="float: left; padding-top: 6px; margin-left: 5px; height: 30px;">
+                                                <input  class="QuestionTypeRadio" type="radio" name="QuestionType" value="@item.MasterCode" />
+                                            </div>
+                                            <div style="height: 30px; padding-top: 8px; margin-left: 5px; float: right;">@item.DESC0</div>
+                                        </label> 
+                                    }
+                                </td>
+                                <td></td>
+                                <td>
+                                    
+                                </td>
+                            </tr>
+                        </table>
+                        <input id="editVguidDetail" name="VGUID" type="hidden" value="" />
+                        <input id="isEditDetail" type="hidden" value="" />
+                        <input id="questionTitleID" type="hidden" value="" />
+                    </form>
+                </div>
+                @*单选题*@
+                <div class="SingleChoice" style="display: none;">
+                    <form id="singleChoice">
+                        <table style="margin-left: 54px;">
+                            <tr>
+                                <td>题目：
+                                </td>
+                                <td colspan="2">
+                                    <textarea id="singleChoiceContent" name="QuestionName" maxlength="300" disabled="disabled" style="width: 450px; background-color: #f5f5f5!important;" rows="3" class="description form-control"></textarea>
+                                </td>
+                                <td align="center" style="width: 10px;"><span style="color: red; margin-left: 5px;">*</span></td>
+                            </tr>
+                            <tr style="height: 45px;">
+                                <td>选项：</td>
+                                <td colspan="2">
+                                    @*<table>
+                                        <tr>
+                                            <td>
+                                                <div class="" style="position: absolute; left: 79%; margin-top: 8px;">
+                                                    <span>答案选项</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>*@
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td colspan="2" id="singleInputsWrapper">
+                                    @*新增的时候重新绘制了界面的第一个选项，所以给第一个选项加东西的时候也要在js中添加*@
+                                    <div style="height: 40px;">
+                                        <div class="option" style="position: absolute; margin-top: 10px;">
+                                            <span style="font-size: 14px;">选项1：</span>
+                                        </div>
+                                        <input id="field_1" type="text" style="width: 75%; margin-left: 45px;" name="singleOption" class="input_text form-control" />
+                                        @*<div class="singleCorrectAnswer" style="position: absolute; left: 82%;">
+                                            <input id="firstSingleCheck" type="checkbox" class="singleChecked" style="margin-top: 10px;" value="1" />
+                                        </div>*@
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                @*多选题*@
+                <div class="MultipleChoice" style="display: none;">
+                    <form id="multipleChoice">
+                        <table style="margin-left: 54px;">
+                            <tr>
+                                <td>题目：
+                                </td>
+                                <td colspan="2">
+                                    <textarea id="multipleChoiceContent" name="QuestionName" maxlength="300" style="width: 450px; background-color: #f5f5f5!important;" disabled="disabled" rows="3" class="description form-control"></textarea>
+                                </td>
+                                <td align="center" style="width: 10px;"><span style="color: red; margin-left: 5px;">*</span></td>
+                            </tr>
+                            <tr style="height: 45px;">
+                                <td>选项：</td>
+                                <td colspan="2">
+                                    @*<table>
+                                        <tr>
+                                            <td>
+                                                <div class="" style="position: absolute; left: 79%; margin-top: 8px;">
+                                                    <span>答案选项</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>*@
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td colspan="2" id="multipleInputsWrapper">
+                                    @*新增的时候重新绘制了界面的第一个选项，所以给第一个选项加东西的时候也要在js中添加*@
+                                    <div style="height: 40px;">
+                                        <div class="option" style="position: absolute; margin-top: 10px;">
+                                            <span style="font-size: 14px;">选项1：</span>
+                                        </div>
+                                        <input id="multipleField_1" type="text" style="width: 75%; margin-left: 45px;" name="multipleOption" class="input_text form-control" />
+                                        @*<div class="deleteOption">
+                                            <a href="#" class="removeMultipleClass"><i class="iconfont btn_icon" style="color: black !important;">&#xe60a;</i></a>
+                                        </div>*@
+                                        @*<div class="multipleCorrectAnswer" style="position: absolute; left: 82%;">
+                                            <input id="firstMultipleCheck" type="checkbox" class="multipleChecked" style="margin-top: 10px;" value="1" />
+                                        </div>*@
+                                    </div>
+                                    @*<div style="height: 40px;">
+                                        <input id="multipleField_1" type="text" style="width: 100%;" name="multipleOption" class="input_text form-control" value="选项1" /><div class="deleteOption"><a href="#" class="removeMultipleClass"><i class="iconfont btn_icon" style="color: black !important;">&#xe60a;</i></a></div>
+                                    </div>*@
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                @*判断题*@
+                <div class="JudgeQuestion" style="display: none;">
+                    <form id="judgeQuestion">
+                        <table style="margin-left: 54px;">
+                            <tr>
+                                <td>题目：
+                                </td>
+                                <td colspan="2">
+                                    <textarea id="judgeQuestionContent" name="QuestionName" maxlength="300" style="width: 450px; background-color: #f5f5f5!important;" disabled="disabled" rows="3" class="description form-control"></textarea>
+                                </td>
+                                <td align="center" style="width: 10px;"><span style="color: red; margin-left: 5px;">*</span></td>
+                            </tr>                            
+                        </table>
+                    </form>
+                </div>
+                @*简答题*@
+                <div class="ShortAnswer" style="display: none;">
+                    <form id="shortAnswer">
+                        <table style="margin-left: 54px;">
+                            <tr>
+                                <td>题目：
+                                </td>
+                                <td colspan="2">
+                                    <textarea id="shortAnswerContent" name="QuestionName" maxlength="300" disabled="disabled" style="width: 450px; background-color: #f5f5f5!important;" rows="3" class="description form-control"></textarea>
+                                </td>
+                                <td align="center" style="width: 10px;"><span style="color: red; margin-left: 5px;">*</span></td>
+                            </tr>                            
+                        </table>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button id="btnCancelQuestion" type="button" class="btn btn-danger" style="width: 85px; border-color: #16609c!important; background-color: #16609c!important;"><i class="iconfont btn_icon" style="color: white !important; margin-left: 0px;">&#xe606;</i><span style="margin-left: 7px; float: left;">取消</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="txtType" value="@ViewData["Type"]"/>
+<input type="hidden" id="ReadsPermission" value="@currentModuleRolePermission.Reads" />
+<input type="hidden" id="EditPermission" value="@currentModuleRolePermission.Edit" />
+<input type="hidden" id="DeletesPermission" value="@currentModuleRolePermission.Deletes" />
+<input type="hidden" id="AddsPermission" value="@currentModuleRolePermission.Adds" />
+<input type="hidden" id="SubmitPermission" value="@currentModuleRolePermission.Submit" />
+<input type="hidden" id="ApprovedPermission" value="@currentModuleRolePermission.Approved" />
+<input type="hidden" id="ImportPermission" value="@currentModuleRolePermission.Import" />
+<input type="hidden" id="ExportPermission" value="@currentModuleRolePermission.Export" />

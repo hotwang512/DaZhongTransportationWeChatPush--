@@ -1,0 +1,30 @@
+﻿
+a
+{
+    color: #949494;
+    text-decoration: none;
+}
+.i_usermain >li>a
+{
+    padding:0px 15px;
+}
+#sidebar .nav > li > a
+{
+    color:#949494;
+}
+#sidebar .nav > li > a, #sidebar .nav > li > a:hover, #sidebar .nav > li > a:focus
+{
+    background-color: #36353B;
+    border: 1px solid #2D2C32;
+    height: 55px;
+    line-height: 55px;
+    padding: 0px 15px;
+}
+#sidebar .nav > li > a:hover, #sidebar .nav > li > a:focus
+{
+    color: #E0E0E0;
+}
+#sidebar .nav > li.open > a,#sidebar .nav > li.open > a:hover, #sidebar .nav > li > a:focus
+{
+    color: #E0E0E0;
+}

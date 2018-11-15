@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+@{
+    var code = ViewBag.code;
+    var personInfo = ViewBag.PersonInfo as Business_Personnel_Information;
+    var exerciseVguid = ViewBag.exerciseVguid;
+    var openHttpAddress = SyntacticSugar.ConfigSugar.GetAppString("OpenHttpAddress");
+    var corpID = SyntacticSugar.ConfigSugar.GetAppString("CorpID");
+    var pushContentVguid = ViewBag.pushContentVguid;//推送内容Vguid
+    var answerCount = ViewBag.answerCount;//答题次数
+}
+<html>
+@using DaZhongManagementSystem.Entities.TableEntity;
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="blank">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>答题测试</title>
+
+    <link href="@Url.Content("~/Areas/BasicDataManagement/Views/_css/WeChatExercise/swiper-3.3.1.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Areas/BasicDataManagement/Views/_css/WeChatExercise/index.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Areas/BasicDataManagement/Views/iconfont/iconfont.css")" rel="stylesheet" />
+
+</head>
+<body>
+    @*答题人Vguid*@
+    <input type="hidden" id="PersonVguid" value="@personInfo.Vguid" />@**@
+    @*习题Vguid*@
+    <input type="hidden" id="ExerciseVguid" value="@exerciseVguid" />@*@exerciseVguid*@
+    @*外网访问地址*@
+    <input type="hidden" id="OpenHttpAddress" value="@openHttpAddress" />
+    @*企业号CorpID*@
+    <input type="hidden" id="CorpID" value="@corpID" />
+    @*推送内容Vguid*@
+    <input type="hidden" id="PushContentVguid" value="@pushContentVguid" />
+    @*答题次数*@
+    <input type="hidden" id="AnswerCount" value="@answerCount" />
+    @* 是否是消息历史界面跳转而来*@
+    <input type="hidden" id="isHistory" value="@ViewData["isHistory"]"/>
+    <input type="hidden" id="txtWechatMain" value="@ViewData["wechatMain"]"/>
+    <input type="hidden" id="txtIsValid" value="@ViewData["isValid"]"/>
+    <!--头部-->
+    <header>
+        <!--分页器-->
+        <div class="h_back">
+            <div class="fc_left"></div>
+            /
+			
+            <div class="fc_right"></div>
+        </div>
+        <!--上一题-->
+        <div class="f_last">
+            <div class="iconfont itemLast">&#xe621;</div>
+            <div class="f_last1">上一题</div>
+            <div class="f_lastHide"></div>
+        </div>
+        <!--提交按钮-->
+        <div class="f_center">
+            <div class="f_center1">
+                <div class="iconfont">&#xe67a;</div>
+            </div>
+            <div class="f_center2">交卷</div>
+        </div>
+        <!--下一题-->
+        <div class="f_next">
+            <div class="iconfont itemNext">&#xe621;</div>
+            <div class="f_next1">下一题</div>
+            <div class="f_nextHide"></div>
+        </div>
+        <!--答题卡-->
+        <div id="ans">
+            <div class="iconfont ans">&#xe622;</div>
+            <div class="ans1">答题卡</div>
+        </div>
+        <!--跳转页面-->
+        <div id="success">
+            <div>
+                <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/567925.png")" alt="Alternate Text" />
+                本次答题已合格，谢谢您的参与！！
+            </div>
+        </div>
+        <div id="marking">
+            <div>
+                <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/567925.png")" alt="Alternate Text" />
+                本次答题已完成，请等待阅卷！！
+            </div>
+        </div>
+        <div id="error">
+            <div>
+                <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/Error.png")" alt="Alternate Text" />
+                线上学习次数已用完，请与车队联系进行线下培训！！
+            </div>
+        </div>
+        <div id="errorExprice" style="display: none">
+            <div>
+                <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/Error.png")"  alt="Alternate Text" />
+                <span>习题已过期！！</span>
+            </div>
+
+        </div>
+    </header>
+    <!--显示上传缓存-->
+    <div id="Uploading" style="display: none">
+        <div>
+            <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/5121204193R0.gif")" alt="Alternate Text" />
+            <p>上传中...</p>
+        </div>
+    </div>
+    <!--答题卡-->
+    <div class="answer"></div>
+
+    <!--上传图片功能-->
+@*    <form id="photo" method="post" enctype="multipart/form-data">
+        <div class="ph_t">
+            <img id="preview">
+        </div>
+        <!--上传图片-->
+        <div class="file">
+            请上传您的头像照
+            <input id="file" name="file" type="file" style="margin-top: -1rem;" />
+        </div>
+        <!--确认上传按钮-->
+        <div class="upload">确认上传</div>
+
+    </form>*@
+
+    <!--中间内容-->
+    <section>
+        <div class="swiper-container kj1 swiper-no-swiping">
+            <div class="swiper-wrapper">
+            </div>
+            <div>
+            </div>
+        </div>
+        <!--div悬浮在上方的div上面,让上面的div内容只读-->
+        <div id="dvTrans" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: transparent; display: none; z-index: 9999">
+        </div>
+    </section>
+
+
+
+    <script src="@Url.Content("~/_theme/js/jquery-2.0.3.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/_theme/tool/jquery-form.min.js")"></script>
+    <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/swiper-3.3.1.jquery.min.js")"></script>
+    <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/11111.js")"></script>
+    <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/app.js")"></script>
+
+</body>
+</html>
+
+
+
+
+

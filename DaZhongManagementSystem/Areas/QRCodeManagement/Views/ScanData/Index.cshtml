@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <script src="@Url.Content("~/_theme/js/jquery-2.0.3.min.js")"></script>
+    <script src="/_theme/_js/tool.js"></script>
+    <script src="/Areas/QRCodeManagement/Views/_js/ScanData.js"></script>
+    <link rel="stylesheet" href="@Url.Content("~/_theme/css/bootstrap.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/styles/jqx.base.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgetsExtensions/jqxext.css")" />
+    <link href="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqx.office.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/_theme/Validate/validate.css")" rel="stylesheet" />
+    <link rel="stylesheet" href="@Url.Content("~/_theme/_css/common.css")" />
+    <link href="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqx.office.css")" rel="stylesheet" />
+
+    <link href=@Url.Content("~/_theme/systemIcon/demo.css") rel="stylesheet" />
+    <link href="@Url.Content("~/_theme/systemIcon/iconfont.css")" rel="stylesheet" />
+
+    <script type="text/javascript">
+        $(function () {
+
+            $("#shrinkMenue").on('click', function () {
+                var menueDisplay = $(".left_content").css("display");
+                var width = $(document).width() - 40;
+                $(".left_content").toggle(200);
+                if (menueDisplay == "block") {
+                    $(".jqxTable").jqxDataTable({ width: width });
+                }
+                else {
+                    width = width - 210;
+                    $(".jqxTable").jqxDataTable({ width: width });
+                }
+
+            });
+          
+
+        });
+
+
+    </script>
+
+    <style type="text/css">
+        .main_header {
+            width: 100%;
+            /*background-color: #375471;*/
+            position: fixed;
+            top: 0px;
+            z-index: 999;
+            background-image: url('/_theme/images/top.png');
+        }
+    </style>
+
+</head>
+<body>
+    <div class="main_header" id="top">
+        <div style="width: 100%; height: 60px;">
+            <table style="width:100%; border:0px; border-collapse:0; border-spacing:0;">
+                <tr style="height:60px; line-height:60px;">
+                    <td style="color:white; font-size:28px; font-family:Calibri; text-align:center;  font-weight:bold;"><span id="gotoHome" style="cursor:pointer;">大众企业号后台管理系统</span></td>
+
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="mk" style="margin-top:100px">
+       
+        <div style="margin-left:26%">
+            <label style="font-size:30px">姓名:</label>
+            <label id="Name" style="font-size:30px"></label>
+            <br />
+            <label>ID:</label>
+            <label id="ID"></label>
+        </div>
+        <div class="body_mk" style="height: 700px; width:1500px;margin-left:15%; background-image:url(/_theme/images/xinxibj.png);background-repeat:no-repeat;" >
+            <form id="frmtable" class="form">
+                <input type="hidden" name="VGUID" id="txtHidden" value="@ViewData["vguid"]" />
+                <table id="message" style="margin-left:400px;font-size:20px">
+                    <tr style="height:130px; ">
+                    </tr>
+                    <tr style="height:30px; ">
+                        <td style="width: 150px;"></td>
+                        <td style="width: 150px;"><label>年龄:</label></td>
+                        <td style="width: 200px;"><label id="Age"></label></td>
+                    </tr>
+                    <tr style="height:30px; ">
+                        <td style="width: 150px;"></td>
+                        <td style="width: 150px;"><label>性别:</label></td>
+                        <td style="width: 200px;"><label id="Sex"></label></td>
+                    </tr>
+                    <tr style="height:30px;">
+                        <td style="width: 150px;"></td>
+                        <td style="width: 150px;"><label>部门:</label></td>
+                        <td style="width: 200px;"><label id="OwnedFleet"></label></td>
+                    </tr>
+                    <tr style="height:30px;">
+                        <td style="width: 150px;"></td>
+                        <td style="width: 150px;"><label>微信名:</label></td>
+                        <td style="width: 200px;"><label id="ScanUser"></label></td>
+                    </tr>
+                    <tr style="height:30px;">
+                        <td style="width: 150px;"></td>
+                        <td style="width: 150px;"><label>手机号:</label></td>
+                        <td style="width: 200px;"><label id="PhoneNumber"></label></td>
+                    </tr>
+                    <tr style="height:30px;">
+                        <td style="width: 150px;"></td>
+                        <td style="width: 150px;"><label>扫码编号:</label></td>
+                        <td style="width: 200px;"><label id="MachineCode"></label></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

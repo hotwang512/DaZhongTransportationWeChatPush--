@@ -1,0 +1,104 @@
+﻿@{
+    Layout = null;
+    var code = ViewBag.Code;
+    var userInfo = ViewBag.userInfo as U_WeChatUserID;
+    var userDetail = ViewBag.userDetail as U_UserInfo;
+    var accessToken = ViewBag.accessToken;
+    var openHttpAddress = ViewBag.openHttpAddress;
+}
+@using DaZhongManagementSystem.Entities.UserDefinedEntity;
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="blank">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    @*<link rel="stylesheet" href="css/jqx.base.css" type="text/css" />*@
+
+    <link rel="stylesheet" href="@Url.Content("~/Areas/WeChatPush/Views/_css/SecondValidation.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Areas/WeChatPush/Views/_css/jqx.base1.css")" />
+    <title>身份审核</title>
+</head>
+<body>
+
+    @* 延时动画*@
+    <div id="Uploading" style="display: none">
+        <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/5121204193R0.gif")" alt="Alternate Text" />
+        <p>审核中...</p>
+    </div>
+    @* 审核成功*@
+    <div id="successIng" style="display: none">
+        <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/567925.png")" alt="Alternate Text" />
+        <p>关注成功,感谢您的参与.</p>
+    </div>
+<form id="login" method="post" enctype="multipart/form-data">
+    <div class="form-hide">
+        
+    </div>
+    <p></p>
+    <div class="login_a">
+        <label for="identity">身份证</label>
+        <input id="identity" type="text" name="IDCard" placeholder="请输入身份证号"/>
+        <p class="identity"></p>
+    </div>
+    <!--提示信息-->
+
+    <div class="login_b">
+        <label for="number">工号</label>
+        <input id="number" type="text" name="DCNO" placeholder="请输入工号"/>
+        <p class="number"></p>
+    </div>
+    <!--提示信息-->
+
+    <div class="login_c" style="position: relative;">
+        <label for="branch">选择部门</label>
+        @*      <div id="dropDownButton" style="margin-left: 1rem; font-size: 16px; margin-top: 1px; color: #999; font-family: '微软雅黑'; position: absolute!important; left: 4.3rem!important; top: 0.4rem!important">
+                请输入部门
+          			<div style="border: none;" id='jqxTree'></div>
+            </div>*@
+        <input id="branch" type="text" name="Department" readonly="readonly" placeholder="请输入部门"/>
+
+        <!--提示信息-->
+        <p class="branch"></p>
+    </div>
+    <div id="treeDeparment" style="margin-left: 26%; height: 350px; overflow-y: auto; display: none;">
+        <div id="treeGrid">
+        </div>
+    </div>
+    <input id="organizationVguid" name="OrganizationID" type="hidden" value=""/>
+    <input id="position" type="hidden" value="@userDetail.position"/>
+    <input type="hidden" id="mobilePhone" name="MobilePhone" value="@userDetail.mobile"/>
+    <input type="hidden" id="userID" value="@userInfo.UserId"/>
+    <input type="hidden" id="code" value="@code"/>
+    <input type="hidden" id="accessToken" value="@accessToken"/>
+    <input type="hidden" id="openHttpAddress" value="@openHttpAddress"/>
+</form>
+
+
+    <!--点击验证-->
+    <button class="login">审核</button>
+
+    <script src="@Url.Content("~/_theme/js/jquery-2.0.3.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/_theme/tool/jquery-form.min.js")"></script>
+    <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/app.js")"></script>
+    <script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxcore.js")"></script>
+    <script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxdata.js")"></script>
+    <script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxdropdownbutton.js")"></script>
+    <script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxscrollbar.js")"></script>
+    <script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxdatatable.js")"></script>
+    <script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxtreegrid.js")"></script>
+    <script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxbuttons.js")"></script>
+    <script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxdropdownlist.js")"></script>
+    <script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxtree.js")"></script>
+    <script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxpanel.js")"></script>
+    <script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxcheckbox.js")"></script>
+    <script src="@Url.Content("~/Areas/WeChatPush/Views/_js/SecondValidation.js")"></script>
+</body>
+</html>

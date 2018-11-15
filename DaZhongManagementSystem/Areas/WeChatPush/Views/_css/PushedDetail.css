@@ -1,0 +1,24 @@
+﻿#txtTitle {
+    width: 100%!important;
+}
+
+#pushContent {
+    width: 815px;
+}
+
+#myEditor {
+    width: 815px;
+    height: 200px;
+}
+
+.datepicker {
+    z-index: 999!important;
+}
+
+#weChatTypeRow {
+    height: 50px;
+}
+
+#ExerciseList {
+    height: 50px;
+}

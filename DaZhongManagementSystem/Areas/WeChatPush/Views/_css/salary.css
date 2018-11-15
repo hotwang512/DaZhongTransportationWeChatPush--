@@ -1,0 +1,139 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "微软雅黑";
+}
+
+header {
+    width: 100%;
+    height: 5rem;
+}
+
+.h_top {
+    height: 2rem;
+    border-bottom: 1px solid #c5c5c5;
+    position: relative;
+}
+
+    .h_top img {
+        position: absolute;
+        top: 0.5rem;
+        left: 0.5rem;
+        background: black;
+    }
+
+    .h_top h1 {
+        color: #000;
+        text-align: center;
+        line-height: 2rem;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+.h_center {
+    width: 100%;
+    height: 3rem;
+    line-height: 3rem;
+}
+
+.hc_nav {
+    height: 100%;
+    display: flex;
+}
+
+    .hc_nav img {
+        width: 40px;
+        height: 40px;
+        margin-top: 0.5rem;
+        margin-left: 0.5rem;
+    }
+
+    .hc_nav span {
+        height: 100%;
+        display: block;
+    }
+
+.h_bottom {
+    height: 2rem;
+    background: #f0f0f0;
+    line-height: 2rem;
+    color: #999;
+    font-size: 0.8rem;
+}
+
+    .h_bottom span {
+        margin-left: 0.5rem;
+    }
+
+nav {
+    width: 100%;
+    height: 7.5rem;
+    border-top: 1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+    nav ul {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        font-size: 1rem;
+    }
+
+ul li {
+    border-bottom: 1px solid #f0f0f0;
+    line-height: 2rem;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 0.5rem;
+}
+
+.n1_num, .n2_num, .n3_num, .n4_num, .n5_num {
+    margin-right: 0.5rem;
+}
+
+.n5_num {
+    color: #ff6540;
+}
+
+.nav_5 {
+    border: none;
+}
+
+footer {
+    width: 100%;
+    height: auto;
+    background: #f0f0f0;
+}
+
+    footer ul {
+        font-size: 0.8rem;
+    }
+
+.error {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    text-align: center;
+    font-size: 0.8rem;
+    color: green;
+    display: none;
+    z-index: 3;
+    color: red;
+    margin-left: 0!important;
+}
+
+    .error div {
+        width: 35%;
+        height: 50%;
+        margin: 35% 35%;
+    }
+
+        .error div img {
+            width: 90%;
+            height: 35%;
+        }

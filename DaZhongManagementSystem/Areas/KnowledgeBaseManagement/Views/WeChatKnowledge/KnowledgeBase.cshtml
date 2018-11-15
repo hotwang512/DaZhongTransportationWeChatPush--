@@ -1,0 +1,88 @@
+﻿@using DaZhongManagementSystem.Entities.TableEntity
+<!DOCTYPE html>
+@{
+    var personInfo = ViewBag.PersonInfo as Business_Personnel_Information;
+    var pushContentModel = ViewData["PushContentModel"] as Business_WeChatPush_Information;
+    var isValid = ViewBag.isValidTime;
+    var vguid = ViewData["vguid"] as string;
+}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="blank">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>知识库列表</title>
+    <link href="@Url.Content("/Areas/WeChatPush/Views/_css/WeChatHistory/common.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Areas/WeChatPush/Views/_css/WeChatHistory/dataList.css")" rel="stylesheet" />
+    <!--swiper样式-->
+    <link href="@Url.Content("/Areas/WeChatPush/Views/_css/WeChatHistory/swiper.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Areas/WeChatPush/Views/_css/WeChatHistory/bootstrap.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Areas/WeChatPush/Views/_css/PushDetail.css")" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("/Areas/WeChatPush/Views/_css/WeChatHistory/swiperitem.css")"cover" style="display:none">
+</head>
+<body>
+    <input type="hidden" id="PersonVguid" value="@personInfo.Vguid" />
+    @*  <input type="hidden" id="PersonVguid" value="726b4c9f-0b5a-4d5b-a8ee-5ba95c38c4c7" />*@
+    <!--加载数据的遮板-->
+    <div class="cover" style="display: none">
+        <img src="/Areas/WeChatPush/Views/_css/images/JZ.gif" alt="Alternate Text" />
+    </div>
+    <!--swiper样式-->
+    @*<div class="swiper-container">
+        <div class="swiper-wrapper" id="swiper-wrapper" style="width: 100%; height: 100%; overflow-y: hidden;">
+        </div>
+
+        <!-- Add Scroll Bar -->
+        <div class="swiper-scrollbar"></div>
+    </div>*@
+    @{
+        //说明是直接点击知识库按钮查看
+        if (string.IsNullOrEmpty(vguid))
+        {
+        <div class="wrapper" id="swiper-wrapper" style="width: 100%; height: 736px; overflow-y: auto; padding: 0 12px 0 12px; background-color: white">
+        </div>
+        }
+        //说明是直接点击推送知识库查看
+        else if (pushContentModel != null)
+        {
+            //判断是否过有效期（true已过有效期；false未过有效期）
+            if (!isValid)
+            {
+        <div class="wrapper" id="swiper-wrapper" style="width: 100%; height: 736px; overflow-y: auto; padding: 0 12px 0 12px; background-color: white">
+        </div>
+            }
+            else
+            {
+        <div class="error" style="display: block">
+            <div>
+                <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/Error.png")"  alt="Alternate Text" />
+                <span>推送内容已过期！！</span>
+            </div>
+        </div>
+            }
+        }
+        else
+        {
+        <div class="error" style="display: block">
+            <div>
+                <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/Error.png")" alt="Alternate Text" />
+                <span>推送内容已删除！！</span>
+            </div>
+        </div>
+        }       
+    }
+
+
+    <script src="@Url.Content("/Areas/WeChatPush/Views/_js/WeChatHistory/jquery-1.11.1.min.js")"></script>
+    <script src="@Url.Content("/Areas/WeChatPush/Views/_js/WeChatHistory/app.js")"></script>
+    <!--swiper样式-->
+    <script src="@Url.Content("/Areas/WeChatPush/Views/_js/WeChatHistory/swiper.min.js")"></script>
+    <script src="@Url.Content("/Areas/KnowledgeBaseManagement/Views/_js/WeChatKnowledge.js")"></script>
+</body>
+
+</html>

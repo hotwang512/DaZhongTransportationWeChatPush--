@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var roleTypeInfo = ViewBag.RoleTypeInfo as Sys_Role;
+    var isEdit = ViewBag.isEdit;
+    if (isEdit)
+    {
+        ViewBag.Title = "编辑用户角色";
+    }
+    else
+    {
+        ViewBag.Title = "新增用户角色";
+    }
+    var currentModuleRolePermission = ViewBag.CurrentModulePermission as Sys_Role_Module;
+}
+@using DaZhongManagementSystem.Entities.TableEntity;
+
+@section pageTitle{
+    @ViewBag.Title
+}
+
+@section js{
+    <script src="@Url.Content("~/Areas/Systemmanagement/Views/_js/AuthorityDetail.js")"></script>
+}
+
+@*css*@
+@section css{
+
+}
+
+<table style="margin-top: 10px;">
+    <tr style="height: 40px;">
+        @if (currentModuleRolePermission.Adds == 1 || currentModuleRolePermission.Edit == 1)
+        { 
+            <td style="width: 95px;">
+                <button id="btnSave" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe614;</i><span style="margin-left: 7px; float: left;">保存</span></button>
+            </td>
+        }
+        <td style="width: 95px;">
+            <button id="btnBack" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe60b;</i><span style="margin-left: 7px; float: left;">返回</span></button>
+        </td>
+
+    </tr>
+</table>
+
+<div class="mk">
+    <div class="header_mk">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">角色信息</span></div>
+    </div>
+    <div class="body_mk" style="height: 150px">
+        <form id="roleForm">
+            <table style="width: 1000px; margin-top: 10px; margin-left: 20px;">
+                <tr style="height: 40px;">
+                    <td style="width: 40px;">角色名称：</td>
+                    <td style="width: 250px">
+                        <input id="RoleName" name="Role" type="text" class="input_text form-control" value="@roleTypeInfo.Role" validatetype="required" />
+                        <span style="color: red; margin-left: 5px;">*</span>
+                    </td>
+                    <input id="RoleVGUID" name="Vguid" type="hidden" value="@roleTypeInfo.Vguid" />
+                </tr>
+                <tr style="height: 100px;">
+                    <td>描 述：</td>
+                    <td colspan="2">
+                        <textarea id="Description" type="text" class="description form-control" style="resize: none;" name="Description" cols="80" rows="3">@roleTypeInfo.Description</textarea>
+                    </td>
+            </table>
+        </form>
+    </div>
+</div>
+
+<div class="mk">
+    <div class="header_mk" style="border-bottom: 0px;">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">权限信息</span></div>
+    </div>
+    <div id="modulePermissionsList" class="jqxTable" style="border-left: 0px;">
+    </div>
+</div>
+
+<input id="isEdit" type="hidden" value="@isEdit" />
+
+

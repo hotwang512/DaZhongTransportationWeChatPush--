@@ -1,0 +1,138 @@
+﻿@{
+    ViewBag.Title = "日志管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var eventTypelist = ViewBag.eventTypelist as List<CS_Master_2>;
+}
+@using DaZhongManagementSystem.Entities.TableEntity;
+
+@section pageTitle
+{
+    @ViewBag.Title
+}
+
+@section js
+{
+    <script src="@Url.Content("~/Areas/DailyLogManagement/Views/_js/DailyLog.js")"></script>
+    <script src="@Url.Content("~/_theme/bootstrap-datepicker/bootstrap-datepicker.js")"></script>
+    <script src="@Url.Content("~/_theme/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js")"></script>
+    <link href="@Url.Content("~/_theme/bootstrap-datepicker/datepicker.css")" rel="stylesheet" />
+}
+
+@section css
+{
+    <link href="@Url.Content("~/Areas/DailyLogManagement/Views/_css/DailyLog.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/_theme/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.css")" rel="stylesheet" />
+}
+
+<!-- 中部条件 -->
+<div class="mk">
+    <div class="header_mk">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">查询</span></div>
+    </div>
+    <div class="body_mk" style="height: 100px">
+        <table style="margin-top: 20px; width: 800px; margin-left: 20px;">
+            <tr style="height: 45px;">
+                <td align="right" style="width: 80px;">事件类型：</td>
+                <td>
+                    @*<input id="EventType_Search" type="text" class="input_text form-control" />*@
+                    <select id="EventType_Search" class="input_text form-control">
+                        <option value="">===请选择===</option>
+                        @{
+                            foreach (var item in eventTypelist)
+                            {
+                            <option value="@item.DESC0">@item.DESC0</option>
+                            }
+                        }
+                    </select>
+                </td>
+                <td align="right" style="width: 80px;">用户：</td>
+                <td>
+                    <input id="VcrtUser_Search" type="text" class="input_text form-control" />
+                </td>
+                <td style="width: 100px;"></td>
+                <td style="width: 100px;"></td>
+            </tr>
+            <tr style="height: 45px;">
+                <td align="right">开始时间：</td>
+                <td style="width: 210px;">
+                    <input id="DateBegin_Search" type="text" class="input_text form-control" />
+                </td>
+                <td align="right">结束时间：</td>
+                <td style="width: 210px;">
+                    <input id="DateEnd_Search" type="text" class="input_text form-control" />
+                </td>
+                <td align="right">
+                    <button id="btnSearch" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe604;</i><span style="margin-left: 7px; float: left;">查询</span></button>
+                </td>
+                <td align="center">
+                    <button id="btnReset" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe603;</i><span style="margin-left: 7px; float: left;">重置</span></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!-- 中部条件 -->
+
+<!-- 底部表格 -->
+<center>
+<div class="mk" style="border-bottom: 0px;">
+    <div class="header_mk" style="border-bottom: 0px;">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">数据列表</span></div>
+    </div>
+
+    <div id="DailyLogList" class="jqxTable" style="border-left: 0px; ">
+    </div>
+</div>
+</center>
+<!-- 底部表格 -->
+
+@*弹出模态框*@
+<div class="container">
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="LogDialog">
+        <div class="modal-dialog modal-sm" style="width: 100%; padding-right: 20px; margin-top: 100px;">
+            <div class="modal-content" style="width: 660px; margin-left: auto; margin-right: auto;">
+                <div class="modal-header" style="width: 100%; margin-left: auto; margin-right: auto;">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel_title"></h4>
+                </div>
+                <div class="modal-body">
+                    <form id="OrganizationForm">
+                        <table style="width: 100%;">
+                            <tr style="height: 50px;">
+                                <td align="right" style="width: 75px;">事件类型：</td>
+                                <td style="width: 150px;">
+                                    <input type="text" id="eventType" readonly style="background-color: #f5f5f5!important;" class="input_text form-control">
+                                </td>
+                                <td align="right" style="width: 75px;">操作用户：</td>
+                                <td style="width: 150px;">
+                                    <input type="text" id="createdUser" readonly style="background-color: #f5f5f5!important;" class="input_text form-control">
+                                </td>
+                            </tr>
+                            <tr style="height: 50px;">
+                                <td align="right">操作页面：</td>
+                                <td>
+                                    <input type="text" id="page" readonly style="background-color: #f5f5f5!important;" class="input_text form-control">
+                                </td>
+                            </tr>
+                            <tr style="height: 200px;">
+                                <td align="right">操作数据：</td>
+                                <td colspan="3">
+                                    <textarea class="input_text form-control" id="logData" style="width: 533px; height: 185px; resize: none; background-color: #f5f5f5!important;" disabled="disabled"></textarea>
+                                    @*<input type="text" id="createdUser" readonly style="background-color: #f5f5f5!important;" class="input_text form-control">*@
+                                </td>
+                            </tr>
+                        </table>
+                        <input id="parentVguid" name="ParentVguid" type="hidden" value="" />
+                        <input id="Vguid" type="hidden" name="Vguid" value="" />
+                        <input id="isEdit" type="hidden" value="" />
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnCancel" type="button" class="btn btn-danger" style="width: 85px; border-color: #16609c!important; background-color: #16609c!important;"><i class="iconfont btn_icon" style="color: white !important; margin-left: 0px;">&#xe606;</i><span style="margin-left: 7px; float: left;">取消</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

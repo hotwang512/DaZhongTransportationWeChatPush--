@@ -1,0 +1,42 @@
+﻿.deleteOption {
+    position: absolute;
+    left: 86.7%;
+    z-index: 99;
+    margin-top: 3px;
+}
+
+.border_Left {
+    border-left: 1px;
+    border-left-color: #ccc;
+    border-left-style: solid;
+}
+
+.border_Right {
+    border-right: 1px;
+    border-right-color: #ccc;
+    border-right-style: solid;
+}
+
+.border_Top {
+    border-top: 1px;
+    border-top-color: #ccc;
+    border-top-style: solid;
+}
+
+.border_Bottom {
+    border-bottom: 1px;
+    border-bottom-color: #ccc;
+    border-bottom-style: solid;
+}
+
+.datepicker-months {
+    width: 200px!important;
+}
+
+.datepicker-years {
+    width: 200px!important;
+}
+
+.messg_Validate {
+    width: 95px!important;
+}

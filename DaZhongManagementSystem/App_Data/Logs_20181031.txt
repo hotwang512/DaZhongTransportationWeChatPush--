@@ -1,0 +1,48 @@
+
+-------------------------------header----------------------
+
+-------------------------------footer----------------------
+
+-------------------------------header----------------------
+
+-------------------------------footer----------------------
+
+-------------------------------header----------------------
+
+-------------------------------footer----------------------
+
+-------------------------------header----------------------
+
+-------------------------------footer----------------------
+
+-------------------------------header----------------------
+2018-10-31 14:40:10,397 [6] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - System.Data.SqlClient.SqlException (0x80131904): 列名 'KnowledgeVGUID' 无效。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   在 SqlSugar.SqlHelper.ExecuteCommand(String sql, SqlParameter[] pars)
+   在 SqlSugar.SqlSugarClient.SqlBulkCopy[T](IEnumerable`1 entities)
+   在 SqlSugar.SqlSugarClient.SqlBulkCopy[T](List`1 entities)
+   在 DaZhongManagementSystem.Infrastructure.DraftManagement.DraftManagementServer.SaveMaintenancePush(List`1 pushObjsList, List`1 weChatMainList, List`1 weChatPushDetails, List`1 noExistList, String& msg) 位置 E:\Project\DaZhongTransportationWeChatPush-支付\DaZhongManagementSystem.Infrastructure\DraftManagement\DraftManagementServer.cs:行号 934
+ClientConnectionId:574cab46-59e8-46c3-8096-097753acb25d
+Error Number:207,State:1,Class:16
+2018-10-31 14:52:45,941 [6] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - System.Data.SqlClient.SqlException (0x80131904): 列名 'KnowledgeVGUID' 无效。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   在 System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   在 SqlSugar.SqlHelper.ExecuteCommand(String sql, SqlParameter[] pars)
+   在 SqlSugar.SqlSugarClient.SqlBulkCopy[T](IEnumerable`1 entities)
+   在 SqlSugar.SqlSugarClient.SqlBulkCopy[T](List`1 entities)
+   在 DaZhongManagementSystem.Infrastructure.DraftManagement.DraftManagementServer.SaveMaintenancePush(List`1 pushObjsList, List`1 weChatMainList, List`1 weChatPushDetails, List`1 noExistList, String& msg) 位置 E:\Project\DaZhongTransportationWeChatPush-支付\DaZhongManagementSystem.Infrastructure\DraftManagement\DraftManagementServer.cs:行号 934
+ClientConnectionId:574cab46-59e8-46c3-8096-097753acb25d
+Error Number:207,State:1,Class:16
+
+-------------------------------footer----------------------

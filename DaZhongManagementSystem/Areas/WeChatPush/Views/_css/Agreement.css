@@ -1,0 +1,33 @@
+﻿.title {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 1rem;
+    color: black;
+}
+
+.f_nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+    .f_nav button {
+        width: 24%;
+        height: 2rem;
+        outline: none;
+        border: none;
+        font-size: 0.6rem;
+        color: #fff;
+        border-radius: 0.3rem;
+        background: #3e8af2;
+        display: none;
+    }
+
+.btn div {
+    height: 100%;
+    line-height: 2rem;
+}
+
+.dataItem {
+    background-color: white;
+}

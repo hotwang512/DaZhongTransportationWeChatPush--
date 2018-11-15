@@ -1,0 +1,386 @@
+﻿@{    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var exerciseTypeList = ViewData["ExerciseType"] as List<CS_Master_2>;//习题类型
+    Business_Exercises_Infomation exerciseMainModel = ViewBag.exerciseMainModel;
+    var currentModuleRolePermission = ViewBag.CurrentModulePermission as Sys_Role_Module;
+    var isEdit = ViewBag.isEdit;
+    if (isEdit)
+    {
+        ViewBag.Title = "编辑习题";
+    }
+    else
+    {
+        ViewBag.Title = "新增习题";
+    }
+}
+@using DaZhongManagementSystem.Entities.TableEntity;
+
+@section pageTitle
+{
+    @ViewBag.Title
+}
+
+@section js
+{
+    <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/ExerciseDetail.js")"></script>
+    <script src="@Url.Content("~/_theme/bootstrap-datepicker/bootstrap-datepicker.js")"></script>
+}
+
+@*css*@
+@section css{
+    <link href="@Url.Content("~/Areas/BasicDataManagement/Views/_css/ExerciseDetail.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/_theme/bootstrap-datepicker/datepicker.css")" rel="stylesheet" />
+}
+
+<table style="margin-top: 10px;">
+    <tr style="height: 50px;">
+        @if (currentModuleRolePermission.Edit == 1 || currentModuleRolePermission.Adds == 1 || currentModuleRolePermission.Deletes == 1)
+        {
+            <td style="width: 95px;">
+                <button id="btnSave" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe614;</i><span style="margin-left: 7px; float: left;">保存</span></button>
+            </td>
+        }
+        <td style="width: 95px;">
+            <button id="btnCancel" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe611; </i><span style="margin-left: 7px; float: left;">取消</span></button>
+        </td>
+    </tr>
+</table>
+<!-- 顶部按钮 -->
+
+<form id="ExerciseDetailForm">
+    <div class="mk">
+        <div class="header_mk">
+            <div class="header_icon"></div>
+            <div class="header_text_div"><span class="header_text_span">习题基本信息</span></div>
+        </div>
+        <div class="body_mk" style="height: 240px">
+            <table style="margin-top: 20px; margin-left: 20px;">
+                <tr style="height: 45px;">
+                    <td align="center" style="width: 80px;">习题名称：</td>
+                    <td style="width: 210px;">
+                        <input id="ExercisesName" name="ExercisesName" validatetype="required" type="text" class="input_text form-control" value="@exerciseMainModel.ExercisesName" />
+                    </td>
+                    <td align="center" style="width: 10px;"><span style="color: red; margin-left: 5px;">*</span></td>
+                    <td align="right" style="width: 80px;">创建时间：</td>
+                    <td style="width: 210px;">
+                        @{
+                            if (isEdit)
+                            {
+                            <input id="VCRTTIME" type="text" name="CreatedDate" class="input_text form-control" value="@exerciseMainModel.CreatedDate.ToString("yyyy-MM-dd")" readonly />
+                            }
+                            else
+                            {
+                            <input id="VCRTTIME" type="text" name="CreatedDate" class="input_text form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" readonly />
+                            } 
+                        }
+                    </td>
+                    <td align="right" style="width: 105px;">习题有效时间：</td>
+                    <td style="width: 210px;">
+                        @{
+                            if (isEdit)
+                            {
+                            <input id="EffectiveDate" type="text" name="EffectiveDate" validatetype="required" class="input_text form-control"  value="@exerciseMainModel.EffectiveDate.ToString("yyyy-MM-dd")"/>
+                            }
+                            else
+                            {
+                            <input id="EffectiveDate" type="text" name="EffectiveDate" validatetype="required" class="input_text form-control" value="" />
+                            } 
+                        }
+                    </td>
+                    <td align="center" style="width: 10px;"><span style="color: red; margin-left: 5px;">*</span></td>
+                </tr>
+                <tr style="height: 95px;">
+                    <td align="center" style="width: 80px;">描述：</td>
+                    <td colspan="7" style="width: 210px;">
+                        <textarea id="description" name="Description" maxlength="300" style="width: 98.9%;" rows="3" class="description form-control">@exerciseMainModel.Description</textarea>
+                    </td>
+                </tr>
+                <tr style="height: 95px;">
+                    <td align="center" style="width: 80px;">备注：</td>
+                    <td colspan="7" style="width: 210px;">
+                        <textarea id="remark" name="Remarks" maxlength="300" style="width: 98.9%;" rows="3" class="description form-control">@exerciseMainModel.Remarks</textarea>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <input id="editVguid" name="VGUID" type="hidden" value="@exerciseMainModel.Vguid" />
+    <input id="isEdit" type="hidden" value="@isEdit" />
+
+    <div class="mk" style="height: 410px;">
+        <div class="header_mk">
+            <div class="header_icon"></div>
+            <div class="header_text_div"><span class="header_text_span">习题详细信息列表</span></div>
+        </div>
+        <div class="body_mk" style="height: 100px">
+            @if (currentModuleRolePermission.Adds == 1 || currentModuleRolePermission.Deletes == 1)
+            {
+                <table style="margin-top: 10px;">
+                    <tr style="height: 50px;">
+                        @if (currentModuleRolePermission.Adds == 1)
+                        { 
+                            <td style="width: 95px;">
+                                <button id="btnAdd" style="margin-left: 10px;" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe60e;</i><span style="margin-left: 7px; float: left;">新增</span></button>
+                            </td>
+                        }
+                        @if (currentModuleRolePermission.Deletes == 1)
+                        { 
+                            <td style="width: 95px;">
+                                <button id="btnDelete" style="margin-left: 10px;" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe60a; </i><span style="margin-left: 7px; float: left;">删除</span></button>
+                            </td>
+                        }
+                    </tr>
+                </table>
+            }
+            <div id="ExerciseDetailGrid" class="jqxGrid" style="border-left: 0px;">
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@*弹出模态框*@
+<div class="container">
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="ExerciseDialog">
+        <div class="modal-dialog modal-sm" style="width: 100%; padding-right: 20px; margin-top: 100px;">
+            <div class="modal-content" style="width: 600px; margin-left: auto; margin-right: auto;">
+                <div class="modal-header" style="width: 100%; margin-left: auto; margin-right: auto;">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel_title"></h4>
+                </div>
+                <div style="width: 100%; margin-left: 16px;">
+                    <form id="ExerciseForm">
+                        <table @*style="width: 100%;"*@>
+                            <tr style="height: 50px;">
+                                <td align="right" style="width: 75px;">习题类型：</td>
+                                <td style="width: 260px;">
+                                    @foreach (var item in exerciseTypeList)
+                                    {
+                                        string name = "ExerciseTypeRadio" + item.MasterCode;
+                                        <label id="@name" style="margin-bottom: -2px; font-weight: normal;">
+                                            <div style="float: left; padding-top: 6px; margin-left: 5px; height: 30px;">
+                                                <input  class="ExerciseTypeRadio" type="radio" name="ExerciseType" value="@item.MasterCode" />
+                                            </div>
+                                            <div style="height: 30px; padding-top: 8px; margin-left: 5px; float: right;">@item.DESC0</div>
+                                        </label> 
+                                    }
+                                </td>
+                            </tr>
+                        </table>
+                        <input id="editVguidDetail" name="VGUID" type="hidden" value="" />
+                        <input id="isEditDetail" type="hidden" value="" />
+                        <input id="exerciseTitleID" type="hidden" value="" />
+                    </form>
+                </div>
+                @*单选题*@
+                <div class="SingleChoice" style="display: none;">
+                    <form id="singleChoice">
+                        <table style="margin-left: 54px;">
+                            <tr>
+                                <td>题目：
+                                </td>
+                                <td colspan="2">
+                                    <textarea id="singleChoiceContent" name="ExerciseName" maxlength="300" style="width: 450px;" validatetype="required" rows="3" class="description form-control"></textarea>
+                                </td>
+                                <td align="center" style="width: 10px;"><span style="color: red; margin-left: 5px;">*</span></td>
+                            </tr>
+                            <tr style="height: 45px;">
+                                <td>选项：</td>
+                                <td colspan="2">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <div class="" style="position: absolute; left: 79%; margin-top: 8px;">
+                                                    <span>答案选项</span>
+                                                </div>
+                                                <button id="btnAddSingleOption" style="width: 90px;" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe60e;</i><span style="margin-left: 1px; float: left;">添加选项</span></button>
+
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td colspan="2" id="singleInputsWrapper">
+                                    @*新增的时候重新绘制了界面的第一个选项，所以给第一个选项加东西的时候也要在js中添加*@
+                                    <div style="height: 40px;">
+                                        <div class="option" style="position: absolute; margin-top: 10px;">
+                                            <span style="font-size: 14px;">选项1：</span>
+                                        </div>
+                                        <input id="field_1" type="text" style="width: 75%; margin-left: 45px;" name="singleOption" class="input_text form-control" />
+                                        @*<div class="deleteOption">
+                                            <a href="#" class="removeclass"><i class="iconfont btn_icon" style="color: black !important;">&#xe60a;</i></a>
+                                        </div>*@
+                                        <div class="singleCorrectAnswer" style="position: absolute; left: 82%;">
+                                            <input id="firstSingleCheck" type="checkbox" class="singleChecked" style="margin-top: 10px;" value="1" />
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr style="height: 50px;">
+                                <td>分值：</td>
+                                <td style="width: 60px;">
+                                    <input id="singleScore" name="Score" type="text" class="input_text form-control" validatetype="required,number" style="width: 70px!important;" onblur="clearNoNum_Blue(this)" />
+                                </td>
+                                <td>分<span style="color: red; margin-left: 5px;">*</span></td>
+                            </tr>
+                            @*<tr>
+                                <td>答案：</td>
+                                <td>
+                                    <input id="singleAnswer" name="Answer" type="text" class="input_text form-control" style="width: 70px!important;" />
+                                </td>
+                                <td></td>
+                            </tr>*@
+                        </table>
+                    </form>
+                </div>
+                @*多选题*@
+                <div class="MultipleChoice" style="display: none;">
+                    <form id="multipleChoice">
+                        <table style="margin-left: 54px;">
+                            <tr>
+                                <td>题目：
+                                </td>
+                                <td colspan="2">
+                                    <textarea id="multipleChoiceContent" name="ExerciseName" maxlength="300" style="width: 450px;" validatetype="required" rows="3" class="description form-control"></textarea>
+                                </td>
+                                <td align="center" style="width: 10px;"><span style="color: red; margin-left: 5px;">*</span></td>
+                            </tr>
+                            <tr style="height: 45px;">
+                                <td>选项：</td>
+                                <td colspan="2">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <div class="" style="position: absolute; left: 79%; margin-top: 8px;">
+                                                    <span>答案选项</span>
+                                                </div>
+                                                <button id="btnAddmultipleOption" style="width: 90px;" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe60e;</i><span style="margin-left: 1px; float: left;">添加选项</span></button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td colspan="2" id="multipleInputsWrapper">
+                                    @*新增的时候重新绘制了界面的第一个选项，所以给第一个选项加东西的时候也要在js中添加*@
+                                    <div style="height: 40px;">
+                                        <div class="option" style="position: absolute; margin-top: 10px;">
+                                            <span style="font-size: 14px;">选项1：</span>
+                                        </div>
+                                        <input id="multipleField_1" type="text" style="width: 75%; margin-left: 45px;" name="multipleOption" class="input_text form-control" />
+                                        @*<div class="deleteOption">
+                                            <a href="#" class="removeMultipleClass"><i class="iconfont btn_icon" style="color: black !important;">&#xe60a;</i></a>
+                                        </div>*@
+                                        <div class="multipleCorrectAnswer" style="position: absolute; left: 82%;">
+                                            <input id="firstMultipleCheck" type="checkbox" class="multipleChecked" style="margin-top: 10px;" value="1" />
+                                        </div>
+                                    </div>
+                                    @*<div style="height: 40px;">
+                                        <input id="multipleField_1" type="text" style="width: 100%;" name="multipleOption" class="input_text form-control" value="选项1" /><div class="deleteOption"><a href="#" class="removeMultipleClass"><i class="iconfont btn_icon" style="color: black !important;">&#xe60a;</i></a></div>
+                                    </div>*@
+                                </td>
+                            </tr>
+                            <tr style="height: 50px;">
+                                <td>分值：</td>
+                                <td style="width: 60px;">
+                                    <input id="multipleScore" name="Score" type="text" class="input_text form-control" validatetype="required,number" style="width: 70px!important;" />
+                                </td>
+                                <td>分<span style="color: red; margin-left: 5px;">*</span></td>
+                            </tr>
+                            @*<tr>
+                                <td>答案：</td>
+                                <td>
+                                    <input id="multipleAnswer" name="Answer" type="text" class="input_text form-control" style="width: 70px!important;" />
+                                </td>
+                                <td></td>
+                            </tr>*@
+                        </table>
+                    </form>
+                </div>
+                @*判断题*@
+                <div class="JudgeExercise" style="display: none;">
+                    <form id="judgeExercise">
+                        <table style="margin-left: 54px;">
+                            <tr>
+                                <td>题目：
+                                </td>
+                                <td colspan="2">
+                                    <textarea id="judgeExerciseContent" name="ExerciseName" maxlength="300" style="width: 450px;" validatetype="required" rows="3" class="description form-control"></textarea>
+                                </td>
+                                <td align="center" style="width: 10px;"><span style="color: red; margin-left: 5px;">*</span></td>
+                            </tr>
+                            <tr style="height: 50px;">
+                                <td>分值：</td>
+                                <td style="width: 60px;">
+                                    <input id="judgeScore" validatetype="required,number" name="Score" type="text" class="input_text form-control" style="width: 70px!important;" />
+                                </td>
+                                <td>分<span style="color: red; margin-left: 5px;">*</span></td>
+                            </tr>
+                            <tr>
+                                <td>答案：</td>
+                                <td>
+                                    <select id="judgeAnswer" name="Answer" class="input_text form-control" style="width: 90px!important;">
+                                        <option value="1">正确</option>
+                                        <option value="0">错误</option>
+                                    </select>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                @*简答题*@
+                <div class="ShortAnswer" style="display: none;">
+                    <form id="shortAnswer">
+                        <table style="margin-left: 54px;">
+                            <tr>
+                                <td>题目：
+                                </td>
+                                <td colspan="2">
+                                    <textarea id="shortAnswerContent" name="ExerciseName" maxlength="300" validatetype="required" style="width: 450px;" rows="3" class="description form-control"></textarea>
+                                </td>
+                                <td align="center" style="width: 10px;"><span style="color: red; margin-left: 5px;">*</span></td>
+                            </tr>
+                            <tr style="height: 55px;">
+                                <td>分值：</td>
+                                <td style="width: 60px;">
+                                    <input id="shortScore" name="Score" type="text" validatetype="required,number" class="input_text form-control" style="width: 55px!important;" />
+                                </td>
+                                <td>分<span style="color: red; margin-left: 5px;">*</span></td>
+                            </tr>
+                            <tr>
+                                <td>答案：
+                                </td>
+                                <td colspan="2">
+                                    <textarea id="shortQuestionAnswer" name="Answer" maxlength="300" style="width: 450px;" rows="3" class="description form-control"></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    @if (currentModuleRolePermission.Adds == 1 || currentModuleRolePermission.Edit == 1)
+                    { 
+                        <button id="btnSaveExercise" type="button" class="btn btn-warning" style="width: 85px; background-color: #16609c!important;"><i class="iconfont btn_icon" style="color: white !important; margin-left: 0px;">&#xe61c;</i><span style="margin-left: 7px; float: left;">确定</span></button>
+                    }
+                    <button id="btnCancelExercise" type="button" class="btn btn-danger" style="width: 85px; border-color: #16609c!important; background-color: #16609c!important;"><i class="iconfont btn_icon" style="color: white !important; margin-left: 0px;">&#xe606;</i><span style="margin-left: 7px; float: left;">取消</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="ReadsPermission" value="@currentModuleRolePermission.Reads" />
+<input type="hidden" id="EditPermission" value="@currentModuleRolePermission.Edit" />
+<input type="hidden" id="DeletesPermission" value="@currentModuleRolePermission.Deletes" />
+<input type="hidden" id="AddsPermission" value="@currentModuleRolePermission.Adds" />
+<input type="hidden" id="SubmitPermission" value="@currentModuleRolePermission.Submit" />
+<input type="hidden" id="ApprovedPermission" value="@currentModuleRolePermission.Approved" />
+<input type="hidden" id="ImportPermission" value="@currentModuleRolePermission.Import" />
+<input type="hidden" id="ExportPermission" value="@currentModuleRolePermission.Export" />
+

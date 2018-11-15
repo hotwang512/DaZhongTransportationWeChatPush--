@@ -1,0 +1,212 @@
+﻿@using DaZhongManagementSystem.Entities.TableEntity
+@{
+    Layout = null;
+    var pushContentModel = ViewData["PushContentModel"] as Business_WeChatPush_Information;
+    var salaryInfo = ViewData["salaryInfo"] as Business_Payroll_Information;
+    //var isValid = ViewBag.isValidTime;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!--webAPP的一些常用设置-->
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="blank">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="@Url.Content("~/Areas/WeChatPush/Views/_css/salary.css")" rel="stylesheet" />
+    <title>工资信息</title>
+</head>
+<body>
+    @{
+        if (pushContentModel != null)
+        {
+            <header>
+                <div class="h_center">
+                    <div class="hc_nav">
+                        <img src="@Url.Content("~/Areas/WeChatPush/Views/_img/logo.png")" alt="" />
+                        <span>大众出租</span>
+                    </div>
+                </div>
+                <div class="h_bottom">
+                    <span>@string.Format("您{0}月的工资情况如下", DateTime.Now.Month - 1)</span>
+                </div>
+            </header>
+            <nav>
+                <ul>
+                    <li class="nav_1">
+                        <div>实发工资</div>
+                        <div class="n1_num">@salaryInfo.ActualRelease</div>
+                    </li>
+                    <li class="nav_1">
+                        <div>工号</div>
+                        <div class="n1_num">@salaryInfo.JobNumber</div>
+                    </li>
+                    <li class="nav_1">
+                        <div>姓名</div>
+                        <div class="n1_num">@salaryInfo.Name</div>
+                    </li>
+                </ul>
+            </nav>
+            <footer>
+                <ul>
+                    <li class="nav_2">
+                        <div>岗位工资</div>
+                        <div class="n2_num">@salaryInfo.PostSalary</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>考核奖</div>
+                        <div class="n2_num">@salaryInfo.AssessmentOfAward</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>加/值班</div>
+                        <div class="n2_num">@salaryInfo.WorkOvertime</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>节假日加班工资</div>
+                        <div class="n2_num">@salaryInfo.HolidaysOvertimePay</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>休息日加班工资</div>
+                        <div class="n2_num">@salaryInfo.RestdaysOvertimePay</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>全勤奖</div>
+                        <div class="n2_num">@salaryInfo.PerfectAttendance</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>嘉奖</div>
+                        <div class="n2_num">@salaryInfo.Reward</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>岗位津贴</div>
+                        <div class="n2_num">@salaryInfo.PostAllowance</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>职称津贴</div>
+                        <div class="n2_num">@salaryInfo.JobTitleAllowance</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>夜班津贴</div>
+                        <div class="n2_num">@salaryInfo.NightShiftAllowance</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>高温津贴</div>
+                        <div class="n2_num">@salaryInfo.HighTemperatureAllowance</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>班长津贴</div>
+                        <div class="n2_num">@salaryInfo.MonitorAllowance</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>其他1</div>
+                        <div class="n2_num">@salaryInfo.Other1</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>其他2</div>
+                        <div class="n2_num">@salaryInfo.Other2</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>饭帖</div>
+                        <div class="n2_num">@salaryInfo.RicePost</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>通讯费</div>
+                        <div class="n2_num">@salaryInfo.Communications</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>病假扣</div>
+                        <div class="n2_num">@salaryInfo.SickLeaveBuckle</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>事假扣</div>
+                        <div class="n2_num">@salaryInfo.PrivateAffairLeaveBuckle</div>
+                    </li>
+
+                    <li class="nav_2">
+                        <div>其他扣</div>
+                        <div class="n2_num">@salaryInfo.OtherButtons</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>代扣</div>
+                        <div class="n2_num">@salaryInfo.Withholding</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>公积金</div>
+                        <div class="n2_num">@salaryInfo.ProvidentFund</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>补公积</div>
+                        <div class="n2_num">@salaryInfo.FillReserves</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>养老金</div>
+                        <div class="n2_num">@salaryInfo.Pensions</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>补养老</div>
+                        <div class="n2_num">@salaryInfo.ComplementaryPension</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>医保金</div>
+                        <div class="n2_num">@salaryInfo.HealthCare</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>补医保</div>
+                        <div class="n2_num">@salaryInfo.ComplementaryHealthCare</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>失保金</div>
+                        <div class="n2_num">@salaryInfo.LossOfInsurance</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>补失保</div>
+                        <div class="n2_num">@salaryInfo.ComplementaryLossOfInsurance</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>会费</div>
+                        <div class="n2_num">@salaryInfo.TheMembershipFee</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>应发</div>
+                        <div class="n2_num">@salaryInfo.ShouldSend</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>个税</div>
+                        <div class="n2_num">@salaryInfo.IncomeTax</div>
+                    </li>
+                    <li class="nav_2">
+                        <div>实扣</div>
+                        <div class="n2_num">@salaryInfo.RealBuckle</div>
+                    </li>
+                </ul>
+            </footer>
+        }
+        else
+        {
+            <div class="error" style="display: block">
+                <div>
+                    <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/Error.png")" alt="Alternate Text" />
+                    <span>推送内容已删除！！</span>
+                </div>
+            </div>
+        }
+    }
+
+    <script src="@Url.Content("~/_theme/js/jquery-2.0.3.min.js")"></script>
+    <script src="@Url.Content("~/Areas/WeChatPush/Views/_js/WeChatHistory/app.js")"></script>
+    <script type="text/javascript">
+        $(".n2_num").each(function () {
+            if ($(this).text() == "") {
+                $(this).parent().hide();  //为空的项不显示
+            }
+
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,266 @@
+﻿@{
+    ViewBag.Title = "配置文件管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var configList = ViewBag.configList as List<Master_Configuration>;
+    var currentModuleRolePermission = ViewBag.CurrentModulePermission as Sys_Role_Module;
+}
+@using DaZhongManagementSystem.Entities.TableEntity;
+@*ConfigManagement.js*@
+@section pageTitle
+{
+    @ViewBag.Title
+}
+
+@section js
+{
+    <script src="@Url.Content("~/Areas/Systemmanagement/Views/_js/ConfigManagement.js")"></script>
+}
+
+@section css
+{
+    <link href="@Url.Content("~/Areas/Systemmanagement/Views/_css/ConfigManagement.css")" rel="stylesheet" />
+}
+
+@if (currentModuleRolePermission.Edit == 1)
+{ 
+    <table style="margin-top: 10px;">
+        <tr style="height: 50px;">
+            <td>
+                <button id="btnEdit" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe61d;</i><span style="margin-left: 7px; float: left;">编辑</span></button>
+            </td>
+            <td>
+                <button id="btnSave" style="margin-left: 20px;" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black!important;">&#xe614;</i><span style="margin-left: 7px; float: left;">保存</span></button>
+            </td>
+        </tr>
+    </table>
+}
+
+<!-- 中部条件 -->
+<div class="mk" style="width: 50%; float: left; margin-bottom: 10px;">
+    <div class="header_mk">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">配置营收查询</span></div>
+    </div>
+    <div class="body_mk" style="height: 130px">
+        <form id="configForm">
+            <table style="margin-top: 20px; width: 90%; margin-left: 31px;">
+                <tr style="height: 45px;">
+                    <td align="right" style="width: 165px;">营收数据发送方式：</td>
+                    <td style="width: 320px;" colspan="3">
+                        @{
+                            //短信发送
+                            if (configList[1].ConfigValue == "1")
+                            {
+                            <label style="margin-bottom: -2px; font-weight: normal;">
+                                <div style="float: left; padding-top: 8px; margin-right: 2px; height: 30px;">
+                                    <input class="SMSCheckBox" checked="checked" type="checkbox" disabled="disabled" name="configList[0].ConfigValue" style="background-color: #f5f5f5!important;" />
+                                </div>
+                                <div style="height: 30px; padding-top: 8px; margin-right: 5px; float: right;">@configList[1].ConfigDescription</div>
+                            </label>
+                            }
+                            else
+                            {
+                            <label style="margin-bottom: -2px; font-weight: normal;">
+                                <div style="float: left; padding-top: 8px; margin-right: 2px; height: 30px;">
+                                    <input class="SMSCheckBox" type="checkbox" disabled="disabled" name="configList[0].ConfigValue" style="background-color: #f5f5f5!important;" />
+                                </div>
+                                <div style="height: 30px; padding-top: 8px; margin-right: 5px; float: right;">@configList[1].ConfigDescription</div>
+                            </label>
+                            }
+                            //微信发送
+                            if (configList[0].ConfigValue == "1")
+                            {
+                            <label style="margin-bottom: -2px; font-weight: normal; margin-left: 30px;">
+                                <div style="float: left; padding-top: 8px; margin-right: 2px; height: 30px;">
+                                    <input class="WeChatCheckBox" checked="checked" type="checkbox" disabled="disabled" name="configList[1].ConfigValue" value="" style="background-color: #f5f5f5!important;" />
+                                </div>
+                                <div style="height: 30px; padding-top: 8px; margin-right: 5px; float: right;">@configList[0].ConfigDescription</div>
+                            </label>
+                            }
+                            else
+                            {
+                            <label style="margin-bottom: -2px; font-weight: normal; margin-left: 30px;">
+                                <div style="float: left; padding-top: 8px; margin-right: 2px; height: 30px;">
+                                    <input class="WeChatCheckBox" type="checkbox" disabled="disabled" name="configList[1].ConfigValue" value="" style="background-color: #f5f5f5!important;" />
+                                </div>
+                                <div style="height: 30px; padding-top: 8px; margin-right: 5px; float: right;">@configList[0].ConfigDescription</div>
+                            </label>
+                            }
+                            
+                            
+                             //接口发送
+                            if (configList[16].ConfigValue == "1")
+                            {
+                            <label style="margin-bottom: -2px; font-weight: normal; margin-left: 30px;">
+                                <div style="float: left; padding-top: 8px; margin-right: 2px; height: 30px;">
+                                    <input class="APICheckBox" checked="checked" type="checkbox" disabled="disabled" name="configList[16].ConfigValue" value="" style="background-color: #f5f5f5!important;" />
+                                </div>
+                                <div style="height: 30px; padding-top: 8px; margin-right: 5px; float: right;">@configList[16].ConfigDescription</div>
+                            </label>
+                            }
+                            else
+                            {
+                            <label style="margin-bottom: -2px; font-weight: normal; margin-left: 30px;">
+                                <div style="float: left; padding-top: 8px; margin-right: 2px; height: 30px;">
+                                    <input class="APICheckBox" type="checkbox" disabled="disabled" name="configList[16].ConfigValue" value="" style="background-color: #f5f5f5!important;" />
+                                </div>
+                                <div style="height: 30px; padding-top: 8px; margin-right: 5px; float: right;">@configList[16].ConfigDescription</div>
+                            </label>
+                            }
+                            
+                             if (configList[17].ConfigValue == "1")
+                            {
+                            <label style="margin-bottom: -2px; font-weight: normal; margin-left: 30px;">
+                                <div style="float: left; padding-top: 8px; margin-right: 2px; height: 30px;">
+                                    <input class="RevenueCheckBox" checked="checked" type="checkbox" disabled="disabled" name="configList[20].ConfigValue" value="" style="background-color: #f5f5f5!important;" />
+                                </div>
+                                <div style="height: 30px; padding-top: 8px; margin-right: 5px; float: right;">@configList[17].ConfigDescription</div>
+                            </label>
+                            }
+                            else
+                            {
+                            <label style="margin-bottom: -2px; font-weight: normal; margin-left: 30px;">
+                                <div style="float: left; padding-top: 8px; margin-right: 2px; height: 30px;">
+                                    <input class="RevenueCheckBox" type="checkbox" disabled="disabled" name="configList[20].ConfigValue" value="" style="background-color: #f5f5f5!important;" />
+                                </div>
+                                <div style="height: 30px; padding-top: 8px; margin-right: 5px; float: right;">@configList[17].ConfigDescription</div>
+                            </label>
+                            }
+                            
+                            
+                        }
+                    </td>
+                  @*  <td style="width: 150px;"></td>
+                    <td style="width: 250px;"></td>*@
+                </tr>
+                <tr>
+                    <td align="right" style="width: 165px;">营收数据当月查询次数：</td>
+                    <td style="width: 250px;">
+                        <input id="QueryTimes" name="ConfigValue" value="@configList[5].ConfigValue" type="text" disabled="disabled" class="input_text form-control" style="background-color: #f5f5f5!important;" />
+                    </td>
+                    <td align="right" style="width: 165px;">查询回复：</td>
+                    <td style="width: 250px;">
+                        <textarea id="QueryReply" name="configList[5].ConfigValue" class="input_text form-control textDescription" disabled="disabled" rows="3" style="background-color: #f5f5f5!important;">@configList[15].ConfigValue</textarea>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<!-- 中部条件 -->
+
+<!-- 中部条件 -->
+<div class="mk" style="width: 45%; float: left; height: 189px; margin-left: 1%">
+    <div class="header_mk">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">配置答题信息</span></div>
+    </div>
+    <div class="body_mk" style="height:70px">
+        <form id="configForm">
+            <table style="margin-top: 20px; width: 90%; margin-left: 0;">
+                <tr style="height: 45px;">
+                    <td align="right">答题次数(次)：</td>
+                    <td>
+                        <input id="AnswerCount" name="ConfigValue" value="@configList[7].ConfigValue" type="text" disabled="disabled" class="input_text form-control" style="background-color: #f5f5f5!important;" />
+                    </td>
+                    <td align="right">倒计时(分钟)：</td>
+                    <td>
+                        <input id="CountDown" name="ConfigValue" value="@configList[6].ConfigValue" type="text" disabled="disabled" class="input_text form-control" style="background-color: #f5f5f5!important;" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<!-- 中部条件 -->
+
+<div class="mk" style="clear: both; width: 50%; float: left;">
+    <div class="header_mk">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">配置回复信息</span></div>
+    </div>
+    <div class="body_mk" style="height: 190px">
+        <form id="configForm">
+            <table style="margin-top: 20px; width: 90%; margin-left: 0px;">
+                <tr style="height: 95px;">
+                    <td align="right">营收数据查询成功回复：</td>
+                    <td>
+                        <textarea id="RevenueQueryReply" name="configList[4].ConfigValue" class="input_text form-control textDescription" disabled="disabled" rows="3" style="background-color: #f5f5f5!important;">@configList[4].ConfigValue</textarea>
+                    </td>
+                    <td align="right">非司机人员营收查询回复：</td>
+                    <td>
+                        <textarea id="RevenueQueryRefuse" name="configList[5].ConfigValue" class="input_text form-control textDescription" disabled="disabled" rows="3" style="background-color: #f5f5f5!important;">@configList[2].ConfigValue</textarea>
+                    </td>
+                </tr>
+                <tr style="height: 85px;">
+                    <td align="right">当月查询营收次数已够回复：</td>
+                    <td>
+                        <textarea id="RevenueQueryTimesReply" name="configList[6].ConfigValue" class="input_text form-control textDescription" disabled="disabled" rows="3" style="background-color: #f5f5f5!important;">@configList[3].ConfigValue</textarea>
+                    </td>
+                    <td align="right">营收数据查询异常回复：</td>
+                    <td>
+                        <textarea id="RevenueQueryExceptionReply" name="configList[12].ConfigValue" class="input_text form-control textDescription" disabled="disabled" rows="3" style="background-color: #f5f5f5!important;">@configList[12].ConfigValue</textarea></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<!-- 中部条件 -->
+
+<div class="mk" style="float: left; width: 45%; height: 249px; margin-left: 1%; margin-bottom: 10px;">
+    <div class="header_mk">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">配置习题库随机生成的题数</span></div>
+    </div>
+    <div class="body_mk" style="height: 70px">
+        <form id="configForm">
+            <table style="margin-top: 20px; width: 90%; margin-left: 8px;">
+                <tr style="height: 55px;">
+                    <td align="right" style="width: 180px;">随机题数：</td>
+                    <td>
+                        <input type="text" id="txtNum"  name="ConfigValue" value="@configList[8].ConfigValue"  disabled="disabled" class="input_text form-control" style="background-color: #f5f5f5!important;" />
+                    </td>
+                    <td align="right" style="width: 180px;">单选题：</td>
+                    <td>
+                        <input type="text" id="txtSingleChoiceNum"  name="ConfigValue" value="@configList[9].ConfigValue"  disabled="disabled" class="input_text form-control" style="background-color: #f5f5f5!important;" />
+                    </td>
+                </tr>
+                <tr style="height: 55px;">
+                    <td align="right" style="width: 180px;">多选题：</td>
+                    <td>
+                        <input type="text" id="txtMultipelChoiceNum"  name="ConfigValue" value="@configList[10].ConfigValue"  disabled="disabled" class="input_text form-control" style="background-color: #f5f5f5!important;" />
+                    </td>
+                    <td align="right" style="width: 180px;">判断题：</td>
+                    <td>
+                        <input type="text" id="txtJudgeNum"  name="ConfigValue" value="@configList[11].ConfigValue"  disabled="disabled" class="input_text form-control" style="background-color: #f5f5f5!important;" />
+                    </td>
+                </tr>
+
+
+            </table>
+        </form>
+    </div>
+</div>
+<!-- 中部条件 -->
+<div class="mk" style="clear: both; width: 50%; float: left;">
+    <div class="header_mk">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">配置微信支付</span></div>
+    </div>
+    <div class="body_mk" style="height: 70px">
+        <form id="configForm">
+            <table style="margin-top: 10px; width: 90%;">
+                <tr style="height: 55px;">
+                    <td align="right" style="width: 180px;">司机支付手续费：</td>
+                    <td>
+                        <input type="text" id="txtDriverPay"  name="ConfigValue" value="@configList[13].ConfigValue"  disabled="disabled" class="input_text form-control" style="background-color: #f5f5f5!important;" />
+                    </td>
+                    <td align="right" style="width: 180px;">公司实际手续费：</td>
+                    <td>
+                        <input type="text" id="txtCompanyPay"  name="ConfigValue" value="@configList[14].ConfigValue"  disabled="disabled" class="input_text form-control" style="background-color: #f5f5f5!important;" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>

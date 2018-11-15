@@ -1,0 +1,68 @@
+﻿@using DaZhongManagementSystem.Entities.View
+@{
+    ViewBag.Title = "协议操作历史详细界面";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var agreementModel = ViewBag.AgreementModel as v_Business_ProtocolOperations_Information;
+}
+
+@section pageTitle
+{
+    @ViewBag.Title
+}
+
+@section js
+{
+
+    <script src="@Url.Content("~/_theme/utf8net/third-party/video-js/video.js")"></script>
+    <script src="@Url.Content("~/_theme/utf8net/third-party/video-js/html5media.min.js")"></script>
+    @*富文本框*@
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <script  charset="utf-8" src="@Url.Content("~/_theme/utf8net/ueditor.config.js")"></script>
+    <script charset="utf-8" src="@Url.Content("~/_theme/utf8net/ueditor.all.min.js")"></script>
+    <script  charset="utf-8"  src="@Url.Content("~/_theme/utf8net/lang/zh-cn/zh-cn.js")"></script>
+
+}
+
+@section css{
+    <link href="@Url.Content("~/_theme/utf8net/themes/default/dialogbase.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/_theme/utf8net/third-party/video-js/video-js.css")" rel="stylesheet" />
+
+}
+<table style="margin-top: 10px;">
+    <tr style="height: 50px;">
+        <td>
+            <button id="btnBack" class="buttons" onclick="window.location.href='/WeChatPush/AgreementOperation/AgreementOperationList'"><i class="iconfont btn_icon" style="color: black!important;">&#xe611; </i><span style="margin-left: 7px; float: left;">返回</span></button>
+        </td>
+    </tr>
+</table>
+<!-- 顶部按钮 -->
+
+<div class="mk">
+    <div class="header_mk">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">详细信息</span></div>
+    </div>
+    <div class="body_mk" style="height: 380px">
+        <table style="margin-top: 20px;">
+            <tr style="height: 45px;">
+                <td align="center" style="width: 80px;">名称：</td>
+                <td style="width: 210px;">
+                    <input id="txtTitle" name="Title" type="text" class="input_text form-control" value="@agreementModel.Title" disabled="disabled" />
+                </td>
+            </tr>
+            <tr style="height: 340px;">
+                <td align="center" style="width: 80px;">内容：</td>
+                <td colspan="3">
+                    <textarea id="txtContent" name="Content" maxlength="10000" runat="server" readonly="readonly" style="width: 90%; height: 250px;" rows="3">@agreementModel.Message</textarea>
+                    <script type="text/javascript">
+                        $(function () {
+                            var um = UE.getEditor('txtContent', {
+                                readonly: true
+                            });
+                        })
+                    </script>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

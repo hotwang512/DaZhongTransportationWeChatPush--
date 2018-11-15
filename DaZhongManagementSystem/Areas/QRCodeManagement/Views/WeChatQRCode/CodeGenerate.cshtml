@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="blank">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>二维码</title>
+    <link href="@Url.Content("/Areas/WeChatPush/Views/_css/WeChatHistory/common.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Areas/QRCodeManagement/Views/_css/index.css")" rel="stylesheet" />
+</head>
+<body>
+    <!--显示头部信息-->
+    <header>
+        <!--标题-->
+        <h1>大众出租租赁</h1>
+    </header>
+    <!--显示二维码和提示信息的容器-->
+    <section>
+        <div class="QRcode">
+            <!--获取二维码显示在页面-->
+            <img id="QRcode" src="@ViewData["url"]" />
+        </div>
+        <!--二维码下面的样式-->
+        <span>扫一扫上面的二维码图案,获取我的信息</span>
+    </section>
+
+    <script src="@Url.Content("/Areas/WeChatPush/Views/_js/WeChatHistory/jquery-1.11.1.min.js")"></script>
+    <script src="@Url.Content("/Areas/WeChatPush/Views/_js/WeChatHistory/app.js")"></script>
+</body>
+</html>

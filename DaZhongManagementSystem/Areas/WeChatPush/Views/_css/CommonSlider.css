@@ -1,0 +1,215 @@
+﻿
+.mod-sender__slider {
+    display: none;
+    width: 400px;
+    height: 580px;
+    background-color: #fff;
+    position: absolute;
+    top: 215px;
+    bottom: 0;
+    right: 50px;
+    border: 1px solid #E2E3E6;
+    transition: all ease-in 100ms;
+    overflow-y: auto;
+    z-index: 10;
+    left: 1453px;
+}
+
+.img_edit {
+    height: 190px;
+    width: 100%;
+    text-align: center;
+    background-color: #eee;
+    color: #777;
+}
+
+.video_artical_add {
+    display: block;
+    border-top: 1px solid #e5e5e5;
+    position: relative;
+    height: 80px;
+}
+
+.video_artical_add_button {
+    border: 1px dashed #eee;
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 10px;
+    bottom: 0;
+    text-align: center;
+}
+
+.icon_message_new {
+    margin-top: 24px;
+}
+
+.icon_message_new {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-image: url(https://res.wx.qq.com/mmocbiz/zh_CN/tmt/pc/dist/sprite/style-old-message_b375d88c.png);
+    background-position: -51px -20px;
+}
+
+.video-unit {
+    position: relative;
+    width: auto;
+    padding: 10px 0;
+    /*border: 1px solid #c2c2c2;*/
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+    margin-right: 0;
+    margin-bottom: 20px;
+    background-color: #fff;
+}
+
+.video-image {
+    margin: 0 10px;
+    position: relative;
+    margin-bottom: 10px;
+    display: block;
+    text-decoration: none;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.image_edit_placeholder {
+    height: 190px;
+    width: 100%;
+    text-align: center;
+    background-color: #eee;
+    color: #777;
+}
+
+.placeholder_text {
+    display: inline-block;
+    line-height: 2;
+    vertical-align: middle;
+}
+
+.placeholder_vertical {
+    vertical-align: middle;
+    display: inline-block;
+    height: 190px;
+}
+
+.video_image_wrap {
+    width: 100%;
+    overflow: hidden;
+    height: 190px;
+}
+
+.video_artical_option {
+    opacity: 0;
+    -webkit-transition: all .1s ease-in;
+    -moz-transition: all .1s ease-in;
+    transition: all .1s ease-in;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    filter: alpha(opacity=40)\0;
+    background-color: rgba(34,37,40,.4);
+    z-index: 2;
+}
+
+.video_artical:hover .video_artical_option {
+    opacity: 1;
+}
+
+.video_artical .video_artical_option {
+    opacity: 0;
+}
+
+.icon_message_delete {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-image: url(https://res.wx.qq.com/mmocbiz/zh_CN/tmt/pc/dist/sprite/style-old-message_b375d88c.png);
+    background-position: -51px 0;
+}
+
+.video_artical {
+    display: block;
+    padding: 0 10px;
+    color: #222;
+    border-top: 1px solid #e5e5e5;
+    position: relative;
+    min-height: 99px;
+    cursor: pointer;
+}
+
+.video_artical_option a {
+    cursor: pointer;
+    text-decoration: none;
+    opacity: .8;
+}
+
+.choose_mode_style {
+    border: 2px solid #4a90e2;
+    opacity: 0;
+    top: -1px;
+    bottom: 0;
+    left: -1px;
+    right: -1px;
+    position: absolute;
+    width: 398px;
+}
+
+.image_edit_placeholder_1 {
+    position: absolute;
+    right: 10px;
+    top: 9px;
+    height: 80px;
+    width: 80px;
+    background-color: #eee;
+}
+
+.video_artical_img {
+    position: absolute;
+    right: 10px;
+    top: 9px;
+    height: 80px;
+    width: 80px;
+}
+
+.video_artical_title {
+    padding-right: 90px;
+    padding-top: 20px;
+    font-size: 16px;
+    line-height: 20px;
+    max-height: 80px;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    word-break: break-all;
+    overflow: hidden;
+}
+
+.video_sub_title {
+    padding-left: 10px;
+    position: absolute;
+    left: -1px;
+    right: -1px;
+    height: 40px;
+    bottom: -1px;
+    line-height: 40px;
+    color: #fff;
+    background-color: #000;
+    opacity: .5;
+    filter: alpha(opacity=50);
+    font-size: 16px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.edui-default .edui-editor-iframeholder {
+    height: 200px !important;
+}

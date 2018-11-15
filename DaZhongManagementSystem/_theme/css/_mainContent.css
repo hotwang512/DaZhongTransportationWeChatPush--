@@ -1,0 +1,93 @@
+﻿.borderOframe
+{
+    width: 100%;
+}
+.borderIframe
+{
+    padding: 15px 15px 10px 10px;
+}
+.borderIframeH
+{
+    height: 25px;
+    line-height: 25px;
+    background-color: Red;
+    color: White;
+    width: auto;
+    text-align: center;
+    min-width: 80px;
+    padding: 2px 10px 2px 10px;
+    display: table-cell;
+}
+.borderIframeC
+{
+    height: auto;
+    min-height: 20px;
+    width: 100%;
+    background-color: White; /*padding: 20px 30px;*/
+    /*min-width: 1200px;*/
+    display:table;
+}
+.borderIframeC_Main
+{
+    margin: 20px 30px;
+}
+.borderIframeC_Grid
+{
+    height: auto;
+    min-height: 20px;
+    width: 100%;
+    background-color: White;
+}
+.borderIframeC_Grid a
+{
+    color: #003399;
+}
+table.borderIframeC_Search
+{
+    width: 100%;
+}
+table.borderIframeC_Search tr
+{
+    height: 40px;
+}
+table.borderIframeC_Search tr td
+{
+}
+table.borderIframeC_Info tr
+{
+    height: 40px;
+}
+.tdlabel
+{
+    text-align: right;
+    padding: 2px 10px 2px 5px;
+}
+.tdbutton
+{
+    text-align: center;
+}
+.error
+{
+    color: Red;
+    margin-right: 5px;
+}
+.table_grid_title
+{
+    border-top: 1px solid #c7c7c7;
+    border-left: 1px solid #c7c7c7;
+    border-right: 1px solid #c7c7c7;
+    background-color: #E8E8E8;
+    height: 30px;
+}
+.table_grid_title img
+{
+    width: 20px;
+    height: 20px;
+    margin: 3px 4px 3px 4px;
+    cursor: pointer;
+}
+
+.table-c table{border-right:1px solid #888;border-bottom:1px solid #888} 
+.table-c table td{border-left:1px solid #888;border-top:1px solid #888} 
+
+

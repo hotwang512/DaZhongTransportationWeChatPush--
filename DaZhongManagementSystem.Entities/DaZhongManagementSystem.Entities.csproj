@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{53466F02-4786-4730-BC77-EC961106E5D7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DaZhongManagementSystem.Entities</RootNamespace>
+    <AssemblyName>DaZhongManagementSystem.Entities</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StoredProcedureEntity\usp_getOrganization.cs" />
+    <Compile Include="StoredProcedureEntity\usp_getOrganization_UserID.cs" />
+    <Compile Include="StoredProcedureEntity\usp_Report_MonthPayInformation.cs" />
+    <Compile Include="StoredProcedureEntity\usp_Report_PayInformation.cs" />
+    <Compile Include="TableEntity\Business_Enterprisepayment_Information.cs" />
+    <Compile Include="TableEntity\Business_ExerciseLibrary_Information.cs" />
+    <Compile Include="TableEntity\Business_ExercisesAnswerDetail_Information.cs" />
+    <Compile Include="TableEntity\Business_ExercisesAnswer_Information.cs" />
+    <Compile Include="TableEntity\Business_ExercisesDetail_Infomation.cs" />
+    <Compile Include="TableEntity\Business_Exercises_Infomation.cs" />
+    <Compile Include="TableEntity\Business_KnowledgeBase_Information.cs" />
+    <Compile Include="TableEntity\Business_OperationLog.cs" />
+    <Compile Include="TableEntity\Business_PaymentHistory_Information.cs" />
+    <Compile Include="TableEntity\Business_Payroll_Information.cs" />
+    <Compile Include="TableEntity\Business_PersonnelLabel_Information.cs" />
+    <Compile Include="TableEntity\Business_Personnel_Information.cs" />
+    <Compile Include="TableEntity\Business_ProtocolOperations_Information.cs" />
+    <Compile Include="TableEntity\Business_Questionnaire.cs" />
+    <Compile Include="TableEntity\Business_QuestionnaireDetail.cs" />
+    <Compile Include="TableEntity\Business_Questionnaire_Answer.cs" />
+    <Compile Include="TableEntity\Business_Questionnaire_AnswerDetail.cs" />
+    <Compile Include="TableEntity\Business_Redpacket_Push_Information.cs" />
+    <Compile Include="TableEntity\Business_ScanData_Information.cs" />
+    <Compile Include="TableEntity\Business_ScanHistory_Information.cs" />
+    <Compile Include="TableEntity\Business_WeChatPushDetail_Information.cs" />
+    <Compile Include="TableEntity\Business_WeChatPush_Information.cs" />
+    <Compile Include="TableEntity\Business_WeChatPush_MoreGraphic_Information.cs" />
+    <Compile Include="TableEntity\Car_Maintain.cs" />
+    <Compile Include="TableEntity\CS_Master_1.cs" />
+    <Compile Include="TableEntity\CS_Master_2.cs" />
+    <Compile Include="TableEntity\DaZhongPersonTable\AllEmployee.cs" />
+    <Compile Include="TableEntity\DriverRevenueTable\Cab.cs" />
+    <Compile Include="TableEntity\DriverRevenueTable\Driver.cs" />
+    <Compile Include="TableEntity\DriverRevenueTable\Organization.cs" />
+    <Compile Include="TableEntity\DriverRevenueTable\PaymentMonthly.cs" />
+    <Compile Include="TableEntity\LiquidationTable\Business_Revenuepayment_Information.cs" />
+    <Compile Include="TableEntity\Master_Configuration.cs" />
+    <Compile Include="TableEntity\Master_Organization.cs" />
+    <Compile Include="TableEntity\RevenueAPIModel\API_PaymentMonthly.cs" />
+    <Compile Include="TableEntity\RevenueAPIModel\API_Result.cs" />
+    <Compile Include="TableEntity\Sys_Module.cs" />
+    <Compile Include="TableEntity\Sys_Role.cs" />
+    <Compile Include="TableEntity\Sys_Role_Fixed.cs" />
+    <Compile Include="TableEntity\Sys_Role_Module.cs" />
+    <Compile Include="TableEntity\Sys_User.cs" />
+    <Compile Include="TableEntity\ThirdPartyPublicPlatformPayment.cs" />
+    <Compile Include="UserDefinedEntity\Business_Questionnaire_Search.cs" />
+    <Compile Include="UserDefinedEntity\NotExistPerson.cs" />
+    <Compile Include="UserDefinedEntity\PushAPIresult.cs" />
+    <Compile Include="UserDefinedEntity\ResultModel.cs" />
+    <Compile Include="UserDefinedEntity\Search_AgreementOperation.cs" />
+    <Compile Include="UserDefinedEntity\Search_RedPacketHistory.cs" />
+    <Compile Include="UserDefinedEntity\TempWeChatMain.cs" />
+    <Compile Include="UserDefinedEntity\U_QuestionAnswerDetail.cs" />
+    <Compile Include="UserDefinedEntity\U_QuestionReport.cs" />
+    <Compile Include="UserDefinedEntity\U_QuestionSsetsRate.cs" />
+    <Compile Include="UserDefinedEntity\WebChat_json_data.cs" />
+    <Compile Include="View\v_Business_ProtocolOperations_Information.cs" />
+    <Compile Include="UserDefinedEntity\Business_ExerciseLibrary_Infomation_Search.cs" />
+    <Compile Include="UserDefinedEntity\Business_Exercises_Infomation_Search.cs" />
+    <Compile Include="UserDefinedEntity\Business_PersonDepartmrnt_Search.cs" />
+    <Compile Include="UserDefinedEntity\RateModel.cs" />
+    <Compile Include="UserDefinedEntity\ReturnResultModel.cs" />
+    <Compile Include="UserDefinedEntity\U_AccessToken.cs" />
+    <Compile Include="UserDefinedEntity\U_DriverInfo.cs" />
+    <Compile Include="UserDefinedEntity\U_JsApiTicket.cs" />
+    <Compile Include="UserDefinedEntity\U_OpenInfo.cs" />
+    <Compile Include="UserDefinedEntity\U_PaymentHistory_Search.cs" />
+    <Compile Include="UserDefinedEntity\U_RevenueMonth.cs" />
+    <Compile Include="UserDefinedEntity\U_WechatUserInfo.cs" />
+    <Compile Include="UserDefinedEntity\v_Business_PersonnelDepartment_Information.cs" />
+    <Compile Include="UserDefinedEntity\ExerciseDetailReport.cs" />
+    <Compile Include="UserDefinedEntity\JsonResultEntity.cs" />
+    <Compile Include="UserDefinedEntity\ScanHistorySearch.cs" />
+    <Compile Include="UserDefinedEntity\SearchBusiness_Personnel_Information.cs" />
+    <Compile Include="UserDefinedEntity\GridParams.cs" />
+    <Compile Include="UserDefinedEntity\JsonResultModel.cs" />
+    <Compile Include="UserDefinedEntity\SearchLogList.cs" />
+    <Compile Include="UserDefinedEntity\SearchSysUserList.cs" />
+    <Compile Include="UserDefinedEntity\SearchWeChatPushList.cs" />
+    <Compile Include="UserDefinedEntity\Search_ScoreReport.cs" />
+    <Compile Include="UserDefinedEntity\U_Business_Personnel_Information.cs" />
+    <Compile Include="UserDefinedEntity\U_ExerciseAllMsg.cs" />
+    <Compile Include="UserDefinedEntity\U_ExerciseAndAnswerDetailMsg.cs" />
+    <Compile Include="UserDefinedEntity\U_ExerciseDetailCollect.cs" />
+    <Compile Include="UserDefinedEntity\U_ExerciseMainCollect.cs" />
+    <Compile Include="UserDefinedEntity\U_ExerciseResult.cs" />
+    <Compile Include="UserDefinedEntity\U_ExercisesAnswerDetail.cs" />
+    <Compile Include="UserDefinedEntity\CSEMPL_1.cs" />
+    <Compile Include="UserDefinedEntity\U_ExerciseSsetsRate.cs" />
+    <Compile Include="UserDefinedEntity\U_ExtendProperty.cs" />
+    <Compile Include="UserDefinedEntity\U_FocusResult.cs" />
+    <Compile Include="UserDefinedEntity\U_MarkingPerson.cs" />
+    <Compile Include="UserDefinedEntity\U_Property.cs" />
+    <Compile Include="UserDefinedEntity\U_Module.cs" />
+    <Compile Include="UserDefinedEntity\U_PushMsg.cs" />
+    <Compile Include="UserDefinedEntity\U_RateModel.cs" />
+    <Compile Include="UserDefinedEntity\U_Revenue.cs" />
+    <Compile Include="UserDefinedEntity\U_ScoreReport.cs" />
+    <Compile Include="UserDefinedEntity\U_UserInfo.cs" />
+    <Compile Include="UserDefinedEntity\U_WeChatCallbackParameter.cs" />
+    <Compile Include="UserDefinedEntity\U_WeChatPushRate.cs" />
+    <Compile Include="UserDefinedEntity\U_WeChatUserID.cs" />
+    <Compile Include="View\V_Business_ExercisesAndAnswer_Infomation.cs" />
+    <Compile Include="View\V_Business_ExercisesDetailAndExercisesAnswerDetail_Information.cs" />
+    <Compile Include="View\V_Business_ExercisesDetail_Infomation.cs" />
+    <Compile Include="View\v_Business_ExercisesLibrary_Infomation.cs" />
+    <Compile Include="View\V_Business_Exercises_Infomation.cs" />
+    <Compile Include="View\V_Business_KnowledgeBase_Information.cs" />
+    <Compile Include="View\V_Business_Personnel_Information.cs" />
+    <Compile Include="View\V_Business_Questionnaire.cs" />
+    <Compile Include="View\V_Business_QuestionnaireDetail_AnswerDetail.cs" />
+    <Compile Include="View\V_Business_Questionnaire_Answer.cs" />
+    <Compile Include="View\v_Business_Redpacket_Push_Information.cs" />
+    <Compile Include="View\V_Business_WeChatPushMain_Information.cs" />
+    <Compile Include="View\V_Business_WeChatPush_Information.cs" />
+    <Compile Include="View\v_ExerciseScore_Information.cs" />
+    <Compile Include="View\V_ExercisesUserDetailInformation.cs" />
+    <Compile Include="View\V_ExercisesUserInformation.cs" />
+    <Compile Include="View\v_PaymentHistory_Information.cs" />
+    <Compile Include="View\V_Sys_Role_Module.cs" />
+    <Compile Include="View\V_User_Information.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

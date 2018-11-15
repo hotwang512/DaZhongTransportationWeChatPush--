@@ -1,0 +1,32 @@
+header {
+    width: 100%;
+    height: 5rem;
+    font-size: 1rem;
+    line-height: 5rem;
+    text-align: center;
+    margin-top: 4rem;
+}
+
+section {
+    width: 100%;
+    height: 12rem;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+    section .QRcode {
+        width: 60%;
+        /*margin-left: 15%;*/
+        /*height: 10rem;*/
+        margin: auto;
+    }
+
+        section .QRcode img {
+            width: 100%;
+            height: 100%;
+        }
+
+    section span {
+        font-size: 0.7rem;
+        color: #999;
+    }

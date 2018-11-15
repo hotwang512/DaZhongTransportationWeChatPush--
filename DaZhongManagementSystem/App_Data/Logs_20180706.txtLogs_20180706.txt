@@ -1,0 +1,45 @@
+
+-------------------------------header----------------------
+2018-07-06 17:55:49,559 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:55:51,519 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:55:53,860 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:55:55,540 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:55:57,225 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:55:58,665 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:56:00,893 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:56:03,503 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:56:06,893 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:56:11,123 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:56:14,994 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:56:17,124 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:56:20,034 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:56:21,924 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:56:25,885 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:56:27,925 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:56:48,123 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:56:49,293 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:56:51,123 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:56:51,903 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:56:53,197 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:56:55,177 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:56:55,777 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:56:57,097 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:56:58,119 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:57:00,099 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:57:03,099 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:57:06,100 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:57:10,180 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:57:14,234 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:57:16,154 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:57:19,755 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:57:21,706 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:57:25,096 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:57:27,107 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-06 17:57:27,167 [13] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+
+-------------------------------footer----------------------
+
+-------------------------------header----------------------
+2018-07-06 18:13:21,377 [34] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+
+-------------------------------footer----------------------

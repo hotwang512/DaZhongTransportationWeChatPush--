@@ -1,0 +1,99 @@
+﻿@using DaZhongManagementSystem.Entities.TableEntity
+@{
+    ViewBag.Title = "扫码历史";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var currentModuleRolePermission = ViewBag.CurrentModulePermission as Sys_Role_Module;
+}
+@section pageTitle
+{
+    @ViewBag.Title
+}
+
+@section js
+{
+    <script src="@Url.Content("/Areas/QRCodeManagement/Views/_js/ScanHistory.js")"></script>
+    <script src="@Url.Content("~/_theme/bootstrap-datepicker/bootstrap-datepicker.js")"></script>
+    <script src="@Url.Content("~/_theme/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js")"></script>
+}
+
+@*css*@
+@section css{
+    <link href="@Url.Content("~/_theme/bootstrap-datepicker/datepicker.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/_theme/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.css")" rel="stylesheet" />
+}
+
+@{
+    if (!(currentModuleRolePermission.Deletes == 0 && currentModuleRolePermission.Export == 0))
+    {
+    <form id="UpLoadExerciseForm">
+        <table style="margin-top: 10px;">
+            <tr style="height: 50px;">
+                @if (currentModuleRolePermission.Deletes == 1)
+                { 
+                    <td style="width: 95px;">
+                        <button id="btnDelete" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe60a;</i><span style="margin-left: 7px; float: left;">删除</span></button>
+                    </td>
+                }
+                @if (currentModuleRolePermission.Export == 1)
+                { 
+                    <td style="width: 95px;">
+                        <button id="btnExport" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe607;</i><span style="margin-left: 7px; float: left;">导出</span></button>
+                    </td>
+                }
+            </tr>
+        </table>
+    </form>
+    <!-- 顶部按钮 -->
+    }
+}
+
+<!-- 中部条件 -->
+<div class="mk">
+    <div class="header_mk">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">查询</span></div>
+    </div>
+    <div class="body_mk" style="height: 100px">
+        <table style="margin-top: 20px; width: 800px; margin-left: 20px;">
+            <tr style="height: 45px;">
+                <td align="center" style="width: 80px;">扫码时间起：</td>
+                <td style="width: 210px;">
+                    <input id="txtCreatedDateFrom" type="text" class="input_text form-control" />
+                </td>
+                <td align="right">扫码时间止：</td>
+                <td>
+                    <input id="txtCreatedDateTo" type="text" class="input_text form-control" />
+                </td>
+                <td style="width: 100px;"></td>
+                <td style="width: 100px;"></td>
+            </tr>
+            <tr style="height: 45px;">
+                <td align="center">机器码：</td>
+                <td>
+                    <input id="txtMachineCode" type="text" class="input_text form-control" />
+                </td>
+                <td></td>
+                <td></td>
+                <td align="right">
+                    <button id="btnSearch" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe604;</i><span style="margin-left: 7px; float: left;">查询</span></button>
+                </td>
+                <td align="center">
+                    <button id="btnReset" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe603;</i><span style="margin-left: 7px; float: left;">重置</span></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!-- 中部条件 -->
+
+<!-- 底部表格 -->
+<center>
+<div class="mk" style="border-bottom: 0px;">
+    <div class="header_mk" style="border-bottom: 0px;">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">数据列表</span></div>
+    </div>
+    <div id="scanHistoryList" class="jqxTable" style="border-left: 0px; ">
+    </div>
+</div>
+</center>

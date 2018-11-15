@@ -1,0 +1,51 @@
+﻿/*datetimeinput*/
+.jqx-input-extent
+{
+    width: 170px !important;
+    height: 25px !important;
+}
+.jqx-comboxinput-extent
+{
+    width: 178px !important;
+    height: 28px !important;
+    border-color: #DAD6D6;
+    background-color: #E6E6E6;
+}
+.jqxInput .jqx-widget-content
+{
+    border-color: #DAD6D6;
+    background-color: #E6E6E6;
+}
+.jqxInput .jqx-datetimeinput
+{
+}
+.jqxInput .jqx-input
+{
+    padding: 2px 4px 2px 4px !important;
+}
+.jqxInput .jqx-combobox-input
+{
+    padding: 2px 4px 2px 4px !important;
+}
+.jqxInput .jqx-dropdownlist-content
+{
+    padding: 2px 4px 2px 4px !important;
+    border-color: #DAD6D6;
+    background-color: #E6E6E6;
+    width: 170px !important;
+}
+.jqxInput .jqx-disableselect
+{
+    width: 150px !important;
+}
+.jqxInput .jqx-fill-state-disabled
+{
+    cursor:not-allowed;
+    opacity: .9;
+    filter: Alpha(Opacity=90);
+    color: #000;
+}
+button[disabled], html input[disabled] {
+cursor: not-allowed;
+color: #000;
+}

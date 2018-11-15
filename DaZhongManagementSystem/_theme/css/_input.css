@@ -1,0 +1,46 @@
+﻿
+input[type="text"], input[type="password"], select, textarea {
+    height: 30px;
+    border: 1px solid #DAD6D6;
+    padding: 2px 4px 2px 4px;
+    background-color: #E6E6E6;
+    border-radius:4px;
+}
+
+    input[type="text"]:focus, input[type="password"]:focus, select:focus, textarea:focus {
+        /*border: 1px solid #756E6E;*/
+    }
+
+    input[type="text"]:disabled, input[type="password"]:disabled, select:disabled, textarea:disabled {
+        cursor: not-allowed;
+        border-color: #DAD6D6;
+        background-color: #E6E6E6;
+        opacity: .9;
+        filter: Alpha(Opacity=90);
+        color: #000;
+    }
+
+input[type="button"], button {
+    border: 1.5px solid #DAD6D6 !important;
+    padding: 2px 8px 2px 8px !important;
+    /*Alan*/
+    /*width: auto !important;
+    min-width: 80px !important;
+    height: 30px !important;*/
+    /*background-color: #003399 !important;
+    color: White !important;*/
+    cursor: pointer;
+}
+/*Alan*/
+/*.button {
+    margin-left: 15px;
+    cursor: pointer;
+}*/
+/*input[type="button"]:hover, button:hover
+{
+    background-color: #2A558A !important;
+}*/
+
+.input_txt {
+    width: 240px;
+}

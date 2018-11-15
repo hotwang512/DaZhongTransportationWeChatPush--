@@ -1,0 +1,11 @@
+﻿.datepicker {
+    z-index:999!important;
+}
+
+.datepicker-months{
+    width: 200px!important;
+}
+
+.datepicker-years {
+    width: 200px!important;
+}

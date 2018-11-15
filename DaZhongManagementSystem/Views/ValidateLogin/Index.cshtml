@@ -1,0 +1,29 @@
+﻿@{
+    Layout = null;
+    string valMessage = ViewBag.Message;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>登录验证</title>
+</head>
+<body style="  background-color: #375471 !important;">
+   
+
+      <div style="height: 300px; width: 450px; text-align: center; margin-left: auto; margin-right: auto; background-color: white; font-size: 20px; font-weight: bold; color: red; border-radius: 8px;margin-top: 100px;">
+                    <table style="width: 100%;">
+                        <tr style="height: 150px;">
+                            <td>
+                                <img src="/Views/_img/error_noApplication.png" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@valMessage</td>
+                        </tr>
+                    </table>
+
+                </div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+﻿#txtTitle,#txtTitle_sa {
+    width: 100%!important;
+}
+
+#pushContent {
+    /*width: 815px;*/
+}
+
+#myEditor {
+    width: 870px;
+    height: 200px;
+}
+
+.datepicker {
+    z-index: 999!important;
+}
+
+#weChatTypeRow {
+    height: 50px;
+}
+
+#ExerciseList {
+    height: 50px;
+}
+
+#pushPeopleDropDownButton {
+    width: 185px!important;
+}
+
+.datepicker-months {
+    width: 200px!important;
+}
+
+.datepicker-years {
+    width: 200px!important;
+}
+
+#jqxWidget {
+    float: left;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    -webkit-box-shadow: 0px 1px 10px #dddddd;
+    box-shadow: 0 0 10px #dddddd;
+}
+

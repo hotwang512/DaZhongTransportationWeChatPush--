@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+@{
+    var pushContentModel = ViewData["PushContentModel"] as Business_WeChatPush_Information;
+    var openHttpAddress = ViewBag.openHttpAddress;
+    var code = ViewBag.code;
+    var corpId = SyntacticSugar.ConfigSugar.GetAppString("CorpID");
+    var isValid = ViewBag.isValidTime;
+    var countDownConfig = ViewBag.countDownConfig;
+}
+@using DaZhongManagementSystem.Entities.TableEntity;
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <!--webAPP的一些常用设置-->
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="blank">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="@Url.Content("~/Areas/WeChatPush/Views/_css/PushDetail.css")" rel="stylesheet" />
+    <title>大众交通出租分公司</title>
+</head>
+<body>
+    <header>
+        @{
+            if (pushContentModel != null)
+            {
+                //判断是否过有效期（true已过有效期；false未过有效期）
+                if (!isValid)
+                {
+                    //<div id="divdown1"></div>
+
+            @Html.Raw(pushContentModel.Message)
+                    
+                    if (pushContentModel.ExercisesVGUID.ToString() != "00000000-0000-0000-0000-000000000000")
+                    {
+                        string exerciseUrl = openHttpAddress + "/BasicDataManagement/WeChatExercise/Index?exerciseVguid=" + pushContentModel.ExercisesVGUID + "," + pushContentModel.VGUID;
+                        var url = string.Format("https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type=code&scope=snsapi_base#wechat_redirect", corpId, exerciseUrl);
+            
+            
+            <a id="ableAnswer" style="display:none" href="@url">进入答题</a>
+            <div id="timer">
+                <a id="unableAnswer" style="display: none">
+                    <span>请仔细阅读培训资料,倒计时结束后方可答题,</span>
+                    <span>距离答题还有</span>
+                    <span style="color: red" class="minutes"></span><span style="color: red">分</span>
+                    <span style="color: red" class="seconds"></span><span style="color: red">秒！</span>
+                </a>
+            </div>
+                    }
+
+@*放大图片的div*@
+                    
+@*<div class='enlarge-blackground' style="height: 0;">
+                <div id="Bigimg" class="enlarge-img-box" style="position: fixed; top: 0; left: -18px; width: 100%; height: 100%; background: black; display: none; overflow: scroll">
+                    <div class="enlarge-div" style="width: 100%; margin-top: 40%; margin-left: 0px; height: auto">
+                        <img id="img" class='enlarge-img' style="width: 100%; height: 100%;" />
+                    </div>
+                </div>
+            </div>*@
+            <div id="Bigimg" style="position: fixed; top: 0; left: -18px; width: 100%; height: 100%; background: black; display: none; overflow: scroll">
+                <div style="width: 100%; margin-top: 40%; margin-left: 0px; height: auto">
+                    <img id="img" style="width: 100%; height: 100%;" />
+                </div>
+            </div>
+                }
+                else
+                {
+            <div class="error" style="display: block">
+                <div>
+                    <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/Error.png")"  alt="Alternate Text" />
+                    <span>推送内容已过期！！</span>
+                </div>
+            </div>
+                }
+            }
+            else
+            {
+            <div class="error" style="display: block">
+                <div>
+                    <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/Error.png")" alt="Alternate Text" />
+                    <span>推送内容已删除！！</span>
+                </div>
+            </div>
+            }
+        }
+        <input type="hidden"  id="openHttpAddress" value="@openHttpAddress" />
+        <input type="hidden" id="countDownConfig" value="@countDownConfig" />
+        <input type="hidden" id="isValid" value="@isValid" />
+    </header>
+    <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/app.js")"></script>
+    <script src="@Url.Content("~/_theme/js/jquery-2.0.3.min.js")"></script>
+    @* <script src="@Url.Content("~/_theme/_js/enlargepicture.js")"></script>*@
+    <script src="@Url.Content("~/_theme/_js/hammer.min.js")"></script>
+    <script src="@Url.Content("~/Areas/WeChatPush/Views/_js/PushDetail.js")"></script>
+
+    <script>
+        var minutes = $("#countDownConfig").val();
+        var maxtime = minutes * 60;//按秒计算
+        function CountDown() {
+            //  if (isValid) {
+            if (maxtime >= 0) {
+                minutes = Math.floor(maxtime / 60);
+                seconds = Math.floor(maxtime % 60);
+                //msg = "距离答题还有" + minutes + "分" + seconds + "秒";
+                $(".minutes").html(minutes);
+                $(".seconds").html(seconds);
+                $("#unableAnswer").removeAttr("style");
+                --maxtime;
+            }
+            else {
+                clearInterval(timer);
+                $("#ableAnswer").removeAttr("style");
+                $("#unableAnswer").attr("style", "display:none");
+            }
+            //  }
+        }
+        timer = setInterval("CountDown()", 1000);
+
+
+
+
+    </script>
+</body>
+</html>

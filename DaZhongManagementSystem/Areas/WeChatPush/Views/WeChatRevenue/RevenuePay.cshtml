@@ -1,0 +1,127 @@
+﻿@using DaZhongManagementSystem.Entities.TableEntity
+@using DaZhongManagementSystem.Entities.UserDefinedEntity
+<!DOCTYPE html>
+@{
+    var pushContentModel = ViewData["PushContentModel"] as Business_WeChatPush_Information;
+    var isValid = ViewBag.isValidTime;
+    var revenueInfo = ViewBag.Revenue as U_Revenue;
+}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!--webAPP的一些常用设置-->
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="blank">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="@Url.Content("~/Areas/WeChatPush/Views/_css/RevenuePay.css")" rel="stylesheet" />
+    <title>营收信息</title>
+</head>
+
+<body>
+    <input type="hidden" id="txtDriverPay" value="@revenueInfo.Fee" />
+    <input type="hidden" id="txtHandlingFee" value="@revenueInfo.FeeMoney" />
+    <input type="hidden" id="txtPayException" value="@ViewData["payException"]" />
+    <input type="hidden" id="txtIsExist" value="@ViewData["isExist"]" />
+    <input type="hidden" id="txtVguid" value="@ViewData["vguid"]" />
+    <input type="hidden" id="txtpushContentVguid" value="@ViewData["pushContentVguid"]" />
+    @{
+        if (pushContentModel != null)
+        {
+            //判断是否过有效期（true已过有效期；false未过有效期）
+            <header>
+                <div class="h_center">
+                    <div class="hc_nav">
+                        <img src="@Url.Content("~/Areas/WeChatPush/Views/_img/logo.png")" alt="" />
+                        <span>大众出租</span>
+                    </div>
+                </div>
+                <div class="h_bottom">
+                    <span>当前您的账户结余情况如下</span>
+                </div>
+            </header>
+            <nav>
+                <ul>
+                    @*<li class="nav_1">
+                        <div>历史欠款</div>
+                        <div class="n1_num">@revenueInfo.HistoricalArrears</div>
+                    </li>*@
+                    <li class="nav_2">
+                        <div>上期结余金额</div>
+                        <div class="n2_num">@revenueInfo.TheBalance</div>
+                    <li class="nav_3">
+                        <div>本期应缴金额</div>
+                        <div class="n3_num">@revenueInfo.AmountDue</div>
+                    </li>
+                    <li class="nav_4">
+                        <div>本期已缴金额</div>
+                        <div class="n4_num">@revenueInfo.CurrentPayment</div>
+                    </li>
+                    <li class="nav_5">
+                        <div>当前结余金额</div>
+                        <div class="n5_num">@revenueInfo.CurrentAccountBalance</div>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="h_bottom" id="paymentTitle">
+                <span>支付</span>
+            </div>
+            <nav id="paymentContent" style="height:106px;">
+                <ul>
+
+                    <li class="nav_7">
+                        <div>当前应缴金额</div>
+                        <div class="n7_num">@revenueInfo.Fee_CurrentAccountBalance</div>@* *@
+                    </li>
+                    <li class="nav_6">
+                        <div>手续费(@revenueInfo.Fee)</div>
+                        <div class="n6_num">@revenueInfo.FeeMoney</div>@* *@
+                    </li>
+                    <li class="nav_8" style="font-weight:bold; ">
+                        <div>合计应缴金额</div>
+                        <div class="n8_num">@revenueInfo.Fee_TotalAmount</div>@* *@
+                    </li>
+                </ul>
+            </nav>
+                <footer>
+                    <div id="spDriverPay" style="height: 2rem; color: red; font-size: 1rem; margin-left: 0.5rem;"></div>
+                    @if (ViewData["isExist"] == "0" && !isValid)
+                    {
+                        <div class="f_nav">
+                            <button class="btn_wc">
+                                <img src="@Url.Content("~/Areas/WeChatPush/Views/_img/微信支付.png")" alt="" />
+                                <div>微信支付</div>
+                            </button>
+                            <button class="btn_qt">
+                                <img src="@Url.Content("~/Areas/WeChatPush/Views/_img/支付.png")" alt="" />
+                                <div>其他支付</div>
+                            </button>
+                        </div>
+                    }
+                </footer>
+
+        }
+        else
+        {
+            <div class="error" style="display: block">
+                <div>
+                    <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/Error.png")" alt="Alternate Text" />
+                    <span>推送内容已删除！！</span>
+                </div>
+            </div>
+        }
+    }
+    <input type="hidden" id="isValid" value="@isValid" />
+    <input type="hidden" id="txtOpenId" value="@ViewData["openid"]" />
+    <script src="@Url.Content("~/_theme/js/jquery-2.0.3.min.js")"></script>
+    <script src="@Url.Content("~/_theme/_js/jweixin-1.0.0.js")"></script>
+    <script src="@Url.Content("~/Areas/WeChatPush/Views/_js/WeChatHistory/app.js")"></script>
+    @*  <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>*@
+    <script src="@Url.Content("~/Areas/WeChatPush/Views/_js/RevenuePay.js?v=3333")"></script>
+
+</body>
+</html>

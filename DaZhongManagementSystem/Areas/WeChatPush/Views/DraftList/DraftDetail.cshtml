@@ -1,0 +1,1126 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var isEdit = ViewBag.isEdit;
+    var weChatMainModel = ViewBag.WeChatModel as Business_WeChatPush_Information;
+    var darftInfoList = ViewData["PushType"] as List<CS_Master_2>;//绑定推送类型
+    var weChatPushTypeList = ViewData["WeChatPushType"] as List<CS_Master_2>;//微信推送类型
+    var exerciseList = ViewData["ExerciseList"] as List<Business_Exercises_Infomation>;//习题列表
+    var listRevenueType = ViewData["RevenueTypeList"] as List<CS_Master_2>;
+    var currentModuleRolePermission = ViewBag.CurrentModulePermission as Sys_Role_Module;//权限
+    var pushObject = ViewBag.PushObject;//推送接收者字符串
+    var pushName = ViewBag.PushName;
+    var listCountersignType = ViewBag.listCountersignType as List<CS_Master_2>; //协议类型
+    var listRedPacketType = ViewBag.listRedPacketType as List<CS_Master_2>;
+    if (isEdit)
+    {
+        ViewBag.Title = "编辑推送信息";
+    }
+    else
+    {
+        ViewBag.Title = "新增推送信息";
+    }
+}
+@using DaZhongManagementSystem.Entities.TableEntity;
+
+@section pageTitle
+{
+    @ViewBag.Title
+}
+
+@section js
+{
+    <script src="@Url.Content("~/Areas/WeChatPush/Views/_js/DraftDetail.js")"></script>
+    <script src="@Url.Content("~/_theme/bootstrap-datepicker/bootstrap-datepicker.js")"></script>
+    <script src="@Url.Content("~/_theme/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js")"></script>
+    <script src="@Url.Content("/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxcore.js")"></script>
+    <script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxbuttons.js")"></script>
+    <script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxscrollbar.js")"></script>
+    <script src="@Url.Content("/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxdatatable.js")"></script>
+    <script src="@Url.Content("/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxtreegrid.js")"></script>
+    <script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxdata.js")"></script>
+    <script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxcheckbox.js")"></script>
+    <script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxlistbox.js")"></script>
+    <script src="@Url.Content("~/_theme/utf8net/third-party/video-js/video.js")"></script>
+    <script src="@Url.Content("~/_theme/utf8net/third-party/video-js/html5media.min.js")"></script>
+    <script src="@Url.Content("~/_theme/_js/chosen.jquery.js")"></script>
+    @*富文本框*@
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <script charset="utf-8" src="@Url.Content("~/_theme/utf8net/ueditor.config.js")"></script>
+    <script charset="utf-8" src="@Url.Content("~/_theme/utf8net/ueditor.all.min.js")"></script>
+    <script charset="utf-8" src="@Url.Content("~/_theme/utf8net/lang/zh-cn/zh-cn.js")"></script>
+    <script src=@Url.Content("~/_theme/_js/wangEditor.min.js")></script>
+}
+
+@*css*@
+@section css{
+    <link href="@Url.Content("~/_theme/_css/chosen.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Areas/WeChatPush/Views/_css/DraftDetail.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Areas/WeChatPush/Views/_css/CommonSlider.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/_theme/bootstrap-datepicker/datepicker.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/_theme/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/_theme/utf8net/themes/default/dialogbase.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/_theme/utf8net/third-party/video-js/video-js.css")" rel="stylesheet" />
+}
+<input type="hidden" id="txtDeparent" value="@ViewData["currentUserDepartment"]" />
+<form id="uploadPushForm">
+    <table style="margin-top: 10px;" lang="en-US">
+        <tr style="height: 50px;">
+            @if (currentModuleRolePermission.Adds == 1 || currentModuleRolePermission.Edit == 1)
+            {
+                <td style="width: 95px;">
+                    <button id="btnSave" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe614;</i><span style="margin-left: 7px; float: left;">保存</span></button>
+                </td>
+            }
+            <td style="width: 95px;">
+                <button id="btnCancel" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe611; </i><span style="margin-left: 7px; float: left;">取消</span></button>
+            </td>
+            @if (currentModuleRolePermission.Submit == 1)
+            {
+                <td style="width: 95px;">
+                    <button id="btnSubmit" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe610;</i><span style="margin-left: 7px; float: left;">提交</span></button>
+                </td>
+                //}
+                //if (currentModuleRolePermission.Import == 1)
+                //{
+                <td style="width: 95px;">
+                    <button id="btnUpload" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe600;</i><span style="margin-left: 7px; float: left;">导入</span></button>
+                    <input id="import" name="import" onchange="Upload()" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" style="display: none" />
+                </td>
+                <td style="width: 135px;">
+                    <button id="btnUploadSalary" type="button" class="buttons" style="width: 120px;"><i class="iconfont btn_icon" style="color: black !important;">&#xe600;</i><span style="margin-left: 7px; float: left;">导入工资条</span></button>
+
+                </td>
+                <td style="width: 120px;">
+                    <button id="btnUploadMaintenance" type="button" class="buttons" style="width: 110px;"><i class="iconfont btn_icon" style="color: black !important;">&#xe600;</i><span style="margin-left: 7px; float: left;">导入保养</span></button>
+
+                </td>
+            }
+            <td style="width: 95px;">
+                <button id="btnPreview" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe61a;</i><span style="margin-left: 7px; float: left;">预览</span></button>
+            </td>
+        </tr>
+    </table>
+</form>
+<div class="mk">
+    <div class="header_mk">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">推送详细信息</span> <span style="margin-left: 10px; text-decoration: underline;"><a href="/WeChatPush/DraftList/DownFile">下载导入推送模板</a></span></div>
+    </div>
+    <div class="body_mk" style="height: 580px">
+        <form id="pushForm">
+            <table id="mainTable" style="margin-top: 20px; margin-left: 20px;" class="tableClass">
+                <tr style="height: 50px;">
+                    <td align="right" style="width: 90px;">标题：</td>
+                    <td colspan="5" style="width: 210px;">
+                        <input id="txtTitle" type="text" name="Title" validatetype="required" class="input_text form-control" onkeyup="keyUpFunc(0)" value="@weChatMainModel.Title" />
+                    </td>
+                    <td align="center" style="width: 10px;"><span style="color: red; margin-left: 5px;">*</span></td>
+                </tr>
+                <tr style="height: 50px;">
+                    <td align="right">推送方式：</td>
+                    <td style="width: 210px;">
+                        @{
+                            if (!isEdit)
+                            {
+                                <select id="pushType" name="PushType" validatetype="required" class="input_text form-control">
+                                    @{
+                                        foreach (var item in darftInfoList)
+                                        {
+                                            if (item.MasterCode == "1")
+                                            {
+                                                <option value="@item.MasterCode" selected="selected">@item.DESC0</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.MasterCode">@item.DESC0</option>
+                                            }
+                                        }
+                                    }
+                                </select>
+                                        }
+                                        else
+                                        {
+                                            <select id="pushType" disabled="disabled" style="background-color: #f5f5f5!important;" name="PushType" class="input_text form-control">
+                                                <option>===请选择===</option>
+                                                @{
+                                                    foreach (var item in darftInfoList)
+                                                    {
+                                                        if (item.MasterCode == weChatMainModel.PushType.ToString())
+                                                        {
+                                                            <option value="@item.MasterCode" selected="selected">@item.DESC0</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@item.MasterCode">@item.DESC0</option>
+                                                        }
+                                                    }
+                                                }
+                                            </select>
+                                                    }
+                        }
+                    </td>
+                    <td align="right" style="width: 105px;">是否定时发送：</td>
+                    <td style="width: 210px;">
+                        <select id="isSendTime" name="Timed" class="input_text form-control">
+                            @{
+                                if (!isEdit)
+                                {
+                                    <option value="True">是</option>
+                                    <option value="False" selected="selected">否</option>
+                                }
+                                else
+                                {
+                                    if (weChatMainModel.Timed.ToString().ToUpper() == "FALSE")
+                                    {
+                                        <option value="True">是</option>
+                                        <option value="False" selected="selected">否</option>
+                                    }
+                                    else if (weChatMainModel.Timed.ToString().ToUpper() == "TRUE")
+                                    {
+                                        <option value="True" selected="selected">是</option>
+                                        <option value="False">否</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </td>
+                    <td align="right" style="width: 105px;">发送时间：</td>
+                    <td>
+                        <input id="sendTime" name="TimedSendTime" disabled="disabled" style="background-color:#f5f5f5!important;" class="input_text form-control" value="@(weChatMainModel.TimedSendTime == null ? "" : weChatMainModel.TimedSendTime.ToString())" />
+                    </td>
+                </tr>
+                <tr style="height: 50px;">
+                    <td align="right">推送接收者：</td>
+                    <td style="width: 240px;">
+                        <input type="text" id="pushPeople" readonly="readonly" class="input_text form-control" />
+                        <div>
+                            <img id="imgPop" style="float: left; margin-top: 5px; width: 25px; cursor: pointer" src="@Url.Content("/_theme/images/timg.jpg")" />
+                        </div>
+                    </td>
+                    <td align="right">是否永久：</td>
+                    <td>
+                        <select id="isImportant" name="Important" class="input_text form-control">
+                            @{
+                                if (!isEdit)
+                                {
+                                    <option value="True">是</option>
+                                    <option value="False" selected="selected">否</option>
+                                }
+                                else
+                                {
+                                    if (weChatMainModel.Important.ToString().ToUpper() == "FALSE")
+                                    {
+                                        <option value="True">是</option>
+                                        <option value="False" selected="selected">否</option>
+                                    }
+                                    else if (weChatMainModel.Important.ToString().ToUpper() == "TRUE")
+                                    {
+                                        <option value="True" selected="selected">是</option>
+                                        <option value="False">否</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </td>
+                    <td align="right">有效日期：</td>
+                    <td>
+
+                        <input id="effectiveDate" name="PeriodOfValidity" class="input_text form-control" value="@(weChatMainModel.PeriodOfValidity == null ? DateTime.Now.AddMonths(1).ToString("yyyy-MM-dd HH:mm:ss") : string.Format("{0:yyyy-MM-dd HH:mm:ss}", weChatMainModel.PeriodOfValidity))" />
+                    </td>
+                </tr>
+                @{
+                    //微信（编辑）
+                    if (weChatMainModel.PushType == 1)
+                    {
+                        <tr id="weChatTypeRow">
+                            <td align="right">微信推送类型：</td>
+                            <td>
+                                <select id="weChatMessageType" disabled="disabled" style="background-color: #f5f5f5!important;" name="MessageType" class="input_text form-control">
+                                    <option value="">===请选择===</option>
+                                    @{
+                                        foreach (var item in weChatPushTypeList)
+                                        {
+                                            if (item.MasterCode == weChatMainModel.MessageType.ToString())
+                                            {
+                                                <option value="@item.MasterCode" selected="selected">@item.DESC0</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.MasterCode">@item.DESC0</option>
+                                            }
+                                        }
+                                    }
+                                </select>
+                            </td>
+                            @switch (weChatMainModel.MessageType)
+                            {
+                                //文本
+                                case 1:
+                                    <td class="personLabel" align="right">人员标签：</td>
+                                    <td class="personLabel">
+                                        <input type="text" readonly="readonly" name="Label" id="txtLabel" class="input_text form-control" style="background-color: #f5f5f5!important;" value="@weChatMainModel.Label" />
+                                    </td>
+                                    <td class="pushHistory" align="right">记录推送历史：</td>
+                                    <td class="pushHistory">
+                                        @if (weChatMainModel.History == "1")
+                                        {
+                                            <input id="chkHistory" type="checkbox" style="width: 17px; height: 17px;" />
+                                        }
+                                        else
+                                        {
+                                            <input id="chkHistory" type="checkbox" style="width: 17px; height: 17px;" />
+                                        }
+                                    </td>
+                                    break;
+                                default:
+                                    <td class="weChatCoverMsg" align="right">封面图片：</td>
+                                    <td class="weChatCoverMsg">
+                                        <input type="file" id="coverImg_input" name="CoverImgs" class="input_text form-control" accept="image/gif,image/jpeg,image/jpg,image/png" />
+                                        <input type="hidden" id="coverImgPath" name="CoverImg" value="" />
+                                    </td>
+                                    <td class="weChatCoverMsg" align="right">封面描述：</td>
+                                    <td class="weChatCoverMsg">
+                                        <input id="txtCoverDescption" type="text" name="CoverDescption" class="input_text form-control" value="@weChatMainModel.CoverDescption" />
+                                    </td>
+                                    break;
+                            }
+                        </tr>
+                                        }
+                                        //短信（编辑）
+                                        else if (weChatMainModel.PushType == 2)
+                                        {
+
+                                        }
+                                        //新增
+                                        else
+                                        {
+                                            <tr id="weChatTypeRow">
+                                                <td align="right">微信推送类型：</td>
+                                                <td>
+                                                    <select id="weChatMessageType" name="MessageType" class="input_text form-control">
+                                                        <option value="">===请选择===</option>
+                                                        @{
+                                                            foreach (var item in weChatPushTypeList)
+                                                            {
+                                                                <option value="@item.MasterCode">@item.DESC0</option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                </td>
+                                                <td class="personLabel" align="right">人员标签：</td>
+                                                <td class="personLabel">
+                                                    <input type="text" readonly="readonly" class="input_text form-control" id="txtLabel" name="Label" style="background-color: #f5f5f5!important;" />
+                                                </td>
+                                                <td class="pushHistory" align="right">记录推送历史：</td>
+                                                <td class="pushHistory">
+                                                    <input id="chkHistory" type="checkbox" style="width: 17px; height: 17px;" />
+                                                </td>
+                                                <td class="weChatCoverMsg" style="display: none;" align="right">封面图片：</td>
+                                                <td class="weChatCoverMsg" style="display: none;">
+                                                    <input type="file" id="coverImg_input" name="CoverImgs" class="input_text form-control" accept="image/gif,image/jpeg,image/jpg,image/png" />
+                                                    <input type="hidden" id="coverImgPath" name="CoverImg" value="" />
+                                                </td>
+                                                <td class="weChatCoverMsg" style="display: none;" align="right">封面描述：</td>
+                                                <td class="weChatCoverMsg" style="display: none;">
+                                                    <input id="txtCoverDescption" type="text" name="CoverDescption" class="input_text form-control" value="@weChatMainModel.CoverDescption" />
+                                                </td>
+                                            </tr>
+                                                            }
+                }
+                @{
+                    //图文推送
+                    if (weChatMainModel.MessageType == 3)
+                    {
+                        <tr id="ExerciseList">
+                            <td align="right" class="upLoadFileTD">上传附件：</td>
+                            <td class="upLoadFileTD">
+                                <input type="file" name="importFile" class="input_text form-control" id="importFile" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+                            </td>
+                            <td class="personLabel" align="right">人员标签：</td>
+                            <td class="personLabel">
+                                <input type="text" readonly="readonly" class="input_text form-control" id="txtLabel" name="Label" style="background-color: #f5f5f5!important;" value="@weChatMainModel.Label" />
+                            </td>
+                            <td class="pushHistory" align="right">记录推送历史：</td>
+                            <td class="pushHistory">
+                                @if (weChatMainModel.History == "1")
+                                {
+                                    <input id="chkHistory" type="checkbox" checked="checked" style="width: 17px; height: 17px;" />
+                                }
+                                else
+                                {
+                                    <input id="chkHistory" type="checkbox" style="width: 17px; height: 17px;" />
+                                }
+                            </td>
+                        </tr>
+                    }
+                    //习题推送
+                    else if (weChatMainModel.MessageType == 4)
+                    {
+                        <tr id="ExerciseList">
+                            <td align="right" class="exercisePushRow">推送习题：</td>
+                            <td class="exercisePushRow" style="width: 210px;">
+                                <select id="pushExercise" name="ExercisesVGUID" class="input_text form-control">
+                                    <option value="">===请选择===</option>
+                                    @{
+                                        foreach (var item in exerciseList)
+                                        {
+                                            if (item.Vguid == weChatMainModel.ExercisesVGUID)
+                                            {
+                                                <option value="@item.Vguid" selected="selected">@item.ExercisesName</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.Vguid">@item.ExercisesName</option>
+                                            }
+                                        }
+                                    }
+                                </select>
+                            </td>
+                            <td class="personLabel" align="right">人员标签：</td>
+                            <td class="personLabel">
+                                <input type="text" readonly="readonly" class="input_text form-control" id="txtLabel" name="Label" style="background-color: #f5f5f5!important;" value="@weChatMainModel.Label" />
+                            </td>
+                            <td class="pushHistory" align="right">记录推送历史：</td>
+                            <td class="pushHistory">
+                                @if (weChatMainModel.History == "1")
+                                {
+                                    <input id="chkHistory" type="checkbox" checked="checked" style="width: 17px; height: 17px;" />
+                                }
+                                else
+                                {
+                                    <input id="chkHistory" type="checkbox" style="width: 17px; height: 17px;" />
+                                }
+
+                            </td>
+                        </tr>
+                                        }
+                                        //培训推送
+                                        else if (weChatMainModel.MessageType == 5)
+                                        {
+                                            <tr id="ExerciseList">
+                                                <td align="right" class="exercisePushRow">推送习题：</td>
+                                                <td class="exercisePushRow">
+                                                    <select id="pushExercise" name="ExercisesVGUID" class="input_text form-control">
+                                                        <option value="">===请选择===</option>
+                                                        @{
+                                                            foreach (var item in exerciseList)
+                                                            {
+                                                                if (item.Vguid == weChatMainModel.ExercisesVGUID)
+                                                                {
+                                                                    <option value="@item.Vguid" selected="selected">@item.ExercisesName</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@item.Vguid">@item.ExercisesName</option>
+                                                                }
+                                                            }
+                                                        }
+                                                    </select>
+                                                </td>
+                                                <td align="right" class="upLoadFileTD">上传附件：</td>
+                                                <td class="upLoadFileTD">
+                                                    <input type="file" name="importFile" class="input_text form-control" id="importFile" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword" />
+                                                </td>
+                                                <td class="pushHistory" align="right">记录推送历史：</td>
+                                                <td class="pushHistory">
+                                                    @if (weChatMainModel.History == "1")
+                                                    {
+                                                        <input id="chkHistory" type="checkbox" checked="checked" style="width: 17px; height: 17px;" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <input id="chkHistory" type="checkbox" style="width: 17px; height: 17px;" />
+                                                    }
+                                                </td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td class="personLabel" align="right">人员标签：</td>
+                                                <td class="personLabel">
+                                                    <input type="text" readonly="readonly" class="input_text form-control" id="txtLabel" name="Label" style="background-color: #f5f5f5!important;" value="@weChatMainModel.Label" />
+                                                </td>
+                                                <td class="countDown" align="right">倒计时(分钟)：</td>
+                                                <td class="countDown">
+                                                    @if (weChatMainModel.RevenueType == 0)
+                                                    {
+                                                        <input type="text" class="input_text form-control" name="RevenueType" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="text" class="input_text form-control" name="RevenueType" value="@weChatMainModel.RevenueType" />
+                                                    }
+                                                </td>
+                                            </tr>
+                                                            }
+                                                            else if (weChatMainModel.MessageType == 6)
+                                                            {
+                                                                <tr style="height: 50px;">
+                                                                    <td class="personLabel" align="right">人员标签：</td>
+                                                                    <td class="personLabel">
+                                                                        <input type="text" readonly="readonly" class="input_text form-control" id="txtLabel" name="Label" style="background-color: #f5f5f5!important;" value="@weChatMainModel.Label" />
+                                                                    </td>
+                                                                    <td class="pushHistory" align="right">记录推送历史：</td>
+                                                                    <td class="pushHistory">
+                                                                        @if (weChatMainModel.History == "1")
+                                                                        {
+                                                                            <input id="chkHistory" type="checkbox" checked="checked" style="width: 17px; height: 17px;" />
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <input id="chkHistory" type="checkbox" style="width: 17px; height: 17px;" />
+                                                                        }
+
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                            else if (weChatMainModel.MessageType == 11)
+                                                            {
+                                                                <tr style="height: 50px;">
+                                                                    <td class="revenueType" align="right">营收类型：</td>
+                                                                    <td class="revenueType">
+                                                                        <select id="revenueType" name="revenueType" disabled="disabled" style="background-color: #f5f5f5!important;" class="input_text form-control">
+                                                                            @{
+
+                                                                                foreach (var revenueType in listRevenueType)
+                                                                                {
+                                                                                    if (revenueType.MasterCode == weChatMainModel.RevenueType.ToString())
+                                                                                    {
+
+                                                                                        <option value="@revenueType.MasterCode" selected="selected">@revenueType.DESC0</option>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <option value="@revenueType.MasterCode">@revenueType.DESC0</option>
+                                                                                    }
+
+                                                                                }
+                                                                            }
+
+                                                                        </select>
+                                                                        <input type="hidden" name="revenueType" value="@weChatMainModel.RevenueType" />
+                                                                    </td>
+                                                                    @{
+                                                                        if (weChatMainModel.RevenueType == 2)
+                                                                        {
+                                                                            <td class="personLabel" align="right">人员标签：</td>
+                                                                            <td class="personLabel">
+                                                                                <input type="text" readonly="readonly" class="input_text form-control" id="txtLabel" name="Label" style="background-color: #f5f5f5!important;" value="@weChatMainModel.Label" />
+                                                                            </td>
+                                                                        }
+                                                                    }
+                                                                    <td align="right" class="tdMoney" style="display: none">金额：</td>
+                                                                    <td class="tdMoney" style="display: none">
+                                                                        <input id="txtMoney" type="text" class="input_text form-control" validatetype="decimalNumber" value="@weChatMainModel.Message" />
+                                                                    </td>
+                                                                    <td class="pushHistory" align="right">记录推送历史：</td>
+                                                                    <td class="pushHistory">
+                                                                        @if (weChatMainModel.History == "1")
+                                                                        {
+                                                                            <input id="chkHistory" type="checkbox" checked="checked" style="width: 17px; height: 17px;" />
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <input id="chkHistory" type="checkbox" style="width: 17px; height: 17px;" />
+                                                                        }
+
+                                                                    </td>
+                                                                </tr>
+                                                                        if (weChatMainModel.RevenueType == 1)
+                                                                        {
+                                                                            <tr style="height: 50px;">
+                                                                                <td class="personLabel" align="right">人员标签：</td>
+                                                                                <td class="personLabel">
+                                                                                    <input type="text" readonly="readonly" class="input_text form-control" id="txtLabel" name="Label" style="background-color: #f5f5f5!important;" value="@weChatMainModel.Label" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            }
+                                                                        }
+                                                                        else if (weChatMainModel.MessageType == 12)
+                                                                        {
+                                                                            <tr id="ExerciseList">
+                                                                                <td align="right" class="upLoadFileTD">上传附件：</td>
+                                                                                <td class="upLoadFileTD">
+                                                                                    <input type="file" name="importFile" class="input_text form-control" id="importFile" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+                                                                                </td>
+                                                                                <td class="personLabel" align="right">人员标签：</td>
+                                                                                <td class="personLabel">
+                                                                                    <input type="text" readonly="readonly" class="input_text form-control" id="txtLabel" name="Label" style="background-color: #f5f5f5 !important;" value="@weChatMainModel.Label" />
+                                                                                </td>
+                                                                                <td class="pushHistory" align="right">记录推送历史：</td>
+                                                                                <td class="pushHistory">
+                                                                                    @{
+                                                                                        if (weChatMainModel.History == "1")
+                                                                                        {
+                                                                                            <input id="chkHistory" type="checkbox" checked="checked" style="width: 17px; height: 17px;" />
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <input id="chkHistory" type="checkbox" style="width: 17px; height: 17px;" />
+                                                                                        }
+                                                                                    }
+
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr style="height: 50px">
+                                                                                <td align="right">协议类型：</td>
+                                                                                <td>
+                                                                                    <select id="agreementType" name="CountersignType" validatetype="required" class="input_text form-control">
+                                                                                        <option value="">===请选择===</option>
+                                                                                        @{
+                                                                                            foreach (var master2 in listCountersignType)
+                                                                                            {
+                                                                                                if (weChatMainModel.CountersignType.ToString() == master2.MasterCode)
+                                                                                                {
+                                                                                                    <option value=@master2.MasterCode selected="selected">@master2.DESC0</option>
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    <option value=@master2.MasterCode>@master2.DESC0</option>
+                                                                                                }
+
+                                                                                            }
+                                                                                        }
+                                                                                    </select>
+                                                                                </td>
+                                                                            </tr>
+                                                                                            }
+                                                                                            else if (weChatMainModel.MessageType == 13)
+                                                                                            {
+                                                                                                if (weChatMainModel.RedpacketType == 3)
+                                                                                                {
+                                                                                                    <tr style="height: 50px;">
+                                                                                                        <td align="right">红包类型：</td>
+                                                                                                        <td>
+                                                                                                            <select name="RedpacketType" id="RedpacketType" disabled="disabled" style="background-color: #f5f5f5 !important;" validatetype="required" class="input_text form-control">
+                                                                                                                @{
+                                                                                                                    foreach (var master2 in listRedPacketType)
+                                                                                                                    {
+                                                                                                                        if (weChatMainModel.RedpacketType.ToString() == master2.MasterCode)
+                                                                                                                        {
+                                                                                                                            <option value=@master2.MasterCode selected="selected">@master2.DESC0</option>
+                                                                                                                        }
+
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            </select>
+                                                                                                        </td>
+                                                                                                        <td align="right">红包金额从：</td>
+                                                                                                        <td>
+                                                                                                            <input type="text" id="txtRedpacketFrom" class="input_text form-control" name="RedpacketMoneyFrom" validatetype="required,redPacket" value="@weChatMainModel.RedpacketMoneyFrom" />
+                                                                                                        </td>
+                                                                                                        <td align="right">红包金额到：</td>
+                                                                                                        <td>
+                                                                                                            <input type="text" id="txtRedpacketTo" class="input_text form-control" name="RedpacketMoneyTo" validatetype="required,redPacket" value="@weChatMainModel.RedpacketMoneyTo" />
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr style="height: 50px;">
+                                                                                                        <td align="right">人员标签：</td>
+                                                                                                        <td>
+                                                                                                            <input type="text" readonly="readonly" class="input_text form-control" id="txtLabel" name="Label" style="background-color: #f5f5f5!important;" value="@weChatMainModel.Label" />
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr style="height: 45px;">
+                                                                                                        <td align="right">红包祝福语：</td>
+                                                                                                        <td colspan="5">
+                                                                                                            <div>
+                                                                                                                <textarea id="txtWishing" name="Message" maxlength="128" rows="12" class="description form-control" validatetype="required">@weChatMainModel.Message</textarea>
+                                                                                                            </div>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                                    }
+                                                                                                                    else
+                                                                                                                    {
+                                                                                                                        <tr style="height: 50px;">
+                                                                                                                            <td align="right">红包类型：</td>
+                                                                                                                            <td>
+                                                                                                                                <select name="RedpacketType" id="RedpacketType" disabled="disabled" style="background-color: #f5f5f5 !important;" validatetype="required" class="input_text form-control">
+                                                                                                                                    @{
+                                                                                                                                        foreach (var master2 in listRedPacketType)
+                                                                                                                                        {
+                                                                                                                                            if (weChatMainModel.RedpacketType.ToString() == master2.MasterCode)
+                                                                                                                                            {
+                                                                                                                                                <option value=@master2.MasterCode selected="selected">@master2.DESC0</option>
+                                                                                                                                            }
+
+                                                                                                                                        }
+                                                                                                                                    }
+                                                                                                                                </select>
+                                                                                                                            </td>
+                                                                                                                            <td align="right">红包金额：</td>
+                                                                                                                            <td>
+                                                                                                                                <input type="text" id="fixedRedpacket" class="input_text form-control" name="RedpacketMoney" validatetype="required,redPacket" value="@weChatMainModel.RedpacketMoney" />
+                                                                                                                            </td>
+                                                                                                                            <td align="right">人员标签：</td>
+                                                                                                                            <td>
+                                                                                                                                <input type="text" readonly="readonly" class="input_text form-control" id="txtLabel" name="Label" style="background-color: #f5f5f5!important;" value="@weChatMainModel.Label" />
+                                                                                                                            </td>
+                                                                                                                        </tr>
+                                                                                                                                            }
+                                                                                                                                        }
+                                                                                                                                        else if (weChatMainModel.MessageType == 14)
+                                                                                                                                        {
+                                                                                                                                            <tr style="height: 50px;">
+                                                                                                                                                <td align="right">付款金额：</td>
+                                                                                                                                                <td>
+                                                                                                                                                    <input type="text" id="paymentMoney" class="input_text form-control" name="RedpacketMoney" validatetype="required,payment" value="@weChatMainModel.RedpacketMoney" />
+                                                                                                                                                </td>
+                                                                                                                                                <td align="right">人员标签：</td>
+                                                                                                                                                <td>
+                                                                                                                                                    <input type="text" readonly="readonly" class="input_text form-control" id="txtLabel" name="Label" style="background-color: #f5f5f5!important;" value="@weChatMainModel.Label" />
+                                                                                                                                                </td>
+                                                                                                                                            </tr>
+                                                                                                                                            <tr style="height: 45px">
+                                                                                                                                                <td align="right">付款说明：</td>
+                                                                                                                                                <td colspan="5">
+                                                                                                                                                    <div>
+                                                                                                                                                        <textarea id="txtDesc" name="Message" rows="12" class="description form-control" validatetype="required">@weChatMainModel.Message</textarea>
+                                                                                                                                                    </div>
+                                                                                                                                                </td>
+                                                                                                                                            </tr>
+                                                                                                                                        }
+                                                                                                                                        //新增
+                                                                                                                                        else
+                                                                                                                                        {
+                                                                                                                                            <tr id="ExerciseList" style="display: none;">
+                                                                                                                                                <td align="right" class="exercisePushRow">推送习题：</td>
+                                                                                                                                                <td class="exercisePushRow">
+                                                                                                                                                    <select id="pushExercise" name="ExercisesVGUID" class="input_text form-control">
+                                                                                                                                                        <option value="">===请选择===</option>
+                                                                                                                                                        @{
+                                                                                                                                                            foreach (var item in exerciseList)
+                                                                                                                                                            {
+                                                                                                                                                                <option value="@item.Vguid">@item.ExercisesName</option>
+                                                                                                                                                            }
+                                                                                                                                                        }
+                                                                                                                                                    </select>
+                                                                                                                                                </td>
+                                                                                                                                                <td align="right" class="upLoadFileTD">
+                                                                                                                                                    上传附件：<br>
+                                                                                                                                                    <span style="color: red;">(只能上传word)</span>
+                                                                                                                                                </td>
+                                                                                                                                                <td class="upLoadFileTD">
+                                                                                                                                                    <input type="file" name="importFile" id="importFile" class="input_text form-control" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword" />
+                                                                                                                                                </td>
+                                                                                                                                                <td class="revenueType" align="right">营收类型：</td>
+                                                                                                                                                <td class="revenueType">
+                                                                                                                                                    <select id="revenueType" name="revenueType" class="input_text form-control">
+                                                                                                                                                        @{
+                                                                                                                                                            foreach (var revenueType in listRevenueType)
+                                                                                                                                                            {
+                                                                                                                                                                if (revenueType.DESC0 == "营收金额")
+                                                                                                                                                                {
+                                                                                                                                                                    <option value="@revenueType.MasterCode" selected="selected">@revenueType.DESC0</option>
+                                                                                                                                                                }
+                                                                                                                                                                else
+                                                                                                                                                                {
+                                                                                                                                                                    <option value="@revenueType.MasterCode">@revenueType.DESC0</option>
+                                                                                                                                                                }
+
+                                                                                                                                                            }
+                                                                                                                                                        }
+                                                                                                                                                    </select>
+                                                                                                                                                </td>
+                                                                                                                                                <td align="right" class="tdMoney" style="display: none">金额：</td>
+                                                                                                                                                <td class="tdMoney" style="display: none">
+                                                                                                                                                    <input id="txtMoney" type="text" class="input_text form-control" validatetype="decimalNumber" />
+                                                                                                                                                </td>
+                                                                                                                                                <td class="personLabel1" align="right">人员标签：</td>
+                                                                                                                                                <td class="personLabel1">
+                                                                                                                                                    <input type="text" readonly="readonly" class="input_text form-control" id="txtLabel" name="Label" style="background-color: #f5f5f5!important;" />
+                                                                                                                                                </td>
+                                                                                                                                                <td align="right">记录推送历史：</td>
+                                                                                                                                                <td>
+                                                                                                                                                    <input id="chkHistory" type="checkbox" style="width: 17px; height: 17px;" />
+                                                                                                                                                </td>
+                                                                                                                                            </tr>
+                                                                                                                                            <tr class="tdAgreementType" style="display: none; height: 50px;">
+                                                                                                                                                <td align="right">协议类型：</td>
+                                                                                                                                                <td>
+                                                                                                                                                    <select id="agreementType" name="CountersignType" validatetype="required" class="input_text form-control">
+                                                                                                                                                        <option value="">===请选择===</option>
+                                                                                                                                                        @{
+                                                                                                                                                            foreach (var master2 in listCountersignType)
+                                                                                                                                                            {
+                                                                                                                                                                <option value=@master2.MasterCode>@master2.DESC0</option>
+                                                                                                                                                            }
+                                                                                                                                                        }
+                                                                                                                                                    </select>
+                                                                                                                                                </td>
+                                                                                                                                            </tr>
+                                                                                                                                            <tr class="redPacket" style="display: none; height: 50px;">
+                                                                                                                                                <td align="right">红包类型：</td>
+                                                                                                                                                <td>
+                                                                                                                                                    <select id="RedpacketType" name="RedpacketType" validatetype="required" class="input_text form-control">
+                                                                                                                                                        <option value="">===请选择===</option>
+                                                                                                                                                        @{
+                                                                                                                                                            foreach (var master2 in listRedPacketType)
+                                                                                                                                                            {
+                                                                                                                                                                <option value=@master2.MasterCode>@master2.DESC0</option>
+                                                                                                                                                            }
+                                                                                                                                                        }
+                                                                                                                                                    </select>
+                                                                                                                                                </td>
+                                                                                                                                                <td align="right" class="fixedRedpacket">红包金额：</td>
+                                                                                                                                                <td class="fixedRedpacket">
+                                                                                                                                                    <input type="text" id="fixedRedpacket" class="input_text form-control" name="RedpacketMoney" validatetype="required,redPacket" />
+                                                                                                                                                </td>
+                                                                                                                                                <td align="right" class="randomRedpacket">红包金额从：</td>
+                                                                                                                                                <td class="randomRedpacket">
+                                                                                                                                                    <input type="text" id="txtRedpacketFrom" class="input_text form-control" name="RedpacketMoneyFrom" validatetype="required,redPacket" />
+                                                                                                                                                </td>
+                                                                                                                                                <td align="right" class="randomRedpacket">红包金额到：</td>
+                                                                                                                                                <td class="randomRedpacket">
+                                                                                                                                                    <input type="text" id="txtRedpacketTo" class="input_text form-control" name="RedpacketMoneyTo" validatetype="required,redPacket" />
+                                                                                                                                                </td>
+                                                                                                                                                <td align="right" class="fixedRedpacket">人员标签：</td>
+                                                                                                                                                <td class="fixedRedpacket">
+                                                                                                                                                    <input type="text" readonly="readonly" class="input_text form-control" id="txtLabel" name="Label" style="background-color: #f5f5f5!important;" />
+                                                                                                                                                </td>
+                                                                                                                                            </tr>
+                                                                                                                                            <tr id="trLabel" style="display: none; height: 50px;">
+                                                                                                                                                <td class="personLabel2" align="right">人员标签：</td>
+                                                                                                                                                <td class="personLabel2">
+                                                                                                                                                    <input type="text" readonly="readonly" class="input_text form-control" id="txtLabel" name="Label" style="background-color: #f5f5f5!important;" />
+                                                                                                                                                </td>
+                                                                                                                                                <td class="countDown" align="right">倒计时(分钟)：</td>
+                                                                                                                                                <td class="countDown">
+                                                                                                                                                    <input type="text" class="input_text form-control" id="txtcountDown" name="RevenueType" />
+                                                                                                                                                </td>
+                                                                                                                                            </tr>
+                                                                                                                                            <tr style="height: 45px; display: none" class="redPacket">
+                                                                                                                                                <td align="right">红包祝福语：</td>
+                                                                                                                                                <td colspan="5">
+                                                                                                                                                    <div>
+                                                                                                                                                        <textarea id="txtWishing" name="Message" maxlength="128" rows="12" class="description form-control" validatetype="required"></textarea>
+                                                                                                                                                    </div>
+                                                                                                                                                </td>
+                                                                                                                                            </tr>
+                                                                                                                                            <tr class="payment" style="display: none; height: 50px;">
+                                                                                                                                                <td align="right">付款金额：</td>
+                                                                                                                                                <td>
+                                                                                                                                                    <input type="text" id="paymentMoney" class="input_text form-control" name="RedpacketMoney" validatetype="required,payment" />
+                                                                                                                                                </td>
+                                                                                                                                                <td align="right">人员标签：</td>
+                                                                                                                                                <td>
+                                                                                                                                                    <input type="text" readonly="readonly" class="input_text form-control" id="txtLabel" name="Label" style="background-color: #f5f5f5!important;" />
+                                                                                                                                                </td>
+                                                                                                                                            </tr>
+                                                                                                                                            <tr style="height: 45px; display: none" class="payment">
+                                                                                                                                                <td align="right">付款说明：</td>
+                                                                                                                                                <td colspan="5">
+                                                                                                                                                    <div>
+                                                                                                                                                        <textarea id="txtDesc" name="Message" rows="12" class="description form-control" validatetype="required"></textarea>
+                                                                                                                                                    </div>
+                                                                                                                                                </td>
+                                                                                                                                            </tr>
+                                                                                                                                                            }
+                }
+                @{
+                    //微信
+                    if (weChatMainModel.PushType == 1)
+                    {
+                        switch (weChatMainModel.MessageType)
+                        {
+                            //文本
+                            case 1:
+                                <tr style="height: 45px;">
+                                    <td align="right" id="pushContentText">推送内容：</td>
+                                    <td colspan="5">
+                                        <div class="textEdit">
+                                            <textarea id="pushContent" name="Message" maxlength="300" rows="12" class="description form-control">@(weChatMainModel.Message)</textarea>
+                                        </div>
+                                    </td>
+                                </tr>
+                                break;
+                            //图片
+                            case 2:
+                            //习题
+                            case 4:
+                            case 6:
+                            case 11:
+                            case 13:
+                            case 14:
+                                break;
+                            default:
+                                <tr style="height: 45px;">
+                                    <td align="right" id="pushContentText">推送内容：</td>
+                                    <td colspan="5">
+                                        <div class="UEditor">
+                                            <textarea id="myEditor" name="Message" runat="server" onblur="setUeditor()">@weChatMainModel.Message</textarea>
+                                            <script type="text/javascript">
+                                                $(function () {
+                                                    var um = UE.getEditor('myEditor');
+
+                                                })
+                                            </script>
+                                        </div>
+                                    </td>
+                                </tr>
+                                break;
+                        }
+                    }
+                    //短信
+                    else if (weChatMainModel.PushType == 2)
+                    {
+                        <tr style="height: 45px;">
+                            <td align="right" id="pushContentText">推送内容：</td>
+                            <td colspan="5">
+                                <div class="textEdit">
+                                    <textarea id="pushContent" name="Message" maxlength="300" rows="12" class="description form-control">@(weChatMainModel.Message)</textarea>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    //新增
+                    else
+                    {
+                        <tr style="height: 45px;">
+                            <td align="right" style="display: none;" id="pushContentText">推送内容：</td>
+                            <td colspan="5">
+                                <div class="UEditor" style="display: none;">
+                                    <textarea id="myEditor" name="Message" runat="server" onblur="setUeditor()"></textarea>
+                                    <script type="text/javascript">
+                                        $(function () {
+                                            var um = UE.getEditor('myEditor');
+                                            um.setContent(@weChatMainModel.Message);
+
+                                        })
+                                    </script>
+                                </div>
+                                <div class="textEdit" style="display: none;">
+                                    <textarea id="pushContent" name="Message" maxlength="300" rows="12" class="description form-control">@(weChatMainModel.PushType == 2 ? weChatMainModel.Message : "")</textarea>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </table>
+            <input id="pushObject" type="hidden" name="PushObject" value="@pushObject" class="input_text form-control" />
+            <input id="pushName" type="hidden" value="@pushName" class="input_text form-control" />
+            <input id="isEdit" type="hidden" value="@isEdit" />
+            <input id="vguid" type="hidden" name="VGUID" value="@weChatMainModel.VGUID">
+            <input id="currentTime" type="hidden" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")" />
+            <input id="defaultEffectiveDate" type="hidden" value="@DateTime.Now.AddMonths(1).ToString("yyyy-MM-dd HH:mm:ss")" />
+            <input id="txtMessageType" type="hidden" value="@weChatMainModel.MessageType" />
+            <input class="coverHid" type="hidden" value="@weChatMainModel.CoverImg" />
+        </form>
+        @*侧边预览区*@
+        <div class="mod-sender__slider">
+            <div class="video-unit" index="0" onclick="onSelect_M()">
+                <a class="video-image">
+                    <p class="image_edit_placeholder">
+                        <span class="placeholder_text">
+                            封面图片<br />
+                            推荐尺寸900像素*500像素
+                        </span>
+                        <span class="placeholder_vertical"></span>
+                    </p>
+                    <p class="video_sub_title">@weChatMainModel.Title</p>
+                </a>
+            </div>
+
+            <a class="video_artical_add" href="javascript:;" onclick="onCreate(null)">
+                <span class="video_artical_add_button">
+                    <span class="icon_message_new ui-mt-large"></span>
+                </span>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+
+<script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/scripts/jquery-1.11.1.min.js")"></script>
+<div class="container">
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="SelectDialog">
+        <div class="modal-dialog modal-sm" style="width: 100%; padding-right: 20px; margin-top: 100px;">
+            <div class="modal-content" style="width: 850px; margin-left: auto; margin-right: auto;">
+                @* 450*@
+                <div class="modal-header" style="width: 100%; margin-left: auto; margin-right: auto;">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h6 class="modal-title" id="myModalLabel_title" style="color: #555; font-family: Calibri;">选择推送人 <span style="margin-left: 10px; text-decoration: underline;"><a href="/WeChatPush/DraftList/DownLoadTemplate">下载推送人导入模板</a></span></h6>
+
+                </div>
+                <div class="modal-body" style="width: 100%;">
+                    <form id="importForm">
+                        <div id="dvImport" style="margin-bottom: 10px;">
+                            <input id="himport" name="himport" onchange="fileUpload()" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" />
+                        </div>
+                    </form>
+                    <table style="width: 99%;">
+                        <tr style="height: 45px;">
+                            <td style="width: 40px;" align="left">部门：</td>
+                            <td style="width: 210px;">
+                                <div id="DepartmentDropDownButton" class="input_text form-control">
+                                    <div style="" id="DepartmentTree">
+                                    </div>
+                                </div>
+                                <input id="OwnedFleet" type="hidden" class="input_text form-control" />
+                                <input id="TranslationOwnedFleet_Search" type="hidden" class="input_text form-control" />
+                            </td>
+                            <td align="left" style="width: 80px;">人员姓名：</td>
+                            <td style="width: 210px;">
+                                <input id="Name_Search" type="text" class="input_text form-control" />
+                            </td>
+                        </tr>
+                        <tr style="height: 45px;">
+                            <td align="left" style="width: 80px;">手机号：</td>
+                            <td style="width: 210px;">
+                                <input id="MobilePhone_Search" type="text" class="input_text form-control" />
+                            </td>
+                            <td align="left">标签：</td>
+                            <td>
+                                <div id='jqxWidget'>
+                                </div>
+                            </td>
+                            <td align="right" style="width: 210px;">
+                                <button id="btnSearch" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe604;</i><span style="margin-left: 7px; float: left;">查询</span></button>
+                                <button id="btnReset" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe603;</i><span style="margin-left: 7px; float: left;">重置</span></button>
+                            </td>
+                        </tr>
+                    </table>
+                    <div id="UserInfoList" class="jqxTable" style="border-left: 0px;"></div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnPopSave" type="button" class="btn btn-warning" style="width: 85px; background-color: #16609c!important;"><i class="iconfont btn_icon" style="color: white !important; margin-left: 0px;">&#xe61c;</i><span style="margin-left: 7px; float: left;">确定</span></button>
+                    <button id="btnPopCancel" type="button" class="btn btn-danger" style="width: 85px; border-color: #16609c!important; background-color: #16609c!important;"><i class="iconfont btn_icon" style="color: white !important; margin-left: 0px;">&#xe606;</i><span style="margin-left: 7px; float: left;">取消</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="PreviewDialog">
+        <div class="modal-dialog modal-sm" style="width: 100%; padding-right: 20px; margin-top: 100px;">
+            <div class="modal-content" style="width: 850px; margin-left: auto; margin-right: auto;">
+                <div class="modal-header" style="width: 100%; margin-left: auto; margin-right: auto;">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h6 class="modal-title" style="color: #555; font-family: Calibri;">在微信中预览</h6>
+                </div>
+                <div class="modal-body" style="width: 100%;">
+                    <table style="width: 99%;">
+                        <tr style="height: 45px;">
+                            <td align="center" style="width: 80px;">人员姓名：</td>
+                            <td style="width: 210px;">
+                                <input id="txtName_P" type="text" class="input_text form-control" />
+                            </td>
+                            <td align="center" style="width: 80px;">手机号：</td>
+                            <td style="width: 210px;">
+                                <input id="txtMobilePhone_P" type="text" class="input_text form-control" />
+                            </td>
+                            <td align="right" style="width: 210px;">
+                                <button id="btnSearch_P" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe604;</i><span style="margin-left: 7px; float: left;">查询</span></button>
+                                <button id="btnReset_P" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe603;</i><span style="margin-left: 7px; float: left;">重置</span></button>
+                            </td>
+                        </tr>
+                    </table>
+                    <div id="jqxTable" class="jqxTable" style="border-left: 0;"></div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnPopSave_P" type="button" class="btn btn-warning" style="width: 85px; background-color: #16609c!important;"><i class="iconfont btn_icon" style="color: white !important; margin-left: 0px;">&#xe61c;</i><span style="margin-left: 7px; float: left;">确定</span></button>
+                    <button id="btnPopCance_P" type="button" class="btn btn-danger" style="width: 85px; border-color: #16609c!important; background-color: #16609c!important;"><i class="iconfont btn_icon" style="color: white !important; margin-left: 0px;">&#xe606;</i><span style="margin-left: 7px; float: left;">取消</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="notExistDialog">
+        <div class="modal-dialog modal-sm" style="width: 100%; padding-right: 20px; margin-top: 100px;">
+            <div class="modal-content" style="width: 850px; margin-left: auto; margin-right: auto;">
+                <div class="modal-header" style="width: 100%; margin-left: auto; margin-right: auto;">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h5 class="modal-title" style="color: #555; font-family: Calibri;">推送失败人员&nbsp;<span style="font-weight: bold; font-size: 16px;" id="tips"></span></h5>
+                </div>
+                <div class="modal-body" style="width: 100%;">
+                    <div id="notExistTable"></div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnDownLoad" type="button" class="btn btn-warning" style="width: 85px; background-color: #16609c!important;"><i class="iconfont btn_icon" style="color: white !important; margin-left: 0px;">&#xe61c;</i><span style="margin-left: 7px; float: left;">下载</span></button>
+                    <button id="btnCancel_Not" type="button" class="btn btn-danger" style="width: 85px; border-color: #16609c !important; background-color: #16609c !important;"><i class="iconfont btn_icon" style="color: white !important; margin-left: 0px;">&#xe606;</i><span style="margin-left: 7px; float: left;">取消</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*工资条推送*@
+<div class="container">
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="SalaryDialog">
+        <div class="modal-dialog modal-sm" style="width: 100%; padding-right: 20px; margin-top: 100px;">
+            <div class="modal-content" style="width: 850px; margin-left: auto; margin-right: auto;">
+                <div class="modal-header" style="width: 100%; margin-left: auto; margin-right: auto;">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h5 class="modal-title" style="color: #555; font-family: Calibri;">工资条推送</h5>
+                </div>
+                <div class="modal-body" style="width: 100%;">
+                    <table>
+                        <tr style="height: 50px;">
+                            <td align="right" style="width: 90px;">标题：</td>
+                            <td colspan="4" style="width: 210px;">
+                                <input id="txtTitle_sa" type="text" validatetype="required" class="input_text form-control" />
+                            </td>
+                            <td align="center" style="width: 10px;"><span style="color: red; margin-left: 5px;">*</span></td>
+                        </tr>
+                        <tr style="height: 50px;">
+                            <td align="right" style="width: 105px;">是否定时发送：</td>
+                            <td style="width: 210px;">
+                                <select id="isSendTime_sa" name="Timed" class="input_text form-control">
+                                    <option value="True">是</option>
+                                    <option value="False" selected="selected">否</option>
+                                </select>
+                            </td>
+                            <td align="right" style="width: 105px;">发送时间：</td>
+                            <td>
+                                <input id="sendTime_sa" name="TimedSendTime" disabled="disabled" style="background-color: #f5f5f5!important;" class="input_text form-control" />
+                            </td>
+                        </tr>
+                        <tr style="height: 50px;">
+                            <td align="right">是否永久：</td>
+                            <td>
+                                <select id="isImportant_sa" name="Important" class="input_text form-control">
+                                    <option value="True">是</option>
+                                    <option value="False" selected="selected">否</option>
+                                </select>
+                            </td>
+                            <td align="right">有效日期：</td>
+                            <td>
+
+                                <input id="effectiveDate_sa" name="PeriodOfValidity" class="input_text form-control" />
+                            </td>
+                        </tr>
+                        <tr style="height: 50px;">
+                            <td align="right">封面图片：</td>
+                            <td>
+                                <input type="file" id="coverImg_input_sa" name="CoverImgs" class="input_text form-control" accept="image/gif,image/jpeg,image/jpg,image/png" />
+                                <input type="hidden" id="coverImgPath_sa" name="CoverImg" value="" />
+                            </td>
+                            <td align="right">封面描述：</td>
+                            <td>
+                                <input id="txtCoverDescption_sa" type="text" name="CoverDescption" class="input_text form-control" />
+                            </td>
+                        </tr>
+                        <tr style="height: 50px;">
+                            <td align="right">
+                                上传附件：<br>
+                                <span style="color: red;">(只能上传Excel)</span>
+                            </td>
+                            <td>
+                                <input type="hidden" id="txtSalalryPath" value="" />
+                                <input id="importSalary" name="importSalary" onchange="UploadSalary()" class="input_text form-control" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" />
+
+                            </td>
+                            <td style="width: 10px;"><span style="color: red; margin-left: 5px;" id="uploadResult"></span></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSave_sa" type="button" class="btn btn-warning" style="width: 85px; background-color: #16609c!important;"><i class="iconfont btn_icon" style="color: white !important; margin-left: 0px;">&#xe614;</i><span style="margin-left: 7px; float: left;">保存</span></button>
+                    <button id="btnCancel_sa" type="button" class="btn btn-danger" style="width: 85px; border-color: #16609c !important; background-color: #16609c !important;"><i class="iconfont btn_icon" style="color: white !important; margin-left: 0px;">&#xe606;</i><span style="margin-left: 7px; float: left;">取消</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

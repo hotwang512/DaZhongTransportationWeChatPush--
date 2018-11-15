@@ -1,0 +1,77 @@
+﻿@{
+    ViewBag.Title = "角色权限管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var currentModuleRolePermission = ViewBag.CurrentModulePermission as Sys_Role_Module;
+}
+@using DaZhongManagementSystem.Entities.TableEntity;
+
+@section pageTitle{
+    @ViewBag.Title
+}
+
+@section js{
+
+    <script src="@Url.Content("~/Areas/Systemmanagement/Views/_js/AuthorityManagement.js")"></script>
+
+}
+
+@*css*@
+@section css{
+
+}
+@{
+    if (currentModuleRolePermission.Adds == 1 || currentModuleRolePermission.Deletes == 1)
+    {
+    <table style="margin-top: 10px;">
+        <tr style="height: 50px;">
+            @if (currentModuleRolePermission.Adds == 1)
+            { 
+                <td style="width: 95px;">
+                    <button id="btnAdd" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe60e;</i><span style="margin-left: 7px; float: left;">新增</span></button>
+                </td>
+            }
+            @if (currentModuleRolePermission.Deletes == 1)
+            { 
+                <td style="width: 95px;">
+                    <button id="btnDelete" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe616;</i><span style="margin-left: 7px; float: left;">删除</span></button>
+                </td>
+            }
+        </tr>
+    </table>
+    }
+}
+
+
+<div class="mk">
+    <div class="header_mk">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">查询</span></div>
+    </div>
+    <div class="body_mk" style="height: 60px">
+        <table style="margin-top: 20px; width: 550px; margin-left: 20px;">
+            <tr>
+                <td style="width: 70px;">角色名称：</td>
+                <td style="width: 250px;">
+                    <input id="RoleName_Search" type="text" class="input_text form-control" />
+                </td>
+                <td align="right">
+                    <button id="btnSearch" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe604;</i><span style="margin-left: 7px; float: left;">查询</span></button>
+                </td>
+                <td align="center">
+                    <button id="btnReset" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe603;</i><span style="margin-left: 7px; float: left;">重置</span></button>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+
+<div class="mk" style="border-bottom: 0px;">
+    <div class="header_mk" style="border-bottom: 0px;">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">数据列表</span></div>
+    </div>
+
+    <div id="roleList" class="jqxTable" style="border-left: 0px;">
+    </div>
+</div>

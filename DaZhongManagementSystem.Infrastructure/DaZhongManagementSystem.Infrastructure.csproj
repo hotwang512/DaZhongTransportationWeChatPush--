@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7F8E9A53-9B96-4A4B-A25F-D0DACE9CB1E4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DaZhongManagementSystem.Infrastructure</RootNamespace>
+    <AssemblyName>DaZhongManagementSystem.Infrastructure</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aspose.Cells">
+      <HintPath>..\DaZhongManagementSystem\_lib\Aspose.Cells.dll</HintPath>
+    </Reference>
+    <Reference Include="Aspose.Pdf">
+      <HintPath>..\DaZhongManagementSystem\_lib\Aspose.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="Aspose.Words">
+      <HintPath>..\DaZhongManagementSystem\_lib\Aspose.Words.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>..\DaZhongManagementSystem\_lib\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySqlSugar">
+      <HintPath>..\DaZhongManagementSystem\_lib\MySqlSugar.dll</HintPath>
+    </Reference>
+    <Reference Include="SqlSugar">
+      <HintPath>..\DaZhongManagementSystem\_lib\SqlSugar.dll</HintPath>
+    </Reference>
+    <Reference Include="SyntacticSugar">
+      <HintPath>..\DaZhongManagementSystem\_lib\SyntacticSugar.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DraftManagement\AgreementServer.cs" />
+    <Compile Include="DraftManagement\RedPacketServer.cs" />
+    <Compile Include="ExerciseLibraryManagement\CheckedExerciseLibraryServer.cs" />
+    <Compile Include="ExerciseLibraryManagement\ExerciseLibraryServer.cs" />
+    <Compile Include="ExerciseManagement\ExerciseServer.cs" />
+    <Compile Include="BasicDataManagement\OrganizationManagementServer.cs" />
+    <Compile Include="BasicDataManagement\UserInfoServer.cs" />
+    <Compile Include="BasicDataManagement\WeChatExerciseServer.cs" />
+    <Compile Include="DailyLogManagement\LogLogic.cs" />
+    <Compile Include="DailyLogManagement\LogServer.cs" />
+    <Compile Include="DraftManagement\CheckedServer.cs" />
+    <Compile Include="DraftManagement\CommitedServer.cs" />
+    <Compile Include="DraftManagement\DraftManagementServer.cs" />
+    <Compile Include="DraftManagement\PushDetailServer.cs" />
+    <Compile Include="DraftManagement\PushedListServer.cs" />
+    <Compile Include="ExerciseManagement\CheckedExerciseServer.cs" />
+    <Compile Include="ExerciseManagement\MarkingExerciseServer.cs" />
+    <Compile Include="KnowledgeBaseManagement\DraftServer.cs" />
+    <Compile Include="KnowledgeBaseManagement\FormalServer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PushHistory\PushHistoryServer.cs" />
+    <Compile Include="QRCodeManagement\CodeGenerateServer.cs" />
+    <Compile Include="QuestionManagement\CheckedQuestionServer.cs" />
+    <Compile Include="QuestionManagement\QuestionServer.cs" />
+    <Compile Include="ReportManagement\PaymentReportServer.cs" />
+    <Compile Include="ReportManagement\PushMsgReportServer.cs" />
+    <Compile Include="ReportManagement\ScoreReportServer.cs" />
+    <Compile Include="RevenueServer.cs" />
+    <Compile Include="Salary\SalaryServer.cs" />
+    <Compile Include="QRCodeManagement\ScanDataServer.cs" />
+    <Compile Include="QRCodeManagement\ScanHistoryServer.cs" />
+    <Compile Include="ShortMsgServer.cs" />
+    <Compile Include="SugarDao\SugarDao_AliPaySql.cs" />
+    <Compile Include="SugarDao\SugarDao_DriverRevenueSql.cs" />
+    <Compile Include="SugarDao\SugarDao_LandaVSql.cs" />
+    <Compile Include="SugarDao\SugarDao_MsSql.cs" />
+    <Compile Include="SugarDao\SugarDao_ReckoningSql.cs" />
+    <Compile Include="SystemManagement\AuthorityManageServer.cs" />
+    <Compile Include="SystemManagement\ConfigManageServer.cs" />
+    <Compile Include="SystemManagement\UserManageServer.cs" />
+    <Compile Include="UserLogin\UserLoginServer.cs" />
+    <Compile Include="WeChatRevenue\WeChatRevenueServer.cs" />
+    <Compile Include="WeChatValidationServer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DaZhongManagementSystem.Common\DaZhongManagementSystem.Common.csproj">
+      <Project>{c4254491-e8d4-4c24-8898-67837a655207}</Project>
+      <Name>DaZhongManagementSystem.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DaZhongManagementSystem.Entities\DaZhongManagementSystem.Entities.csproj">
+      <Project>{53466f02-4786-4730-bc77-ec961106e5d7}</Project>
+      <Name>DaZhongManagementSystem.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

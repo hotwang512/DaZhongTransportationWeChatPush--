@@ -1,0 +1,487 @@
+﻿@{
+    ViewBag.Title = "查看推送历史详情";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var weChatMainModel = ViewBag.WeChatModel as Business_WeChatPush_Information;
+    var pushObj = ViewBag.pushObj;
+    var darftInfoList = ViewData["PushType"] as List<CS_Master_2>;//绑定推送类型
+    var weChatPushTypeList = ViewData["WeChatPushType"] as List<CS_Master_2>;//微信推送类型
+    var exerciseList = ViewData["ExerciseList"] as List<Business_Exercises_Infomation>;//习题列表
+    var listRevenueType = ViewData["RevenueTypeList"] as List<CS_Master_2>;
+    var listCountersignType = ViewBag.listCountersignType as List<CS_Master_2>; //协议类型
+}
+@using DaZhongManagementSystem.Entities.TableEntity;
+
+@section pageTitle
+{
+    @ViewBag.Title
+}
+
+@section js
+{
+    <script src="@Url.Content("~/Areas/WeChatPush/Views/_js/HistoryDetail.js")"></script>
+    <script src="@Url.Content("~/_theme/bootstrap-datepicker/bootstrap-datepicker.js")"></script>
+    @*富文本框*@
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <script charset="utf-8" src="@Url.Content("~/_theme/utf8net/ueditor.config.js")"></script>
+    <script charset="utf-8" src="@Url.Content("~/_theme/utf8net/ueditor.all.min.js")"></script>
+    <script charset="utf-8" src="@Url.Content("~/_theme/utf8net/lang/zh-cn/zh-cn.js")"></script>
+}
+
+@*css*@
+@section css{
+    <link href="@Url.Content("~/Areas/WeChatPush/Views/_css/PushedDetail.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Areas/WeChatPush/Views/_css/CommonSlider.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/_theme/bootstrap-datepicker/datepicker.css")" rel="stylesheet" />
+
+    <link href="@Url.Content("~/_theme/utf8net/themes/default/dialogbase.css")" rel="stylesheet" />
+}
+
+<table style="margin-top: 10px;" lang="en-US">
+    <tr style="height: 50px;">
+        <td style="width: 95px;">
+            <button id="btnBack" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe611; </i><span style="margin-left: 7px; float: left;">返回</span></button>
+        </td>
+    </tr>
+</table>
+
+<div class="mk">
+    <div class="header_mk">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">推送详细信息</span></div>
+    </div>
+    <div class="body_mk" style="height: 565px">
+        <form id="pushForm">
+            <table style="margin-top: 20px; margin-left: 20px;" class="tableClass">
+                <tr style="height: 50px;">
+                    <td align="right" style="width: 90px;">标题：</td>
+                    <td colspan="5" style="width: 210px;">
+                        <input id="txtTitle" disabled="disabled" style="background-color:#f5f5f5!important;" type="text" name="Title" class="input_text form-control" value="@weChatMainModel.Title" />
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr style="height: 50px;">
+                    <td align="right">推送方式：</td>
+                    <td>
+                        <select id="pushType" style="background-color: #f5f5f5!important;" disabled="disabled" name="PushType" class="input_text form-control">
+                            <option>===请选择===</option>
+                            @{
+                                foreach (var item in darftInfoList)
+                                {
+                                    if (item.MasterCode == weChatMainModel.PushType.ToString())
+                                    {
+                                <option value="@item.MasterCode" selected="selected">@item.DESC0</option>
+                                    }
+                                    else
+                                    {
+                                <option value="@item.MasterCode">@item.DESC0</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </td>
+                    <td align="right" style="width: 105px;">是否定时发送：</td>
+                    <td>
+                        <select id="isSendTime" style="background-color: #f5f5f5!important;" disabled="disabled" name="Timed" class="input_text form-control">
+                            <option>===请选择===</option>
+                            @{
+                                if (weChatMainModel.Timed.ToString().ToUpper() == "FALSE")
+                                {
+                                <option value="1">是</option>
+                                <option value="0" selected="selected">否</option>
+                                }
+                                else if (weChatMainModel.Timed.ToString().ToUpper() == "TRUE")
+                                {
+                                <option value="1" selected="selected">是</option>
+                                <option value="0">否</option>
+                                }
+                            }
+                        </select>
+                    </td>
+                    <td align="right" style="width: 100px;">发送时间：</td>
+                    <td>
+                        <input id="sendTime" style="background-color:#f5f5f5!important;"disabled="disabled" name="TimedSendTime" class="input_text form-control" value="@(weChatMainModel.TimedSendTime == null ? "" : weChatMainModel.TimedSendTime.ToString())" />
+                    </td>
+                </tr>
+                <tr style="height: 50px;">
+                    <td align="right">推送接收者：</td>
+                    <td>
+                        <input id=""disabled="disabled" style="background-color: #f5f5f5!important;" class="input_text form-control" value="@pushObj" />
+                    </td>
+                    <td align="right">有效日期：</td>
+                    <td>
+                        <input id="effectiveDate" style="background-color:#f5f5f5!important;"disabled="disabled" name="PeriodOfValidity" class="input_text form-control" value="@(weChatMainModel.PeriodOfValidity == null ? "" : weChatMainModel.PeriodOfValidity.ToString())" />
+                    </td>
+                    <td align="right">是否重要：</td>
+                    <td>
+                        <select id="isImportant" style="background-color: #f5f5f5!important;" disabled="disabled" name="important" class="input_text form-control">
+                            <option>===请选择===</option>
+                            @{
+                                if (weChatMainModel.Important.ToString().ToUpper() == "FALSE")
+                                {
+                                <option value="1">是</option>
+                                <option value="0" selected="selected">否</option>
+                                }
+                                else if (weChatMainModel.Important.ToString().ToUpper() == "TRUE")
+                                {
+                                <option value="1" selected="selected">是</option>
+                                <option value="0">否</option>
+                                }
+                            }
+                        </select>
+                    </td>
+                </tr>
+                @{
+                    //微信（编辑）
+                    if (weChatMainModel.PushType == 1)
+                    {
+                    <tr id="weChatTypeRow">
+                        <td align="right">微信推送类型：</td>
+                        <td>
+                            <select id="weChatMessageType" disabled="disabled" style="background-color: #f5f5f5!important;" name="MessageType" class="input_text form-control">
+                                <option>===请选择===</option>
+                                @{
+                        foreach (var item in weChatPushTypeList)
+                        {
+                            if (item.MasterCode == weChatMainModel.MessageType.ToString())
+                            {
+                                    <option value="@item.MasterCode" selected="selected">@item.DESC0</option>
+                            }
+                            else
+                            {
+                                    <option value="@item.MasterCode">@item.DESC0</option>
+                            }
+                        }
+                                }
+                            </select>
+                        </td>
+                        @switch (weChatMainModel.MessageType)
+                        {
+                            //文本
+                            case 1:
+                            <td class="personLabel" align="right">人员标签：</td>
+                            <td class="personLabel">
+                                <input type="text"disabled="disabled"name="Label" class="input_text form-control" style="background-color: #f5f5f5!important;" value="@weChatMainModel.Label"/>
+                            </td>
+                            <td class="pushHistory" align="right">记录推送历史：</td>
+                            <td class="pushHistory">
+                                <input type="checkbox" checked="checked" disabled="disabled" style="width: 17px; height: 17px; background-color: #f5f5f5!important;" />
+                            </td>
+                                break;
+                            default:
+                            <td class="weChatCoverMsg" align="right">封面图片：</td>
+                            <td class="weChatCoverMsg">
+                                <input type="file" id="coverImg_input" style="background-color: #f5f5f5!important;" disabled="disabled" name="CoverImg" class="input_text form-control" accept="image/*" />
+                            </td>
+                            <td class="weChatCoverMsg" align="right">封面描述：</td>
+                            <td class="weChatCoverMsg">
+                                <input id="" type="text" name="CoverDescption" style="background-color: #f5f5f5!important;"disabled="disabled" class="input_text form-control" value="@weChatMainModel.CoverDescption" />
+                            </td>
+                                break;
+                        }
+                    </tr>
+                    }
+                    //短信（编辑）
+                    else if (weChatMainModel.PushType == 2)
+                    {
+
+                    }
+                }
+                @{
+                    //习题推送
+                    if (weChatMainModel.MessageType == 4)
+                    {
+                    <tr id="ExerciseList">
+                        <td align="right">推送习题：</td>
+                        <td>
+                            <select id="pushExercise" disabled="disabled" style="background-color: #f5f5f5!important;" name="ExercisesVGUID" class="input_text form-control">
+                                <option>===请选择===</option>
+                                @{
+                        foreach (var item in exerciseList)
+                        {
+                            if (item.Vguid == weChatMainModel.ExercisesVGUID)
+                            {
+                                    <option value="@item.Vguid" selected="selected">@item.ExercisesName</option>
+                            }
+                            else
+                            {
+                                    <option value="@item.Vguid">@item.ExercisesName</option>
+                            }
+                        }
+                                }
+                            </select>
+                        </td>
+                        <td class="personLabel" align="right">人员标签：</td>
+                        <td class="personLabel">
+                            <input type="text"disabled="disabled"name="Label" class="input_text form-control" style="background-color: #f5f5f5!important;" value="@weChatMainModel.Label"/>
+                        </td>
+                        <td class="pushHistory" align="right">记录推送历史：</td>
+                        <td class="pushHistory">
+                            <input type="checkbox" checked="checked" disabled="disabled" style="width: 17px; height: 17px; background-color: #f5f5f5!important;" />
+                        </td>
+                    </tr>
+                    }
+                    //培训推送
+                    else if (weChatMainModel.MessageType == 5)
+                    {
+                    <tr id="ExerciseList">
+                        <td align="right">推送习题：</td>
+                        <td>
+                            <select id="pushExercise" name="ExercisesVGUID" disabled="disabled" style="background-color: #f5f5f5!important;" class="input_text form-control">
+                                <option>===请选择===</option>
+                                @{
+                        foreach (var item in exerciseList)
+                        {
+                            if (item.Vguid == weChatMainModel.ExercisesVGUID)
+                            {
+                                    <option value="@item.Vguid" selected="selected">@item.ExercisesName</option>
+                            }
+                            else
+                            {
+                                    <option value="@item.Vguid">@item.ExercisesName</option>
+                            }
+                        }
+                                }
+                            </select>
+                        </td>
+                        <td class="personLabel" align="right">人员标签：</td>
+                        <td class="personLabel">
+                            <input type="text"disabled="disabled"name="Label" class="input_text form-control" style="background-color: #f5f5f5!important;" value="@weChatMainModel.Label"/>
+                        </td>
+                        <td class="pushHistory" align="right">记录推送历史：</td>
+                        <td class="pushHistory">
+                            <input type="checkbox" checked="checked" disabled="disabled" style="width: 17px; height: 17px; background-color: #f5f5f5!important;" />
+                        </td>
+                    </tr>
+                    }
+                    else if (weChatMainModel.MessageType == 6)
+                    {
+                    <tr style="height: 50px;">
+                        <td class="personLabel" align="right">人员标签：</td>
+                        <td class="personLabel">
+                            <input type="text"disabled="disabled"name="Label" class="input_text form-control" style="background-color: #f5f5f5!important;" value="@weChatMainModel.Label"/>
+                        </td>
+                        <td class="pushHistory" align="right">记录推送历史：</td>
+                        <td class="pushHistory">
+                            @if (weChatMainModel.History == "1")
+                            {
+                                <input id="chkHistory" type="checkbox" disabled="disabled" checked="checked" style="width: 17px; height: 17px;" />
+                            }
+                            else
+                            {
+                                <input id="chkHistory" type="checkbox" disabled="disabled" style="width: 17px; height: 17px;" />
+                            }
+
+                        </td>
+                    </tr>
+                    }
+                    else if (weChatMainModel.MessageType == 11)
+                    {
+                    <tr style="height: 50px;">
+                        <td class="revenueType" align="right">营收类型：</td>
+                        <td class="revenueType">
+                            <select id="revenueType" name="revenueType" disabled="disabled" style="background-color: #f5f5f5!important;" class="input_text form-control">
+                                @{
+                                    
+                        foreach (var revenueType in listRevenueType)
+                        {
+                            if (revenueType.MasterCode == weChatMainModel.RevenueType.ToString())
+                            {
+                                    <option value="@revenueType.MasterCode" selected="selected">@revenueType.DESC0</option>                                                                                           
+                            }
+                            else
+                            {
+                                    <option value="@revenueType.MasterCode">@revenueType.DESC0</option>        
+                            }
+
+                        }
+                                }
+
+                            </select>
+                        </td>
+                        @if (weChatMainModel.RevenueType == 2)
+                        { 
+                            <td class="personLabel" align="right">人员标签：</td>
+                            <td class="personLabel">
+                                <input type="text"disabled="disabled"name="Label"  class="input_text form-control" style="background-color: #f5f5f5!important;" value="@weChatMainModel.Label"/>
+                            </td>
+                        }
+                        <td align="right" class="tdMoney" style="display: none">金额：</td>
+                        <td class="tdMoney" style="display: none">
+                            <input id="txtMoney" disabled="disabled" type="text" style="background-color: #f5f5f5 !important;" class="input_text form-control" validatetype="decimalNumber" value="@weChatMainModel.Message" />
+                        </td>
+                        <td class="pushHistory" align="right">记录推送历史：</td>
+                        <td class="pushHistory">
+                            @if (weChatMainModel.History == "1")
+                            {
+                                <input id="chkHistory" type="checkbox" checked="checked" disabled="disabled" style="width: 17px; height: 17px;" />
+                            }
+                            else
+                            {
+                                <input id="chkHistory" type="checkbox" disabled="disabled" style="width: 17px; height: 17px;" />
+                            }
+
+                        </td>
+                    </tr>
+                            if (weChatMainModel.RevenueType == 1)
+                            {
+                    <tr style="height: 50px;">
+                        <td class="personLabel" align="right">人员标签：</td>
+                        <td class="personLabel">
+                            <input type="text"disabled="disabled"name="Label"  class="input_text form-control" style="background-color: #f5f5f5!important;" value="@weChatMainModel.Label"/>
+                        </td>
+
+                    </tr>
+                            }
+                    }
+                    else if (weChatMainModel.MessageType == 12)
+                    {
+                    <tr style="height: 50px;">
+                        <td align="right">协议类型：</td>
+                        <td>
+                            <select id="agreementType" name="CountersignType" disabled="disabled" style="background-color: #f5f5f5!important;" class="input_text form-control">
+                                <option value="">===请选择===</option>
+                                @{
+                        foreach (var master2 in listCountersignType)
+                        {
+                            if (weChatMainModel.CountersignType.ToString() == master2.MasterCode)
+                            {
+                                    <option value=@master2.MasterCode selected="selected">@master2.DESC0</option>
+                            }
+                            else
+                            {
+                                    <option value=@master2.MasterCode >@master2.DESC0</option>    
+                            }
+
+                        }
+                                }
+                            </select>
+                        </td>
+                        <td align="right">人员标签：</td>
+                        <td>
+                            <input type="text" disabled="disabled"  class="input_text form-control" id="txtLabel" name="Label" style="background-color: #f5f5f5 !important;" value="@weChatMainModel.Label"/>
+                        </td>
+                        <td align="right">记录推送历史：</td>
+                        <td>
+                            <input id="chkHistory" type="checkbox" checked="checked" disabled="disabled" style="width: 17px; height: 17px;" />
+                        </td>
+                    </tr>             
+                    }
+                }
+                @{
+                    //微信
+                    if (weChatMainModel.PushType == 1)
+                    {
+                        switch (weChatMainModel.MessageType)
+                        {
+                            //文本
+                            case 1:
+                    <tr style="height: 45px;">
+                        <td align="right" id="pushContentText">推送内容：</td>
+                        <td colspan="5">
+                            <div class="textEdit">
+                                <textarea id="pushContent" name="Message" maxlength="300" style="background-color: #f5f5f5!important;" readonly rows="12" class="description form-control">@(weChatMainModel.Message)</textarea>
+                            </div>
+                        </td>
+                    </tr>
+                                break;
+                            //图片
+                            case 3:
+                    <tr style="height: 45px">
+                        <td class="personLabel" align="right">人员标签：</td>
+                        <td class="personLabel">
+                            <input type="text"disabled="disabled"name="Label" class="input_text form-control" style="background-color: #f5f5f5!important;" value="@weChatMainModel.Label"/>
+                        </td>
+                        <td class="pushHistory" align="right">记录推送历史：</td>
+                        <td class="pushHistory">
+                            @if (weChatMainModel.History == "1")
+                            {
+                                <input id="chkHistory" type="checkbox" disabled="disabled" checked="checked" style="width: 17px; height: 17px;" />
+                            }
+                            else
+                            {
+                                <input id="chkHistory" type="checkbox" disabled="disabled" style="width: 17px; height: 17px;" />
+                            }
+                        </td>
+                    </tr>
+                    <tr style="height: 45px;">
+                        <td align="right" id="pushContentText">推送内容：</td>
+                        <td colspan="5">
+                            <div class="UEditor">
+                                <textarea id="myEditor" name="Message" runat="server" onblur="setUeditor()">@weChatMainModel.Message</textarea>
+                                <script type="text/javascript">
+                                    $(function () {
+                                        var um = UE.getEditor('myEditor', {
+                                            readonly: true
+                                        });
+                                    })
+                                </script>
+                            </div>
+                        </td>
+                    </tr>
+                            break;
+                            case 4:    //习题
+                            case 6:
+                            case 11:
+                            break;
+                            default:
+                    <tr style="height: 45px;">
+                        <td align="right" id="pushContentText">推送内容：</td>
+                        <td colspan="5">
+                            <div class="UEditor">
+                                <textarea id="myEditor" name="Message" runat="server" onblur="setUeditor()">@weChatMainModel.Message</textarea>
+                                <script type="text/javascript">
+                                    $(function () {
+                                        var um = UE.getEditor('myEditor', {
+                                            readonly: true
+                                        });
+                                    })
+                                </script>
+                            </div>
+                        </td>
+                    </tr>
+                            break;
+                        }
+                    }
+                    //短信
+                    else if (weChatMainModel.PushType == 2)
+                    {
+                    <tr style="height: 45px;">
+                        <td align="right" id="pushContentText">推送内容：</td>
+                        <td colspan="5">
+                            <div class="textEdit">
+                                <textarea id="pushContent" name="Message" style="background-color: #f5f5f5!important;" readonly maxlength="300" rows="12" class="description form-control">@(weChatMainModel.Message)</textarea>
+                            </div>
+                        </td>
+                    </tr>
+                    }
+                }
+            </table>
+            <input id="pushObject" name="PushObject" type="hidden" value="ID1001,ID1004,ID1005" class="input_text form-control" />
+            <input id="vguid" type="hidden" name="VGUID" value="@weChatMainModel.VGUID">
+            <input id="txtMessageType" type="hidden" value="@weChatMainModel.MessageType"/>
+            <input class="coverHid" type="hidden" value="@weChatMainModel.CoverImg"/>
+        </form>
+        @*侧边预览区*@
+        <div class="mod-sender__slider">
+            <div class="video-unit" index="0" onclick="onSelect_M()">
+                <a class="video-image">
+                    <p class="image_edit_placeholder">
+                        <span class="placeholder_text">封面图片<br />
+                            推荐尺寸900像素*500像素
+                        </span>
+                        <span class="placeholder_vertical"></span>
+                    </p>
+                    <p class="video_sub_title">@weChatMainModel.Title</p>
+                </a>
+            </div>
+
+            <a class="video_artical_add" href="javascript:;" style="display: none">
+                <span class="video_artical_add_button">
+                    <span class="icon_message_new ui-mt-large"></span>
+                </span>
+            </a>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,83 @@
+﻿@using DaZhongManagementSystem.Entities.TableEntity
+<!DOCTYPE html>
+@{
+    var pushContentModel = ViewData["PushContentModel"] as Business_WeChatPush_Information;
+    var isValid = ViewBag.isValidTime;
+}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!--webAPP的一些常用设置-->
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="blank">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>大众交通出租分公司</title>
+    <link href="@Url.Content("~/Areas/WeChatPush/Views/_css/WeChatHistory/PushDetail.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Areas/WeChatPush/Views/_css/Agreement.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/_theme/_css/alertPopShow.css")" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        @{
+            if (pushContentModel != null)
+            {
+                //判断是否过有效期（true已过有效期；false未过有效期）
+                if (!isValid)
+                {
+                    //填充标题
+            <h1 class="title">@Html.Raw(pushContentModel.Title)</h1>
+            <!--填充内容-->
+            <div class="dataItem">
+            </div>
+            <div class="f_nav">
+                <button id="btnAgree" class="btn">
+                    <span style="display: none">同意</span>
+                    <div>同意</div>
+                </button>
+                <button id="btnNotAgree" class="btn">
+                    <span style="display: none">不同意</span>
+                    <div>不同意</div>
+                </button>
+                <button id="btnKnow" class="btn">
+                    <span style="display: none">已知晓</span>
+                    <div>本人已知晓</div>
+                </button>
+            </div>
+          
+                }
+                else
+                {
+            <div class="error" style="display: block">
+                <div>
+                    <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/Error.png")"  alt="Alternate Text" />
+                    <span>推送内容已过期！！</span>
+                </div>
+            </div>
+                }
+            }
+            else
+            {
+            <div class="error" style="display: block">
+                <div>
+                    <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/Error.png")" alt="Alternate Text" />
+                    <span>推送内容已删除！！</span>
+                </div>
+            </div>
+            }
+        }
+        <input type="hidden" id="txtAgreementType" value="@pushContentModel.CountersignType"/>
+        <input type="hidden" id="txtVguid" value="@pushContentModel.VGUID"/>
+        <input type="hidden" id="txtPersonVguid" value="@ViewData["personVguid"]"/>
+    </header>
+
+    <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/app.js")"></script>
+    <script src="@Url.Content("~/_theme/js/jquery-2.0.3.min.js")"></script>
+    <script src="@Url.Content("~/_theme/_js/alertPopShow.js")"></script>
+    <script src="@Url.Content("~/Areas/WeChatPush/Views/_js/Agreement.js")"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+</body>
+</html>

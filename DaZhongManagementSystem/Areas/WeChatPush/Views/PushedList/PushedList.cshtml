@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "已推送列表";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var pushTypeList = ViewData["PushType"] as List<CS_Master_2>;//绑定推送类型
+}
+@using DaZhongManagementSystem.Entities.TableEntity;
+
+@section pageTitle
+{
+    @ViewBag.Title
+}
+
+@section js
+{
+    <script src="@Url.Content("~/Areas/WeChatPush/Views/_js/PushedList.js")"></script>
+    <script src="@Url.Content("~/_theme/bootstrap-datepicker/bootstrap-datepicker.js")"></script>
+    <script src="@Url.Content("~/_theme/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js")"></script>
+}
+
+@section css
+{
+    <link href="@Url.Content("~/Areas/WeChatPush/Views/_css/PushedList.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/_theme/bootstrap-datepicker/datepicker.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/_theme/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.css")" rel="stylesheet" />
+}
+
+<!-- 中部条件 -->
+<div class="mk">
+    <div class="header_mk">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">查询</span></div>
+    </div>
+    <div class="body_mk" style="height: 100px">
+        <table style="margin-top: 20px; width: 800px; margin-left: 20px;">
+            <tr style="height: 45px;">
+                <td align="center" style="width: 80px;">推送标题：</td>
+                <td style="width: 210px;">
+                    <input id="Title_Search" type="text" class="input_text form-control" />
+                </td>
+                <td align="right">推送类型：</td>
+                <td style="width: 210px;">
+                    <select id="PushType_Search" class="input_text form-control">
+                        <option value="">===请选择===</option>
+                        @{
+                            foreach (var item in pushTypeList)
+                            {
+                            <option value="@item.MasterCode">@item.DESC0</option>
+                            }    
+                        }
+                    </select>
+                </td>
+                <td style="width: 100px;"></td>
+                <td style="width: 100px;"></td>
+            </tr>
+            <tr style="height: 45px;">
+                <td align="center">是否永久：</td>
+                <td>
+                    <select id="IsImportant_Search" class="input_text form-control">
+                        <option value="">===请选择===</option>
+                        <option value="True">是</option>
+                        <option value="False">否</option>
+                    </select>
+                </td>
+                <td align="right">推送时间：</td>
+                <td>
+                    <input id="PushDate_Search" type="text" class="input_text form-control" />
+                </td>
+                <td align="right">
+                    <button id="btnSearch" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe604;</i><span style="margin-left: 7px; float: left;">查询</span></button>
+                </td>
+                <td align="center">
+                    <button id="btnReset" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe603;</i><span style="margin-left: 7px; float: left;">重置</span></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!-- 中部条件 -->
+
+<!-- 底部表格 -->
+<center>
+<div class="mk" style="border-bottom: 0px;">
+    <div class="header_mk" style="border-bottom: 0px;">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">数据列表</span></div>
+    </div>
+
+    <div id="DraftInfoList" class="jqxTable" style="border-left: 0px; ">
+    </div>
+</div>
+</center>
+<!-- 底部表格 -->

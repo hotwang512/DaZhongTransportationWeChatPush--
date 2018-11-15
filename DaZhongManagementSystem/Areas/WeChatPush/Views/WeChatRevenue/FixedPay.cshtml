@@ -1,0 +1,94 @@
+﻿@using DaZhongManagementSystem.Entities.TableEntity
+<!DOCTYPE html>
+@{
+    var pushContentModel = ViewData["PushContentModel"] as Business_WeChatPush_Information;
+    var isValid = ViewBag.isValidTime;
+}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!--webAPP的一些常用设置-->
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="blank">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="@Url.Content("~/Areas/WeChatPush/Views/_css/RevenuePay.css")" rel="stylesheet" />
+    <title>营收信息</title>
+</head>
+<body>
+    @{
+        if (pushContentModel != null)
+        {
+            <header>
+                <div class="h_center">
+                    <div class="hc_nav">
+                        <img src="@Url.Content("~/Areas/WeChatPush/Views/_img/logo.png")" alt="" />
+                        <span>大众出租</span>
+                    </div>
+                </div>
+                <div class="h_bottom">
+                    <span>您本月的应缴金额如下</span>
+                </div>
+            </header>
+            <nav style="height: 6rem;">
+                <ul>
+                    <li class="nav_5">
+                        <div>应缴金额</div>
+                        <div class="n5_num">@pushContentModel.Message</div>
+                    </li>
+                    <li class="nav_6">
+                        <div>手续费</div>
+                        <div class="n6_num">@ViewBag.HandlingFee</div>
+                    </li>
+                    <li class="nav_8" style="font-weight:bold; ">
+                        <div>总金额</div>
+                        <div class="n8_num">@ViewBag.TotalAmount</div>
+                    </li>
+                </ul>
+            </nav>
+            <footer>
+                <div id="spDriverPay" style="height: 2rem; color: red; font-size: 1rem; margin-left: 0.5rem;"></div>
+                <span>
+                    该数据用于提取数据前的24小时，如有疑义，请与车队联系！
+                </span>
+                @if (ViewData["isExist"] == "0" && !isValid)
+                {
+                    <div class="f_nav">
+                        <button class="btn_wc">
+                            <img src="@Url.Content("~/Areas/WeChatPush/Views/_img/微信支付.png")" alt="" />
+                            <div>微信支付</div>
+                        </button>
+                        <button class="btn_qt">
+                            <img src="@Url.Content("~/Areas/WeChatPush/Views/_img/支付.png")" alt="" />
+                            <div>其他支付</div>
+                        </button>
+                    </div>
+                }
+            </footer>
+        }
+        else
+        {
+            <div class="error" style="display: block">
+                <div>
+                    <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/Error.png")" alt="Alternate Text" />
+                    <span>推送内容已删除！！</span>
+                </div>
+            </div>
+        }
+    }
+    <input type="hidden" id="isValid" value="@isValid" />
+    <input type="hidden" id="txtOpenId" value="@ViewData["openid"]" />
+    <input type="hidden" id="txtDriverPay" value="@ViewData["driverPay"]" />
+    <input type="hidden" id="txtVguid" value="@ViewData["vguid"]" />
+    <input type="hidden" id="txtPayException" value="@ViewData["payException"]" />
+    <input type="hidden" id="txtIsExist" value="@ViewData["isExist"]" />
+    <input type="hidden" id="txtpushContentVguid" value="@ViewData["pushContentVguid"]" />
+    <script src="@Url.Content("~/_theme/js/jquery-2.0.3.min.js")"></script>
+    <script src="@Url.Content("~/_theme/_js/jweixin-1.0.0.js")"></script>
+    @*  <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>*@
+    <script src="@Url.Content("~/Areas/WeChatPush/Views/_js/FixedPay.js")"></script>
+</body>
+</html>

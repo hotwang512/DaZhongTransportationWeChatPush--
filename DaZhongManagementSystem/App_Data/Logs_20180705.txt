@@ -1,0 +1,6 @@
+
+-------------------------------header----------------------
+2018-07-05 11:07:01,841 [53] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2018-07-05 11:08:40,359 [53] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+
+-------------------------------footer----------------------
