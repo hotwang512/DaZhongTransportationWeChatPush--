@@ -2,7 +2,7 @@
 @{
     var code = ViewBag.code;
     var personInfo = ViewBag.PersonInfo as Business_Personnel_Information;
-    var exerciseVguid = ViewBag.exerciseVguid;
+    var questionVguid = ViewBag.questionVguid;
     var openHttpAddress = SyntacticSugar.ConfigSugar.GetAppString("OpenHttpAddress");
     var corpID = SyntacticSugar.ConfigSugar.GetAppString("CorpID");
     var pushContentVguid = ViewBag.pushContentVguid;//推送内容Vguid
@@ -19,18 +19,18 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="blank">
     <meta name="format-detection" content="telephone=no" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>答题测试</title>
+    <title>问卷测试</title>
 
     <link href="@Url.Content("~/Areas/BasicDataManagement/Views/_css/WeChatExercise/swiper-3.3.1.min.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Areas/BasicDataManagement/Views/_css/WeChatExercise/index2.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Areas/BasicDataManagement/Views/_css/WeChatExercise/index.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Areas/BasicDataManagement/Views/iconfont/iconfont.css")" rel="stylesheet" />
 
 </head>
 <body>
     @*答题人Vguid*@
     <input type="hidden" id="PersonVguid" value="@personInfo.Vguid" />@**@
-    @*习题Vguid*@
-    <input type="hidden" id="ExerciseVguid" value="@exerciseVguid" />@*@exerciseVguid*@
+    @*问卷Vguid*@
+    <input type="hidden" id="QuestionVguid" value="@questionVguid" />@*@exerciseVguid*@
     @*外网访问地址*@
     <input type="hidden" id="OpenHttpAddress" value="@openHttpAddress" />
     @*企业号CorpID*@
@@ -63,7 +63,7 @@
             <div class="f_center1">
                 <div class="iconfont">&#xe67a;</div>
             </div>
-            <div class="f_center2">交卷</div>
+            <div class="f_center2">提交</div>
         </div>
         <!--下一题-->
         <div class="f_next">
@@ -80,13 +80,13 @@
         <div id="success">
             <div>
                 <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/567925.png")" alt="Alternate Text" />
-                本次答题已合格，谢谢您的参与！！
+                本次问卷已完成，谢谢您的参与！！
             </div>
         </div>
         <div id="marking">
             <div>
                 <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/567925.png")" alt="Alternate Text" />
-                本次答题已完成，请等待阅卷！！
+                本次问卷已完成，谢谢您的参与！！
             </div>
         </div>
         <div id="error">
@@ -95,10 +95,10 @@
                 线上学习次数已用完，请与车队联系进行线下培训！！
             </div>
         </div>
-        <div id="errorExprice" style="display: none">
+        <div id="errorQuestion" style="display: none">
             <div>
                 <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/Error.png")"  alt="Alternate Text" />
-                <span>习题已过期！！</span>
+                <span>问卷已过期！！</span>
             </div>
 
         </div>
@@ -114,19 +114,20 @@
     <div class="answer"></div>
 
     <!--上传图片功能-->
-@*    <form id="photo" method="post" enctype="multipart/form-data">
-        <div class="ph_t">
-            <img id="preview">
-        </div>
-        <!--上传图片-->
-        <div class="file">
-            请上传您的头像照
-            <input id="file" name="file" type="file" style="margin-top: -1rem;" />
-        </div>
-        <!--确认上传按钮-->
-        <div class="upload">确认上传</div>
+    @*    <form id="photo" method="post" enctype="multipart/form-data">
+                <div class="ph_t">
+                    <img id="preview">
+                </div>
+                <!--上传图片-->
+                <div class="file">
+                    请上传
+        您的头像照
+                    <input id="file" name="file" type="file" style="margin-top: -1rem;" />
+                </div>
+                <!--确认上传按钮-->
+                <div class="upload">确认上传</div>
 
-    </form>*@
+            </form>*@
 
     <!--中间内容-->
     <section>
@@ -146,7 +147,7 @@
     <script src="@Url.Content("~/_theme/js/jquery-2.0.3.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/_theme/tool/jquery-form.min.js")"></script>
     <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/swiper-3.3.1.jquery.min.js")"></script>
-    <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/11111.js")"></script>
+    <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatQuestion/WeChatQuestion.js")"></script>
     <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/app.js")"></script>
 
 </body>

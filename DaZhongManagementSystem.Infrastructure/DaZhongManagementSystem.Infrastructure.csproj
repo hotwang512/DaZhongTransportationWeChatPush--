@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasicDataManagement\WeChatQuestionServer.cs" />
     <Compile Include="DraftManagement\AgreementServer.cs" />
     <Compile Include="DraftManagement\RedPacketServer.cs" />
     <Compile Include="ExerciseLibraryManagement\CheckedExerciseLibraryServer.cs" />

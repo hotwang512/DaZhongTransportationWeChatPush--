@@ -152,6 +152,8 @@
     <Compile Include="Areas\BasicDataManagement\Controllers\Exercise\ExerciseManagementController.cs" />
     <Compile Include="Areas\BasicDataManagement\Controllers\OrganizationManagement\BusinessLogic\OrganizationManagementLogic.cs" />
     <Compile Include="Areas\BasicDataManagement\Controllers\OrganizationManagement\OrganizationManagementController.cs" />
+    <Compile Include="Areas\BasicDataManagement\Controllers\WeChatQuestion\BusinessLogic\WeChatQuestionLogic.cs" />
+    <Compile Include="Areas\BasicDataManagement\Controllers\WeChatQuestion\WeChatQuestionController.cs" />
     <Compile Include="Areas\ExerciseLibraryManagement\Controllers\CheckedExerciseLibrary\BusinessLogic\CheckedExerciseLibraryLogic.cs" />
     <Compile Include="Areas\ExerciseLibraryManagement\Controllers\CheckedExerciseLibrary\CheckedExerciseLibraryController.cs" />
     <Compile Include="Areas\ExerciseLibraryManagement\Controllers\ExerciseLibraryManagement\BusinessLogic\ExerciseLibraryLogic.cs" />
@@ -309,6 +311,8 @@
     <Content Include="Areas\BasicDataManagement\Views\iconfont\iconfont.svg" />
     <Content Include="Areas\BasicDataManagement\Views\_css\UserInfo.css" />
     <Content Include="Areas\BasicDataManagement\Views\_css\WeChatExercise\index.css" />
+    <Content Include="Areas\BasicDataManagement\Views\_css\WeChatExercise\index2.css" />
+    <Content Include="Areas\BasicDataManagement\Views\_css\QuestionBG.png" />
     <Content Include="Areas\BasicDataManagement\Views\_css\WeChatExercise\swiper-3.3.1.min.css" />
     <Content Include="Areas\BasicDataManagement\Views\_img\5121204193R0.gif" />
     <Content Include="Areas\BasicDataManagement\Views\_img\567925.png" />
@@ -321,6 +325,7 @@
     <Content Include="Areas\BasicDataManagement\Views\_js\WeChatExercise\app.js" />
     <Content Include="Areas\BasicDataManagement\Views\_js\WeChatExercise\jquery-1.10.1.min.js" />
     <Content Include="Areas\BasicDataManagement\Views\_js\WeChatExercise\swiper-3.3.1.jquery.min.js" />
+    <Content Include="Areas\BasicDataManagement\Views\_js\WeChatQuestion\WeChatQuestion.js" />
     <Content Include="Areas\DailyLogManagement\Views\_css\DailyLog.css" />
     <Content Include="Areas\DailyLogManagement\Views\_js\DailyLog.js" />
     <Content Include="Areas\ExerciseLibraryManagement\Views\_js\CheckedExerciseList.js" />
@@ -2121,6 +2126,7 @@
     <Content Include="Areas\QuestionManagement\Views\CheckedQuestion\CheckedList.cshtml" />
     <Content Include="Areas\QuestionManagement\Views\QuestionManagement\QuestionDetail.cshtml" />
     <Content Include="Areas\QuestionManagement\Views\QuestionManagement\QuestionList.cshtml" />
+    <Content Include="Areas\BasicDataManagement\Views\WeChatQuestion\Index.cshtml" />
     <None Include="Properties\PublishProfiles\DaZhong.pubxml" />
     <Content Include="ReportTemplate\PushTemplate.xlsx" />
     <Content Include="ReportTemplate\ScoreTemplate.xlsx" />
@@ -2310,7 +2316,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\BasicDataManagement\Models\" />
-    <Folder Include="Areas\BasicDataManagement\Views\Shared\" />
+    <Folder Include="Areas\BasicDataManagement\Views\_js\WeChatQuestion\Shared\" />
     <Folder Include="Areas\DailyLogManagement\Models\" />
     <Folder Include="Areas\DailyLogManagement\Views\Shared\" />
     <Folder Include="Areas\ExerciseLibraryManagement\Models\" />
