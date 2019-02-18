@@ -92,6 +92,7 @@
     <Compile Include="QuestionManagement\QuestionServer.cs" />
     <Compile Include="ReportManagement\PaymentReportServer.cs" />
     <Compile Include="ReportManagement\PushMsgReportServer.cs" />
+    <Compile Include="ReportManagement\QuestionReportServer.cs" />
     <Compile Include="ReportManagement\ScoreReportServer.cs" />
     <Compile Include="RevenueServer.cs" />
     <Compile Include="Salary\SalaryServer.cs" />

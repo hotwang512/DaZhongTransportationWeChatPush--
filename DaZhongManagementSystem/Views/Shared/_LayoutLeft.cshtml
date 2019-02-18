@@ -452,6 +452,14 @@
                         <td></td>
                     </tr>
                 }
+                @if (roleModulePermissionList.Any(i => i.PageID == 29) || isSysAdmin)
+                {
+                    <tr class="menue_item" id="QuestionRecords" pageurl="/ReportManagement/QuestionReport/QuestionReport">
+                        <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
+                        <td class="menue_text">问卷报表</td>
+                        <td></td>
+                    </tr>
+                }
             </table>
         </div>
         }

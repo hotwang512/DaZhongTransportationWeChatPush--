@@ -199,6 +199,8 @@
     <Compile Include="Areas\QuestionManagement\QuestionManagementAreaRegistration.cs" />
     <Compile Include="Areas\ReportManagement\Controllers\PaymentReport\BusinessLogic\PaymentReportLogic.cs" />
     <Compile Include="Areas\ReportManagement\Controllers\PaymentReport\PaymentReportController.cs" />
+    <Compile Include="Areas\ReportManagement\Controllers\QuestionReport\BusinessLogic\QuestionReportLogic.cs" />
+    <Compile Include="Areas\ReportManagement\Controllers\QuestionReport\QuestionReportController.cs" />
     <Compile Include="Areas\WeChatPay\Controllers\WechatPayController.cs" />
     <Compile Include="Areas\WeChatPay\WeChatPayAreaRegistration.cs" />
     <Compile Include="Areas\WeChatPush\Controllers\AgreementOperation\AgreementOperationController.cs" />
@@ -359,6 +361,7 @@
     <Content Include="Areas\QuestionManagement\Views\_js\QuestionDetail.js" />
     <Content Include="Areas\QuestionManagement\Views\_js\QuestionList.js" />
     <Content Include="Areas\ReportManagement\Views\_js\PaymentReport.js" />
+    <Content Include="Areas\ReportManagement\Views\_js\QuestionReport.js" />
     <Content Include="Areas\WeChatPay\Views\_js\WechatPay.js" />
     <Content Include="Areas\WeChatPush\Views\_css\Agreement.css" />
     <Content Include="Areas\WeChatPush\Views\_css\CommonSlider.css" />
@@ -2127,6 +2130,7 @@
     <Content Include="Areas\QuestionManagement\Views\QuestionManagement\QuestionDetail.cshtml" />
     <Content Include="Areas\QuestionManagement\Views\QuestionManagement\QuestionList.cshtml" />
     <Content Include="Areas\BasicDataManagement\Views\WeChatQuestion\Index.cshtml" />
+    <Content Include="Areas\ReportManagement\Views\QuestionReport\QuestionReport.cshtml" />
     <None Include="Properties\PublishProfiles\DaZhong.pubxml" />
     <Content Include="ReportTemplate\PushTemplate.xlsx" />
     <Content Include="ReportTemplate\ScoreTemplate.xlsx" />
@@ -2316,7 +2320,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\BasicDataManagement\Models\" />
-    <Folder Include="Areas\BasicDataManagement\Views\_js\WeChatQuestion\Shared\" />
     <Folder Include="Areas\DailyLogManagement\Models\" />
     <Folder Include="Areas\DailyLogManagement\Views\Shared\" />
     <Folder Include="Areas\ExerciseLibraryManagement\Models\" />
