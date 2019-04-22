@@ -25,3 +25,11 @@
 2019-04-22 14:49:29,519 [94] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 二次验证：用户 'sa' 登录失败。
 2019-04-22 15:06:45,733 [94] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 用户打开注册二次验证页面：Code为-6dHVAtQnrqnOqPAvq_Hj2jE_Ej4IX_j24eernqY5Xfk-UserID为-15801998531-打开注册页面时间为:2019/4/22 15:06:45
 2019-04-22 15:13:11,623 [94] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 用户打开注册二次验证页面：Code为-4-h7TdW1cv19e92Ehu0EL8b0tMbDVdWc5PxegdxCjmQ-UserID为-15801998531-打开注册页面时间为:2019/4/22 15:13:11
+
+-------------------------------footer----------------------
+
+-------------------------------header----------------------
+2019-04-22 16:57:31,653 [9] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 用户打开注册二次验证页面：Code为--UserID为--打开注册页面时间为:2019/4/22 16:57:31
+2019-04-22 16:58:07,324 [9] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 用户打开注册二次验证页面：Code为--UserID为--打开注册页面时间为:2019/4/22 16:58:07
+
+-------------------------------footer----------------------

@@ -201,6 +201,9 @@
     <Compile Include="Areas\ReportManagement\Controllers\PaymentReport\PaymentReportController.cs" />
     <Compile Include="Areas\ReportManagement\Controllers\QuestionReport\BusinessLogic\QuestionReportLogic.cs" />
     <Compile Include="Areas\ReportManagement\Controllers\QuestionReport\QuestionReportController.cs" />
+    <Compile Include="Areas\RideCheckFeedback\Controllers\RideCheckFeedback\BusinessLogic\RideCheckFeedbackLogic.cs" />
+    <Compile Include="Areas\RideCheckFeedback\Controllers\RideCheckFeedback\RideCheckFeedbackController.cs" />
+    <Compile Include="Areas\RideCheckFeedback\RideCheckFeedbackAreaRegistration.cs" />
     <Compile Include="Areas\WeChatPay\Controllers\WechatPayController.cs" />
     <Compile Include="Areas\WeChatPay\WeChatPayAreaRegistration.cs" />
     <Compile Include="Areas\WeChatPush\Controllers\AgreementOperation\AgreementOperationController.cs" />
@@ -2131,6 +2134,7 @@
     <Content Include="Areas\QuestionManagement\Views\QuestionManagement\QuestionList.cshtml" />
     <Content Include="Areas\BasicDataManagement\Views\WeChatQuestion\Index.cshtml" />
     <Content Include="Areas\ReportManagement\Views\QuestionReport\QuestionReport.cshtml" />
+    <Content Include="Areas\RideCheckFeedback\Views\Web.config" />
     <None Include="Properties\PublishProfiles\DaZhong.pubxml" />
     <Content Include="ReportTemplate\PushTemplate.xlsx" />
     <Content Include="ReportTemplate\ScoreTemplate.xlsx" />
@@ -2339,6 +2343,10 @@
     <Folder Include="Areas\QuestionManagement\Views\Shared\" />
     <Folder Include="Areas\ReportManagement\Models\" />
     <Folder Include="Areas\ReportManagement\Views\Shared\" />
+    <Folder Include="Areas\RideCheckFeedback\Models\" />
+    <Folder Include="Areas\RideCheckFeedback\Views\Shared\" />
+    <Folder Include="Areas\RideCheckFeedback\Views\_css\" />
+    <Folder Include="Areas\RideCheckFeedback\Views\_js\" />
     <Folder Include="Areas\Systemmanagement\Views\Models\" />
     <Folder Include="Areas\Systemmanagement\Views\Shared\" />
     <Folder Include="Areas\WeChatPay\Models\" />
