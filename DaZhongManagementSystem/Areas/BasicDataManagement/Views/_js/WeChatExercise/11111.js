@@ -18,7 +18,7 @@ $(function () {
         url: "/BasicDataManagement/WeChatExercise/GetExerciseAll",
         data: {
             vguid: $("#ExerciseVguid").val(),//"11F62166-64A8-4B05-9B97-F534C804181F",
-            personVguid: $("#PersonVguid").val() //"575808EF-B574-48A3-B5BB-4D0EBB1B3592"
+            personVguid: $("#PersonVguid").val() //"575808EF-B574-48A3-B5BB-4D0EBB1B3592" 
         },
         type: "get",
         dataType: 'json',
