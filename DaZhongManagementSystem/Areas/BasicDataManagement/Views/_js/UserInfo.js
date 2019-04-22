@@ -94,7 +94,8 @@ var $page = function () {
 
     //双击编辑事件
     selector.$grid().on('rowDoubleClick', function (event) {
-        if (selector.$txtCurrentUser().val() == "sysAdmin") {
+
+        if ($("#btnReturnFormal").length > 0) {
             var args = event.args;
             var key = args.key;
             var row = args.row;
@@ -648,7 +649,7 @@ function fileUpload() {
                     //    traditional: true,
                     //    type: "post",
                     //    success: function (msg) {
-                            
+
                     //    }
                     //});
 
