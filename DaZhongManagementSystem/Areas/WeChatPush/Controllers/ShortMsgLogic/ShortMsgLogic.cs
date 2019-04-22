@@ -82,8 +82,21 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.ShortMsgLogic
                 //if (paymentModel.DebtAmount > 0)//正值（欠款）
                 //{
 
-                revenue.TheBalance = (paymentModel.DebtAmount * -1).ToString("F2");
-                revenue.HistoricalArrears = (paymentModel.DebtAmount * -1) >= 0 ? "0" : paymentModel.DebtAmount.ToString("F2");
+                //revenue.TheBalance = (paymentModel.DebtAmount * -1).ToString("F2");
+                //revenue.HistoricalArrears = (paymentModel.DebtAmount * -1) >= 0 ? "0" : paymentModel.DebtAmount.ToString("F2");
+                ////}
+                ////else//负值(结余）
+                ////{
+                ////    revenue.HistoricalArrears = (-paymentModel.DebtAmount).ToString("##.##");
+                ////    revenue.TheBalance = paymentModel.DebtAmount.ToString("##.##");
+                ////}
+                //revenue.AmountDue = paymentModel.DueAmount.ToString("F2");
+                //revenue.CurrentPayment = paymentModel.PaidAmount.ToString("F2");
+                //revenue.CurrentAccountBalance = (paymentModel.PaidAmount - paymentModel.DueAmount + (paymentModel.DebtAmount * -1)).ToString("F2");
+
+
+                revenue.TheBalance = paymentModel.DebtAmount.ToString("F2");
+                revenue.HistoricalArrears = paymentModel.DebtAmount >= 0 ? "0" : paymentModel.DebtAmount.ToString("F2");
                 //}
                 //else//负值(结余）
                 //{
@@ -92,7 +105,7 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.ShortMsgLogic
                 //}
                 revenue.AmountDue = paymentModel.DueAmount.ToString("F2");
                 revenue.CurrentPayment = paymentModel.PaidAmount.ToString("F2");
-                revenue.CurrentAccountBalance = (paymentModel.PaidAmount - paymentModel.DueAmount + (paymentModel.DebtAmount * -1)).ToString("F2");
+                revenue.CurrentAccountBalance = (paymentModel.PaidAmount - paymentModel.DueAmount + paymentModel.DebtAmount).ToString("F2");
             }
             
             string isSmsPush = _ss.GetIsSmsPush();

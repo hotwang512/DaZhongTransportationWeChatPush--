@@ -641,7 +641,7 @@ $(".f_center").click(function () {
             type: "POST",
             success: function (data) {
                 if (data.isSuccess == true) {
-                    if (Number(data.respnseInfo) >= 60) {
+                    if (Number(data.respnseInfo) >= 100) {
                         alert("本次答题已完成,您此次答题的分数为" + data.respnseInfo + "！");
                         $("#success").show();
                     }
