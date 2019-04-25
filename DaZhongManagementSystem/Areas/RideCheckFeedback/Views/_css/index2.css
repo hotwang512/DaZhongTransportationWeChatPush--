@@ -1,0 +1,560 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    font-family: "微软雅黑";
+}
+
+header {
+    width: 100%;
+    height: 50px;
+    background: #146c7f;
+    font-size: 0.8rem;
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+}
+
+    header .iconfont {
+        color: #fff;
+    }
+
+    header .f_last, .h_back, .f_center, .f_next, #ans {
+        width: 25%;
+    }
+
+.s_option .active {
+    background: rgb(20, 108, 127);
+    color: #fff;
+}
+
+.h_back {
+    display: flex;
+    justify-content: center;
+    line-height: 50px;
+    color: #fff;
+    font-size: 0.6rem;
+    text-align: center;
+}
+
+.st_title span {
+    font-weight: bold;
+    color: #333;
+}
+
+.h_back .fc_left {
+    width: 1.5rem;
+    font-size: 1rem;
+}
+
+.h_back .fc_right {
+    font-size: 0.6rem;
+}
+/*上一题*/
+.f_last {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    position: relative;
+}
+
+    .f_last .iconfont {
+        color: #fff;
+        font-size: 1rem;
+        margin-top: 5px;
+        transform: rotate(270deg);
+        -ms-transform: rotate(270deg); /* IE 9 */
+        -moz-transform: rotate(270deg); /* Firefox */
+        -webkit-transform: rotateY(180deg); /* Safari 和 Chrome */
+        -o-transform: rotate(270deg); /* Opera */
+    }
+
+    .f_last .f_last1 {
+        font-size: 0.5rem;
+        color: #fff;
+        margin-top: -5px;
+    }
+
+.f_lastHide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: none;
+}
+/*交卷*/
+.f_center {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    outline: none;
+}
+
+    .f_center .f_center1 {
+        align-self: center;
+        width: 2rem;
+        height: 2rem;
+        background: #999;
+        border-radius: 3.5rem;
+        margin-top: -0.65rem;
+        line-height: 2rem;
+    }
+
+        .f_center .f_center1 .iconfont {
+            color: #fff;
+            font-size: 1rem;
+            font-weight: -100;
+        }
+
+    .f_center .f_center2 {
+        height: 1rem;
+        font-size: 0.5rem;
+        color: #fff;
+        line-height: 1rem;
+    }
+/*下一题*/
+.f_next {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    position: relative;
+}
+
+    .f_next .iconfont {
+        color: #fff;
+        font-size: 1rem;
+        margin-top: 5px;
+    }
+
+    .f_next .f_next1 {
+        font-size: 0.5rem;
+        color: #fff;
+        margin-top: 0px;
+    }
+
+.f_nextHide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: none;
+}
+/*答题卡*/
+#ans {
+    flex-direction: column;
+    text-align: center;
+    color: #fff;
+}
+
+    #ans .ans {
+        height: 50%;
+        font-size: 1rem;
+        line-height: 30px;
+    }
+
+    #ans .ans1 {
+        height: 50%;
+        font-size: 0.6rem;
+        line-height: 25px;
+        font-style: -100;
+    }
+
+section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    overflow-y: hidden;
+    z-index: 1;
+}
+
+.kj1 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.swiper-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    width: 100%;
+    height: 100%;
+}
+
+.s_title {
+    font-size: 1rem;
+    background: #f9f9f9;
+}
+
+.mold {
+    width: 15%;
+    height: auto;
+    font-size: 0.5rem;
+    text-align: center;
+    background: #dadada;
+    color: #fff;
+}
+
+.st_title {
+    padding: 3% 5% 5% 3%;
+    font-size: 1rem;
+    text-indent: 1em;
+    height: auto;
+}
+
+.s_option {
+    width: 100%;
+    min-height: 10rem;
+    max-height: 21rem;
+    overflow-y: auto;
+    margin-top: 5%;
+}
+
+.so_p {
+    width: 100%;
+    min-height: 1.6rem;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5%;
+}
+
+.option {
+    width: 10%;
+    height: 1.6rem;
+    text-align: center;
+    overflow-y: auto;
+    background: #dadada;
+    color: #999;
+    border-radius: 1.5rem;
+    margin-left: 5%;
+    line-height: 1.6rem;
+}
+
+    .option .kk {
+        width: 65%;
+        height: 1.5rem;
+        text-align: center;
+        border-radius: 1.5rem;
+        background: #dadada;
+        margin-left: 5%;
+        color: #999;
+    }
+
+.title {
+    width: 75%;
+    overflow-y: auto;
+    font-size: 1rem;
+    margin-right: 5%;
+    margin-top: 0%;
+}
+
+    .title div {
+        height: 1.5rem;
+        font-size: 0.8rem;
+    }
+/*底部按钮*/
+
+footer {
+    width: 100%;
+    height: 100px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+}
+
+    footer button {
+        width: 30%;
+        height: 2rem;
+        align-self: center;
+        border-radius: 2rem;
+        outline: none;
+        border: 0;
+        display: flex;
+        justify-content: center;
+        line-height: 2rem;
+    }
+
+    footer .f_center {
+        height: 2rem;
+        font-size: 0.7rem;
+        width: 20%;
+        line-height: 2rem;
+        text-align: center;
+        align-self: center;
+    }
+
+/*//答题选项*/
+.answer {
+    width: 100%;
+    height: 90%;
+    background: red;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #fff;
+    overflow-y: hidden;
+    z-index: 250;
+    overflow-y: hidden;
+    display: none;
+}
+
+    .answer div {
+        width: 13%;
+        height: 2rem;
+        background: #999;
+        color: #fff;
+        border-radius: 2rem;
+        text-align: center;
+        line-height: 2rem;
+        margin: 3%;
+        float: left;
+    }
+
+
+
+
+/*上传图片*/
+#photo {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background: #f9f9f9;
+    display: none;
+    text-align: center;
+}
+
+.ph_t {
+    width: 80%;
+    height: 60%;
+    border: 1px solid #1E88C7;
+    margin: 5% 0 5% 10%;
+}
+
+#preview {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.file {
+    padding: 1rem 1rem;
+    overflow: hidden;
+    height: 30px;
+    padding: 0px;
+}
+
+    .file input {
+        position: absolute;
+        font-size: 1rem;
+        left: 0;
+        opacity: 0;
+        height: 3rem;
+        width: 100%;
+    }
+
+    /*.file:hover {
+        background: #AADFFD;
+        border-color: #78C3F3;
+        color: #004974;
+        text-decoration: none;
+    }*/
+/*上传按钮*/
+.upload {
+    width: 5rem;
+    height: 2rem;
+    text-align: center;
+    line-height: 2rem;
+    position: absolute;
+    bottom: 5%;
+    left: 35%;
+    background: #D0EEFF;
+    font-size: 0.8rem;
+    border: 1px solid #99D3F5;
+    border-radius: 0.5rem;
+    opacity: 0.9;
+}
+
+
+
+/*//成功跳出页面*/
+#success {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    text-align: center;
+    font-size: 0.8rem;
+    color: green;
+    display: none;
+    z-index: 3;
+}
+
+    #success div {
+        width: 30%;
+        height: 50%;
+        margin: 35% 35%;
+    }
+
+        #success div img {
+            width: 100%;
+            height: 35%;
+        }
+/*//有简答题（未阅卷）跳出页面*/
+#marking {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    text-align: center;
+    font-size: 0.8rem;
+    color: green;
+    display: none;
+    z-index: 3;
+}
+
+    #marking div {
+        width: 30%;
+        height: 50%;
+        margin: 35% 35%;
+    }
+
+        #marking div img {
+            width: 100%;
+            height: 35%;
+        }
+/*答题超过次数失败*/
+/*//成功跳出页面*/
+#error {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    text-align: center;
+    font-size: 0.8rem;
+    color: red;
+    display: none;
+    z-index: 3;
+}
+
+    #error div {
+        width: 30%;
+        height: 50%;
+        margin: 35% 35%;
+    }
+
+        #error div img {
+            width: 100%;
+            height: 35%;
+        }
+
+
+
+#errorExprice {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    text-align: center;
+    font-size: 0.8rem;
+    color: red;
+    display: none;
+    z-index: 3;
+}
+
+    #errorExprice div {
+        width: 30%;
+        height: 50%;
+        margin: 35% 35%;
+    }
+
+        #errorExprice div img {
+            width: 100%;
+            height: 35%;
+        }
+/*显示上传中*/
+#Uploading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    font-size: 0.6rem;
+    text-align: center;
+    opacity: 0.7;
+    z-index: 250;
+}
+
+    #Uploading div {
+        width: 50%;
+        height: 30%;
+        margin: 60% 0 0 25%;
+        text-align: center;
+    }
+
+        #Uploading div img {
+            width: 25%;
+            height: 25%;
+            z-index: 500;
+        }
+
+.infor {
+    padding-left: 15px;
+}
+
+.inforTitle {
+    padding: 0px 5px 5px 5px;
+}
+
+input {
+    height: 22.5px;
+    border: solid 1px #d6d6d6;
+    width: 52%;
+    font-family: "微软雅黑";
+    font-size: 20px;
+    padding: 3px;
+}
+
+.inputItem {
+    margin: 5px 20px 10px 20px;
+    float: left;
+    /*width: 100%;*/
+}
+
+.inputItemText {
+    /*width: 41%;*/
+    float: left;
+}
+
+.inputItemChecbox {
+    float: left;
+    width: 50px;
+    margin-top: 3px;
+    height: 28px;
+}

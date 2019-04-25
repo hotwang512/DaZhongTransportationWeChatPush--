@@ -365,6 +365,8 @@
     <Content Include="Areas\QuestionManagement\Views\_js\QuestionList.js" />
     <Content Include="Areas\ReportManagement\Views\_js\PaymentReport.js" />
     <Content Include="Areas\ReportManagement\Views\_js\QuestionReport.js" />
+    <Content Include="Areas\RideCheckFeedback\Views\_css\index2.css" />
+    <Content Include="Areas\RideCheckFeedback\Views\_js\ridecheckfeedback.js" />
     <Content Include="Areas\WeChatPay\Views\_js\WechatPay.js" />
     <Content Include="Areas\WeChatPush\Views\_css\Agreement.css" />
     <Content Include="Areas\WeChatPush\Views\_css\CommonSlider.css" />
@@ -2135,6 +2137,7 @@
     <Content Include="Areas\BasicDataManagement\Views\WeChatQuestion\Index.cshtml" />
     <Content Include="Areas\ReportManagement\Views\QuestionReport\QuestionReport.cshtml" />
     <Content Include="Areas\RideCheckFeedback\Views\Web.config" />
+    <Content Include="Areas\RideCheckFeedback\Views\RideCheckFeedback\Index.cshtml" />
     <None Include="Properties\PublishProfiles\DaZhong.pubxml" />
     <Content Include="ReportTemplate\PushTemplate.xlsx" />
     <Content Include="ReportTemplate\ScoreTemplate.xlsx" />
@@ -2345,8 +2348,6 @@
     <Folder Include="Areas\ReportManagement\Views\Shared\" />
     <Folder Include="Areas\RideCheckFeedback\Models\" />
     <Folder Include="Areas\RideCheckFeedback\Views\Shared\" />
-    <Folder Include="Areas\RideCheckFeedback\Views\_css\" />
-    <Folder Include="Areas\RideCheckFeedback\Views\_js\" />
     <Folder Include="Areas\Systemmanagement\Views\Models\" />
     <Folder Include="Areas\Systemmanagement\Views\Shared\" />
     <Folder Include="Areas\WeChatPay\Models\" />

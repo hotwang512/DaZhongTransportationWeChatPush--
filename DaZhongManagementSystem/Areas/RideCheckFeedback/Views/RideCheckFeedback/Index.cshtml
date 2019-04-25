@@ -1,0 +1,430 @@
+﻿<!DOCTYPE html>
+@{
+
+}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="blank">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>大众出租汽车公司同行乘车检查反馈单</title>
+
+    <link href="@Url.Content("~/Areas/BasicDataManagement/Views/_css/WeChatExercise/swiper-3.3.1.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Areas/RideCheckFeedback/Views/_css/index2.css")" rel="stylesheet" rel="stylesheet" />
+    <link href="@Url.Content("~/Areas/BasicDataManagement/Views/iconfont/iconfont.css")" rel="stylesheet" />
+
+</head>
+<body>
+    @*答题人Vguid*@
+    <input type="hidden" id="PersonVguid" value="" />
+    @*习题Vguid*@
+    <input type="hidden" id="ExerciseVguid" value="" />
+    @*外网访问地址*@
+    <input type="hidden" id="OpenHttpAddress" value="" />
+    @*企业号CorpID*@
+    <input type="hidden" id="CorpID" value="" />
+    @*推送内容Vguid*@
+    <input type="hidden" id="PushContentVguid" value="" />
+    @*答题次数*@
+    <input type="hidden" id="AnswerCount" value="" />
+    @* 是否是消息历史界面跳转而来*@
+    <input type="hidden" id="isHistory" value="" />
+    <input type="hidden" id="txtWechatMain" value="" />
+    <input type="hidden" id="txtIsValid" value="" />
+    <!--头部-->
+    <header>
+        <!--分页器-->
+        <div class="h_back">
+            <div class="fc_left"></div>
+            /
+
+            <div class="fc_right"></div>
+        </div>
+        <!--上一题-->
+        <div class="f_last">
+            <div class="iconfont itemLast">&#xe621;</div>
+            <div class="f_last1">上一题</div>
+            <div class="f_lastHide"></div>
+        </div>
+        <!--提交按钮-->
+        <div class="f_center">
+            <div class="f_center1">
+                <div class="iconfont">&#xe67a;</div>
+            </div>
+            <div class="f_center2">交卷</div>
+        </div>
+        <!--下一题-->
+        <div class="f_next">
+            <div class="iconfont itemNext">&#xe621;</div>
+            <div class="f_next1">下一题</div>
+            <div class="f_nextHide"></div>
+        </div>
+        <!--答题卡-->
+        <div id="ans">
+            <div class="iconfont ans">&#xe622;</div>
+            <div class="ans1">答题卡</div>
+        </div>
+        <!--跳转页面-->
+        <div id="success">
+            <div>
+                <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/567925.png")" alt="Alternate Text" />
+                本次检查单已完成，谢谢您的参与！！
+            </div>
+        </div>
+        <div id="marking">
+            <div>
+                <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/567925.png")" alt="Alternate Text" />
+                本次答题已完成，请等待阅卷！！
+            </div>
+        </div>
+        <div id="error">
+            <div>
+                <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/Error.png")" alt="Alternate Text" />
+                线上学习次数已用完，请与车队联系进行线下培训！！
+            </div>
+        </div>
+        <div id="errorExprice" style="display: none">
+            <div>
+                <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/Error.png")" alt="Alternate Text" />
+                <span>检查单已过期！！</span>
+            </div>
+
+        </div>
+    </header>
+    <!--显示上传缓存-->
+    <div id="Uploading" style="display: none">
+        <div>
+            <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/5121204193R0.gif")" alt="Alternate Text" />
+            <p>上传中...</p>
+        </div>
+    </div>
+    <!--答题卡-->
+    <div class="answer">
+        <div class="ss">1</div>
+        <div class="ss">2</div>
+        <div class="ss">3</div>
+        <div class="ss">4</div>
+        <div class="ss">5</div>
+        <div class="ss">6</div>
+        <div class="ss">7</div>
+        <div class="ss">8</div>
+        <div class="ss">9</div>
+        <div class="ss">10</div>
+        <div class="ss">11</div>
+        <div class="ss">12</div>
+        <div class="ss">13</div>
+        <div class="ss">14</div>
+    </div>
+
+    <!--上传图片功能-->
+    @*    <form id="photo" method="post" enctype="multipart/form-data">
+        <div class="ph_t">
+        <img id="preview">
+        </div>
+        <!--上传图片-->
+        <div class="file">
+        请上传您的头像照
+        <input id="file" name="file" type="file" style="margin-top: -1rem;" />
+        </div>
+        <!--确认上传按钮-->
+        <div class="upload">确认上传</div>
+
+        </form>*@
+
+    <!--中间内容-->
+    <section>
+        <div class="swiper-container kj1 swiper-no-swiping" style="display:none;">
+            <div class="swiper-wrapper" style="transform: translate3d(-1920px, 0px, 0px); transition-duration: 0ms;">
+
+                <div class="swiper-slide swiper-no-swiping swiper-slide-active" data-swiper-slide-index="1">
+                    <div class="s_title">
+                        <div class="st_title"><span>[1-基本信息]&nbsp;&nbsp;</span>填写同行乘车检查反馈的基本信息</div>
+                    </div>
+                    <div class="s_option">
+                        <div class="inputItem"><div class="inputItemText">检查人姓名：</div><input type="text" readonly="readonly" style="background-color:#ccc;" value="倪明" /></div>
+                        <div class="inputItem"><div class="inputItemText">检 查 日 期：</div><input type="text" value="" /></div>
+                        <div class="inputItem"><div class="inputItemText">检 查 时 间：</div><input type="text" value="" /></div>
+                        <div class="inputItem"><div class="inputItemText">受 检 车 号：</div><input type="text" value="" /></div>
+                        <div class="inputItem"><div class="inputItemText">上 车 地 点：</div><input type="text" value="" /></div>
+                        <div class="inputItem"><div class="inputItemText">下 车 地 点：</div><input type="text" value="" /></div>
+                        <div class="inputItem"><div class="inputItemText">服 务 卡 号：</div><input type="text" value="" /></div>
+                    </div>
+                </div>
+                <div class="swiper-slide swiper-no-swiping swiper-slide-next" data-swiper-slide-index="2">
+                    <div class="s_title">
+                        <div class="st_title"><span>[2-检查项目]&nbsp;&nbsp;</span>车容车貌</div>
+                    </div><div class="s_option">
+                        <div class="so_p">
+                            <div class="option kk" namesub="1">A</div>
+                            <div class="title" namesub="1">合格（执行）</div>
+                        </div>
+                        <div class="so_p">
+                            <div class="option kk" namesub="1">B</div>
+                            <div class="title" namesub="1">不合格（执行）</div>
+                        </div>
+                        <div class="infor">
+                            <div class="inforTitle" namesub="1">单项不合格</div>
+                            <div class="inputItem"><input id="ckb_anecdote" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_anecdote">肇事痕迹</label></div></div>
+                            <div class="inputItem"><input id="ckb_dirtycarriage" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_dirtycarriage">车厢内脏</label></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="3">
+                    <div class="s_title">
+                        <div class="st_title"><span>[3-检查项目]&nbsp;&nbsp;</span>仪表仪容</div>
+                    </div><div class="s_option">
+                        <div class="so_p">
+                            <div class="option kk" namesub="1">A</div>
+                            <div class="title" namesub="1">合格（执行）</div>
+                        </div>
+                        <div class="so_p">
+                            <div class="option kk" namesub="1">B</div>
+                            <div class="title" namesub="1">不合格（执行）</div>
+                        </div>
+                        <div class="infor">
+                            <div class="inforTitle" namesub="1">单项不合格</div>
+                            <div class="inputItem"><input id="ckb_notwearingwhiteshirt" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_notwearingwhiteshirt">未穿白衬衫</label></div></div>
+                            <div class="inputItem"><input id="ckb_withoutgloves" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_withoutgloves">未带手套</label></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="4">
+                    <div class="s_title">
+                        <div class="st_title"><span>[4-检查项目]&nbsp;&nbsp;</span>空调音响按乘客要求使用？</div>
+                    </div><div class="s_option">
+                        <div class="so_p">
+                            <div class="option kk" namesub="1">A</div>
+                            <div class="title" namesub="1">合格（执行）</div>
+                        </div>
+                        <div class="so_p">
+                            <div class="option kk" namesub="1">B</div>
+                            <div class="title" namesub="1">不合格（执行）</div>
+                        </div>
+                        <div class="infor">
+                            <div class="inforTitle" namesub="1">单项不合格</div>
+                            <div class="inputItem"><input id="ckb_airconditioning" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_airconditioning">空调</label></div></div>
+                            <div class="inputItem"><input di="ckb_sound" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_sound">音响</label></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="5">
+                    <div class="s_title">
+                        <div class="st_title"><span>[5-检查项目]&nbsp;&nbsp;</span>车内报话机语音提示正常</div>
+                    </div><div class="s_option">
+                        <div class="so_p">
+                            <div class="option kk" namesub="1">A</div>
+                            <div class="title" namesub="1">合格（执行）</div>
+                        </div>
+                        <div class="so_p">
+                            <div class="option kk" namesub="1">B</div>
+                            <div class="title" namesub="1">不合格（执行）</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="6">
+                    <div class="s_title">
+                        <div class="st_title"><span>[6-检查项目]&nbsp;&nbsp;</span>问好、致谢、道别</div>
+                    </div><div class="s_option">
+                        <div class="so_p">
+                            <div class="option kk" namesub="1">A</div>
+                            <div class="title" namesub="1">合格（执行）</div>
+                        </div>
+                        <div class="so_p">
+                            <div class="option kk" namesub="1">B</div>
+                            <div class="title" namesub="1">不合格（执行）</div>
+                        </div>
+                        <div class="infor">
+                            <div class="inforTitle" namesub="1">单项不合格</div>
+                            <div class="inputItem"><input id="ckb_sayhello" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_sayhello">问好</label></div></div>
+                            <div class="inputItem"><input id="ckb_acknowledgement" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_acknowledgement">致谢</label></div></div>
+                            <div class="inputItem"><input id="ckb_goodbye" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_goodbye">道别</label></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="7">
+                    <div class="s_title">
+                        <div class="st_title"><span>[7-检查项目]&nbsp;&nbsp;</span>问清付费方式</div>
+                    </div><div class="s_option">
+                        <div class="so_p">
+                            <div class="option kk" namesub="1">A</div>
+                            <div class="title" namesub="1">合格（执行）</div>
+                        </div>
+                        <div class="so_p">
+                            <div class="option kk" namesub="1">B</div>
+                            <div class="title" namesub="1">不合格（执行）</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="8">
+                    <div class="s_title">
+                        <div class="st_title"><span>[8-检查项目]&nbsp;&nbsp;</span>语言提示勿忘物品</div>
+                    </div><div class="s_option">
+                        <div class="so_p">
+                            <div class="option kk" namesub="1">A</div>
+                            <div class="title" namesub="1">合格（执行）</div>
+                        </div>
+                        <div class="so_p">
+                            <div class="option kk" namesub="1">B</div>
+                            <div class="title" namesub="1">不合格（执行）</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="9">
+                    <div class="s_title">
+                        <div class="st_title"><span>[9-检查项目]&nbsp;&nbsp;</span>提醒前排乘客系安全带、行驶中不打电话，不违章</div>
+                    </div><div class="s_option">
+                        <div class="so_p">
+                            <div class="option kk" namesub="1">A</div>
+                            <div class="title" namesub="1">合格（执行）</div>
+                        </div>
+                        <div class="so_p">
+                            <div class="option kk" namesub="1">B</div>
+                            <div class="title" namesub="1">不合格（执行）</div>
+                        </div>
+                        <div class="infor">
+                            <div class="inforTitle" namesub="1">单项不合格</div>
+                            <div class="inputItem"><input id="ckb_seatbelt" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_seatbelt">安全带</label></div></div>
+                            <div class="inputItem"><input id="ckb_call" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_call">打手机</label></div></div>
+                            <div class="inputItem"><input id="ckb_violation" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_violation">违章</label></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="10">
+                    <div class="s_title">
+                        <div class="st_title"><span>[10-检查项目]&nbsp;&nbsp;</span>不讲脏话、抛物、吐痰</div>
+                    </div><div class="s_option">
+                        <div class="so_p">
+                            <div class="option kk" namesub="1">A</div>
+                            <div class="title" namesub="1">合格（执行）</div>
+                        </div>
+                        <div class="so_p">
+                            <div class="option kk" namesub="1">B</div>
+                            <div class="title" namesub="1">不合格（执行）</div>
+                        </div>
+                        <div class="infor">
+                            <div class="inforTitle" namesub="1">单项不合格</div>
+                            <div class="inputItem"><input id="ckb_swearing" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_swearing">讲脏话</label></div></div>
+                            <div class="inputItem"><input id="ckb_parabolic" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_parabolic">抛物</label></div></div>
+                            <div class="inputItem"><input id="ckb_spitting" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_spitting">吐痰</label></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="11">
+                    <div class="s_title">
+                        <div class="st_title"><span>[11-简答题]&nbsp;&nbsp;</span>意见与建议（反应以上每一项的执行情况）</div>
+                    </div>
+                    <div class="s_option">
+                        <div namesub="4">
+                            <textarea style="width: 76%;height: 10rem;margin:5% 10%;padding: 5px;" onBlur="LeaveSubmit(this)"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="12">
+                    <div class="s_title">
+                        <div class="st_title"><span>[12-检查项目]&nbsp;&nbsp;</span>车容车貌、仪表仪容（请选择以下项目在检查中有不合格项目）</div>
+                    </div>
+                    <div class="s_option">
+                        <div class="so_p">
+                            <div class="option kk" namesub="2">A</div>
+                            <div class="title" namesub="2">车厢脏</div>
+                        </div>
+                        <div class="so_p">
+                            <div class="option kk" namesub="2">B</div>
+                            <div class="title" namesub="2">座套脏</div>
+                        </div>
+                        <div class="so_p">
+                            <div class="option kk" namesub="2">C</div>
+                            <div class="title" namesub="2">服务设施坏</div>
+                        </div>
+                        <div class="so_p">
+                            <div class="option kk" namesub="2">D</div>
+                            <div class="title" namesub="2">未穿识别服</div>
+                        </div>
+                        <div class="so_p">
+                            <div class="option kk" namesub="2">E</div>
+                            <div class="title" namesub="2">仪容不整洁</div>
+                        </div>
+                        <div class="so_p">
+                            <div class="option kk" namesub="2">F</div>
+                            <div class="title" namesub="2">留长发、蓄须</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="13">
+                    <div class="s_title">
+                        <div class="st_title"><span>[13-检查项目]&nbsp;&nbsp;</span>驾驶员服务（请选择以下项目在检查中有不合格项目）</div>
+                    </div><div class="s_option">
+                        <div class="so_p">
+                            <div class="option kk" namesub="2">A</div>
+                            <div class="title" namesub="2">驾驶员车内吸烟</div>
+                        </div>
+                        <div class="so_p">
+                            <div class="option kk" namesub="2">B</div>
+                            <div class="title" namesub="2">不协助乘客放取行李</div>
+                        </div>
+                        <div class="so_p">
+                            <div class="option kk" namesub="2">C</div>
+                            <div class="title" namesub="2">驾驶员不帮老助残</div>
+                        </div>
+                        <div class="so_p">
+                            <div class="option kk" namesub="2">D</div>
+                            <div class="title" namesub="2">不主动给票</div>
+                        </div>
+                        <div class="so_p">
+                            <div class="option kk" namesub="2">E</div>
+                            <div class="title" namesub="2">未选择合理路线</div>
+                        </div>
+                        <div class="so_p">
+                            <div class="option kk" namesub="2">F</div>
+                            <div class="title" namesub="2">保险带不整洁</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="14">
+                    <div class="s_title">
+                        <div class="st_title"><span>[14-上传]&nbsp;&nbsp;</span>上传发票/附件</div>
+                    </div>
+                    <div class="s_option">
+                        <div class="infor">
+                            <div class="inforTitle" namesub="1">上传发票</div>
+                            <input type="file" class="file" accept="image/png,image/jpg,image/jpeg" style="width:90%; padding:0px" value="" />
+                        </div>
+
+                        <div class="infor">
+                            <div class="inforTitle" namesub="1">上传附件</div>
+                            <input type="file" class="file" style="width:90%;padding:0px" value="" />
+                            <input type="file" class="file" style="width:90%;padding:0px" value="" />
+                            <input type="file" class="file" style="width:90%;padding:0px" value="" />
+                            <input type="file" class="file" style="width:90%;padding:0px" value="" />
+                            <input type="file" class="file" style="width:90%;padding:0px" value="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+            </div>
+        </div>
+        <!--div悬浮在上方的div上面,让上面的div内容只读-->
+        <div id="dvTrans" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: transparent; display: none; z-index: 9999">
+        </div>
+    </section>
+
+
+
+    <script src="@Url.Content("~/_theme/js/jquery-2.0.3.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/_theme/tool/jquery-form.min.js")"></script>
+    <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/swiper-3.3.1.jquery.min.js")"></script>
+    <script src="@Url.Content("~/Areas/RideCheckFeedback/Views/_js/ridecheckfeedback.js")"></script>
+    <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/app.js")"></script>
+</body>
+</html>
+
+
+
+
+
