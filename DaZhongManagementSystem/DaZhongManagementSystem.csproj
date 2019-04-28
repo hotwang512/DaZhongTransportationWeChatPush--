@@ -366,7 +366,13 @@
     <Content Include="Areas\ReportManagement\Views\_js\PaymentReport.js" />
     <Content Include="Areas\ReportManagement\Views\_js\QuestionReport.js" />
     <Content Include="Areas\RideCheckFeedback\Views\_css\index2.css" />
+    <Content Include="Areas\RideCheckFeedback\Views\_js\need\layer.css" />
+    <Content Include="Areas\RideCheckFeedback\Views\_css\mobileSelect.css" />
+    <Content Include="Areas\RideCheckFeedback\Views\_img\add_image.png" />
+    <Content Include="Areas\RideCheckFeedback\Views\_js\layer.js" />
+    <Content Include="Areas\RideCheckFeedback\Views\_js\mobileSelect.js" />
     <Content Include="Areas\RideCheckFeedback\Views\_js\ridecheckfeedback.js" />
+    <Content Include="Areas\RideCheckFeedback\Views\_js\selectDate.js" />
     <Content Include="Areas\WeChatPay\Views\_js\WechatPay.js" />
     <Content Include="Areas\WeChatPush\Views\_css\Agreement.css" />
     <Content Include="Areas\WeChatPush\Views\_css\CommonSlider.css" />

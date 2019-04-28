@@ -1,7 +1,13 @@
-﻿* {
+﻿
+* {
     margin: 0;
     padding: 0;
     font-family: "微软雅黑";
+}
+
+body {
+    font-family: "微软雅黑";
+    font-size: 1rem;
 }
 
 header {
@@ -220,6 +226,7 @@ section {
     min-height: 10rem;
     max-height: 21rem;
     overflow-y: auto;
+    overflow-x: hidden;
     margin-top: 5%;
 }
 
@@ -357,7 +364,7 @@ footer {
 .file {
     padding: 1rem 1rem;
     overflow: hidden;
-    height: 30px;
+    height: 35px;
     padding: 0px;
 }
 
@@ -370,7 +377,7 @@ footer {
         width: 100%;
     }
 
-    /*.file:hover {
+/*.file:hover {
         background: #AADFFD;
         border-color: #78C3F3;
         color: #004974;
@@ -535,16 +542,17 @@ footer {
 input {
     height: 22.5px;
     border: solid 1px #d6d6d6;
-    width: 52%;
+    width: 50%;
     font-family: "微软雅黑";
-    font-size: 20px;
+    font-size: 18px;
     padding: 3px;
+    border-radius: 4px;
 }
 
 .inputItem {
-    margin: 5px 20px 10px 20px;
+    margin: 5px 0px 10px 20px;
     float: left;
-    /*width: 100%;*/
+    width: 100%;
 }
 
 .inputItemText {
@@ -557,4 +565,15 @@ input {
     width: 50px;
     margin-top: 3px;
     height: 28px;
+}
+
+.image_invoice {
+    max-height: 100px;
+    max-width: 100px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+li {
+    list-style: none;
 }

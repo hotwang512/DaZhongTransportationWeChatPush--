@@ -1,22 +1,16 @@
 ﻿<!DOCTYPE html>
-@{
-
-}
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="keywords" content="">
     <meta name="author" content="">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="blank">
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>大众出租汽车公司同行乘车检查反馈单</title>
-
+    <link href="@Url.Content("~/Areas/RideCheckFeedback/Views/_css/mobileSelect.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Areas/BasicDataManagement/Views/_css/WeChatExercise/swiper-3.3.1.min.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Areas/RideCheckFeedback/Views/_css/index2.css")" rel="stylesheet" rel="stylesheet" />
     <link href="@Url.Content("~/Areas/BasicDataManagement/Views/iconfont/iconfont.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Areas/RideCheckFeedback/Views/_css/index2.css")" rel="stylesheet" />
 
 </head>
 <body>
@@ -117,8 +111,6 @@
         <div class="ss">10</div>
         <div class="ss">11</div>
         <div class="ss">12</div>
-        <div class="ss">13</div>
-        <div class="ss">14</div>
     </div>
 
     <!--上传图片功能-->
@@ -140,22 +132,21 @@
     <section>
         <div class="swiper-container kj1 swiper-no-swiping" style="display:none;">
             <div class="swiper-wrapper" style="transform: translate3d(-1920px, 0px, 0px); transition-duration: 0ms;">
-
-                <div class="swiper-slide swiper-no-swiping swiper-slide-active" data-swiper-slide-index="1">
+                <div class="swiper-slide swiper-no-swiping swiper-slide-active" data-swiper-slide-index="0">
                     <div class="s_title">
                         <div class="st_title"><span>[1-基本信息]&nbsp;&nbsp;</span>填写同行乘车检查反馈的基本信息</div>
                     </div>
                     <div class="s_option">
-                        <div class="inputItem"><div class="inputItemText">检查人姓名：</div><input type="text" readonly="readonly" style="background-color:#ccc;" value="倪明" /></div>
-                        <div class="inputItem"><div class="inputItemText">检 查 日 期：</div><input type="text" value="" /></div>
-                        <div class="inputItem"><div class="inputItemText">检 查 时 间：</div><input type="text" value="" /></div>
-                        <div class="inputItem"><div class="inputItemText">受 检 车 号：</div><input type="text" value="" /></div>
-                        <div class="inputItem"><div class="inputItemText">上 车 地 点：</div><input type="text" value="" /></div>
-                        <div class="inputItem"><div class="inputItemText">下 车 地 点：</div><input type="text" value="" /></div>
-                        <div class="inputItem"><div class="inputItemText">服 务 卡 号：</div><input type="text" value="" /></div>
+                        <div class="inputItem"><div class="inputItemText">检查人姓名：</div><input id="txt_checkname" onchange="basicInformation()" type="text" readonly="readonly" value="倪明" /></div>
+                        <div class="inputItem"><div class="inputItemText">检 查 日 期：</div><input id="txt_checkdate" onchange="basicInformation()" type="text" value="@DateTime.Now.ToString("yyyy-MM-dd")" readonly="readonly" /></div>
+                        <div class="inputItem"><div class="inputItemText">检 查 时 间：</div><input id="txt_checktime" onchange="basicInformation()" type="text" value="@DateTime.Now.ToString("HH:mm")" readonly="readonly" /></div>
+                        <div class="inputItem"><div class="inputItemText">受 检 车 号：</div><input id="txt_checkcarnumber" onchange="basicInformation()" type="text" value="" /></div>
+                        <div class="inputItem"><div class="inputItemText">上 车 地 点：</div><input id="txt_boardinglocation" onchange="basicInformation()" type="text" value="" /></div>
+                        <div class="inputItem"><div class="inputItemText">下 车 地 点：</div><input id="txt_getoffposition" onchange="basicInformation()" type="text" value="" /></div>
+                        <div class="inputItem"><div class="inputItemText">服 务 卡 号：</div><input id="txt_servicecardnumber" onchange="basicInformation()" type="text" value="" /></div>
                     </div>
                 </div>
-                <div class="swiper-slide swiper-no-swiping swiper-slide-next" data-swiper-slide-index="2">
+                <div class="swiper-slide swiper-no-swiping swiper-slide-next" data-swiper-slide-index="1">
                     <div class="s_title">
                         <div class="st_title"><span>[2-检查项目]&nbsp;&nbsp;</span>车容车貌</div>
                     </div><div class="s_option">
@@ -174,7 +165,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="3">
+                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="2">
                     <div class="s_title">
                         <div class="st_title"><span>[3-检查项目]&nbsp;&nbsp;</span>仪表仪容</div>
                     </div><div class="s_option">
@@ -193,7 +184,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="4">
+                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="3">
                     <div class="s_title">
                         <div class="st_title"><span>[4-检查项目]&nbsp;&nbsp;</span>空调音响按乘客要求使用？</div>
                     </div><div class="s_option">
@@ -212,21 +203,25 @@
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="5">
+                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="4">
                     <div class="s_title">
-                        <div class="st_title"><span>[5-检查项目]&nbsp;&nbsp;</span>车内报话机语音提示正常</div>
+                        <div class="st_title"><span>[5-检查项目]&nbsp;&nbsp;</span>语音及付费方式提醒</div>
                     </div><div class="s_option">
                         <div class="so_p">
-                            <div class="option kk" namesub="1">A</div>
-                            <div class="title" namesub="1">合格（执行）</div>
+                            <div class="option kk" namesub="2">A</div>
+                            <div class="title" namesub="2">车内报话机语音提示正常</div>
                         </div>
                         <div class="so_p">
-                            <div class="option kk" namesub="1">B</div>
-                            <div class="title" namesub="1">不合格（执行）</div>
+                            <div class="option kk" namesub="2">B</div>
+                            <div class="title" namesub="2">问清付费方式</div>
+                        </div>
+                        <div class="so_p">
+                            <div class="option kk" namesub="2">C</div>
+                            <div class="title" namesub="2">语言提示勿忘物品</div>
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="6">
+                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="5">
                     <div class="s_title">
                         <div class="st_title"><span>[6-检查项目]&nbsp;&nbsp;</span>问好、致谢、道别</div>
                     </div><div class="s_option">
@@ -246,35 +241,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="7">
-                    <div class="s_title">
-                        <div class="st_title"><span>[7-检查项目]&nbsp;&nbsp;</span>问清付费方式</div>
-                    </div><div class="s_option">
-                        <div class="so_p">
-                            <div class="option kk" namesub="1">A</div>
-                            <div class="title" namesub="1">合格（执行）</div>
-                        </div>
-                        <div class="so_p">
-                            <div class="option kk" namesub="1">B</div>
-                            <div class="title" namesub="1">不合格（执行）</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="8">
-                    <div class="s_title">
-                        <div class="st_title"><span>[8-检查项目]&nbsp;&nbsp;</span>语言提示勿忘物品</div>
-                    </div><div class="s_option">
-                        <div class="so_p">
-                            <div class="option kk" namesub="1">A</div>
-                            <div class="title" namesub="1">合格（执行）</div>
-                        </div>
-                        <div class="so_p">
-                            <div class="option kk" namesub="1">B</div>
-                            <div class="title" namesub="1">不合格（执行）</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="9">
+                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="6">
                     <div class="s_title">
                         <div class="st_title"><span>[9-检查项目]&nbsp;&nbsp;</span>提醒前排乘客系安全带、行驶中不打电话，不违章</div>
                     </div><div class="s_option">
@@ -294,7 +261,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="10">
+                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="7">
                     <div class="s_title">
                         <div class="st_title"><span>[10-检查项目]&nbsp;&nbsp;</span>不讲脏话、抛物、吐痰</div>
                     </div><div class="s_option">
@@ -314,7 +281,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="11">
+                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="8">
                     <div class="s_title">
                         <div class="st_title"><span>[11-简答题]&nbsp;&nbsp;</span>意见与建议（反应以上每一项的执行情况）</div>
                     </div>
@@ -324,7 +291,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="12">
+                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="9">
                     <div class="s_title">
                         <div class="st_title"><span>[12-检查项目]&nbsp;&nbsp;</span>车容车貌、仪表仪容（请选择以下项目在检查中有不合格项目）</div>
                     </div>
@@ -355,7 +322,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="13">
+                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="10">
                     <div class="s_title">
                         <div class="st_title"><span>[13-检查项目]&nbsp;&nbsp;</span>驾驶员服务（请选择以下项目在检查中有不合格项目）</div>
                     </div><div class="s_option">
@@ -385,24 +352,29 @@
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="14">
+                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="11">
                     <div class="s_title">
                         <div class="st_title"><span>[14-上传]&nbsp;&nbsp;</span>上传发票/附件</div>
                     </div>
                     <div class="s_option">
-                        <div class="infor">
-                            <div class="inforTitle" namesub="1">上传发票</div>
-                            <input type="file" class="file" accept="image/png,image/jpg,image/jpeg" style="width:90%; padding:0px" value="" />
-                        </div>
-
-                        <div class="infor">
-                            <div class="inforTitle" namesub="1">上传附件</div>
-                            <input type="file" class="file" style="width:90%;padding:0px" value="" />
-                            <input type="file" class="file" style="width:90%;padding:0px" value="" />
-                            <input type="file" class="file" style="width:90%;padding:0px" value="" />
-                            <input type="file" class="file" style="width:90%;padding:0px" value="" />
-                            <input type="file" class="file" style="width:90%;padding:0px" value="" />
-                        </div>
+                        <form>
+                            <div id="invoicediv" class="infor">
+                                <div class="inforTitle" namesub="1">上传发票</div>
+                                <input type="file" id="upload_Invoice" name="upload_Invoice" class="file" onchange="uploadInvoice(this)" accept="image/png,image/jpg,image/jpeg" style="width:90%; padding:0px;display:none;" />
+                                <div style="margin:auto;text-align:center;">
+                                    <img id="image_invoice" name="image_invoice" class="image_invoice" src="/Areas/RideCheckFeedback/Views/_img/add_image.png" />
+                                </div>
+                            </div>
+                            <hr style="margin-bottom:20px;border: #dcdcdc solid 1px;" />
+                            <div class="infor">
+                                <div class="inforTitle" namesub="1">上传附件</div>
+                                <input type="file" id="upload_Attachment" name="upload_Attachment" onchange="uploadAttachment(this)" class="file" style="width:90%;padding:0px;display:none;" value="" />
+                                <div style="margin:auto;text-align:center;">
+                                    <img class="image_attachment" name="image_attachment" src="/Areas/RideCheckFeedback/Views/_img/add_image.png" />
+                                </div>
+                                <ul name="attachmentul"></ul>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -414,13 +386,20 @@
         </div>
     </section>
 
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.js")"></script>
 
-
-    <script src="@Url.Content("~/_theme/js/jquery-2.0.3.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/_theme/tool/jquery-form.min.js")"></script>
+    @*<script src="@Url.Content("~/_theme/js/jquery-2.0.3.min.js")"></script>*@
+    <script src="@Url.Content("~/_theme/tool/jquery-form.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/swiper-3.3.1.jquery.min.js")"></script>
-    <script src="@Url.Content("~/Areas/RideCheckFeedback/Views/_js/ridecheckfeedback.js")"></script>
+    <script src="@Url.Content("~/Areas/RideCheckFeedback/Views/_js/mobileSelect.js")"></script>
+    <script src="@Url.Content("~/Areas/RideCheckFeedback/Views/_js/selectDate.js")"></script>
+    <script src="@Url.Content("~/Areas/RideCheckFeedback/Views/_js/layer.js")"></script>
     <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/app.js")"></script>
+    <script src="@Url.Content("~/Areas/RideCheckFeedback/Views/_js/ridecheckfeedback.js")"></script>
+    <script>
+
+
+    </script>
 </body>
 </html>
 

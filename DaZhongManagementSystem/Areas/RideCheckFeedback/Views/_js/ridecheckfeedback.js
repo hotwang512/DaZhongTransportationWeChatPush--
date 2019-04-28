@@ -8,12 +8,92 @@ var dataLen;
 var MainRowID;
 var count = 0;
 var number1 = 0;
-dataLen = 14;
+dataLen = 12;
 var answerCount = 0;
 var userAbleAnswerCount = $("#AnswerCount").val();
 var isPushed = 0;  //是否推送过
 //获取数据
 $(function () {
+    init();
+    addEvent()
+    loadridecheckfeedback()
+});
+
+
+
+
+function init() {
+    $.selectYY_MM_DD("#txt_checkdate");
+    $.select_HH_MM("#txt_checktime");
+}
+
+function addEvent() {
+    $("#image_invoice").click(function () {
+        $("#upload_Invoice").val('');
+        $("#upload_Invoice").click();
+    });
+
+    $("[name='image_attachment']").click(function () {
+        $("#upload_Attachment").val('');
+        $("#upload_Attachment").click();
+    });
+}
+
+function uploadInvoice(ele) {
+
+
+    layer.open({ type: 2 });
+    $("form").ajaxSubmit({
+        url: " /RideCheckFeedback/RideCheckFeedback/uploadFile",
+        type: "post",
+        dataType: "json",
+        success: function (msg) {
+            $($("[name='image_invoice']")[1]).attr("src", msg.Data.FilePath)
+            $(".ss").eq(11).addClass("active").css("background", "rgb(20, 108, 127)");
+            layer.closeAll();
+            activeSubmit();
+        }
+    });
+}
+
+function uploadAttachment(ele) {
+    layer.open({ type: 2 });
+    $("form").ajaxSubmit({
+        url: " /RideCheckFeedback/RideCheckFeedback/uploadFile",
+        type: "post",
+        dataType: "json",
+        success: function (msg) {
+            $($("[name='attachmentul']")[1]).append("<li filePath='" + msg.Data.FilePath + "'><span onclick='deleteAttachment(this)' style='color: red;font-size: 50px;'>×</span>" + msg.Data.FileName + "</li>");
+            layer.closeAll();
+        }
+    });
+}
+
+function deleteAttachment(ele) {
+    if (confirm("确认要删除附件？")) {
+        $(ele).parent().remove();
+    }
+}
+
+function basicInformation() {
+    var txt_checkname = $("#txt_checkname").val();
+    var txt_checkdate = $("#txt_checkdate").val();
+    var txt_checktime = $("#txt_checktime").val();
+    var txt_checkcarnumber = $("#txt_checkcarnumber").val();
+    var txt_boardinglocation = $("#txt_boardinglocation").val();
+    var txt_getoffposition = $("#txt_getoffposition").val();
+    var txt_servicecardnumber = $("#txt_servicecardnumber").val();
+    if (txt_checkname != "" && txt_checkdate != "" && txt_checktime != "" && txt_checkcarnumber != "" && txt_boardinglocation != "" && txt_getoffposition != "" && txt_servicecardnumber != "") {
+        $(".ss").eq(0).addClass("active").css("background", "rgb(20, 108, 127)");
+
+    } else {
+        $(".ss").eq(0).removeClass("active").css("background", "#999");
+    }
+    activeSubmit();
+}
+
+
+function loadridecheckfeedback() {
     $.ajax({
         url: "/RideCheckFeedback/RideCheckFeedback/getRideCheckFeedback",
         data: {
@@ -69,6 +149,7 @@ $(function () {
                 observeParents: true
             });
             $(".kj1").show();
+            $(".ss").eq(8).addClass("active").css("background", "rgb(20, 108, 127)");
             var countNum = 5;
             var countup;
             //切换上个页面
@@ -218,29 +299,7 @@ $(function () {
                     //    }
                     //});
                 }
-
-
-                //判断一共做了几道题
-                var ans = $(".answer").children();
-                var ansLen = ans.length;
-                number1 = 0;
-                for (var t = 0; t < ansLen; t++) {
-                    if (jQuery(ans[t]).hasClass("active")) {
-                        number1++;
-                    }
-                }
-
-                //判断当前试题是否已经完成
-                if (number1 == dataLen) {
-                    console.log(number1);
-                    console.log(dataLen);
-                    console.log(dataLen)
-                    $(".f_center1").addClass("active").css("background", "rgb(164, 191, 17)");
-                }
-                else {
-                    $(".f_center1").removeClass("active").css("background", "#999");
-                }
-
+                activeSubmit();
             });
 
             //点击答案追加样式
@@ -324,25 +383,8 @@ $(function () {
                         $(".ss").eq(count).removeClass("active").css("background", "#999");
                     }
                 }
+                activeSubmit();
 
-                //判断一共做了几道题
-                var ans = $(".answer").children();
-                var ansLen = ans.length;
-                number1 = 0;
-                for (var t = 0; t < ansLen; t++) {
-                    if (jQuery(ans[t]).hasClass("active")) {
-                        number1++;
-                    }
-                }
-
-                //判断当前试题是否已经完成
-                if (number1 == dataLen) {
-                    console.log(dataLen)
-                    $(".f_center1").addClass("active").css("background", "rgb(164, 191, 17)");
-                }
-                else {
-                    $(".f_center1").removeClass("active").css("background", "#999");
-                }
             });
 
             //点击切换到答题卡
@@ -386,8 +428,31 @@ $(function () {
             $(".fc_right").html(dataLen);
         }
     });
-});
 
+}
+
+function activeSubmit() {
+    //判断一共做了几道题
+    var ans = $(".answer").children();
+    var ansLen = ans.length;
+    number1 = 0;
+    for (var t = 0; t < ansLen; t++) {
+        if (jQuery(ans[t]).hasClass("active")) {
+            number1++;
+        }
+    }
+
+    //判断当前试题是否已经完成
+    if (number1 == dataLen) {
+        console.log(number1);
+        console.log(dataLen);
+        console.log(dataLen)
+        $(".f_center1").addClass("active").css("background", "rgb(164, 191, 17)");
+    }
+    else {
+        $(".f_center1").removeClass("active").css("background", "#999");
+    }
+}
 
 //简答题
 function LeaveSubmit(e) {
