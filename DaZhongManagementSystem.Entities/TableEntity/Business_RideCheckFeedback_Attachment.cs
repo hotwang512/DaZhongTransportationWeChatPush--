@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DaZhongManagementSystem.Entities.TableEntity
 {
-    class Business_RideCheckFeedback_Attachment
+    public class Business_RideCheckFeedback_Item_Attachment
     {
         public Guid VGUID { get; set; }
         public DateTime CreateDate { get; set; }

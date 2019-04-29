@@ -14,13 +14,7 @@ namespace DaZhongManagementSystem.Entities.TableEntity
         public string ChangeUser { get; set; }
 
         public string Status { get; set; }
-        public string FeedbackNumber { get; set; }
-        public string FeedbackName { get; set; }
-        public string FeedbackAnswer1 { get; set; }
-        public string FeedbackAnswer2 { get; set; }
-        public string FeedbackAnswer3 { get; set; }
-        public string FeedbackAnswer4 { get; set; }
-        public string FeedbackAnswer5 { get; set; }
-        public string FeedbackAnswer6 { get; set; }
+
+        public string FeedbackCode { get; set; }
     }
 }

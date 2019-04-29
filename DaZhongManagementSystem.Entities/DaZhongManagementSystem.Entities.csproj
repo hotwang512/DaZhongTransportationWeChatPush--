@@ -68,6 +68,7 @@
     <Compile Include="TableEntity\Business_Questionnaire_AnswerDetail.cs" />
     <Compile Include="TableEntity\Business_Redpacket_Push_Information.cs" />
     <Compile Include="TableEntity\Business_RideCheckFeedback.cs" />
+    <Compile Include="TableEntity\Business_RideCheckFeedback_Item_Attachment.cs" />
     <Compile Include="TableEntity\Business_RideCheckFeedback_Attachment.cs" />
     <Compile Include="TableEntity\Business_ScanData_Information.cs" />
     <Compile Include="TableEntity\Business_ScanHistory_Information.cs" />

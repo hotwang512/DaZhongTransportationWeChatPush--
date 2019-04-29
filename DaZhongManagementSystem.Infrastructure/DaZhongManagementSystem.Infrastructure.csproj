@@ -95,6 +95,7 @@
     <Compile Include="ReportManagement\QuestionReportServer.cs" />
     <Compile Include="ReportManagement\ScoreReportServer.cs" />
     <Compile Include="RevenueServer.cs" />
+    <Compile Include="RideCheckFeedback\RideCheckFeedbackServer.cs" />
     <Compile Include="Salary\SalaryServer.cs" />
     <Compile Include="QRCodeManagement\ScanDataServer.cs" />
     <Compile Include="QRCodeManagement\ScanHistoryServer.cs" />
