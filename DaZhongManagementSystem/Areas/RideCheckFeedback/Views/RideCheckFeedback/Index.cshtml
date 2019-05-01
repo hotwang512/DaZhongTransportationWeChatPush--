@@ -1,4 +1,15 @@
 ﻿<!DOCTYPE html>
+@using DaZhongManagementSystem.Entities.TableEntity;
+@{
+    Business_RideCheckFeedback rideCheckFeedback = ViewBag.RideCheckFeedback as Business_RideCheckFeedback;
+    Business_Personnel_Information user = ViewBag.User as Business_Personnel_Information;
+    bool isOpen = Convert.ToBoolean(ViewBag.IsOpen);
+    string isOpenString = "display: none";
+    if (!isOpen)
+    {
+        isOpenString = "";
+    }
+}
 <html>
 <head>
     <meta charset="utf-8">
@@ -15,17 +26,13 @@
 </head>
 <body>
     @*答题人Vguid*@
-    <input type="hidden" id="PersonVguid" value="" />
+    <input type="hidden" id="PersonVguid" value="@user.Vguid.ToString()" />
     @*习题Vguid*@
-    <input type="hidden" id="ExerciseVguid" value="" />
-    @*外网访问地址*@
-    <input type="hidden" id="OpenHttpAddress" value="" />
-    @*企业号CorpID*@
-    <input type="hidden" id="CorpID" value="" />
-    @*推送内容Vguid*@
-    <input type="hidden" id="PushContentVguid" value="" />
+    <input type="hidden" id="ExerciseVguid" value="@rideCheckFeedback.VGUID.ToString()" />
+
+    <input type="hidden" id="IsOpen" value="@isOpen" />
     @*答题次数*@
-    <input type="hidden" id="AnswerCount" value="" />
+    <input type="hidden" id="maxCount" value="" />
     @* 是否是消息历史界面跳转而来*@
     <input type="hidden" id="isHistory" value="" />
     <input type="hidden" id="txtWechatMain" value="" />
@@ -67,19 +74,19 @@
         <div id="success">
             <div>
                 <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/567925.png")" alt="Alternate Text" />
-                本次检查单已完成，谢谢您的参与！！
+                <p>本次检查单已完成，谢谢您的参与！！</p>
             </div>
         </div>
-        <div id="marking">
+        <div id="marking" style="@isOpenString">
             <div>
                 <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/567925.png")" alt="Alternate Text" />
-                本次答题已完成，请等待阅卷！！
+                <p> 本月检查单已经全部完成，请下月准时填写！！</p>
             </div>
         </div>
         <div id="error">
             <div>
                 <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/Error.png")" alt="Alternate Text" />
-                线上学习次数已用完，请与车队联系进行线下培训！！
+                本月检查单填写次数已用完，请下月准时填写！
             </div>
         </div>
         <div id="errorExprice" style="display: none">
@@ -99,18 +106,25 @@
     </div>
     <!--答题卡-->
     <div class="answer">
-        <div class="ss">1</div>
-        <div class="ss">2</div>
-        <div class="ss">3</div>
-        <div class="ss">4</div>
-        <div class="ss">5</div>
-        <div class="ss">6</div>
-        <div class="ss">7</div>
-        <div class="ss">8</div>
-        <div class="ss">9</div>
-        <div class="ss">10</div>
-        <div class="ss">11</div>
-        <div class="ss">12</div>
+        @{
+            if (isOpen && rideCheckFeedback.RideCheckFeedback_Items.Count > 0)
+            {
+                for (int i = 0; i < rideCheckFeedback.RideCheckFeedback_Items.Count; i++)
+                {
+                    string active = "active";
+                    string background = "";
+                    if (i != 8 && i != 0)
+                    {
+                        active = rideCheckFeedback.RideCheckFeedback_Items[i].FeedbackAnswer1 != "" ? "active" : "";
+                        if (active == "active")
+                        {
+                            background = "background: rgb(20, 108, 127);";
+                        }
+                    }
+                    <div class="ss @active" style="@background">@(i + 1)</div>
+                }
+            }
+        }
     </div>
 
     <!--上传图片功能-->
@@ -137,243 +151,487 @@
                         <div class="st_title"><span>[1-基本信息]&nbsp;&nbsp;</span>填写同行乘车检查反馈的基本信息</div>
                     </div>
                     <div class="s_option">
-                        <div class="inputItem"><div class="inputItemText">检查人姓名：</div><input id="txt_checkname" onchange="basicInformation()" type="text" readonly="readonly" value="倪明" /></div>
-                        <div class="inputItem"><div class="inputItemText">检 查 日 期：</div><input id="txt_checkdate" onchange="basicInformation()" type="text" value="@DateTime.Now.ToString("yyyy-MM-dd")" readonly="readonly" /></div>
-                        <div class="inputItem"><div class="inputItemText">检 查 时 间：</div><input id="txt_checktime" onchange="basicInformation()" type="text" value="@DateTime.Now.ToString("HH:mm")" readonly="readonly" /></div>
-                        <div class="inputItem"><div class="inputItemText">受 检 车 号：</div><input id="txt_checkcarnumber" onchange="basicInformation()" type="text" value="" /></div>
-                        <div class="inputItem"><div class="inputItemText">上 车 地 点：</div><input id="txt_boardinglocation" onchange="basicInformation()" type="text" value="" /></div>
-                        <div class="inputItem"><div class="inputItemText">下 车 地 点：</div><input id="txt_getoffposition" onchange="basicInformation()" type="text" value="" /></div>
-                        <div class="inputItem"><div class="inputItemText">服 务 卡 号：</div><input id="txt_servicecardnumber" onchange="basicInformation()" type="text" value="" /></div>
+                        <div class="inputItem"><div class="inputItemText">检查人姓名：</div><input id="txt_checkname" onchange="basicInformation()" type="text" readonly="readonly" value="@user.Name" /></div>
+
+                        @{  string checkDate = DateTime.Now.ToString("yyyy-MM-dd");
+                            string checkTime = DateTime.Now.ToString("HH:mm");
+                            string checkcarnumber = "";
+                            string boardinglocation = "";
+                            string getoffposition = "";
+                            string servicecardnumber = "";
+                            if (isOpen && rideCheckFeedback.RideCheckFeedback_Items.Count > 0)
+                            {
+                                checkDate = rideCheckFeedback.RideCheckFeedback_Items[0].FeedbackAnswer1;
+                                checkTime = rideCheckFeedback.RideCheckFeedback_Items[0].FeedbackAnswer2;
+                                checkcarnumber = rideCheckFeedback.RideCheckFeedback_Items[0].FeedbackAnswer3;
+                                boardinglocation = rideCheckFeedback.RideCheckFeedback_Items[0].FeedbackAnswer4;
+                                getoffposition = rideCheckFeedback.RideCheckFeedback_Items[0].FeedbackAnswer5;
+                                servicecardnumber = rideCheckFeedback.RideCheckFeedback_Items[0].FeedbackAnswer6;
+                            }
+                            <div class="inputItem"><div class="inputItemText">检 查 日 期：</div><input id="txt_checkdate" onchange="basicInformation()" type="text" value="@checkDate" readonly="readonly" /></div>
+                            <div class="inputItem"><div class="inputItemText">检 查 时 间：</div><input id="txt_checktime" onchange="basicInformation()" type="text" value="@checkTime" readonly="readonly" /></div>
+                            <div class="inputItem"><div class="inputItemText">受 检 车 号：</div><input id="txt_checkcarnumber" onchange="basicInformation()" type="text" value="@checkcarnumber" /></div>
+                            <div class="inputItem"><div class="inputItemText">上 车 地 点：</div><input id="txt_boardinglocation" onchange="basicInformation()" type="text" value="@boardinglocation" /></div>
+                            <div class="inputItem"><div class="inputItemText">下 车 地 点：</div><input id="txt_getoffposition" onchange="basicInformation()" type="text" value="@getoffposition" /></div>
+                            <div class="inputItem"><div class="inputItemText">服 务 卡 号：</div><input id="txt_servicecardnumber" onchange="basicInformation()" type="text" value="@servicecardnumber" /></div>
+
+                        }
                     </div>
                 </div>
                 <div class="swiper-slide swiper-no-swiping swiper-slide-next" data-swiper-slide-index="1">
                     <div class="s_title">
                         <div class="st_title"><span>[2-检查项目]&nbsp;&nbsp;</span>车容车貌</div>
-                    </div><div class="s_option">
-                        <div class="so_p">
-                            <div class="option kk" namesub="1">A</div>
-                            <div class="title" namesub="1">合格（执行）</div>
-                        </div>
-                        <div class="so_p">
-                            <div class="option kk" namesub="1">B</div>
-                            <div class="title" namesub="1">不合格（执行）</div>
-                        </div>
-                        <div class="infor">
-                            <div class="inforTitle" namesub="1">单项不合格</div>
-                            <div class="inputItem"><input id="ckb_anecdote" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_anecdote">肇事痕迹</label></div></div>
-                            <div class="inputItem"><input id="ckb_dirtycarriage" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_dirtycarriage">车厢内脏</label></div></div>
-                        </div>
+                    </div>
+                    <div class="s_option">
+                        @{
+                            if (true)
+                            {
+                                string optiona = "";
+                                string optionb = "";
+                                string feedbackAnswer2 = "active";
+                                string disable = "";
+                                string feedbackAnswer3 = "";
+                                string feedbackAnswer4 = "";
+                                string feedbackAnswer5 = "";
+                                string feedbackAnswer6 = "";
+                                if (isOpen && rideCheckFeedback.RideCheckFeedback_Items.Count > 1)
+                                {
+                                    optiona = rideCheckFeedback.RideCheckFeedback_Items[1].FeedbackAnswer1;
+                                    optionb = optiona == "B" ? "active" : "";
+                                    optiona = optiona == "A" ? "active" : "";
+
+                                    if (optiona == "active")
+                                    {
+                                        disable = "disabled='disabled'";
+                                    }
+
+                                    feedbackAnswer2 = rideCheckFeedback.RideCheckFeedback_Items[1].FeedbackAnswer2 == "1" ? "checked='checked'" : "";
+                                    feedbackAnswer3 = rideCheckFeedback.RideCheckFeedback_Items[1].FeedbackAnswer3 == "1" ? "checked='checked'" : "";
+                                    feedbackAnswer4 = rideCheckFeedback.RideCheckFeedback_Items[1].FeedbackAnswer4 == "1" ? "checked='checked'" : "";
+                                    feedbackAnswer5 = rideCheckFeedback.RideCheckFeedback_Items[1].FeedbackAnswer5 == "1" ? "checked='checked'" : "";
+                                    feedbackAnswer6 = rideCheckFeedback.RideCheckFeedback_Items[1].FeedbackAnswer6 == "1" ? "checked='checked'" : "";
+                                }
+
+                                <div class="so_p">
+                                    <div class="option kk @optiona" namesub="1">A</div>
+                                    <div class="title" namesub="1">合格(执行)</div>
+                                </div>
+                                <div class="so_p">
+                                    <div class="option kk @optionb" namesub="1">B</div>
+                                    <div class="title" namesub="1">不合格(执行)</div>
+                                </div>
+                                <div class="infor">
+                                    <div class="inforTitle" namesub="1">单项不合格</div>
+                                    <div class="inputItem"><input id="ckb_anecdote" class="inputItemChecbox" type="checkbox" @feedbackAnswer2 @disable /><div class="inputItemText"><label for="ckb_anecdote">肇事痕迹</label></div></div>
+                                    <div class="inputItem"><input id="ckb_dirtycarriage" class="inputItemChecbox" type="checkbox" @feedbackAnswer3 @disable /><div class="inputItemText"><label for="ckb_dirtycarriage">车厢内脏</label></div></div>
+                                    <div class="inputItem"><input id="ckb_stainedset" class="inputItemChecbox" type="checkbox" @feedbackAnswer4 @disable /><div class="inputItemText"><label for="ckb_stainedset">做套脏</label></div></div>
+                                    <div class="inputItem"><input id="ckb_badservicefacilities" class="inputItemChecbox" type="checkbox" @feedbackAnswer5 @disable /><div class="inputItemText"><label for="ckb_badservicefacilities">服务设施坏</label></div></div>
+                                </div>
+                            }
+                        }
                     </div>
                 </div>
                 <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="2">
                     <div class="s_title">
                         <div class="st_title"><span>[3-检查项目]&nbsp;&nbsp;</span>仪表仪容</div>
-                    </div><div class="s_option">
-                        <div class="so_p">
-                            <div class="option kk" namesub="1">A</div>
-                            <div class="title" namesub="1">合格（执行）</div>
-                        </div>
-                        <div class="so_p">
-                            <div class="option kk" namesub="1">B</div>
-                            <div class="title" namesub="1">不合格（执行）</div>
-                        </div>
-                        <div class="infor">
-                            <div class="inforTitle" namesub="1">单项不合格</div>
-                            <div class="inputItem"><input id="ckb_notwearingwhiteshirt" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_notwearingwhiteshirt">未穿白衬衫</label></div></div>
-                            <div class="inputItem"><input id="ckb_withoutgloves" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_withoutgloves">未带手套</label></div></div>
-                        </div>
+                    </div>
+                    <div class="s_option">
+                        @{
+                            if (true)
+                            {
+                                string optiona = "";
+                                string optionb = "";
+                                string feedbackAnswer2 = "active";
+                                string disable = "";
+                                string feedbackAnswer3 = "";
+                                string feedbackAnswer4 = "";
+                                string feedbackAnswer5 = "";
+                                string feedbackAnswer6 = "";
+                                if (isOpen && rideCheckFeedback.RideCheckFeedback_Items.Count > 2)
+                                {
+                                    optiona = rideCheckFeedback.RideCheckFeedback_Items[2].FeedbackAnswer1;
+                                    optionb = optiona == "B" ? "active" : "";
+                                    optiona = optiona == "A" ? "active" : "";
+                                    if (optiona == "active")
+                                    {
+                                        disable = "disabled='disabled'";
+                                    }
+
+                                    feedbackAnswer2 = rideCheckFeedback.RideCheckFeedback_Items[2].FeedbackAnswer2 == "1" ? "checked='checked'" : "";
+                                    feedbackAnswer3 = rideCheckFeedback.RideCheckFeedback_Items[2].FeedbackAnswer3 == "1" ? "checked='checked'" : "";
+                                    feedbackAnswer4 = rideCheckFeedback.RideCheckFeedback_Items[2].FeedbackAnswer4 == "1" ? "checked='checked'" : "";
+                                    feedbackAnswer5 = rideCheckFeedback.RideCheckFeedback_Items[2].FeedbackAnswer5 == "1" ? "checked='checked'" : "";
+                                    feedbackAnswer6 = rideCheckFeedback.RideCheckFeedback_Items[2].FeedbackAnswer6 == "1" ? "checked='checked'" : "";
+                                }
+                                <div class="so_p">
+                                    <div class="option kk @optiona" namesub="1">A</div>
+                                    <div class="title" namesub="1">合格(执行)</div>
+                                </div>
+                                <div class="so_p">
+                                    <div class="option kk @optionb" namesub="1">B</div>
+                                    <div class="title" namesub="1">不合格(执行)</div>
+                                </div>
+                                <div class="infor">
+                                    <div class="inforTitle" namesub="1">单项不合格</div>
+                                    <div class="inputItem"><input id="ckb_notwearingwhiteshirt" class="inputItemChecbox" type="checkbox" @feedbackAnswer2 @disable /><div class="inputItemText"><label for="ckb_notwearingwhiteshirt">未穿白衬衫</label></div></div>
+                                    <div class="inputItem"><input id="ckb_withoutgloves" class="inputItemChecbox" type="checkbox" @feedbackAnswer3 @disable /><div class="inputItemText"><label for="ckb_withoutgloves">未带手套</label></div></div>
+                                    <div class="inputItem"><input id="ckb_leaveandstore" class="inputItemChecbox" type="checkbox" @feedbackAnswer4 @disable /><div class="inputItemText"><label for="ckb_leaveandstore">留发、蓄须</label></div></div>
+                                    <div class="inputItem"><input id="ckb_untidyappearance" class="inputItemChecbox" type="checkbox" @feedbackAnswer5 @disable /><div class="inputItemText"><label for="ckb_untidyappearance">仪容不整洁</label></div></div>
+                                </div>
+                            }
+                        }
                     </div>
                 </div>
                 <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="3">
                     <div class="s_title">
                         <div class="st_title"><span>[4-检查项目]&nbsp;&nbsp;</span>空调音响按乘客要求使用？</div>
-                    </div><div class="s_option">
-                        <div class="so_p">
-                            <div class="option kk" namesub="1">A</div>
-                            <div class="title" namesub="1">合格（执行）</div>
-                        </div>
-                        <div class="so_p">
-                            <div class="option kk" namesub="1">B</div>
-                            <div class="title" namesub="1">不合格（执行）</div>
-                        </div>
-                        <div class="infor">
-                            <div class="inforTitle" namesub="1">单项不合格</div>
-                            <div class="inputItem"><input id="ckb_airconditioning" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_airconditioning">空调</label></div></div>
-                            <div class="inputItem"><input di="ckb_sound" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_sound">音响</label></div></div>
-                        </div>
+                    </div>
+                    <div class="s_option">
+                        @{
+                            if (true)
+                            {
+                                string optiona = "";
+                                string optionb = "";
+                                string feedbackAnswer2 = "active";
+                                string disable = "";
+                                string feedbackAnswer3 = "";
+                                if (isOpen && rideCheckFeedback.RideCheckFeedback_Items.Count > 2)
+                                {
+                                    optiona = rideCheckFeedback.RideCheckFeedback_Items[2].FeedbackAnswer1;
+                                    optionb = optiona == "B" ? "active" : "";
+                                    optiona = optiona == "A" ? "active" : "";
+                                    if (optiona == "active")
+                                    {
+                                        disable = "disabled='disabled'";
+                                    }
+
+                                    feedbackAnswer2 = rideCheckFeedback.RideCheckFeedback_Items[3].FeedbackAnswer2 == "1" ? "checked='checked'" : "";
+                                    feedbackAnswer3 = rideCheckFeedback.RideCheckFeedback_Items[3].FeedbackAnswer3 == "1" ? "checked='checked'" : "";
+                                }
+
+                                <div class="so_p">
+                                    <div class="option kk @optiona" namesub="1">A</div>
+                                    <div class="title" namesub="1">合格(执行)</div>
+                                </div>
+                                <div class="so_p">
+                                    <div class="option kk @optionb" namesub="1">B</div>
+                                    <div class="title" namesub="1">不合格(执行)</div>
+                                </div>
+                                <div class="infor">
+                                    <div class="inforTitle" namesub="1">单项不合格</div>
+                                    <div class="inputItem"><input id="ckb_airconditioning" class="inputItemChecbox" type="checkbox" @feedbackAnswer2 @disable /><div class="inputItemText"><label for="ckb_airconditioning">空调</label></div></div>
+                                    <div class="inputItem"><input di="ckb_sound" class="inputItemChecbox" type="checkbox" @feedbackAnswer3 @disable /><div class="inputItemText"><label for="ckb_sound">音响</label></div></div>
+                                </div>
+                            }
+                        }
                     </div>
                 </div>
                 <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="4">
                     <div class="s_title">
                         <div class="st_title"><span>[5-检查项目]&nbsp;&nbsp;</span>语音及付费方式提醒</div>
-                    </div><div class="s_option">
-                        <div class="so_p">
-                            <div class="option kk" namesub="2">A</div>
-                            <div class="title" namesub="2">车内报话机语音提示正常</div>
-                        </div>
-                        <div class="so_p">
-                            <div class="option kk" namesub="2">B</div>
-                            <div class="title" namesub="2">问清付费方式</div>
-                        </div>
-                        <div class="so_p">
-                            <div class="option kk" namesub="2">C</div>
-                            <div class="title" namesub="2">语言提示勿忘物品</div>
-                        </div>
+                    </div>
+                    <div class="s_option">
+                        @{
+                            if (true)
+                            {
+                                string optiona = "";
+                                string optionb = "";
+                                string feedbackAnswer2 = "active";
+                                string disable = "";
+                                string feedbackAnswer3 = "";
+                                string feedbackAnswer4 = "";
+                                string feedbackAnswer5 = "";
+                                if (isOpen && rideCheckFeedback.RideCheckFeedback_Items.Count > 4)
+                                {
+                                    optiona = rideCheckFeedback.RideCheckFeedback_Items[4].FeedbackAnswer1;
+                                    optionb = optiona == "B" ? "active" : "";
+                                    optiona = optiona == "A" ? "active" : "";
+                                    if (optiona == "active")
+                                    {
+                                        disable = "disabled='disabled'";
+                                    }
+
+                                    feedbackAnswer2 = rideCheckFeedback.RideCheckFeedback_Items[4].FeedbackAnswer2 == "1" ? "checked='checked'" : "";
+                                    feedbackAnswer3 = rideCheckFeedback.RideCheckFeedback_Items[4].FeedbackAnswer3 == "1" ? "checked='checked'" : "";
+                                    feedbackAnswer4 = rideCheckFeedback.RideCheckFeedback_Items[4].FeedbackAnswer4 == "1" ? "checked='checked'" : "";
+                                    feedbackAnswer5 = rideCheckFeedback.RideCheckFeedback_Items[4].FeedbackAnswer5 == "1" ? "checked='checked'" : "";
+                                }
+                                <div class="so_p">
+                                    <div class="option kk @optiona" namesub="1">A</div>
+                                    <div class="title" namesub="1">合格(执行)</div>
+                                </div>
+                                <div class="so_p">
+                                    <div class="option kk @optionb" namesub="1">B</div>
+                                    <div class="title" namesub="1">不合格(执行)</div>
+                                </div>
+                                <div class="infor">
+                                    <div class="inforTitle" namesub="1">单项不合格</div>
+                                    <div class="inputItem"><input id="ckb_aircond" class="inputItemChecbox" type="checkbox" @feedbackAnswer2 @disable /><div class="inputItemText"><label for="ckb_aircond">车内报话机语音提示不正常</label></div></div>
+                                    <div class="inputItem"><input id="ckb_paymentmethods" class="inputItemChecbox" type="checkbox" @feedbackAnswer3 @disable /><div class="inputItemText"><label for="ckb_paymentmethods">司机未问清付费方式</label></div></div>
+                                    <div class="inputItem"><input id="ckb_donotforgetitems" class="inputItemChecbox" type="checkbox" @feedbackAnswer4 @disable /><div class="inputItemText"><label for="ckb_donotforgetitems">司机未提示勿忘物品</label></div></div>
+                                </div>
+                            }
+                        }
                     </div>
                 </div>
                 <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="5">
                     <div class="s_title">
                         <div class="st_title"><span>[6-检查项目]&nbsp;&nbsp;</span>问好、致谢、道别</div>
-                    </div><div class="s_option">
-                        <div class="so_p">
-                            <div class="option kk" namesub="1">A</div>
-                            <div class="title" namesub="1">合格（执行）</div>
-                        </div>
-                        <div class="so_p">
-                            <div class="option kk" namesub="1">B</div>
-                            <div class="title" namesub="1">不合格（执行）</div>
-                        </div>
-                        <div class="infor">
-                            <div class="inforTitle" namesub="1">单项不合格</div>
-                            <div class="inputItem"><input id="ckb_sayhello" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_sayhello">问好</label></div></div>
-                            <div class="inputItem"><input id="ckb_acknowledgement" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_acknowledgement">致谢</label></div></div>
-                            <div class="inputItem"><input id="ckb_goodbye" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_goodbye">道别</label></div></div>
-                        </div>
+                    </div>
+                    <div class="s_option">
+                        @{
+                            if (true)
+                            {
+                                string optiona = "";
+                                string optionb = "";
+                                string feedbackAnswer2 = "active";
+                                string disable = "";
+                                string feedbackAnswer3 = "";
+                                string feedbackAnswer4 = "";
+                                if (isOpen && rideCheckFeedback.RideCheckFeedback_Items.Count > 2)
+                                {
+                                    optiona = rideCheckFeedback.RideCheckFeedback_Items[2].FeedbackAnswer1;
+                                    optionb = optiona == "B" ? "active" : "";
+                                    optiona = optiona == "A" ? "active" : "";
+                                    if (optiona == "active")
+                                    {
+                                        disable = "disabled='disabled'";
+                                    }
+
+                                    feedbackAnswer2 = rideCheckFeedback.RideCheckFeedback_Items[5].FeedbackAnswer2 == "1" ? "checked='checked'" : "";
+                                    feedbackAnswer3 = rideCheckFeedback.RideCheckFeedback_Items[5].FeedbackAnswer3 == "1" ? "checked='checked'" : "";
+                                    feedbackAnswer4 = rideCheckFeedback.RideCheckFeedback_Items[5].FeedbackAnswer4 == "1" ? "checked='checked'" : "";
+                                }
+                                <div class="so_p">
+                                    <div class="option kk @optiona" namesub="1">A</div>
+                                    <div class="title" namesub="1">合格(执行)</div>
+                                </div>
+                                <div class="so_p">
+                                    <div class="option kk @optionb" namesub="1">B</div>
+                                    <div class="title" namesub="1">不合格(执行)</div>
+                                </div>
+                                <div class="infor">
+                                    <div class="inforTitle" namesub="1">单项不合格</div>
+                                    <div class="inputItem"><input id="ckb_sayhello" class="inputItemChecbox" type="checkbox" @feedbackAnswer2 @disable /><div class="inputItemText"><label for="ckb_sayhello">问好</label></div></div>
+                                    <div class="inputItem"><input id="ckb_acknowledgement" class="inputItemChecbox" type="checkbox" @feedbackAnswer3 @disable /><div class="inputItemText"><label for="ckb_acknowledgement">致谢</label></div></div>
+                                    <div class="inputItem"><input id="ckb_goodbye" class="inputItemChecbox" type="checkbox" @feedbackAnswer4 @disable /><div class="inputItemText"><label for="ckb_goodbye">道别</label></div></div>
+                                </div>
+                            }
+                        }
                     </div>
                 </div>
                 <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="6">
                     <div class="s_title">
-                        <div class="st_title"><span>[9-检查项目]&nbsp;&nbsp;</span>提醒前排乘客系安全带、行驶中不打电话，不违章</div>
-                    </div><div class="s_option">
-                        <div class="so_p">
-                            <div class="option kk" namesub="1">A</div>
-                            <div class="title" namesub="1">合格（执行）</div>
-                        </div>
-                        <div class="so_p">
-                            <div class="option kk" namesub="1">B</div>
-                            <div class="title" namesub="1">不合格（执行）</div>
-                        </div>
-                        <div class="infor">
-                            <div class="inforTitle" namesub="1">单项不合格</div>
-                            <div class="inputItem"><input id="ckb_seatbelt" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_seatbelt">安全带</label></div></div>
-                            <div class="inputItem"><input id="ckb_call" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_call">打手机</label></div></div>
-                            <div class="inputItem"><input id="ckb_violation" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_violation">违章</label></div></div>
-                        </div>
+                        <div class="st_title"><span>[7-检查项目]&nbsp;&nbsp;</span>提醒前排乘客系安全带、行驶中不打电话，不违章</div>
+                    </div>
+                    <div class="s_option">
+                        @{
+                            if (true)
+                            {
+                                string optiona = "";
+                                string optionb = "";
+                                string feedbackAnswer2 = "active";
+                                string disable = "";
+                                string feedbackAnswer3 = "";
+                                string feedbackAnswer4 = "";
+                                if (isOpen && rideCheckFeedback.RideCheckFeedback_Items.Count > 6)
+                                {
+                                    optiona = rideCheckFeedback.RideCheckFeedback_Items[2].FeedbackAnswer1;
+                                    optionb = optiona == "B" ? "active" : "";
+                                    optiona = optiona == "A" ? "active" : "";
+                                    if (optiona == "active")
+                                    {
+                                        disable = "disabled='disabled'";
+                                    }
+
+                                    feedbackAnswer2 = rideCheckFeedback.RideCheckFeedback_Items[6].FeedbackAnswer2 == "1" ? "checked='checked'" : "";
+                                    feedbackAnswer3 = rideCheckFeedback.RideCheckFeedback_Items[6].FeedbackAnswer3 == "1" ? "checked='checked'" : "";
+                                    feedbackAnswer4 = rideCheckFeedback.RideCheckFeedback_Items[6].FeedbackAnswer4 == "1" ? "checked='checked'" : "";
+                                }
+                                <div class="so_p">
+                                    <div class="option kk @optiona" namesub="1">A</div>
+                                    <div class="title" namesub="1">合格(执行)</div>
+                                </div>
+                                <div class="so_p">
+                                    <div class="option kk @optionb" namesub="1">B</div>
+                                    <div class="title" namesub="1">不合格(执行)</div>
+                                </div>
+                                <div class="infor">
+                                    <div class="inforTitle" namesub="1">单项不合格</div>
+                                    <div class="inputItem"><input id="ckb_seatbelt" class="inputItemChecbox" type="checkbox" @feedbackAnswer2 @disable /><div class="inputItemText"><label for="ckb_seatbelt">安全带</label></div></div>
+                                    <div class="inputItem"><input id="ckb_call" class="inputItemChecbox" type="checkbox" @feedbackAnswer3 @disable /><div class="inputItemText"><label for="ckb_call">打手机</label></div></div>
+                                    <div class="inputItem"><input id="ckb_violation" class="inputItemChecbox" type="checkbox" @feedbackAnswer4 @disable /><div class="inputItemText"><label for="ckb_violation">违章</label></div></div>
+                                </div>
+                            }
+                        }
                     </div>
                 </div>
                 <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="7">
                     <div class="s_title">
-                        <div class="st_title"><span>[10-检查项目]&nbsp;&nbsp;</span>不讲脏话、抛物、吐痰</div>
-                    </div><div class="s_option">
-                        <div class="so_p">
-                            <div class="option kk" namesub="1">A</div>
-                            <div class="title" namesub="1">合格（执行）</div>
-                        </div>
-                        <div class="so_p">
-                            <div class="option kk" namesub="1">B</div>
-                            <div class="title" namesub="1">不合格（执行）</div>
-                        </div>
-                        <div class="infor">
-                            <div class="inforTitle" namesub="1">单项不合格</div>
-                            <div class="inputItem"><input id="ckb_swearing" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_swearing">讲脏话</label></div></div>
-                            <div class="inputItem"><input id="ckb_parabolic" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_parabolic">抛物</label></div></div>
-                            <div class="inputItem"><input id="ckb_spitting" class="inputItemChecbox" type="checkbox" /><div class="inputItemText"><label for="ckb_spitting">吐痰</label></div></div>
-                        </div>
+                        <div class="st_title"><span>[8-检查项目]&nbsp;&nbsp;</span>不讲脏话、抛物、吐痰</div>
+                    </div>
+                    <div class="s_option">
+                        @{
+                            if (true)
+                            {
+                                string optiona = "";
+                                string optionb = "";
+                                string feedbackAnswer2 = "active";
+                                string disable = "";
+                                string feedbackAnswer3 = "";
+                                string feedbackAnswer4 = "";
+                                if (isOpen && rideCheckFeedback.RideCheckFeedback_Items.Count > 7)
+                                {
+                                    optiona = rideCheckFeedback.RideCheckFeedback_Items[2].FeedbackAnswer1;
+                                    optionb = optiona == "B" ? "active" : "";
+                                    optiona = optiona == "A" ? "active" : "";
+                                    if (optiona == "active")
+                                    {
+                                        disable = "disabled='disabled'";
+                                    }
+
+                                    feedbackAnswer2 = rideCheckFeedback.RideCheckFeedback_Items[7].FeedbackAnswer2 == "1" ? "checked='checked'" : "";
+                                    feedbackAnswer3 = rideCheckFeedback.RideCheckFeedback_Items[7].FeedbackAnswer3 == "1" ? "checked='checked'" : "";
+                                    feedbackAnswer4 = rideCheckFeedback.RideCheckFeedback_Items[7].FeedbackAnswer4 == "1" ? "checked='checked'" : "";
+                                }
+                                <div class="so_p">
+                                    <div class="option kk @optiona" namesub="1">A</div>
+                                    <div class="title" namesub="1">合格(执行)</div>
+                                </div>
+                                <div class="so_p">
+                                    <div class="option kk @optionb" namesub="1">B</div>
+                                    <div class="title" namesub="1">不合格(执行)</div>
+                                </div>
+                                <div class="infor">
+                                    <div class="inforTitle" namesub="1">单项不合格</div>
+                                    <div class="inputItem"><input id="ckb_swearing" class="inputItemChecbox" type="checkbox" @feedbackAnswer2 @disable /><div class="inputItemText"><label for="ckb_swearing">讲脏话</label></div></div>
+                                    <div class="inputItem"><input id="ckb_parabolic" class="inputItemChecbox" type="checkbox" @feedbackAnswer3 @disable /><div class="inputItemText"><label for="ckb_parabolic">抛物</label></div></div>
+                                    <div class="inputItem"><input id="ckb_spitting" class="inputItemChecbox" type="checkbox" @feedbackAnswer4 @disable /><div class="inputItemText"><label for="ckb_spitting">吐痰</label></div></div>
+                                </div>
+                            }
+                        }
                     </div>
                 </div>
                 <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="8">
                     <div class="s_title">
-                        <div class="st_title"><span>[11-简答题]&nbsp;&nbsp;</span>意见与建议（反应以上每一项的执行情况）</div>
+                        <div class="st_title"><span>[9-简答题]&nbsp;&nbsp;</span>意见与建议（反应以上每一项的执行情况）</div>
                     </div>
                     <div class="s_option">
-                        <div namesub="4">
-                            <textarea style="width: 76%;height: 10rem;margin:5% 10%;padding: 5px;" onBlur="LeaveSubmit(this)"></textarea>
-                        </div>
+                        @{
+                            if (true)
+                            {
+                                string feedbackAnswer1 = "";
+                                if (isOpen && rideCheckFeedback.RideCheckFeedback_Items.Count > 8)
+                                {
+                                    feedbackAnswer1 = rideCheckFeedback.RideCheckFeedback_Items[8].FeedbackAnswer1;
+                                }
+                                <div namesub="4">
+                                    <textarea style="width: 76%;height: 10rem;margin:5% 10%;padding: 5px;" onchange="LeaveSubmit(this)">@feedbackAnswer1</textarea>
+                                </div>
+                            }
+                        }
                     </div>
                 </div>
                 <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="9">
                     <div class="s_title">
-                        <div class="st_title"><span>[12-检查项目]&nbsp;&nbsp;</span>车容车貌、仪表仪容（请选择以下项目在检查中有不合格项目）</div>
+                        <div class="st_title"><span>[10-检查项目]&nbsp;&nbsp;</span>驾驶员服务（请选择以下项目在检查中有不合格项目）</div>
                     </div>
                     <div class="s_option">
-                        <div class="so_p">
-                            <div class="option kk" namesub="2">A</div>
-                            <div class="title" namesub="2">车厢脏</div>
-                        </div>
-                        <div class="so_p">
-                            <div class="option kk" namesub="2">B</div>
-                            <div class="title" namesub="2">座套脏</div>
-                        </div>
-                        <div class="so_p">
-                            <div class="option kk" namesub="2">C</div>
-                            <div class="title" namesub="2">服务设施坏</div>
-                        </div>
-                        <div class="so_p">
-                            <div class="option kk" namesub="2">D</div>
-                            <div class="title" namesub="2">未穿识别服</div>
-                        </div>
-                        <div class="so_p">
-                            <div class="option kk" namesub="2">E</div>
-                            <div class="title" namesub="2">仪容不整洁</div>
-                        </div>
-                        <div class="so_p">
-                            <div class="option kk" namesub="2">F</div>
-                            <div class="title" namesub="2">留长发、蓄须</div>
-                        </div>
+                        @{
+                            if (true)
+                            {
+                                string feedbackAnswer1 = "";
+                                string feedbackAnswer2 = "";
+                                string feedbackAnswer3 = "";
+                                string feedbackAnswer4 = "";
+                                string feedbackAnswer5 = "";
+                                string feedbackAnswer6 = "";
+                                if (isOpen && rideCheckFeedback.RideCheckFeedback_Items.Count > 0)
+                                {
+                                    feedbackAnswer1 = rideCheckFeedback.RideCheckFeedback_Items[9].FeedbackAnswer1 == "1" ? "active" : "";
+                                    feedbackAnswer2 = rideCheckFeedback.RideCheckFeedback_Items[9].FeedbackAnswer2 == "1" ? "active" : "";
+                                    feedbackAnswer3 = rideCheckFeedback.RideCheckFeedback_Items[9].FeedbackAnswer3 == "1" ? "active" : "";
+                                    feedbackAnswer4 = rideCheckFeedback.RideCheckFeedback_Items[9].FeedbackAnswer4 == "1" ? "active" : "";
+                                    feedbackAnswer5 = rideCheckFeedback.RideCheckFeedback_Items[9].FeedbackAnswer5 == "1" ? "active" : "";
+                                    feedbackAnswer6 = rideCheckFeedback.RideCheckFeedback_Items[9].FeedbackAnswer6 == "1" ? "active" : "";
+
+                                }
+                                <div class="so_p">
+                                    <div class="option kk @feedbackAnswer1" namesub="2">A</div>
+                                    <div class="title" namesub="2">驾驶员车内吸烟</div>
+                                </div>
+                                <div class="so_p">
+                                    <div class="option kk @feedbackAnswer2" namesub="2">B</div>
+                                    <div class="title" namesub="2">不协助乘客放取行李</div>
+                                </div>
+                                <div class="so_p">
+                                    <div class="option kk @feedbackAnswer3" namesub="2">C</div>
+                                    <div class="title" namesub="2">驾驶员不帮老助残</div>
+                                </div>
+                                <div class="so_p">
+                                    <div class="option kk @feedbackAnswer4" namesub="2">D</div>
+                                    <div class="title" namesub="2">不主动给票</div>
+                                </div>
+                                <div class="so_p">
+                                    <div class="option kk @feedbackAnswer5" namesub="2">E</div>
+                                    <div class="title" namesub="2">未选择合理路线</div>
+                                </div>
+                                <div class="so_p">
+                                    <div class="option kk @feedbackAnswer6" namesub="2">F</div>
+                                    <div class="title" namesub="2">保险带不整洁</div>
+                                </div>
+                            }
+                        }
                     </div>
                 </div>
                 <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="10">
                     <div class="s_title">
-                        <div class="st_title"><span>[13-检查项目]&nbsp;&nbsp;</span>驾驶员服务（请选择以下项目在检查中有不合格项目）</div>
-                    </div><div class="s_option">
-                        <div class="so_p">
-                            <div class="option kk" namesub="2">A</div>
-                            <div class="title" namesub="2">驾驶员车内吸烟</div>
-                        </div>
-                        <div class="so_p">
-                            <div class="option kk" namesub="2">B</div>
-                            <div class="title" namesub="2">不协助乘客放取行李</div>
-                        </div>
-                        <div class="so_p">
-                            <div class="option kk" namesub="2">C</div>
-                            <div class="title" namesub="2">驾驶员不帮老助残</div>
-                        </div>
-                        <div class="so_p">
-                            <div class="option kk" namesub="2">D</div>
-                            <div class="title" namesub="2">不主动给票</div>
-                        </div>
-                        <div class="so_p">
-                            <div class="option kk" namesub="2">E</div>
-                            <div class="title" namesub="2">未选择合理路线</div>
-                        </div>
-                        <div class="so_p">
-                            <div class="option kk" namesub="2">F</div>
-                            <div class="title" namesub="2">保险带不整洁</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide swiper-no-swiping" data-swiper-slide-index="11">
-                    <div class="s_title">
-                        <div class="st_title"><span>[14-上传]&nbsp;&nbsp;</span>上传发票/附件</div>
+                        <div class="st_title"><span>[11-上传]&nbsp;&nbsp;</span>上传发票/附件</div>
                     </div>
                     <div class="s_option">
                         <form>
-                            <div id="invoicediv" class="infor">
-                                <div class="inforTitle" namesub="1">上传发票</div>
-                                <input type="file" id="upload_Invoice" name="upload_Invoice" class="file" onchange="uploadInvoice(this)" accept="image/png,image/jpg,image/jpeg" style="width:90%; padding:0px;display:none;" />
-                                <div style="margin:auto;text-align:center;">
-                                    <img id="image_invoice" name="image_invoice" class="image_invoice" src="/Areas/RideCheckFeedback/Views/_img/add_image.png" />
-                                </div>
-                            </div>
-                            <hr style="margin-bottom:20px;border: #dcdcdc solid 1px;" />
-                            <div class="infor">
-                                <div class="inforTitle" namesub="1">上传附件</div>
-                                <input type="file" id="upload_Attachment" name="upload_Attachment" onchange="uploadAttachment(this)" class="file" style="width:90%;padding:0px;display:none;" value="" />
-                                <div style="margin:auto;text-align:center;">
-                                    <img class="image_attachment" name="image_attachment" src="/Areas/RideCheckFeedback/Views/_img/add_image.png" />
-                                </div>
-                                <ul name="attachmentul"></ul>
-                            </div>
+                            @{
+                                if (true)
+                                {
+                                    string feedbackAnswer1 = "/Areas/RideCheckFeedback/Views/_img/add_image.png";
+                                    List<Business_RideCheckFeedback_Attachment> attachments = new List<Business_RideCheckFeedback_Attachment>();
+                                    if (isOpen && rideCheckFeedback.RideCheckFeedback_Items.Count > 10)
+                                    {
+                                        feedbackAnswer1 = rideCheckFeedback.RideCheckFeedback_Items[10].FeedbackAnswer1;
+                                        if (feedbackAnswer1 == "")
+                                        {
+                                            feedbackAnswer1 = "/Areas/RideCheckFeedback/Views/_img/add_image.png";
+                                        }
+                                        attachments = rideCheckFeedback.RideCheckFeedback_Attachments;
+                                    }
+
+                                    <div id="invoicediv" class="infor">
+                                        <div class="inforTitle" namesub="1">上传发票<span></span></div>
+                                        <input type="file" id="upload_Invoice" name="upload_Invoice" class="file" onchange="uploadInvoice(this)" accept="image/*" style="width:90%; padding:0px;display:none;" />
+                                        <div style="margin:auto;text-align:center;">
+                                            <img id="image_invoice" name="image_invoice" class="image_invoice" src="@feedbackAnswer1" />
+                                        </div>
+                                    </div>
+                                    <hr style="margin-bottom:20px;border: #dcdcdc solid 1px;" />
+                                    <div class="infor">
+                                        <div class="inforTitle" namesub="1">上传附件</div>
+                                        <input type="file" id="upload_Attachment" name="upload_Attachment" onchange="uploadAttachment(this)" class="file" style="width:90%;padding:0px;display:none;" value="" />
+                                        <div style="margin:auto;text-align:center;">
+                                            <img class="image_attachment" name="image_attachment" src="/Areas/RideCheckFeedback/Views/_img/add_image.png" />
+                                        </div>
+                                        <ul name="attachmentul">
+                                            @if (attachments.Count > 0)
+                                            {
+                                                foreach (var attachment in attachments)
+                                                {
+                                                    <li filePath='@attachment.AttachmentPath'><span onclick='deleteAttachment(this)' style='color: red;font-size: 50px;'>×</span>@attachment.AttachmentName</li>
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
+
+                                }
+                            }
                         </form>
                     </div>
                 </div>
@@ -402,8 +660,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-

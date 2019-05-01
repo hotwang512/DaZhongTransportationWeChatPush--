@@ -88,6 +88,7 @@
                 _this.trigger.value = tempValue;
                 $(_this.trigger).data("value", tempIdValue);//把编号赋值到输入框的data-value
                 _this.callback(_this.getIndexArr(), _this.getValue());
+                basicInformation();
             });
 
             _this.trigger.addEventListener('click', function () {

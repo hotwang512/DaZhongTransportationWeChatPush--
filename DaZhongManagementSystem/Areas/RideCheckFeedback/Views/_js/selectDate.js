@@ -409,6 +409,7 @@ $.extend({
                 }
 
                 cbFn && cbFn(dateInfo);
+
             }
         });
     }
