@@ -215,5 +215,24 @@ namespace DaZhongManagementSystem.Infrastructure.RideCheckFeedback
             }
         }
 
+        /// <summary>
+        /// 获取配置列表数据
+        /// </summary>
+        /// <returns></returns>
+        public int GetMonthCountConfig()
+        {
+            int count = 1;
+            using (SqlSugarClient _dbMsSql = SugarDao.SugarDao_MsSql.GetInstance())
+            {
+                var configList = _dbMsSql.Queryable<Master_Configuration>().Where(i => i.ID == 72 && i.CreateUser != "QRCode").SingleOrDefault();
+                if (configList != null)
+                {
+                    count = Convert.ToInt32(configList.ConfigValue);
+                }
+                return count;
+            }
+        }
+
+
     }
 }

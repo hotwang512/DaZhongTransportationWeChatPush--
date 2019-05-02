@@ -58,5 +58,10 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.RideCheckF
             return _rcfs.GetUserInfo(userID);
         }
 
+        public int GetMonthCountConfig()
+        {
+            return _rcfs.GetMonthCountConfig();
+        }
+
     }
 }

@@ -24,7 +24,8 @@
     $txtJudgeNum: function () { return $("#txtJudgeNum") },
     $txtDriverPay: function () { return $("#txtDriverPay") },
     $txtCompanyPay: function () { return $("#txtCompanyPay") },
-    $QueryReply:function(){return $("#QueryReply")}
+    $QueryReply: function () { return $("#QueryReply") },
+    $txtRideCheckFeedback: function () { return $("#txtRideCheckFeedback") }
 };
 
 
@@ -114,6 +115,9 @@ var $page = function () {
         dataConfigArray.push(driverPAy);
         var companyPay = new configModel_Temp(15, selector.$txtCompanyPay().val());
         dataConfigArray.push(companyPay);
+        var rideCheckFeedback = new configModel_Temp(72, selector.$txtRideCheckFeedback().val());
+        dataConfigArray.push(rideCheckFeedback);
+
         if (parseInt(selector.$txtNum().val()) != parseInt(selector.$txtSingleChoiceNum().val()) + parseInt(selector.$txtMultipelChoiceNum().val()) + parseInt(selector.$txtJudgeNum().val())) {
             if (selector.$txtSingleChoiceNum().val() != "0" || selector.$txtMultipelChoiceNum().val() != "0" || selector.$txtJudgeNum().val() != "0") {
                 jqxNotification("习题总数不等于单选题、多选题以及判断题数量之和！", null, "error");
@@ -179,6 +183,8 @@ function disableElement() {
     selector.$txtCompanyPay().attr("style", "background-color: #f5f5f5!important");
     selector.$QueryReply().attr("disabled", "disabled");
     selector.$QueryReply().attr("style", "background-color: #f5f5f5!important");
+    selector.$txtRideCheckFeedback().attr("disabled", "disabled");
+    selector.$txtRideCheckFeedback().attr("style", "background-color: #f5f5f5!important");
 }
 
 //启用界面元素
@@ -219,6 +225,8 @@ function enableElement() {
     selector.$txtCompanyPay().removeAttr("style");
     selector.$QueryReply().removeAttr("disabled");
     selector.$QueryReply().removeAttr("style");
+    selector.$txtRideCheckFeedback().removeAttr("disabled");
+    selector.$txtRideCheckFeedback().removeAttr("style");
 }
 
 var configModel_Temp = function (id, configValue) {

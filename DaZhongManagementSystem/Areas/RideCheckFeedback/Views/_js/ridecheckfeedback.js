@@ -273,8 +273,9 @@ function loadridecheckfeedback() {
                 inputs.removeAttr("disabled");
             }
             saveChoiceQuestion(inputs);
+
             //在答题卡中判断某一题是否已经完成提交
-            if (arr != "") {
+            if ($(".swiper-slide-active").find(".kk").hasClass("active") == true) {
                 $(".ss").eq(count).addClass("active").css("background", "rgb(20, 108, 127)");
             }
             else {
@@ -289,7 +290,7 @@ function loadridecheckfeedback() {
             }
             saveChoiceQuestion();
             //在答题卡中判断某一题是否已经完成提交
-            if (arr != "") {
+            if ($(".swiper-slide-active").find(".kk").hasClass("active") == true) {
                 $(".ss").eq(count).addClass("active").css("background", "rgb(20, 108, 127)");
             }
             else {
@@ -330,7 +331,7 @@ function loadridecheckfeedback() {
             }
             saveChoiceQuestion(inputs);
             //在答题卡中判断某一题是否已经完成提交
-            if (arr != "") {
+            if ($(".swiper-slide-active").find(".kk").hasClass("active") == true) {
                 $(".ss").eq(count).addClass("active").css("background", "rgb(20, 108, 127)");
             }
             else {
@@ -344,7 +345,7 @@ function loadridecheckfeedback() {
             }
             saveChoiceQuestion();
             //在答题卡中判断某一题是否已经完成提交
-            if (arr != "") {
+            if ($(".swiper-slide-active").find(".kk").hasClass("active") == true) {
                 $(".ss").eq(count).addClass("active").css("background", "rgb(20, 108, 127)");
             }
             else {

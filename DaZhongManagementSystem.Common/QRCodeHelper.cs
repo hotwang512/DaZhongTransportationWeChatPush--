@@ -51,7 +51,12 @@ namespace DaZhongManagementSystem.Common
             Bitmap bitmap3 = QrCodeVertical(bitmap2.Width, bitmap2.Height);//彩色渐变二维码
             SetPixels(content, bitmap2, bitmap3);
             bitmap3.Dispose();
-            bitmap2.Save(HttpContext.Current.Server.MapPath(fileName));
+            try
+            {
+                bitmap2.Save(HttpContext.Current.Server.MapPath(fileName));
+            }
+            catch (Exception ex)
+            { }
             return bitmap2;
         }
         private static BitMatrix deleteWhite(BitMatrix matrix)

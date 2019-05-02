@@ -19,29 +19,38 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.RideCheckF
             _logic = new RideCheckFeedbackLogic();
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string code)
         {
             bool isOpen = false;
-            //string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
-            //U_WeChatUserID userInfo = new U_WeChatUserID();
-            //string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
-            //userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
-            Business_Personnel_Information personInfoModel = GetUserInfo("13918029829");//获取人员表信息
+            string isOpenType = "unuriver";
+            int count = _logic.GetMonthCountConfig();
+            string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
+            U_WeChatUserID userInfo = new U_WeChatUserID();
+            string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
+            userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
+            Business_Personnel_Information personInfoModel = GetUserInfo(userInfo.UserId);//获取人员表信息
+            //Business_Personnel_Information personInfoModel = GetUserInfo("WangCunBiao");//获取人员表信息
             Business_RideCheckFeedback rideCheckFeedback = new Business_RideCheckFeedback();
-            DateTime startDate = DateTime.Now.AddDays(1 - DateTime.Now.Day).Date;
-            int maxCount = _logic.GetRideCheckFeedbackCount(startDate, startDate.AddMonths(1), personInfoModel.Vguid.ToString());
-            if (maxCount < 2)
+            if (personInfoModel.DepartmenManager != 1)
             {
-                rideCheckFeedback = _logic.GetUserNewRideCheckFeedback(personInfoModel.Vguid.ToString());
-                if (rideCheckFeedback == null)
+                isOpenType = "";
+                DateTime startDate = DateTime.Now.AddDays(1 - DateTime.Now.Day).Date;
+                int maxCount = _logic.GetRideCheckFeedbackCount(startDate, startDate.AddMonths(1), personInfoModel.Vguid.ToString());
+                if (maxCount < count)
                 {
-                    rideCheckFeedback = _logic.AddBusiness_RideCheckFeedback(personInfoModel.Vguid.ToString());
+                    rideCheckFeedback = _logic.GetUserNewRideCheckFeedback(personInfoModel.Vguid.ToString());
+                    if (rideCheckFeedback == null)
+                    {
+                        rideCheckFeedback = _logic.AddBusiness_RideCheckFeedback(personInfoModel.Vguid.ToString());
+                    }
+                    isOpen = true;
                 }
-                isOpen = true;
-
             }
+
+
             ViewBag.RideCheckFeedback = rideCheckFeedback;
             ViewBag.IsOpen = isOpen;
+            ViewBag.IsOpenType = isOpenType;
             ViewBag.User = personInfoModel;
             return View();
         }

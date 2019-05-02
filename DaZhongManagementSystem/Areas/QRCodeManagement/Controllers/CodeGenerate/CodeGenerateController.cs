@@ -30,7 +30,11 @@ namespace DaZhongManagementSystem.Areas.QRCodeManagement.Controllers.CodeGenerat
             var personInfoModel = new Business_Personnel_Information() { Vguid = Guid.Parse("726B4C9F-0B5A-4D5B-A8EE-5BA95C38C4C7") };
             //   var personInfoModel = CurrentUser.GetCurrentUser();
             string file = "/UploadFile/QRCode/" + personInfoModel.Vguid + ".jpg";
-            System.IO.File.Delete(Server.MapPath(file));
+            string filePath = Server.MapPath(file);
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(Server.MapPath(filePath));
+            }
             var configStr = _codeGenerateLogic.GetPersonConfiguration(personInfoModel);
             //  Create_ImgCode(configStr, personInfoModel.Vguid.ToString());
             QRCodeHelper.GenerateQRCode(configStr, "/Areas/WeChatPush/Views/_img/logo1.png", file);
@@ -52,9 +56,9 @@ namespace DaZhongManagementSystem.Areas.QRCodeManagement.Controllers.CodeGenerat
             qrCodeEncoder.QRCodeScale = 4; //设置编码测量度  
             qrCodeEncoder.QRCodeVersion = 10; //设置编码版本  
             qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.M; //设置编码错误纠正  
-            //  qrCodeEncoder.QRCodeBackgroundColor = Color.FromArgb(1, 160, 179);
+                                                                                 //  qrCodeEncoder.QRCodeBackgroundColor = Color.FromArgb(1, 160, 179);
             Image image = qrCodeEncoder.Encode(configStr); //生成二维码图片
-            //  CombinImage(image, Server.MapPath("/Areas/WeChatPush/Views/_img/20170912103255.jpg"));
+                                                           //  CombinImage(image, Server.MapPath("/Areas/WeChatPush/Views/_img/20170912103255.jpg"));
             string filename = userVguid + ".jpg";
             string url = "/UploadFile/QRCode";
             string filePath = Server.MapPath(url);

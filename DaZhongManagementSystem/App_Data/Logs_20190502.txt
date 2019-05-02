@@ -1,0 +1,16 @@
+
+-------------------------------header----------------------
+
+-------------------------------footer----------------------
+
+-------------------------------header----------------------
+
+-------------------------------footer----------------------
+
+-------------------------------header----------------------
+
+-------------------------------footer----------------------
+
+-------------------------------header----------------------
+2019-05-02 16:04:07,371 [64] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。/nSystem.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 DaZhongManagementSystem.Infrastructure.SystemManagement.ConfigManageServer.SaveConfig(Master_Configuration configModel) 位置 C:\Users\hot.wang\source\repos\DaZhongTransportationWeChatPush--\DaZhongManagementSystem.Infrastructure\SystemManagement\ConfigManageServer.cs:行号 50/n   在 DaZhongManagementSystem.Infrastructure.SystemManagement.ConfigManageServer.SaveConfig(Master_Configuration configModel) 位置 C:\Users\hot.wang\source\repos\DaZhongTransportationWeChatPush--\DaZhongManagementSystem.Infrastructure\SystemManagement\ConfigManageServer.cs:行号 50

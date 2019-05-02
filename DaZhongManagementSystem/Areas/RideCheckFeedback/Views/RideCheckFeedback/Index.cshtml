@@ -4,10 +4,19 @@
     Business_RideCheckFeedback rideCheckFeedback = ViewBag.RideCheckFeedback as Business_RideCheckFeedback;
     Business_Personnel_Information user = ViewBag.User as Business_Personnel_Information;
     bool isOpen = Convert.ToBoolean(ViewBag.IsOpen);
-    string isOpenString = "display: none";
+    string unuriver = Convert.ToString(ViewBag.isOpenType);
+    string completedString = "display: none";
+    string unuriverString = "display: none";
     if (!isOpen)
     {
-        isOpenString = "";
+        if (unuriver == "unuriver")
+        {
+            unuriverString = "";
+        }
+        else
+        {
+            completedString = "";
+        }
     }
 }
 <html>
@@ -74,25 +83,25 @@
         <div id="success">
             <div>
                 <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/567925.png")" alt="Alternate Text" />
-                <p>本次检查单已完成，谢谢您的参与！！</p>
+                <p>本次检查反馈单已完成，谢谢您的参与！</p>
             </div>
         </div>
-        <div id="marking" style="@isOpenString">
+        <div id="marking" style="@completedString">
             <div>
                 <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/567925.png")" alt="Alternate Text" />
-                <p> 本月检查单已经全部完成，请下月准时填写！！</p>
+                <p> 本月检查反馈单已经全部完成，请下月准时填写！</p>
             </div>
         </div>
-        <div id="error">
+        <div id="error" style="@unuriverString">
             <div>
                 <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/Error.png")" alt="Alternate Text" />
-                本月检查单填写次数已用完，请下月准时填写！
+                <p>您无权填写反馈单！</p>
             </div>
         </div>
         <div id="errorExprice" style="display: none">
             <div>
                 <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/Error.png")" alt="Alternate Text" />
-                <span>检查单已过期！！</span>
+                <span>检查单已过期！</span>
             </div>
 
         </div>
@@ -297,7 +306,7 @@
                                 string feedbackAnswer3 = "";
                                 if (isOpen && rideCheckFeedback.RideCheckFeedback_Items.Count > 2)
                                 {
-                                    optiona = rideCheckFeedback.RideCheckFeedback_Items[2].FeedbackAnswer1;
+                                    optiona = rideCheckFeedback.RideCheckFeedback_Items[3].FeedbackAnswer1;
                                     optionb = optiona == "B" ? "active" : "";
                                     optiona = optiona == "A" ? "active" : "";
                                     if (optiona == "active")
@@ -390,7 +399,7 @@
                                 string feedbackAnswer4 = "";
                                 if (isOpen && rideCheckFeedback.RideCheckFeedback_Items.Count > 2)
                                 {
-                                    optiona = rideCheckFeedback.RideCheckFeedback_Items[2].FeedbackAnswer1;
+                                    optiona = rideCheckFeedback.RideCheckFeedback_Items[5].FeedbackAnswer1;
                                     optionb = optiona == "B" ? "active" : "";
                                     optiona = optiona == "A" ? "active" : "";
                                     if (optiona == "active")
@@ -436,7 +445,7 @@
                                 string feedbackAnswer4 = "";
                                 if (isOpen && rideCheckFeedback.RideCheckFeedback_Items.Count > 6)
                                 {
-                                    optiona = rideCheckFeedback.RideCheckFeedback_Items[2].FeedbackAnswer1;
+                                    optiona = rideCheckFeedback.RideCheckFeedback_Items[6].FeedbackAnswer1;
                                     optionb = optiona == "B" ? "active" : "";
                                     optiona = optiona == "A" ? "active" : "";
                                     if (optiona == "active")
@@ -482,7 +491,7 @@
                                 string feedbackAnswer4 = "";
                                 if (isOpen && rideCheckFeedback.RideCheckFeedback_Items.Count > 7)
                                 {
-                                    optiona = rideCheckFeedback.RideCheckFeedback_Items[2].FeedbackAnswer1;
+                                    optiona = rideCheckFeedback.RideCheckFeedback_Items[7].FeedbackAnswer1;
                                     optionb = optiona == "B" ? "active" : "";
                                     optiona = optiona == "A" ? "active" : "";
                                     if (optiona == "active")

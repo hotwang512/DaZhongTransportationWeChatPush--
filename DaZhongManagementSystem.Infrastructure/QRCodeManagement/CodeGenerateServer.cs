@@ -153,8 +153,11 @@ namespace DaZhongManagementSystem.Infrastructure.QRCodeManagement
                     }
                     else
                     {
-                        var configParam = db.SqlQuery<string>(string.Format("select {0} from v_Business_PersonnelDepartmentDetail_Information where Vguid=@vguid", match.Groups[1].Value), new { vguid = personnelInfo.Vguid }).Single();
-                        configStr = string.Format("{0}={1}", configuration.ConfigValue, configParam);
+                        var configParam = db.SqlQuery<string>(string.Format("select {0} from v_Business_PersonnelDepartmentDetail_Information where Vguid=@vguid", match.Groups[1].Value), new { vguid = personnelInfo.Vguid }).SingleOrDefault();
+                        if (configParam != null)
+                        {
+                            configStr = string.Format("{0}={1}", configuration.ConfigValue, configParam);
+                        }
                     }
                     configParas.Add(configStr);
                 }
