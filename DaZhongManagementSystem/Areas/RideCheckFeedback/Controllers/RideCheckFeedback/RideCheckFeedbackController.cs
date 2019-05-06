@@ -24,12 +24,12 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.RideCheckF
             bool isOpen = false;
             string isOpenType = "unuriver";
             int count = _logic.GetMonthCountConfig();
-            string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
-            U_WeChatUserID userInfo = new U_WeChatUserID();
-            string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
-            userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
-            Business_Personnel_Information personInfoModel = GetUserInfo(userInfo.UserId);//获取人员表信息
-            //Business_Personnel_Information personInfoModel = GetUserInfo("WangCunBiao");//获取人员表信息
+            //string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
+            //U_WeChatUserID userInfo = new U_WeChatUserID();
+            //string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
+            //userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
+            //Business_Personnel_Information personInfoModel = GetUserInfo(userInfo.UserId);//获取人员表信息
+            Business_Personnel_Information personInfoModel = GetUserInfo("WangCunBiao");//获取人员表信息
             Business_RideCheckFeedback rideCheckFeedback = new Business_RideCheckFeedback();
             if (personInfoModel.DepartmenManager != 1)
             {

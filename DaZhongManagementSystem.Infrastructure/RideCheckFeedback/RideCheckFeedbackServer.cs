@@ -58,18 +58,16 @@ namespace DaZhongManagementSystem.Infrastructure.RideCheckFeedback
             {
                 _dbMsSql.DisableInsertColumns = new string[] { "RideCheckFeedback_Items", "RideCheckFeedback_Attachments" };
                 _dbMsSql.Insert(rideCheckFeedback);
-                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 1, DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("HH:mm"), "", "", "", "","");
-                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 2, "", "", "", "", "", "","");
-                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 3, "", "", "", "", "", "","");
-                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 4, "", "", "", "", "", "","");
-                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 5, "", "", "", "", "", "","");
-                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 6, "", "", "", "", "", "","");
-                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 7, "", "", "", "", "", "","");
-                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 8, "", "", "", "", "", "","");
-                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 9, "", "", "", "", "", "","");
-                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 10, "", "", "", "", "", "","");
-                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 11, "", "", "", "", "", "","");
+                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 1, DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("HH:mm"), "", "", "", "", "");
+                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 2, "", "", "", "", "", "", "");
+                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 3, "", "", "", "", "", "", "");
+                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 4, "", "", "", "", "", "", "");
+                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 5, "", "", "", "", "", "", "");
+                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 6, "", "", "", "", "", "", "");
+                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 7, "", "", "", "", "", "", "");
+                rideCheckFeedback.RideCheckFeedback_Items = _dbMsSql.Queryable<Business_RideCheckFeedback_Item>().Where(c => c.RideCheckFeedbackVGUID == rideCheckFeedback.VGUID).OrderBy(c => c.FeedbackNumber).ToList();
             }
+
             return rideCheckFeedback;
         }
 

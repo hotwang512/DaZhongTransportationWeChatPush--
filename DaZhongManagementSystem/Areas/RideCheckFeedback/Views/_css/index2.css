@@ -246,7 +246,8 @@ section {
     background: #dadada;
     color: #999;
     border-radius: 1.5rem;
-    margin-left: 5%;
+    /*margin-left: 5%;*/
+    margin-left: 15px;
     line-height: 1.6rem;
 }
 
@@ -261,7 +262,7 @@ section {
     }
 
 .title {
-    width: 75%;
+    width: 78%;
     overflow-y: auto;
     font-size: 1rem;
     margin-right: 5%;
@@ -529,7 +530,7 @@ footer {
         }
 
 .infor {
-    padding-left: 15px;
+    padding-left: 10px;
 }
 
 .inforTitle {
@@ -547,21 +548,29 @@ input {
 }
 
 .inputItem {
-    margin: 5px 0px 10px 20px;
+    margin: 5px 0px 10px 5px;
     float: left;
     width: 100%;
+}
+
+.inputInfoText {
+    /*width: 41%;*/
+    float: left;
+    margin-left: 15px;
+    /*font-size: 20px;*/
 }
 
 .inputItemText {
     /*width: 41%;*/
     float: left;
+    font-size: 20px;
 }
 
 .inputItemChecbox {
     float: left;
-    width: 50px;
+    width: 32px;
     margin-top: 3px;
-    height: 28px;
+    height: 22px;
 }
 
 .image_invoice {

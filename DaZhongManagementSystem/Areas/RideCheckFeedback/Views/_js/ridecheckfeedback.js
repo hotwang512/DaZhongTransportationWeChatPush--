@@ -8,7 +8,7 @@ var dataLen;
 var MainRowID;
 var count = 0;
 var number1 = 0;
-dataLen = 11;
+dataLen = 7;
 var answerCount = 0;
 var userAbleAnswerCount = $("#AnswerCount").val();
 var isPushed = 0;  //是否推送过
@@ -42,7 +42,23 @@ function addEvent() {
     });
 
     $("input[type='checkbox']").change(function () {
-        saveChoiceQuestion();
+        var inputs = $(".swiper-slide-active").find("input");
+        var chekedInputs = $(".swiper-slide-active").find("input:checked");
+        var kk = $(".swiper-slide-active").find(".kk");
+        if (chekedInputs.length > 0) {
+            $(kk[0]).removeClass("active")
+            $(kk[1]).addClass("active")
+        } else {
+            $(kk[1]).removeClass("active")
+            $(kk[0]).addClass("active")
+        }
+        if ($(".swiper-slide-active").find(".kk").hasClass("active") == true) {
+            $(".ss").eq(count).addClass("active").css("background", "rgb(20, 108, 127)");
+        }
+        else {
+            $(".ss").eq(count).removeClass("active").css("background", "#999");
+        }
+        saveChoiceQuestion(inputs);
     });
 
 }
@@ -64,7 +80,7 @@ function uploadInvoice(ele) {
         dataType: "json",
         success: function (msg) {
             $($("[name='image_invoice']")[1]).attr("src", msg.Data.FilePath)
-            $(".ss").eq(10).addClass("active").css("background", "rgb(20, 108, 127)");
+            $(".ss").eq(6).addClass("active").css("background", "rgb(20, 108, 127)");
             layer.closeAll();
             activeSubmit();
         }
@@ -119,7 +135,7 @@ function basicInformation() {
             answer4: txt_boardinglocation,
             answer5: txt_getoffposition,
             answer6: txt_servicecardnumber,
-            answer7:""
+            answer7: ""
         },
         type: "POST",
         success: function (data) {
@@ -134,23 +150,23 @@ function saveChoiceQuestion(inputs) {
     if (inputs == undefined) {
         inputs = $(".swiper-slide-active").find("input");
     }
-    var kk = $(".swiper-slide-active").find(".kk");
     var id = Number($(".swiper-slide-active").attr("data-swiper-slide-index"));
     var data = {};
     data.user = getUser();
     data.vguid = getVGUID();
     data.number = id + 1;
-    if (id == 9) {
-        for (var i = 0; i < kk.length; i++) {
-            data["answer" + (i + 1)] = $(kk[i]).hasClass("active") == true ? "1" : "";
-        }
+    //if (id == 9) {
+    //    for (var i = 0; i < kk.length; i++) {
+    //        data["answer" + (i + 1)] = $(kk[i]).hasClass("active") == true ? "1" : "";
+    //    }
+    //}
+    //else {
+    var kk = $(".swiper-slide-active").find(".kk");
+    data.answer1 = $(kk[0]).hasClass("active") == true ? "A" : "B";
+    for (var i = 0; i < inputs.length; i++) {
+        data["answer" + (i + 2)] = $(inputs[i]).is(':checked') == true ? "1" : "";
     }
-    else {
-        data.answer1 = $(kk[0]).hasClass("active") == true ? "A" : "B";
-        for (var i = 0; i < inputs.length; i++) {
-            data["answer" + (i + 2)] = $(inputs[i]).is(':checked') == true ? "1" : "";
-        }
-    }
+    //}
 
     $.ajax({
         url: "/RideCheckFeedback/RideCheckFeedback/SaveRideCheckFeedbackItemInfor",
@@ -269,9 +285,9 @@ function loadridecheckfeedback() {
             var inputs = $(this).parent().parent().find(".infor input");
             if ($(this).text() == "A") {
                 inputs.removeAttr("checked")
-                inputs.attr("disabled", "disabled");
+                //inputs.attr("disabled", "disabled");
             } else {
-                inputs.removeAttr("disabled");
+                //inputs.removeAttr("disabled");
             }
             saveChoiceQuestion(inputs);
 
@@ -326,9 +342,9 @@ function loadridecheckfeedback() {
             var inputs = $(this).parent().parent().find(".infor input");
             if ($(this).text() == "合格(执行)") {
                 inputs.removeAttr("checked")
-                inputs.attr("disabled", "disabled");
+                //inputs.attr("disabled", "disabled");
             } else {
-                inputs.removeAttr("disabled");
+                //inputs.removeAttr("disabled");
             }
             saveChoiceQuestion(inputs);
             //在答题卡中判断某一题是否已经完成提交
