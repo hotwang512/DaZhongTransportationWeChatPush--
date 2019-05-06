@@ -460,7 +460,6 @@
     <Content Include="_lib\Autofac.dll" />
     <Content Include="_lib\Autofac.Integration.Mvc.dll" />
     <Content Include="_lib\JQWidgetsSugar.dll" />
-    <Content Include="_lib\JQWidgetsSugar.pdb" />
     <Content Include="_lib\JQWidgetsSugar.XML" />
     <Content Include="_lib\log4net.dll" />
     <Content Include="_lib\Microsoft.Office.Interop.Word.dll" />
@@ -1912,9 +1911,6 @@
     <Content Include="_theme\utf8net\lang\zh-cn\images\music.png" />
     <Content Include="_theme\utf8net\lang\zh-cn\images\upload.png" />
     <Content Include="_theme\utf8net\lang\zh-cn\zh-cn.js" />
-    <Content Include="_theme\utf8net\net\Bin\Newtonsoft.Json.dll" />
-    <Content Include="_theme\utf8net\net\Bin\Newtonsoft.Json.pdb" />
-    <Content Include="_theme\utf8net\net\Bin\Newtonsoft.Json.xml" />
     <Content Include="_theme\utf8net\net\config.json" />
     <Content Include="_theme\utf8net\net\controller.ashx" />
     <Content Include="_theme\utf8net\net\net.sln" />
@@ -2209,8 +2205,6 @@
     <Content Include="_theme\bootstrap-datetimepicker-master\.npmignore" />
     <Content Include="_theme\bootstrap-datetimepicker-master\.travis.yml" />
     <Content Include="_theme\bootstrap-datetimepicker-master\bower.json" />
-    <Content Include="_theme\bootstrap-datetimepicker-master\build\build.less" />
-    <Content Include="_theme\bootstrap-datetimepicker-master\build\build_standalone.less" />
     <Content Include="_theme\bootstrap-datetimepicker-master\less\datetimepicker.less" />
     <Content Include="_theme\bootstrap-datetimepicker-master\LICENSE" />
     <Content Include="_theme\bootstrap-datetimepicker-master\minify.sh" />
@@ -2365,6 +2359,8 @@
     <Folder Include="Service\" />
     <Folder Include="UpLoadFile\" />
     <Folder Include="UpLoad\" />
+    <Folder Include="_theme\bootstrap-datetimepicker-master\build\" />
+    <Folder Include="_theme\utf8net\net\Bin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

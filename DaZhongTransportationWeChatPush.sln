@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaZhongManagementSystem.Common", "DaZhongManagementSystem.Common\DaZhongManagementSystem.Common.csproj", "{C4254491-E8D4-4C24-8898-67837A655207}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaZhongManagementSystem.Entities", "DaZhongManagementSystem.Entities\DaZhongManagementSystem.Entities.csproj", "{53466F02-4786-4730-BC77-EC961106E5D7}"
@@ -10,31 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaZhongManagementSystem", "DaZhongManagementSystem\DaZhongManagementSystem.csproj", "{F2049E62-454F-450D-97A5-4413AA90E5EF}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 4
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://192.168.0.119:1002/tfs/defaultcollection
-		SccProjectUniqueName0 = DaZhongManagementSystem.Entities\\DaZhongManagementSystem.Entities.csproj
-		SccProjectName0 = DaZhongManagementSystem.Entities
-		SccAuxPath0 = http://192.168.0.119:1002/tfs/defaultcollection
-		SccLocalPath0 = DaZhongManagementSystem.Entities
-		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName1 = DaZhongManagementSystem.Common\\DaZhongManagementSystem.Common.csproj
-		SccProjectName1 = DaZhongManagementSystem.Common
-		SccAuxPath1 = http://192.168.0.119:1002/tfs/defaultcollection
-		SccLocalPath1 = DaZhongManagementSystem.Common
-		SccProvider1 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName2 = DaZhongManagementSystem.Infrastructure\\DaZhongManagementSystem.Infrastructure.csproj
-		SccProjectName2 = DaZhongManagementSystem.Infrastructure
-		SccAuxPath2 = http://192.168.0.119:1002/tfs/defaultcollection
-		SccLocalPath2 = DaZhongManagementSystem.Infrastructure
-		SccProvider2 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName3 = DaZhongManagementSystem\\DaZhongManagementSystem.csproj
-		SccProjectName3 = DaZhongManagementSystem
-		SccAuxPath3 = http://192.168.0.119:1002/tfs/defaultcollection
-		SccLocalPath3 = DaZhongManagementSystem
-		SccProvider3 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
