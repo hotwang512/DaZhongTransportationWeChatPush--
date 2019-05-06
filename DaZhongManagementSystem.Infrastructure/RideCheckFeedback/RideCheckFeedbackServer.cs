@@ -58,17 +58,17 @@ namespace DaZhongManagementSystem.Infrastructure.RideCheckFeedback
             {
                 _dbMsSql.DisableInsertColumns = new string[] { "RideCheckFeedback_Items", "RideCheckFeedback_Attachments" };
                 _dbMsSql.Insert(rideCheckFeedback);
-                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 1, DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("HH:mm"), "", "", "", "");
-                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 2, "", "", "", "", "", "");
-                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 3, "", "", "", "", "", "");
-                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 4, "", "", "", "", "", "");
-                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 5, "", "", "", "", "", "");
-                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 6, "", "", "", "", "", "");
-                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 7, "", "", "", "", "", "");
-                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 8, "", "", "", "", "", "");
-                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 9, "", "", "", "", "", "");
-                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 10, "", "", "", "", "", "");
-                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 11, "", "", "", "", "", "");
+                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 1, DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("HH:mm"), "", "", "", "","");
+                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 2, "", "", "", "", "", "","");
+                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 3, "", "", "", "", "", "","");
+                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 4, "", "", "", "", "", "","");
+                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 5, "", "", "", "", "", "","");
+                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 6, "", "", "", "", "", "","");
+                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 7, "", "", "", "", "", "","");
+                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 8, "", "", "", "", "", "","");
+                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 9, "", "", "", "", "", "","");
+                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 10, "", "", "", "", "", "","");
+                SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedback.VGUID, 11, "", "", "", "", "", "","");
             }
             return rideCheckFeedback;
         }
@@ -81,7 +81,7 @@ namespace DaZhongManagementSystem.Infrastructure.RideCheckFeedback
             }
         }
 
-        public bool SaveBusiness_RideCheckFeedbackItem(string user, Guid rideCheckFeedbackVguid, int feedbackNumber, string answer1, string answer2, string answer3, string answer4, string answer5, string answer6)
+        public bool SaveBusiness_RideCheckFeedbackItem(string user, Guid rideCheckFeedbackVguid, int feedbackNumber, string answer1, string answer2, string answer3, string answer4, string answer5, string answer6, string answer7)
         {
             Business_RideCheckFeedback_Item item = new Business_RideCheckFeedback_Item();
             using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance())
@@ -101,6 +101,7 @@ namespace DaZhongManagementSystem.Infrastructure.RideCheckFeedback
                     item.FeedbackAnswer4 = answer4;
                     item.FeedbackAnswer5 = answer5;
                     item.FeedbackAnswer6 = answer6;
+                    item.FeedbackAnswer7 = answer7;
                     _dbMsSql.Insert(item);
                 }
                 else
@@ -111,6 +112,7 @@ namespace DaZhongManagementSystem.Infrastructure.RideCheckFeedback
                     item.FeedbackAnswer4 = answer4;
                     item.FeedbackAnswer5 = answer5;
                     item.FeedbackAnswer6 = answer6;
+                    item.FeedbackAnswer7 = answer7;
                     _dbMsSql.Update(item);
                 }
             }

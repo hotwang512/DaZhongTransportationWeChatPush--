@@ -60,9 +60,9 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.RideCheckF
             var val = _logic.Submit(vguid);
             return Json(new { Success = true, Data = val }, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult SaveRideCheckFeedbackItemInfor(string user, Guid vguid, int number, string answer1, string answer2, string answer3, string answer4, string answer5, string answer6)
+        public JsonResult SaveRideCheckFeedbackItemInfor(string user, Guid vguid, int number, string answer1, string answer2, string answer3, string answer4, string answer5, string answer6, string answer7)
         {
-            var val = _logic.SaveBusiness_RideCheckFeedbackItem(user, vguid, number, answer1, answer2, answer3, answer4, answer5, answer6);
+            var val = _logic.SaveBusiness_RideCheckFeedbackItem(user, vguid, number, answer1, answer2, answer3, answer4, answer5, answer6, answer7);
 
             return Json(new { Success = true, Data = val }, JsonRequestBehavior.AllowGet);
         }
@@ -98,7 +98,7 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.RideCheckF
             var reponseMessage = uf.Save(file, "RideCheckFeedback");
             if (type == "invoice")
             {
-                SaveRideCheckFeedbackItemInfor(user, vguid, 11, reponseMessage.WebFilePath, "", "", "", "", "");
+                SaveRideCheckFeedbackItemInfor(user, vguid, 11, reponseMessage.WebFilePath, "", "", "", "", "", "");
             }
             else
             {

@@ -22,7 +22,7 @@ namespace DaZhongManagementSystem.Entities.TableEntity
         public string FeedbackAnswer5 { get; set; }
         public string FeedbackAnswer6 { get; set; }
 
-
+        public string FeedbackAnswer7 { get; set; }
 
     }
 }

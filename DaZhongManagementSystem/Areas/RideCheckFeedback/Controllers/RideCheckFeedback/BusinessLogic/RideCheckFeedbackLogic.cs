@@ -31,10 +31,10 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.RideCheckF
             return _rcfs.AddBusiness_RideCheckFeedback(user);
         }
 
-        public bool SaveBusiness_RideCheckFeedbackItem(string user, Guid rideCheckFeedbackVguid, int feedbackNumber, string answer1, string answer2, string answer3, string answer4, string answer5, string answer6)
+        public bool SaveBusiness_RideCheckFeedbackItem(string user, Guid rideCheckFeedbackVguid, int feedbackNumber, string answer1, string answer2, string answer3, string answer4, string answer5, string answer6, string answer7)
         {
 
-            return _rcfs.SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedbackVguid, feedbackNumber, answer1, answer2, answer3, answer4, answer5, answer6);
+            return _rcfs.SaveBusiness_RideCheckFeedbackItem(user, rideCheckFeedbackVguid, feedbackNumber, answer1, answer2, answer3, answer4, answer5, answer6, answer7);
         }
         public string SaveBusiness_RideCheckFeedbackAttachment(string user, Guid rideCheckFeedbackVguid, string fileName, string filePath)
         {

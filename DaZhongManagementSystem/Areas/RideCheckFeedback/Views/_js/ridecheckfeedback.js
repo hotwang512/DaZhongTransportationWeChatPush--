@@ -119,6 +119,7 @@ function basicInformation() {
             answer4: txt_boardinglocation,
             answer5: txt_getoffposition,
             answer6: txt_servicecardnumber,
+            answer7:""
         },
         type: "POST",
         success: function (data) {
