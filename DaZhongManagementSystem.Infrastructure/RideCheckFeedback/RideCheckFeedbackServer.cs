@@ -138,7 +138,8 @@ namespace DaZhongManagementSystem.Infrastructure.RideCheckFeedback
         {
             using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance())
             {
-                _dbMsSql.Delete(string.Format("delete Business_RideCheckFeedback_Attachment where AttachmentPath='{0}'", filePath));
+                //string.Format("delete Business_RideCheckFeedback_Attachment where AttachmentPath='{0}'", filePath)
+                _dbMsSql.Delete<Business_RideCheckFeedback_Attachment>(c=>c.AttachmentPath== filePath);
             }
         }
 

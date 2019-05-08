@@ -104,7 +104,15 @@ function uploadAttachment(ele) {
 
 function deleteAttachment(ele) {
     if (confirm("确认要删除附件？")) {
-        $(ele).parent().remove();
+        $.ajax({
+            url: "/RideCheckFeedback/RideCheckFeedback/DeleteBusiness_RideCheckFeedbackAttachment",
+            data: { filePath: $(ele).parent().attr("filePath") },
+            type: "POST",
+            success: function (data) {
+                $(ele).parent().remove();
+            }
+        })
+
     }
 }
 
