@@ -203,6 +203,7 @@
     <Compile Include="Areas\ReportManagement\Controllers\QuestionReport\QuestionReportController.cs" />
     <Compile Include="Areas\RideCheckFeedback\Controllers\RideCheckFeedback\BusinessLogic\RideCheckFeedbackLogic.cs" />
     <Compile Include="Areas\RideCheckFeedback\Controllers\RideCheckFeedback\RideCheckFeedbackController.cs" />
+    <Compile Include="Areas\ReportManagement\Controllers\RideCheckFeedbackReport\RideCheckFeedbackReportController.cs" />
     <Compile Include="Areas\RideCheckFeedback\RideCheckFeedbackAreaRegistration.cs" />
     <Compile Include="Areas\WeChatPay\Controllers\WechatPayController.cs" />
     <Compile Include="Areas\WeChatPay\WeChatPayAreaRegistration.cs" />
@@ -365,6 +366,8 @@
     <Content Include="Areas\QuestionManagement\Views\_js\QuestionList.js" />
     <Content Include="Areas\ReportManagement\Views\_js\PaymentReport.js" />
     <Content Include="Areas\ReportManagement\Views\_js\QuestionReport.js" />
+    <Content Include="Areas\ReportManagement\Views\_css\RideCheckFeedbackReport.css" />
+    <Content Include="Areas\ReportManagement\Views\_js\RideCheckFeedbackReport.js" />
     <Content Include="Areas\RideCheckFeedback\Views\_css\index2.css" />
     <Content Include="Areas\RideCheckFeedback\Views\_js\need\layer.css" />
     <Content Include="Areas\RideCheckFeedback\Views\_css\mobileSelect.css" />
@@ -2140,6 +2143,7 @@
     <Content Include="Areas\ReportManagement\Views\QuestionReport\QuestionReport.cshtml" />
     <Content Include="Areas\RideCheckFeedback\Views\Web.config" />
     <Content Include="Areas\RideCheckFeedback\Views\RideCheckFeedback\Index.cshtml" />
+    <Content Include="Areas\ReportManagement\Views\RideCheckFeedbackReport\SelectionRatioReport.cshtml" />
     <None Include="Properties\PublishProfiles\DaZhong.pubxml" />
     <Content Include="ReportTemplate\PushTemplate.xlsx" />
     <Content Include="ReportTemplate\ScoreTemplate.xlsx" />
@@ -2344,6 +2348,7 @@
     <Folder Include="Areas\QRCodeManagement\Views\Shared\" />
     <Folder Include="Areas\QuestionManagement\Models\" />
     <Folder Include="Areas\QuestionManagement\Views\Shared\" />
+    <Folder Include="Areas\ReportManagement\Controllers\RideCheckFeedbackReport\BusinessLogic\" />
     <Folder Include="Areas\ReportManagement\Models\" />
     <Folder Include="Areas\ReportManagement\Views\Shared\" />
     <Folder Include="Areas\RideCheckFeedback\Models\" />

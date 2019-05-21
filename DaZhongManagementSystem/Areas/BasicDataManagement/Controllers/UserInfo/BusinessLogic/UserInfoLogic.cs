@@ -91,12 +91,17 @@ namespace DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.UserInfo
         /// </summary>
         /// <param name="vguidList"></param>
         /// <returns></returns>
-        public bool UserFocusWeChat(string[] vguidList)
+        public bool UserFocusWeChat(string[] vguidList, out string response)
         {
             bool result = false;
+            response = string.Empty;
             foreach (var item in vguidList)
             {
-                result = _us.UserFocusWeChat(item);
+                result = _us.UserFocusWeChat(item, out response);
+                if (!result)
+                {
+                    break;
+                }
             }
             return result;
         }
@@ -158,7 +163,7 @@ namespace DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.UserInfo
 
                 throw ex;
             }
-            
+
         }
 
         public DataTable getErrorDt(DataTable dt)
@@ -172,7 +177,7 @@ namespace DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.UserInfo
 
                 throw ex;
             }
-          
+
         }
 
         public string getNulldata(DataTable dt)
@@ -189,7 +194,7 @@ namespace DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.UserInfo
 
         }
 
-      
+
 
         public void Existup(DataTable ErrorDt)
         {
@@ -202,10 +207,10 @@ namespace DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.UserInfo
             }
             catch (Exception)
             {
-                
+
                 throw;
             }
-         
+
         }
     }
 

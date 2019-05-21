@@ -1,0 +1,40 @@
+﻿body {
+}
+
+.mainDiv {
+    background: #ffffff;
+    padding: 5px;
+}
+
+#RideCheckFeedbackReportTable {
+    width: 800px;
+    margin: auto;
+}
+
+    #RideCheckFeedbackReportTable th {
+        border: solid #ccc 1px;
+        text-align: center;
+    }
+
+    #RideCheckFeedbackReportTable td {
+        text-align: center;
+        padding: 5px;
+        border: solid #ccc 1px;
+    }
+
+.singlefailure {
+    padding: 0px !important;
+}
+
+    .singlefailure table {
+        width: 100%;
+        margin-top: 1px;
+    }
+
+    .singlefailure td {
+        text-align: left !important;
+        border-top: none !important;
+        border-left: none !important;
+        border-right: none !important;
+        border-bottom: solid #ccc 1px !important;
+    }

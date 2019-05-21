@@ -103,63 +103,63 @@ namespace DaZhongManagementSystem.Infrastructure
                     }
                     else
                     {
-                        Business_Personnel_Information personInfo = new Business_Personnel_Information();
-                        switch (position)
-                        {
-                            case "司机":
-                                personInfo.DepartmenManager = 1;
-                                break;
-                            case "普通员工":
-                                personInfo.DepartmenManager = 2;
-                                break;
-                            case "管理人员":
-                                personInfo.DepartmenManager = 3;
-                                break;
-                        }
-                        DateTime now = DateTime.Now;
-                        //if (!string.IsNullOrEmpty(landaUser.BirthDay))
+                        //Business_Personnel_Information personInfo = new Business_Personnel_Information();
+                        //switch (position)
                         //{
-                        //    DateTime birthday = DateTime.Parse(landaUser.BirthDay);
-                        //    int age = now.Year - birthday.Year;
-                        //    if (now.Month < birthday.Month || (now.Month == birthday.Month && now.Day < birthday.Day))
-                        //        age--;
-                        //    personInfo.Age = age.ToString(); //年龄
+                        //    case "司机":
+                        //        personInfo.DepartmenManager = 1;
+                        //        break;
+                        //    case "普通员工":
+                        //        personInfo.DepartmenManager = 2;
+                        //        break;
+                        //    case "管理人员":
+                        //        personInfo.DepartmenManager = 3;
+                        //        break;
                         //}
-                        personInfo.Vguid = Guid.NewGuid();
-                        personInfo.OwnedFleet = Guid.Parse(userModel.OrganizationID); //所属部门
-                        //判断微信带过来的手机号是否为空（如果为空取人员系统中的手机号，不为空则取微信中的手机号）
-                        if (string.IsNullOrEmpty(mobilePhone))
-                        {
-                            personInfo.PhoneNumber = landaUser.MobilePhone; //人员系统手机号
-                        }
-                        else
-                        {
-                            personInfo.PhoneNumber = mobilePhone; //微信带过来的手机号
-                        }
+                        //DateTime now = DateTime.Now;
+                        ////if (!string.IsNullOrEmpty(landaUser.BirthDay))
+                        ////{
+                        ////    DateTime birthday = DateTime.Parse(landaUser.BirthDay);
+                        ////    int age = now.Year - birthday.Year;
+                        ////    if (now.Month < birthday.Month || (now.Month == birthday.Month && now.Day < birthday.Day))
+                        ////        age--;
+                        ////    personInfo.Age = age.ToString(); //年龄
+                        ////}
+                        //personInfo.Vguid = Guid.NewGuid();
+                        //personInfo.OwnedFleet = Guid.Parse(userModel.OrganizationID); //所属部门
+                        ////判断微信带过来的手机号是否为空（如果为空取人员系统中的手机号，不为空则取微信中的手机号）
+                        //if (string.IsNullOrEmpty(mobilePhone))
+                        //{
+                        //    personInfo.PhoneNumber = landaUser.MobilePhone; //人员系统手机号
+                        //}
+                        //else
+                        //{
+                        //    personInfo.PhoneNumber = mobilePhone; //微信带过来的手机号
+                        //}
 
-                        personInfo.UserID = userID;
-                        personInfo.ID = userID;
-                        personInfo.IDNumber = userModel.IDCard; //身份证号
-                        if (personInfo.IDNumber.Length == 18)
-                        {
-                            int gender;
-                            bool isSuccess = int.TryParse(personInfo.IDNumber.Substring(16, 1), out gender);
-                            if (isSuccess)
-                            {
-                                personInfo.Sex = gender % 2 == 0 ? "2" : "1";
-                            }
+                        //personInfo.UserID = userID;
+                        //personInfo.ID = userID;
+                        //personInfo.IDNumber = userModel.IDCard; //身份证号
+                        //if (personInfo.IDNumber.Length == 18)
+                        //{
+                        //    int gender;
+                        //    bool isSuccess = int.TryParse(personInfo.IDNumber.Substring(16, 1), out gender);
+                        //    if (isSuccess)
+                        //    {
+                        //        personInfo.Sex = gender % 2 == 0 ? "2" : "1";
+                        //    }
 
-                            string strYear = personInfo.IDNumber.Substring(6, 8).Insert(4, "-").Insert(7, "-");	//提取出生年份
-                            TimeSpan ts = DateTime.Now.Subtract(Convert.ToDateTime(strYear));
-                            personInfo.Age = ts.Days / 365;
-                        }
+                        //    string strYear = personInfo.IDNumber.Substring(6, 8).Insert(4, "-").Insert(7, "-");	//提取出生年份
+                        //    TimeSpan ts = DateTime.Now.Subtract(Convert.ToDateTime(strYear));
+                        //    personInfo.Age = ts.Days / 365;
+                        //}
 
-                        personInfo.JobNumber = userModel.EmployeeNO; //工号
-                        personInfo.ApprovalStatus = 1; //未审核
-                        personInfo.ApprovalType = 2; //手动关注
-                        personInfo.CreatedDate = DateTime.Now;
-                        personInfo.ChangeDate = DateTime.Now;
-                        result = SavePersonInfo(personInfo);
+                        //personInfo.JobNumber = userModel.EmployeeNO; //工号
+                        //personInfo.ApprovalStatus = 1; //未审核
+                        //personInfo.ApprovalType = 2; //手动关注
+                        //personInfo.CreatedDate = DateTime.Now;
+                        //personInfo.ChangeDate = DateTime.Now;
+                        //result = SavePersonInfo(personInfo);
                         return "3"; //LandaV9库中不存在
                     }
 

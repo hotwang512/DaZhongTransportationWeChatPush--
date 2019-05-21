@@ -586,16 +586,14 @@ function focus() {
         traditional: true,
         type: "post",
         success: function (msg) {
-            switch (msg.respnseInfo) {
-                case "0":
-                    jqxNotification("手动关注失败！", null, "error");
-                    break;
-                case "1":
-                    jqxNotification("手动关注成功！", null, "success");
-                    selector.$grid().jqxDataTable('updateBoundData');
-                    break;
-            }
             closeLoading();//关闭加载等待框
+            if (msg.isSuccess == true) {
+                jqxNotification("手动关注成功！", null, "success");
+                selector.$grid().jqxDataTable('updateBoundData');
+            }
+            else {
+                jqxNotification("手动关注失败！" + msg.respnseInfo, null, "error");
+            }
         }
     });
 }

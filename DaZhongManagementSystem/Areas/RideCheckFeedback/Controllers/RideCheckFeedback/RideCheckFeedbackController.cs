@@ -47,7 +47,6 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.RideCheckF
                 }
             }
 
-
             ViewBag.RideCheckFeedback = rideCheckFeedback;
             ViewBag.IsOpen = isOpen;
             ViewBag.IsOpenType = isOpenType;
@@ -90,6 +89,7 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.RideCheckF
         public JsonResult uploadFile(string user, Guid vguid, int number, string type)
         {
             UploadFile uf = new UploadFile();
+            uf.SetFileType("*");
             string url = "/UpLoadFile/";//文件保存路径
             string saveFolder = Server.MapPath(url);
             uf.SetFileDirectory(saveFolder);
@@ -106,5 +106,7 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.RideCheckF
             }
             return Json(new { Success = true, Data = new { FilePath = reponseMessage.WebFilePath, FileName = fileName } }, JsonRequestBehavior.AllowGet);
         }
+
+      
     }
 }

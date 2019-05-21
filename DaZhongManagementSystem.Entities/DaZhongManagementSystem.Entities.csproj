@@ -101,6 +101,7 @@
     <Compile Include="UserDefinedEntity\Search_AgreementOperation.cs" />
     <Compile Include="UserDefinedEntity\Search_QuestionReport.cs" />
     <Compile Include="UserDefinedEntity\Search_RedPacketHistory.cs" />
+    <Compile Include="UserDefinedEntity\SelectionRatioReport.cs" />
     <Compile Include="UserDefinedEntity\TempWeChatMain.cs" />
     <Compile Include="UserDefinedEntity\U_QuestionAnswerDetail.cs" />
     <Compile Include="UserDefinedEntity\U_QuestionReport.cs" />

@@ -156,9 +156,9 @@ namespace DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.UserInfo
         {
             var models = new ActionResultModel<string>();
             models.isSuccess = false;
-
-            models.isSuccess = _ul.UserFocusWeChat(vguidList);
-            models.respnseInfo = models.isSuccess == true ? "1" : "0";
+            string response = string.Empty;
+            models.isSuccess = _ul.UserFocusWeChat(vguidList, out response);
+            models.respnseInfo = response;
             return Json(models, JsonRequestBehavior.AllowGet);
         }
 
@@ -205,7 +205,7 @@ namespace DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.UserInfo
             var CorrectDt = _ul.getCorrectDt(dt);//筛选正确的表格
             var ErrorDt = _ul.getErrorDt(dt);//筛选错误的表格
             string isNullorisnotExist = "";
-            if (ErrorDt.Rows.Count>0)
+            if (ErrorDt.Rows.Count > 0)
             {
                 //导出错误的表格
                 //ExportExcel.ExportExcels("错误报表.xlsx", "错误报表" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xls", ErrorDt);
@@ -216,7 +216,7 @@ namespace DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.UserInfo
                 //_ul.Existup(ErrorDt);
 
                 isNullorisnotExist = _ul.getNulldata(dt);
-               
+
 
 
             }
@@ -225,7 +225,7 @@ namespace DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.UserInfo
             try
             {
                 model.isSuccess = _ul.InsertExcelToDatabase(CorrectDt);
-                if (ErrorDt.Rows.Count<0)
+                if (ErrorDt.Rows.Count < 0)
                 {
                     model.respnseInfo = model.isSuccess ? "1" : "0";
                 }
@@ -235,11 +235,11 @@ namespace DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.UserInfo
                     model.respnseInfo = "2";
                     model.ResponseMessage = "共有" + errorrow + "条错误行 <br/>" + isNullorisnotExist;
                     model.ErrorDataTable = JsonConvert.SerializeObject(ErrorDt);
-                     
-                     Session["jsondatatable"] =  model.ErrorDataTable;
-                    
+
+                    Session["jsondatatable"] = model.ErrorDataTable;
+
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -258,6 +258,6 @@ namespace DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.UserInfo
             _ul.Existup(ErrorDataTable);
         }
 
-        
+
     }
 }

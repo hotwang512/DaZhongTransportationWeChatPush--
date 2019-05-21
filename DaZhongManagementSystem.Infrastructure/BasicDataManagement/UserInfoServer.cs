@@ -9,7 +9,7 @@ using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Data;
-
+using DaZhongManagementSystem.Entities.TableEntity.DaZhongPersonTable;
 
 namespace DaZhongManagementSystem.Infrastructure.BasicDataManagement
 {
@@ -47,10 +47,10 @@ namespace DaZhongManagementSystem.Infrastructure.BasicDataManagement
                 var currentDepartment = CurrentUser.GetCurrentUser().Department;
                 var mainDepVguid = dbMsSql.Queryable<Master_Organization>().Where(i => i.ParentVguid == null).Select(i => i.Vguid).SingleOrDefault();
                 var organizationList = dbMsSql.SqlQuery<Master_Organization>("exec usp_OrganizationDetail @orgVguid", new
-                   {
-                       orgVguid = currentDepartment ?? mainDepVguid.ToString()
+                {
+                    orgVguid = currentDepartment ?? mainDepVguid.ToString()
 
-                   });
+                });
                 return organizationList;
             }
         }
@@ -225,83 +225,91 @@ namespace DaZhongManagementSystem.Infrastructure.BasicDataManagement
         /// </summary>
         /// <param name="vguid"></param>
         /// <returns></returns>
-        public bool UserFocusWeChat(string vguid)
+        public bool UserFocusWeChat(string vguid, out string outString)
         {
-
-            using (SqlSugarClient dbMsSql = SugarDao_MsSql.GetInstance())
+            bool result = false;
+            outString = string.Empty;
+            using (SqlSugarClient _dbSql = SugarDao.SugarDao_LandaVSql.GetInstance())
             {
-
-                bool result = false;
-                Guid Vguid = Guid.Parse(vguid);
-                Business_Personnel_Information userInfo = dbMsSql.Queryable<Business_Personnel_Information>().Where(i => i.Vguid == Vguid).SingleOrDefault();
-                try
+                using (SqlSugarClient dbMsSql = SugarDao_MsSql.GetInstance())
                 {
-                    dbMsSql.BeginTran();
-                    string weChatJson = JsonHelper.ModelToJson(userInfo);
-                    //1为未关注的人
-                    if (userInfo.ApprovalStatus == 1)
+                    Guid Vguid = Guid.Parse(vguid);
+                    Business_Personnel_Information userInfo = dbMsSql.Queryable<Business_Personnel_Information>().Where(i => i.Vguid == Vguid).SingleOrDefault();
+                    try
                     {
-                        result = dbMsSql.Update<Business_Personnel_Information>(new { ApprovalStatus = 2 }, i => i.Vguid == Vguid);//更新审批状态
-                        if (result)
+                        AllEmployee landaUser = _dbSql.Queryable<AllEmployee>().Where(i => i.IDCard == userInfo.IDNumber).FirstOrDefault();
+                        if (landaUser != null)
                         {
-                            //获取accessToken
-                            string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
-                            //用户关注微信企业号
-                            string focusResult = Common.WeChatPush.WeChatTools.GetAuthSucee(accessToken, userInfo.UserID);
-                            U_FocusResult resultMsg = new U_FocusResult();
-                            resultMsg = JsonHelper.JsonToModel<U_FocusResult>(focusResult);
-                            if (resultMsg.errcode == 0)
+                            dbMsSql.BeginTran();
+                            string weChatJson = JsonHelper.ModelToJson(userInfo);
+                            //1为未关注的人
+                            if (userInfo.ApprovalStatus == 1)
                             {
-                                result = true;//关注成功
+
+                                //获取accessToken
+                                string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
+                                //用户关注微信企业号
+                                string focusResult = Common.WeChatPush.WeChatTools.GetAuthSucee(accessToken, userInfo.UserID);
+                                U_FocusResult resultMsg = new U_FocusResult();
+                                resultMsg = JsonHelper.JsonToModel<U_FocusResult>(focusResult);
+                                if (resultMsg.errcode == 0)
+                                {
+                                    dbMsSql.Update<Business_Personnel_Information>(new { ApprovalStatus = 2 }, i => i.Vguid == Vguid);//更新审批状态
+                                    result = true;//关注成功
+                                }
+                                else
+                                {
+                                    result = false;
+                                    //model.respnseInfo = resultMsg.errmsg;
+                                    LogHelper.WriteLog("人员" + userInfo.UserID + "手动关注失败：错误码为-" + resultMsg.errcode + ",错误消息为_" + resultMsg.errmsg);
+                                }
+
+                                //存入操作日志表
+                                _ll.SaveLog(9, 5, CurrentUser.GetCurrentUser().LoginName, userInfo.Name, weChatJson);
+                            }
+                            else if (userInfo.ApprovalStatus == 4)
+                            {
+                                //获取accessToken
+                                string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
+                                //用户关注微信企业号
+                                string focusResult = Common.WeChatPush.WeChatTools.EnableWeChatData(accessToken, userInfo.UserID);
+                                U_FocusResult resultMsg = new U_FocusResult();
+                                resultMsg = JsonHelper.JsonToModel<U_FocusResult>(focusResult);
+                                if (resultMsg.errcode == 0)
+                                {
+                                    dbMsSql.Update<Business_Personnel_Information>(new { ApprovalStatus = 2 }, i => i.Vguid == Vguid);//更新审批状态
+                                    result = true;//关注成功
+                                }
+                                else
+                                {
+                                    result = false;
+                                    outString = "人员" + userInfo.UserID + "手动关注失败：错误码为-" + resultMsg.errcode + ",错误消息为_" + resultMsg.errmsg;
+                                    LogHelper.WriteLog(outString);
+                                }
+                                //存入操作日志表
+                                _ll.SaveLog(9, 5, CurrentUser.GetCurrentUser().LoginName, userInfo.Name, weChatJson);
+
                             }
                             else
                             {
-                                result = false;
-                                //model.respnseInfo = resultMsg.errmsg;
-                                LogHelper.WriteLog("人员" + userInfo.UserID + "手动关注失败：错误码为-" + resultMsg.errcode + ",错误消息为_" + resultMsg.errmsg);
+                                result = true;
                             }
+                            dbMsSql.CommitTran();
                         }
-                        //存入操作日志表
-                        _ll.SaveLog(9, 5, CurrentUser.GetCurrentUser().LoginName, userInfo.Name, weChatJson);
-                    }
-                    else if (userInfo.ApprovalStatus == 4)
-                    {
-                        result = dbMsSql.Update<Business_Personnel_Information>(new { ApprovalStatus = 2 }, i => i.Vguid == Vguid);//更新审批状态
-                        if (result)
+                        else
                         {
-                            //获取accessToken
-                            string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
-                            //用户关注微信企业号
-                            string focusResult = Common.WeChatPush.WeChatTools.EnableWeChatData(accessToken, userInfo.UserID);
-                            U_FocusResult resultMsg = new U_FocusResult();
-                            resultMsg = JsonHelper.JsonToModel<U_FocusResult>(focusResult);
-                            if (resultMsg.errcode == 0)
-                            {
-                                result = true;//关注成功
-                            }
-                            else
-                            {
-                                result = false;
-                                LogHelper.WriteLog("人员" + userInfo.UserID + "手动关注失败：错误码为-" + resultMsg.errcode + ",错误消息为_" + resultMsg.errmsg);
-                            }
+                            outString = "人事库中不存在该用户，不能关注！";
                         }
-                        //存入操作日志表
-                        _ll.SaveLog(9, 5, CurrentUser.GetCurrentUser().LoginName, userInfo.Name, weChatJson);
-
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        result = true;
+                        dbMsSql.RollbackTran();
+                        outString = "人员" + userInfo.UserID + "手动关注异常";
+                        LogHelper.WriteLog("人员" + userInfo.UserID + "手动关注异常：" + ex.Message + "/n" + ex.ToString() + "/n" + ex.StackTrace);
                     }
-                    dbMsSql.CommitTran();
                 }
-                catch (Exception ex)
-                {
-                    dbMsSql.RollbackTran();
-                    LogHelper.WriteLog("人员" + userInfo.UserID + "手动关注异常：" + ex.Message + "/n" + ex.ToString() + "/n" + ex.StackTrace);
-                }
-                return result;
             }
+            return result;
         }
         /// <summary>
         /// 查询人员状态清单
@@ -579,6 +587,6 @@ namespace DaZhongManagementSystem.Infrastructure.BasicDataManagement
 
 
         }
-      
+
     }
 }

@@ -51,7 +51,7 @@ $(function () {
                         }
                             //已阅卷
                         else if (data.MainRow[0].Marking == 2) {
-                            if (data.MainRow[0].TotalScore < 60) {
+                            if (data.MainRow[0].TotalScore < 100) {
                                 //   alert("您此次答题的分数为" + data.MainRow[0].TotalScore + "，此次答题未达标，请与车队联系进行线下培训！");
                                 //不及格的话判断答题次数，超过3(userAbleAnswerCount)次不允许再次答题
                                 var ansCount = userAbleAnswerCount - answerCount;//剩余答题机会
@@ -68,7 +68,7 @@ $(function () {
                     }
                 }
                 //判断是否及格（60分及格）
-                if (data.MainRow[0].TotalScore >= 60) {
+                if (data.MainRow[0].TotalScore >= 100) {
                     $("#success").show();
                     return false;
                 } else {

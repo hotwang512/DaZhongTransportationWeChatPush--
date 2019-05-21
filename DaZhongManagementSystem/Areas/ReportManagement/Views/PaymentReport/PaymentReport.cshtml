@@ -16,6 +16,7 @@
 {
     <script src="@Url.Content("~/Areas/ReportManagement/Views/_js/PaymentReport.js")"></script>
     <script src="@Url.Content("~/_theme/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js")"></script>
+    <script src="@Url.Content("~/_theme/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js")"></script>
 
 }
 
@@ -27,16 +28,16 @@
 @{
     if (currentModuleRolePermission.Deletes == 1 || currentModuleRolePermission.Export == 1)
     {
-    <table style="margin-top: 10px;">
-        <tr style="height: 50px;">
-            @if (currentModuleRolePermission.Export == 1)
-            { 
-                <td>
-                    <button id="btnExport" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black!important;">&#xe607;</i><span style="margin-left: 7px; float: left;">导出</span></button>
-                </td>
-            }
-        </tr>
-    </table>
+        <table style="margin-top: 10px;">
+            <tr style="height: 50px;">
+                @if (currentModuleRolePermission.Export == 1)
+                {
+                    <td>
+                        <button id="btnExport" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black!important;">&#xe607;</i><span style="margin-left: 7px; float: left;">导出</span></button>
+                    </td>
+                }
+            </tr>
+        </table>
     <!-- 顶部按钮 -->
     }
 }
@@ -70,11 +71,11 @@
             <tr style="height: 45px;">
                 <td align="right">付款时间起：</td>
                 <td>
-                    <input id="txtPaymentForm" type="text" class="input_text form-control" value="@DateTime.Now.AddMonths(-3).ToString("yyyy-MM-dd HH:mm:ss")"/>
+                    <input id="txtPaymentForm" type="text" class="input_text form-control" value="@DateTime.Now.AddMonths(-3).ToString("yyyy-MM-dd HH:mm:ss")" />
                 </td>
                 <td align="right">付款时间止：</td>
                 <td>
-                    <input id="txtPaymentTo" type="text" class="input_text form-control" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")"/>
+                    <input id="txtPaymentTo" type="text" class="input_text form-control" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")" />
                 </td>
                 <td align="right">付款状态：</td>
                 <td>
@@ -99,12 +100,12 @@
 <!-- 中部条件 -->
 <center>
     <div class="mk" style="border-bottom: 0px;">
-    <div class="header_mk" style="border-bottom: 0px;">
-        <div class="header_icon"></div>
-        <div class="header_text_div"><span class="header_text_span">图表</span></div>
-    </div>
-             <div id="chartContainer" style="width:700px;height:400px;float:left"></div>
-             <div id="chartContainerMonth" style="width:960px;height:400px;float:left"></div>
+        <div class="header_mk" style="border-bottom: 0px;">
+            <div class="header_icon"></div>
+            <div class="header_text_div"><span class="header_text_span">图表</span></div>
+        </div>
+        <div id="chartContainer" style="width:700px;height:400px;float:left"></div>
+        <div id="chartContainerMonth" style="width:960px;height:400px;float:left"></div>
 </center>
 <!-- 底部表格 -->
 

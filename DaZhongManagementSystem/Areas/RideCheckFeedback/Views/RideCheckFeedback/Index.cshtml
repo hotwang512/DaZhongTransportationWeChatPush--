@@ -122,7 +122,7 @@
                 {
                     string active = "active";
                     string background = "background: rgb(20, 108, 127);";
-                    if (i != 5 && i != 0)
+                    if (i != 5 && i != 0 && i != 6)
                     {
                         background = "";
                         active = rideCheckFeedback.RideCheckFeedback_Items[i].FeedbackAnswer1 != "" ? "active" : "";
@@ -158,7 +158,7 @@
             <div class="swiper-wrapper" style="transform: translate3d(-1920px, 0px, 0px); transition-duration: 0ms;">
                 <div class="swiper-slide swiper-no-swiping swiper-slide-active" data-swiper-slide-index="0">
                     <div class="s_title">
-                        <div class="st_title"><span>[1-基本信息]&nbsp;&nbsp;</span>填写同行乘车检查反馈的基本信息</div>
+                        <div class="st_title"><span>[1-基本信息]&nbsp;&nbsp;</span>填写跳车反馈单的基本信息</div>
                     </div>
                     <div class="s_option">
                         <div class="inputItem"><div class="inputInfoText">检查人姓名：</div><input id="txt_checkname" onchange="basicInformation()" type="text" readonly="readonly" value="@user.Name" /></div>
@@ -283,8 +283,8 @@
                                 </div>
                                 <div class="infor">
                                     <div class="inforTitle" namesub="1">单项不合格</div>
-                                    <div class="inputItem"><input id="ckb_notwearingwhiteshirt" class="inputItemChecbox" type="checkbox" @feedbackAnswer2 @disable /><div class="inputItemText"><label for="ckb_notwearingwhiteshirt">未穿白衬衫</label></div></div>
-                                    <div class="inputItem"><input id="ckb_withoutgloves" class="inputItemChecbox" type="checkbox" @feedbackAnswer3 @disable /><div class="inputItemText"><label for="ckb_withoutgloves">未戴手套</label></div></div>
+                                    <div class="inputItem"><input id="ckb_notwearingwhiteshirt" class="inputItemChecbox" type="checkbox" @feedbackAnswer2 @disable /><div class="inputItemText"><label for="ckb_notwearingwhiteshirt">未穿识别服</label></div></div>
+                                    <div class="inputItem" style="display:none;"><input id="ckb_withoutgloves" class="inputItemChecbox" type="checkbox" @feedbackAnswer3 @disable /><div class="inputItemText"><label for="ckb_withoutgloves">未戴手套</label></div></div>
                                     <div class="inputItem"><input id="ckb_leaveandstore" class="inputItemChecbox" type="checkbox" @feedbackAnswer4 @disable /><div class="inputItemText"><label for="ckb_leaveandstore">留发、蓄须</label></div></div>
                                     <div class="inputItem"><input id="ckb_untidyappearance" class="inputItemChecbox" type="checkbox" @feedbackAnswer5 @disable /><div class="inputItemText"><label for="ckb_untidyappearance">仪容不整洁</label></div></div>
                                 </div>
@@ -429,7 +429,7 @@
                                     if (isOpen)
                                     {
                                         feedbackAnswer1 = rideCheckFeedback.RideCheckFeedback_Items[6].FeedbackAnswer1;
-                                        if (feedbackAnswer1 == "")
+                                        if (feedbackAnswer1 == null || feedbackAnswer1 == "")
                                         {
                                             feedbackAnswer1 = "/Areas/RideCheckFeedback/Views/_img/add_image.png";
                                         }

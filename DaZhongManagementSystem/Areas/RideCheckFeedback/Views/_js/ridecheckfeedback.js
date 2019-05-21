@@ -124,7 +124,7 @@ function basicInformation() {
     var txt_boardinglocation = $("#txt_boardinglocation").val();
     var txt_getoffposition = $("#txt_getoffposition").val();
     var txt_servicecardnumber = $("#txt_servicecardnumber").val();
-    if (txt_checkname != "" && txt_checkdate != "" && txt_checktime != "" && txt_checkcarnumber != "" && txt_boardinglocation != "" && txt_getoffposition != "" && txt_servicecardnumber != "") {
+    if (txt_checkname != "" && txt_checkdate != "" && txt_checktime != "" && txt_checkcarnumber != "" && txt_boardinglocation != "" && txt_getoffposition != "") {
         $(".ss").eq(0).addClass("active").css("background", "rgb(20, 108, 127)");
 
     } else {

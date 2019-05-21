@@ -54,6 +54,7 @@ var $page = function () {
         selector.$txtPaymentForm().datetimepicker({
             format: "yyyy-mm-dd hh:ii",
             autoclose: true,
+            language: 'zh-CN',
             todayHighlight: true,
             orientation: "bottom right",
             showMeridian: true
@@ -66,6 +67,7 @@ var $page = function () {
         selector.$txtPaymentTo().datetimepicker({
             format: "yyyy-mm-dd hh:ii",
             autoclose: true,
+            language: 'zh-CN',
             todayHighlight: true,
             orientation: "bottom right",
             showMeridian: true,

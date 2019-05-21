@@ -27,7 +27,7 @@ namespace DaZhongManagementSystem.Infrastructure.RideCheckFeedback
             Business_RideCheckFeedback rideCheckFeedback = null;
             using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance())
             {
-                rideCheckFeedback = _dbMsSql.Queryable<Business_RideCheckFeedback>().Where(c => c.Status == "1").OrderBy(c => c.CreateDate, OrderByType.Desc).FirstOrDefault();
+                rideCheckFeedback = _dbMsSql.Queryable<Business_RideCheckFeedback>().Where(c => c.Status == "1"&&c.CreateUser==user).OrderBy(c => c.CreateDate, OrderByType.Desc).FirstOrDefault();
                 if (rideCheckFeedback != null)
                 {
                     rideCheckFeedback.RideCheckFeedback_Items = _dbMsSql.Queryable<Business_RideCheckFeedback_Item>().Where(i => i.RideCheckFeedbackVGUID == rideCheckFeedback.VGUID).OrderBy(c => c.FeedbackNumber).ToList();
