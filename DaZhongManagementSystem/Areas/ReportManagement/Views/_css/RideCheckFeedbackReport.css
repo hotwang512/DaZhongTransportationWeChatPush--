@@ -38,3 +38,7 @@
         border-right: none !important;
         border-bottom: solid #ccc 1px !important;
     }
+
+.numberight {
+    text-align: right;
+}
