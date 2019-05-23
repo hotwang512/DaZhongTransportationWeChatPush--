@@ -464,7 +464,15 @@
                 {
                     <tr class="menue_item" id="RideCheckFeedbackReport" pageurl="/ReportManagement/RideCheckFeedbackReport/SelectionRatioReport">
                         <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
-                        <td class="menue_text">跳车检查报表</td>
+                        <td class="menue_text">跳车检查统计报表</td>
+                        <td></td>
+                    </tr>
+                }
+                @if (roleModulePermissionList.Any(i => i.PageID == 29) || isSysAdmin)
+                {
+                    <tr class="menue_item" id="PersionSelectionRatioReport" pageurl="/ReportManagement/RideCheckFeedbackReport/PersionSelectionRatioReport">
+                        <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
+                        <td class="menue_text">人员跳车检查报表</td>
                         <td></td>
                     </tr>
                 }

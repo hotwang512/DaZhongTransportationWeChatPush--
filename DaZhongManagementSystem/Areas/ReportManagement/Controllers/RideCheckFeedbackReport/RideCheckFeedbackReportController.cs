@@ -31,17 +31,29 @@ namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.RideCheckFe
         }
 
 
-        public ActionResult PersionSelectionRatioReport(string startDate = "", string endDate = "")
+        public ActionResult PersionSelectionRatioReport()
+        {
+            string startDate = "";
+            string endDate = "";
+            if (string.IsNullOrEmpty(startDate))
+            {
+                startDate = DateTime.Now.ToString("yyyy-MM") + "-01";
+                endDate = DateTime.Now.ToString("yyyy-MM-dd");
+            }
+            ViewBag.StartDate = startDate;
+            ViewBag.EndDate = endDate;
+            return View();
+        }
+
+        public JsonResult getPersionSelectionRatioReport(string startDate = "", string endDate = "")
         {
             if (string.IsNullOrEmpty(startDate))
             {
                 startDate = DateTime.Now.ToString("yyyy-MM") + "-01";
-                endDate = DateTime.Now.AddMonths(1).ToString("yyyy-MM-dd");
+                endDate = DateTime.Now.ToString("yyyy-MM-dd");
             }
             var reportData = _logic.GetPersionSelectionRatioReportData(startDate, endDate);
-            ViewBag.StartDate = startDate;
-            ViewBag.EndDate = endDate;
-            return View(reportData);
+            return Json(reportData, JsonRequestBehavior.AllowGet);
         }
     }
 }

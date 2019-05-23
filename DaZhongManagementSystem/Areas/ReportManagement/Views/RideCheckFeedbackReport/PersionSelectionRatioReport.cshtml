@@ -3,9 +3,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     //var modelData = ViewBag.ModelData as DaZhongManagementSystem.Entities.UserDefinedEntity.SelectionRatioReport;
 }
-@model DaZhongManagementSystem.Entities.UserDefinedEntity.SelectionRatioReport
 @section pageTitle
-{
+    {
     @ViewBag.Title
 }
 
@@ -17,10 +16,10 @@
 }
 
 @section js
-{
+    {
     <script src="@Url.Content("~/_theme/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js")"></script>
     <script src="@Url.Content("~/_theme/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js")"></script>
-    <script src="@Url.Content("~/Areas/ReportManagement/Views/_js/RideCheckFeedbackReport.js")"></script>
+    <script src="@Url.Content("~/Areas/ReportManagement/Views/_js/PersionSelectionRatioReport.js")"></script>
 }
 <!-- 中部条件 -->
 <div class="mk">
@@ -28,7 +27,7 @@
         <div class="header_icon"></div>
         <div class="header_text_div"><span class="header_text_span">查询</span></div>
     </div>
-    <div class="body_mk" style="height: 95px">
+    <div class="body_mk" style="height: 65px">
         <table id="searchTable" style="margin-top: 20px; width: 910px; margin-left: 20px;">
             <tr style="height: 45px;">
                 <td align="center" style="width: 80px;">开始月份：</td>
@@ -62,156 +61,9 @@
             <div class="header_icon"></div>
             <div class="header_text_div"><span class="header_text_span">数据统计</span></div>
         </div>
-        <div class="mainDiv">
-            <table id="RideCheckFeedbackReportTable">
-                <tbody>
-                    @*<tr>
-                            <th colspan="4" style="height:40px;font-size:28px;">跳车反馈单统计</th>
-                        </tr>*@
-                    <tr>
-                        <th style="width:150px">检查项目</th>
-                        <th style="width:150px">合格（执行）</th>
-                        <th style="width:150px">不合格（不执行）</th>
-                        <th style="width:300px">单项不合格</th>
-                    </tr>
-                    <tr>
-                        <td>车容车貌</td>
-                        <td>@Model.fn2A</td>
-                        <td>@Model.fn2B</td>
-                        <td class="singlefailure">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td>肇事痕迹</td>
-                                        <td style="text-align:right !important;">@Model.fn2B_1</td>
-                                    </tr>
-                                    <tr>
-
-                                        <td>车厢内脏</td>
-                                        <td style="text-align:right !important;">@Model.fn2B_2</td>
-                                    </tr>
-                                    <tr>
-                                        <td>座套脏</td>
-                                        <td style="text-align:right !important;">@Model.fn2B_3</td>
-                                    </tr>
-                                    <tr>
-                                        <td>服务设施坏(座椅、空调、音响等)</td>
-                                        <td style="text-align:right !important;">@Model.fn2B_4</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>仪表仪容</td>
-                        <td>@Model.fn3A</td>
-                        <td>@Model.fn3B</td>
-                        <td class="singlefailure">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td>未穿识别服</td>
-                                        <td style="text-align:right !important;">@Model.fn3B_1</td>
-                                    </tr>
-                                    <tr>
-
-                                        <td>留发、蓄须</td>
-                                        <td style="text-align:right !important;">@Model.fn3B_2</td>
-                                    </tr>
-                                    <tr>
-                                        <td>仪容不整洁</td>
-                                        <td style="text-align:right !important;">@Model.fn3B_3</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>司机服务流程</td>
-                        <td>@Model.fn4A</td>
-                        <td>@Model.fn4B</td>
-                        <td class="singlefailure">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td>上传问好</td>
-                                        <td style="text-align:right !important;">@Model.fn4B_1</td>
-                                    </tr>
-                                    <tr>
-
-                                        <td>确认行车路线</td>
-                                        <td style="text-align:right !important;">@Model.fn4B_2</td>
-                                    </tr>
-                                    <tr>
-                                        <td>提醒前排乘客系好安全带</td>
-                                        <td style="text-align:right !important;">@Model.fn4B_3</td>
-                                    </tr>
-                                    <tr>
-                                        <td>到达目的地后询问结算方式</td>
-                                        <td style="text-align:right !important;">@Model.fn4B_4</td>
-                                    </tr>
-                                    <tr>
-                                        <td>结算后主动提供发票、提醒勿忘物品</td>
-                                        <td style="text-align:right !important;">@Model.fn4B_5</td>
-                                    </tr>
-                                    <tr>
-                                        <td>结下车前致谢、道别</td>
-                                        <td style="text-align:right !important;">@Model.fn4B_6</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>司机行为规范</td>
-                        <td>@Model.fn5A</td>
-                        <td>@Model.fn5B</td>
-                        <td class="singlefailure">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td>车内吸烟</td>
-                                        <td style="text-align:right !important;">@Model.fn5B_1</td>
-                                    </tr>
-                                    <tr>
-
-                                        <td>行驶过程打电话</td>
-                                        <td style="text-align:right !important;">@Model.fn5B_2</td>
-                                    </tr>
-                                    <tr>
-                                        <td>不协助乘客放行李</td>
-                                        <td style="text-align:right !important;">@Model.fn5B_3</td>
-                                    </tr>
-                                    <tr>
-                                        <td>讲脏话</td>
-                                        <td style="text-align:right !important;">@Model.fn5B_4</td>
-                                    </tr>
-                                    <tr>
-                                        <td>抛物</td>
-                                        <td style="text-align:right !important;">@Model.fn5B_5</td>
-                                    </tr>
-                                    <tr>
-                                        <td>向窗外吐痰</td>
-                                        <td style="text-align:right !important;">@Model.fn5B_6</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>意见与建议</td>
-                        <td>@Model.fn6A</td>
-                        <td>@Model.fn6B</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>上传发票</td>
-                        <td>@Model.fn7A</td>
-                        <td>@Model.fn7B</td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="mainDivTable">
+            <div id="jqxTable" class="jqxTable" style="border-left: 0px; ">
+            </div>
         </div>
     </div>
 </center>

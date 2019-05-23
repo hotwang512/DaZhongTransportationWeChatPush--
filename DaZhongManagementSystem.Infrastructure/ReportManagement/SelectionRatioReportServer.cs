@@ -29,14 +29,14 @@ namespace DaZhongManagementSystem.Infrastructure.ReportManagement
             return selectionRatioReport;
         }
 
-        public SelectionRatioReport GetPersionSelectionRatioReportData(string startDate, string endDate)
+        public List<PersionSelectionRatioReport> GetPersionSelectionRatioReportData(string startDate, string endDate)
         {
-            SelectionRatioReport selectionRatioReport = new SelectionRatioReport();
+            List<PersionSelectionRatioReport> persionSelectionRatios = new List<PersionSelectionRatioReport>();
             using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance())
             {
-                selectionRatioReport = _dbMsSql.SqlQuery<SelectionRatioReport>("exec usp_PersionSelectionRatioReport @StartDate,@EndDate", new { StartDate = startDate, EndDate = endDate }).SingleOrDefault();
+                persionSelectionRatios = _dbMsSql.SqlQuery<PersionSelectionRatioReport>("exec usp_PersionSelectionRatioReport @StartDate,@EndDate", new { StartDate = startDate, EndDate = endDate }).ToList();
             }
-            return selectionRatioReport;
+            return persionSelectionRatios;
         }
     }
 }
