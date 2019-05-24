@@ -20,6 +20,12 @@ var $page = function () {
         selector.$btnSearch().click(function () {
             loadData();
         });
+
+        selector.$btnExport().click(function () {
+            var startDate = selector.$txtForm().val();
+            var endDate = selector.$txtTo().val();
+            window.location.href = "/ReportManagement/RideCheckFeedbackReport/ExportPersionSelectionRatioReport?startDate=" + startDate + "&endDate=" + endDate;
+        });
         //生效时间控件
         selector.$txtForm().datetimepicker({
             format: "yyyy-mm-dd",

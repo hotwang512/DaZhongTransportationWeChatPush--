@@ -31,6 +31,7 @@ namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.RideCheckFe
         }
 
 
+
         public ActionResult PersionSelectionRatioReport()
         {
             string startDate = "";
@@ -43,6 +44,17 @@ namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.RideCheckFe
             ViewBag.StartDate = startDate;
             ViewBag.EndDate = endDate;
             return View();
+        }
+        public void ExportSelectionRatioReport(string startDate = "", string endDate = "")
+        {
+
+            _logic.ExportSelectionRatioReport(startDate, endDate);
+        }
+
+        public void ExportPersionSelectionRatioReport(string startDate = "", string endDate = "")
+        {
+
+            _logic.ExportPersionSelectionRatioReport(startDate, endDate);
         }
 
         public JsonResult getPersionSelectionRatioReport(string startDate = "", string endDate = "")

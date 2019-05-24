@@ -25,5 +25,17 @@ namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.RideCheckFe
             return _ss.GetPersionSelectionRatioReportData(startDate, endDate);
         }
 
+        public void ExportSelectionRatioReport(string startDate = "", string endDate = "")
+        {
+            _ss.ExportSelectionRatioReport(startDate, endDate);
+
+        }
+
+        public void ExportPersionSelectionRatioReport(string startDate = "", string endDate = "")
+        {
+            _ss.ExportPersionSelectionRatioReport(startDate, endDate);
+
+        }
+
     }
 }
