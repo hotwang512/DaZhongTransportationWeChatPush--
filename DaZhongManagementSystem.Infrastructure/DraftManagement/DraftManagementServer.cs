@@ -959,7 +959,7 @@ namespace DaZhongManagementSystem.Infrastructure.DraftManagement
                 db.Update<Car_Maintain>(new { PushVGUID = mainVguid }, it => it.PushVGUID == null && it.Vguid == vguid);
             }
         }
-        
+
         /// <summary>
         /// 获取人员信息
         /// </summary>
@@ -988,11 +988,11 @@ namespace DaZhongManagementSystem.Infrastructure.DraftManagement
         /// 获取所有人员标签
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Business_PersonnelLabel_Information> GetAllLabel()
+        public IEnumerable<PersonnelLabel> GetAllLabel()
         {
             using (var db = SugarDao_MsSql.GetInstance())
             {
-                return db.Queryable<Business_PersonnelLabel_Information>().OrderBy(i => i.LabelName).ToList();
+                return db.SqlQuery<PersonnelLabel>("select LabelName from Business_PersonnelLabel_Information group by LabelName order by LabelName");
             }
 
         }
@@ -1050,7 +1050,7 @@ namespace DaZhongManagementSystem.Infrastructure.DraftManagement
                 var jsonResult = new JsonResultModel<NotExistPerson>();
                 var query = db.Queryable<NotExistPerson>().OrderBy(it => it.Name);
                 int pageCount = 0;
-                jsonResult.Rows = query.ToPageList(para.pagenum, para.pagesize, ref  pageCount);
+                jsonResult.Rows = query.ToPageList(para.pagenum, para.pagesize, ref pageCount);
                 jsonResult.TotalRows = pageCount;
                 return jsonResult;
             }

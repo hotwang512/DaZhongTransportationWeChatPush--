@@ -963,7 +963,7 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.DraftList.Busines
         /// 获取所有人员标签
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Business_PersonnelLabel_Information> GetAllLabel()
+        public IEnumerable<PersonnelLabel> GetAllLabel()
         {
             return _ds.GetAllLabel();
         }
