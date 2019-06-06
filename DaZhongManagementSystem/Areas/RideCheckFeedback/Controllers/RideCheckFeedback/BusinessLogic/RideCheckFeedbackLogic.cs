@@ -44,9 +44,9 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.RideCheckF
         {
             _rcfs.DeleteBusiness_RideCheckFeedbackAttachment(filePath);
         }
-        public bool Submit(Guid vguid)
+        public bool Submit(string user, Guid vguid)
         {
-            return _rcfs.Submit(vguid);
+            return _rcfs.Submit(user, vguid);
         }
         /// <summary>
         /// 获取用户详细信息

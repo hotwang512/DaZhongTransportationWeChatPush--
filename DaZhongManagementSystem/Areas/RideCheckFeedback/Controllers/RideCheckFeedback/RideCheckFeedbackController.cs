@@ -54,9 +54,9 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.RideCheckF
             return View();
         }
 
-        public JsonResult Submit(Guid vguid)
+        public JsonResult Submit(string user, Guid vguid)
         {
-            var val = _logic.Submit(vguid);
+            var val = _logic.Submit(user,vguid);
             return Json(new { Success = true, Data = val }, JsonRequestBehavior.AllowGet);
         }
         public JsonResult SaveRideCheckFeedbackItemInfor(string user, Guid vguid, int number, string answer1, string answer2, string answer3, string answer4, string answer5, string answer6, string answer7)
@@ -107,6 +107,6 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.RideCheckF
             return Json(new { Success = true, Data = new { FilePath = reponseMessage.WebFilePath, FileName = fileName } }, JsonRequestBehavior.AllowGet);
         }
 
-      
+
     }
 }

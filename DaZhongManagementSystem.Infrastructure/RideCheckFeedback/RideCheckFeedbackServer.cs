@@ -27,7 +27,7 @@ namespace DaZhongManagementSystem.Infrastructure.RideCheckFeedback
             Business_RideCheckFeedback rideCheckFeedback = null;
             using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance())
             {
-                rideCheckFeedback = _dbMsSql.Queryable<Business_RideCheckFeedback>().Where(c => c.Status == "1"&&c.CreateUser==user).OrderBy(c => c.CreateDate, OrderByType.Desc).FirstOrDefault();
+                rideCheckFeedback = _dbMsSql.Queryable<Business_RideCheckFeedback>().Where(c => c.Status == "1" && c.CreateUser == user).OrderBy(c => c.CreateDate, OrderByType.Desc).FirstOrDefault();
                 if (rideCheckFeedback != null)
                 {
                     rideCheckFeedback.RideCheckFeedback_Items = _dbMsSql.Queryable<Business_RideCheckFeedback_Item>().Where(i => i.RideCheckFeedbackVGUID == rideCheckFeedback.VGUID).OrderBy(c => c.FeedbackNumber).ToList();
@@ -71,11 +71,11 @@ namespace DaZhongManagementSystem.Infrastructure.RideCheckFeedback
             return rideCheckFeedback;
         }
 
-        public bool Submit(Guid vguid)
+        public bool Submit(string user, Guid vguid)
         {
             using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance())
             {
-                return _dbMsSql.Update<Business_RideCheckFeedback>(new { Status = "2" }, c => c.VGUID == vguid);
+                return _dbMsSql.Update<Business_RideCheckFeedback>(new { Status = "2", ChangeDate = DateTime.Now, ChangeUser = user }, c => c.VGUID == vguid);
             }
         }
 
@@ -139,7 +139,7 @@ namespace DaZhongManagementSystem.Infrastructure.RideCheckFeedback
             using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance())
             {
                 //string.Format("delete Business_RideCheckFeedback_Attachment where AttachmentPath='{0}'", filePath)
-                _dbMsSql.Delete<Business_RideCheckFeedback_Attachment>(c=>c.AttachmentPath== filePath);
+                _dbMsSql.Delete<Business_RideCheckFeedback_Attachment>(c => c.AttachmentPath == filePath);
             }
         }
 
