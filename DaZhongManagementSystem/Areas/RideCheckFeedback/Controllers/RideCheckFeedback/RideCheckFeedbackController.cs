@@ -31,7 +31,7 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.RideCheckF
             Business_Personnel_Information personInfoModel = GetUserInfo(userInfo.UserId);//获取人员表信息
             //Business_Personnel_Information personInfoModel = GetUserInfo("WangCunBiao");//获取人员表信息
             Business_RideCheckFeedback rideCheckFeedback = new Business_RideCheckFeedback();
-            if (personInfoModel.DepartmenManager != 1)
+            if (personInfoModel != null && personInfoModel.DepartmenManager != 1)
             {
                 isOpenType = "";
                 DateTime startDate = DateTime.Now.AddDays(1 - DateTime.Now.Day).Date;
@@ -56,7 +56,7 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.RideCheckF
 
         public JsonResult Submit(string user, Guid vguid)
         {
-            var val = _logic.Submit(user,vguid);
+            var val = _logic.Submit(user, vguid);
             return Json(new { Success = true, Data = val }, JsonRequestBehavior.AllowGet);
         }
         public JsonResult SaveRideCheckFeedbackItemInfor(string user, Guid vguid, int number, string answer1, string answer2, string answer3, string answer4, string answer5, string answer6, string answer7)

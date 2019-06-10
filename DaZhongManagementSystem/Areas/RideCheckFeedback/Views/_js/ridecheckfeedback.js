@@ -58,6 +58,7 @@ function addEvent() {
         else {
             $(".ss").eq(count).removeClass("active").css("background", "#999");
         }
+        activeSubmit();
         saveChoiceQuestion(inputs);
     });
 
