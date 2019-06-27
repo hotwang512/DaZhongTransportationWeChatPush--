@@ -113,16 +113,16 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers
             {
                 model.isSuccess = true;
                 string focusResult = Common.WeChatPush.WeChatTools.GetAuthSucee(accessToken, userID);
-                U_FocusResult resultMsg = new U_FocusResult();
-                resultMsg = Common.JsonHelper.JsonToModel<U_FocusResult>(focusResult);
+                U_FocusResult resultMsg = Common.JsonHelper.JsonToModel<U_FocusResult>(focusResult);
                 if (resultMsg.errcode == 0)
                 {
                     model.respnseInfo = "1";//关注成功
+                    LogHelper.WriteLog("人员注册成功：" + userID + "   " + resultMsg.errmsg);
                 }
                 else
                 {
                     model.respnseInfo = resultMsg.errmsg;
-                    LogHelper.WriteLog("人员注册失败：" + model.respnseInfo + "  " + resultMsg.errcode);
+                    LogHelper.WriteLog("人员注册失败：" + userID + "   " + model.respnseInfo + "  " + resultMsg.errcode);
                     _wl.UpdateStatus(userModel.IDCard);  //更改状态
                 }
             }
