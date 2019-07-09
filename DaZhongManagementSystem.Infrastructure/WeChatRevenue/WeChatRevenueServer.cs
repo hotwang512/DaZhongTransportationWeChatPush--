@@ -32,11 +32,11 @@ namespace DaZhongManagementSystem.Infrastructure.WeChatRevenue
             {
                 try
                 {
-                    var isExist = db.Queryable<Business_PaymentHistory_Information>().Any(i => i.PaymentPersonnel == paymentHistoryInfo.PaymentPersonnel && i.WeChatPush_VGUID == paymentHistoryInfo.WeChatPush_VGUID && i.PaymentStatus == "3");
-                    if (isExist)
-                    {
-                        db.Delete<Business_PaymentHistory_Information>(i => i.PaymentPersonnel == paymentHistoryInfo.PaymentPersonnel && i.WeChatPush_VGUID == paymentHistoryInfo.WeChatPush_VGUID && i.PaymentStatus == "3");
-                    }
+                    //var isExist = db.Queryable<Business_PaymentHistory_Information>().Any(i => i.PaymentPersonnel == paymentHistoryInfo.PaymentPersonnel && i.WeChatPush_VGUID == paymentHistoryInfo.WeChatPush_VGUID && i.PaymentStatus == "3");
+                    //if (isExist)
+                    //{
+                    //    db.Delete<Business_PaymentHistory_Information>(i => i.PaymentPersonnel == paymentHistoryInfo.PaymentPersonnel && i.WeChatPush_VGUID == paymentHistoryInfo.WeChatPush_VGUID && i.PaymentStatus == "3");
+                    //}
                     db.Insert(paymentHistoryInfo, false);
                     return true;
                 }
@@ -63,39 +63,29 @@ namespace DaZhongManagementSystem.Infrastructure.WeChatRevenue
         /// </summary>
         /// <param name="paymentHistoryInfo">实体信息</param>
         /// <returns>返回成功与否</returns>
-        public bool UpdatePaymentHistory(Business_PaymentHistory_Information paymentHistoryInfo)
+        public bool UpdatePaymentHistory(Business_Personnel_Information personInfo, Business_PaymentHistory_Information paymentHistoryInfo, Business_PaymentHistory_Information paymentHistoryInfoOld)
         {
             using (var db = SugarDao_MsSql.GetInstance())
             {
                 db.BeginTran();
                 try
                 {
-                    if (IsExistTransactionId(paymentHistoryInfo))
-                    {
-                        return true;
-                    }
                     var configInfo = db.Queryable<Master_Configuration>().Where(i => i.ID == 15).SingleOrDefault();
-                    //decimal companyFee = decimal.Parse(configInfo.ConfigValue.Trim('%')) / 100; //公司实际支付手续费
-                    //var companyAccount = (paymentHistoryInfo.ActualAmount * (1 - companyFee)).ToString("F2"); //公司到账金额
-                    //paymentHistoryInfo.CompanyAccount = decimal.Parse(companyAccount);
-                    var personInfo = db.Queryable<Business_Personnel_Information>().Where(i => i.Vguid == paymentHistoryInfo.PaymentPersonnel).SingleOrDefault(); //获取人员信息
-                    paymentHistoryInfo.CreateDate = DateTime.Now;
-                    paymentHistoryInfo.CreateUser = "sysAdmin";
+                    //var personInfo = db.Queryable<Business_Personnel_Information>().Where(i => i.Vguid == paymentHistoryInfo.PaymentPersonnel).SingleOrDefault(); //获取人员信息
+                    paymentHistoryInfo.ChangeDate = DateTime.Now;
+                    paymentHistoryInfo.ChangeUser = "sysadmin_Revenue";
                     //插入操作日志表中
                     string logData = JsonHelper.ModelToJson(paymentHistoryInfo);
                     _logLogic.SaveLog(18, 46, personInfo.UserID + " " + personInfo.Name, "大众出租租赁营收费用", logData);
-                    var paymentInfo = db.Queryable<Business_PaymentHistory_Information>().Where(i => i.Remarks == paymentHistoryInfo.Remarks).SingleOrDefault();
                     int revenueStauts = 2;
                     if (paymentHistoryInfo.PaymentStatus == "1")
                     {
-                        paymentHistoryInfo.PaymentAmount = paymentInfo.PaymentAmount;
-                        paymentHistoryInfo.RevenueReceivable = paymentInfo.RevenueReceivable;
-                        //AddRevenuePayInfo(paymentHistoryInfo, personInfo, ref  revenueStauts);
-                        //AddRevenuePayInfoToLiquidation(paymentHistoryInfo, personInfo);
+                        paymentHistoryInfo.PaymentAmount = paymentHistoryInfoOld.PaymentAmount;
+                        paymentHistoryInfo.RevenueReceivable = paymentHistoryInfoOld.RevenueReceivable;
                     }
                     paymentHistoryInfo.RevenueStatus = revenueStauts;
                     db.DisableUpdateColumns = new[] { "RevenueType", "WeChatPush_VGUID" };
-                    db.Update<Business_PaymentHistory_Information>(paymentHistoryInfo, i => i.Remarks == paymentInfo.Remarks);
+                    db.Update<Business_PaymentHistory_Information>(paymentHistoryInfo, i => i.Remarks == paymentHistoryInfoOld.Remarks);
                     db.CommitTran();
                     return true;
                 }

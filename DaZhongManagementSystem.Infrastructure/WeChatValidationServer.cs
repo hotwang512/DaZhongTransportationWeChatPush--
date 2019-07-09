@@ -210,7 +210,11 @@ namespace DaZhongManagementSystem.Infrastructure
                     }
                     else//新增
                     {
-                        result = _dbMsSql.Insert(personInfo, false) != DBNull.Value;
+                        var rtn = _dbMsSql.Insert(personInfo);
+                        if (rtn != null && rtn.ToString() == "true")
+                        {
+                            result = true;
+                        }
                     }
 
                 }

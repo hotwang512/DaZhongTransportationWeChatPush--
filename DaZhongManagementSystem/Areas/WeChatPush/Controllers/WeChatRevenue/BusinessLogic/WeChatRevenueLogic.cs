@@ -87,6 +87,7 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue.Bus
             paymentHistoryInfo.Beneficiary = "大众出租汽车分公司";
             paymentHistoryInfo.Description = WxPayConfig.BODY;
             paymentHistoryInfo.Remarks = notifyData.GetValue("out_trade_no").ToString();   //商户单号
+            var paymentHistoryInfoOld = _weChatRevenueServer.GetPaymentHistory(paymentHistoryInfo.Remarks);
             if (notifyData.GetValue("return_code").ToString() == "SUCCESS" && notifyData.GetValue("result_code").ToString() == "SUCCESS")
             {
                 paymentHistoryInfo.ReceiptAccount = notifyData.GetValue("mch_id").ToString();  //商户号
@@ -103,7 +104,7 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue.Bus
                 paymentHistoryInfo.PayDate = DateTime.Parse(year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second);  //付款时间
                 paymentHistoryInfo.PaymentStatus = "1";  //支付成功
 
-                SynchronousReceivableSystem(personInfoModel, paymentHistoryInfo);
+                SynchronousReceivableSystem(personInfoModel, paymentHistoryInfo, paymentHistoryInfoOld);
 
             }
             else
@@ -116,15 +117,14 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue.Bus
                 paymentHistoryInfo.ErrorDescription = notifyData.GetValue("return_msg").ToString();
             }
 
-            return _weChatRevenueServer.UpdatePaymentHistory(paymentHistoryInfo);
+            return _weChatRevenueServer.UpdatePaymentHistory(personInfoModel, paymentHistoryInfo, paymentHistoryInfoOld);
         }
 
-        public void SynchronousReceivableSystem(Business_Personnel_Information personModel, Business_PaymentHistory_Information paymentHistoryInfo)
+        public void SynchronousReceivableSystem(Business_Personnel_Information personModel, Business_PaymentHistory_Information paymentHistoryInfo, Business_PaymentHistory_Information paymentHistoryInfoOld)
         {
             //获取司机ID和车辆ID
             try
             {
-                var paymentHistoryInfoOld = _weChatRevenueServer.GetPaymentHistory(paymentHistoryInfo.Remarks);
                 var driverModel = _rl.GetDriverMsg(personModel);
 
                 WebClient wc = new WebClient();

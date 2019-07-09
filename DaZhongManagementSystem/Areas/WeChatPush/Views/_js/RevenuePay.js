@@ -78,12 +78,12 @@ function startWxPay(revenue, total_fee) {
             $(".btn_wc").attr({ "disabled": "disabled" });
         },
         success: function (res) {
-            $(".btn_wc").removeAttr("disabled");
-            //if (res.openid != null && res.openid != undefined && res.openid != "") {
-            //    window.localStorage.setItem("openid", res.openid);
-            //}
-            // alert(res.err_code + res.err_desc + res.err_msg)
-            callpay(res);
+            if (res.success == true) {
+                $(".btn_wc").removeAttr("disabled");
+                callpay(res);
+            } else {
+                alert("写入支付信息失败，请重试!")
+            }
         }
     });
 }

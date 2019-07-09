@@ -280,6 +280,7 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
         [HttpPost]
         public JsonResult GetPaySign(string openid, string revenueFee, string totalFee, Guid personVguid, Guid pushContentVguid, int revenueType)
         {
+
             var revenueReceivable = decimal.Parse(revenueFee);            //获取司机支付应付金额
             var totalFeeDouble = double.Parse(totalFee);
             //double totalFeeInt = tatol + driverPayfee;   //包含手续费的总钱数
@@ -327,11 +328,21 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
             paymentHistoryInfo.WeChatPush_VGUID = pushContentVguid;
             paymentHistoryInfo.Remarks = outTradeNo;  //商户订单号
             paymentHistoryInfo.CreateDate = DateTime.Now;
+            paymentHistoryInfo.CreateUser = "sysadmin_Revenue";
             paymentHistoryInfo.PayDate = DateTime.Now;
             paymentHistoryInfo.PaymentStatus = "3";
-            _weChatRevenueLogic.AddPaymentHistory(paymentHistoryInfo);
-            return Json(new { data = wxPaySign.GetValues() }, JsonRequestBehavior.AllowGet);
+            bool addsuccess = _weChatRevenueLogic.AddPaymentHistory(paymentHistoryInfo);
+
+            return Json(new { success = addsuccess, data = wxPaySign.GetValues() }, JsonRequestBehavior.AllowGet);
         }
+
+
+        public JsonResult gettest()
+        {
+            return Json(new { success = true, data = "ssss" }, JsonRequestBehavior.AllowGet);
+        }
+
+
         /// <summary>
         /// 支付结果回调地址
         /// </summary>
@@ -367,6 +378,8 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
             catch (Exception ex)
             {
                 LogHelper.WriteLog(ex.ToString());
+                resultInfo.SetValue("return_code", "FAIL");
+                resultInfo.SetValue("return_msg", "交易失败");
             }
             return resultInfo.ToXml();
         }

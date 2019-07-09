@@ -162,7 +162,9 @@ namespace DaZhongManagementSystem.Infrastructure.BasicDataManagement
                         item.CreatedUser = CurrentUser.GetCurrentUser().LoginName;
                         item.ChangeDate = DateTime.Now;
                         item.ChangeUser = CurrentUser.GetCurrentUser().LoginName;
+                        //var rtn = dbMsSql.Insert(item);
                     }
+                    
                     result = dbMsSql.SqlBulkCopy(listLabel);
                     //删除空标签
                     dbMsSql.Delete<Business_PersonnelLabel_Information>(i => i.PersonnelVVGUID == personVGUID && i.LabelName == "");

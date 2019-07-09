@@ -857,6 +857,7 @@ var $page = function () {
                     $("#pushContentText").removeAttr("style");
                     selector.$pushHistory().removeAttr("style");
                     $(".personLabel").removeAttr("style");
+                    $(".personLabel1").attr("style", "display:none");
                     $(".revenueType").attr("style", "display:none");
                     selector.$tdMoney().hide();
                     break;
@@ -870,6 +871,7 @@ var $page = function () {
                     selector.$questionList().attr("style", "display:none");
                     selector.$pushHistory().attr("style", "display:none");
                     $(".personLabel").attr("style", "display:none");
+                    $(".personLabel1").attr("style", "display:none");
                     $(".revenueType").attr("style", "display:none");
                     //$("#pushContentText").removeAttr("style");
                     $("#edui1").css("width", "870px");
@@ -886,10 +888,13 @@ var $page = function () {
                     $("#pushContentText").removeAttr("style");
                     selector.$pushHistory().attr("style", "display:none");
                     $(".personLabel").attr("style", "display:none");
+                    $(".personLabel1").attr("style", "display:none");
                     selector.$upLoadFileTD().removeAttr("style");
                     $(".revenueType").attr("style", "display:none");
                     $("#edui1").css("width", "870px");
                     selector.$tdMoney().hide();
+                    $($(".personLabel1")[2]).show();
+                    $($(".personLabel1")[3]).show();
                     $(".mod-sender__slider").show();
                     break;
                 case "4"://习题推送
@@ -903,7 +908,11 @@ var $page = function () {
                     selector.$upLoadFileTD().attr("style", "display:none");
                     selector.$pushHistory().attr("style", "display:none");
                     $(".personLabel").attr("style", "display:none");
+                    $(".personLabel1").attr("style", "display:none");
+                    $($(".personLabel1")[2]).show();
+                    $($(".personLabel1")[3]).show();
                     $(".revenueType").attr("style", "display:none");
+                    //$("#trLabel").show();
                     selector.$tdMoney().hide();
                     break;
                 case "5"://培训推送
@@ -917,6 +926,7 @@ var $page = function () {
                     selector.$upLoadFileTD().removeAttr("style");
                     selector.$pushHistory().attr("style", "display:none");
                     $(".personLabel").attr("style", "display:none");
+                    $(".personLabel1").attr("style", "display:none");
                     $(".revenueType").attr("style", "display:none");
                     $("#edui1").css("width", "870px");
                     selector.$tdMoney().hide();
@@ -937,6 +947,7 @@ var $page = function () {
                     $(".personLabel").attr("style", "display:none");
                     selector.$exercisePushRow().attr("style", "display:none");
                     $(".revenueType").attr("style", "display:none");
+                    //$("#trLabel").show();
                     selector.$tdMoney().hide();
                     break;
                 case "11": //营收消息推送
@@ -949,6 +960,7 @@ var $page = function () {
                     selector.$exercisePushRow().removeAttr("style");
                     selector.$upLoadFileTD().attr("style", "display:none");
                     selector.$pushHistory().attr("style", "display:none");
+                    $(".personLabel1").attr("style", "display:none");
                     $(".personLabel").attr("style", "display:none");
                     selector.$exercisePushRow().attr("style", "display:none");
                     $(".revenueType").removeAttr("style");
@@ -959,7 +971,7 @@ var $page = function () {
                         $("#trLabel").show();
                     } else {
                         selector.$tdMoney().hide();
-                        $(".personLabel1").show();
+                        //$(".personLabel1").show();
                         $("#trLabel").hide();
                     }
                     break;
@@ -974,6 +986,9 @@ var $page = function () {
                     $("#pushContentText").removeAttr("style");
                     selector.$pushHistory().attr("style", "display:none");
                     $(".personLabel").attr("style", "display:none");
+                    $(".personLabel1").attr("style", "display:none");
+                    $($(".personLabel1")[2]).show();
+                    $($(".personLabel1")[3]).show();
                     selector.$upLoadFileTD().removeAttr("style");
                     $(".revenueType").attr("style", "display:none");
                     $("#edui1").css("width", "870px");
@@ -1114,12 +1129,12 @@ var $page = function () {
                 switch (selector.$revenueType().val()) {
                     case "1":
                         selector.$tdMoney().show();
-                        $(".personLabel1").hide();
+                        //$(".personLabel1").hide();
                         $("#trLabel").show();
                         break;
                     case "2":
                         selector.$tdMoney().hide();
-                        $(".personLabel1").show();
+                        //$(".personLabel1").show();
                         $("#trLabel").hide();
                         break;
                 }

@@ -205,7 +205,7 @@ var $page = function () {
                 },
                 columns: [
                   //{ width: 35, text: "", datafield: "checkbox", align: 'center', cellsAlign: 'center', cellsRenderer: cellsRendererFunc, renderer: rendererFunc, rendered: renderedFunc, autoRowHeight: false },
-                  { text: '部门名称', width: 500, datafield: 'OrganizationName', align: 'center', cellsAlign: 'center' },
+                  { text: '部门名称', width: 500, datafield: 'OrganizationName', align: 'center', cellsAlign: 'left' },
                   { text: '描述', datafield: 'Description', align: 'center', cellsAlign: 'center' },
                   //{ text: '创建时间', datafield: 'CreatedDate', align: 'center', cellsAlign: 'center' },
                   { text: '创建人', width: 150, datafield: 'CreatedUser', align: 'center', cellsAlign: 'center' },

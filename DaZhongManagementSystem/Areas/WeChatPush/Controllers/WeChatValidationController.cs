@@ -36,10 +36,8 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers
             }
             else
             {
-                WeChatEventFactory wcef = new WeChatEventFactory(wcp, Request.InputStream);
-                WeChatHandle wch = wcef.GetWeChatHandle();
-                string result = wch.ExecuteEventHandle();
-                return result;
+                WeChatHandle wch = WeChatEventFactory.GetWeChatHandle(wcp, Request.InputStream);
+                return wch.ExecuteEventHandle();
             }
 
         }
