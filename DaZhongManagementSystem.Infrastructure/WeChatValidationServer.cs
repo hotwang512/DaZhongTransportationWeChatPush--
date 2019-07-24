@@ -21,6 +21,14 @@ namespace DaZhongManagementSystem.Infrastructure
             }
         }
 
+        public void TestUser()
+        {
+            using (SqlSugarClient _dbMsSql = SugarDao.SugarDao_LandaVSql.GetInstance())
+            {
+                List<AllEmployee> listAllEmployees = _dbMsSql.Queryable<AllEmployee>().Where(i => i.IDCard == "341282199205162413").ToList();
+            }
+        }
+
         /// <summary>
         /// 审核用户是否存在并保存至Person表
         /// </summary>
@@ -70,7 +78,12 @@ namespace DaZhongManagementSystem.Infrastructure
 
                         personInfo.Name = landaUser.Name;
                         personInfo.Vguid = vguid;
-                        personInfo.Sex = landaUser.Gender.ToString(); //性别
+                        string gender = "1";
+                        if (landaUser.Gender.HasValue)
+                        {
+                            gender = landaUser.Gender.Value.ToString(); //性别
+                        }
+                        personInfo.Sex = gender;
                         personInfo.OwnedFleet = Guid.Parse(userModel.OrganizationID); //所属部门
                         //判断微信带过来的手机号是否为空（如果为空取人员系统中的手机号，不为空则取微信中的手机号）
                         if (string.IsNullOrEmpty(mobilePhone))

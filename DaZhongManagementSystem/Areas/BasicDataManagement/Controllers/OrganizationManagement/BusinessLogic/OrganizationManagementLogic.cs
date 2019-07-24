@@ -57,6 +57,7 @@ namespace DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.Organiza
             {
                 organization = GetOrganizationDetail(organizationModel.Vguid.ToString());
                 organization.OrganizationName = organizationModel.OrganizationName;
+                //organization.OrganizationCode = organizationModel.OrganizationCode;
                 organization.Description = organizationModel.Description;
                 organization.ChangeUser = Common.CurrentUser.GetCurrentUser().LoginName;
                 organization.ChangeDate = DateTime.Now;
@@ -65,6 +66,7 @@ namespace DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.Organiza
             {
                 //organization = new Master_Organization();
                 organization.OrganizationName = organizationModel.OrganizationName;
+                //organization.OrganizationCode = organizationModel.OrganizationCode;
                 organization.ParentVguid = organizationModel.ParentVguid;
                 organization.Vguid = Guid.NewGuid();
                 organization.Description = organizationModel.Description;

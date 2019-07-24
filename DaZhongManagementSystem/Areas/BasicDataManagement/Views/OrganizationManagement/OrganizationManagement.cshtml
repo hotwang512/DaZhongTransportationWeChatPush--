@@ -22,66 +22,73 @@
 @{
     if (currentModuleRolePermission.Adds == 1 || currentModuleRolePermission.Deletes == 1)
     {
-    <table style="margin-top: 10px;">
-        <tr style="height: 50px;">
-            @if (currentModuleRolePermission.Adds == 1)
-            {
-                <td style="width: 95px;">
-                    <button id="btnAdd" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe60e;</i><span style="margin-left: 7px; float: left;">新增</span></button>
-                </td>
-            }
-            @*@if (currentModuleRolePermission.Deletes == 1)
-            {
-                <td style="width: 95px;">
-                    <button id="btnDelete" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe60a;</i><span style="margin-left: 7px; float: left;">删除</span></button>
-                </td>
-            }*@
-        </tr>
-    </table>
+        <table style="margin-top: 10px;">
+            <tr style="height: 50px;">
+                @if (currentModuleRolePermission.Adds == 1)
+                {
+                    <td style="width: 95px;">
+                        <button id="btnAdd" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe60e;</i><span style="margin-left: 7px; float: left;">新增</span></button>
+                    </td>
+                }
+                @*@if (currentModuleRolePermission.Deletes == 1)
+                    {
+                        <td style="width: 95px;">
+                            <button id="btnDelete" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe60a;</i><span style="margin-left: 7px; float: left;">删除</span></button>
+                        </td>
+                    }*@
+            </tr>
+        </table>
     }
 }
 
 <!-- 顶部按钮 -->
-
 <!-- 中部条件 -->
 <center>
-<div class="mk" style="border-bottom: 0px;">
-    <div class="header_mk" style="border-bottom: 0px;">
-        <div class="header_icon"></div>
-        <div class="header_text_div"><span class="header_text_span">数据列表</span></div>
-    </div>
+    <div class="mk" style="border-bottom: 0px;">
+        <div class="header_mk" style="border-bottom: 0px;">
+            <div class="header_icon"></div>
+            <div class="header_text_div"><span class="header_text_span">数据列表</span></div>
+        </div>
 
-    <div id="OrganizationList" class="jqxTable" style="border-left: 0px; ">
+        <div id="OrganizationList" class="jqxTable" style="border-left: 0px; ">
+        </div>
     </div>
-</div>
 </center>
 
 @*弹出模态框*@
 <div class="container">
     <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="DepartmentDialog">
         <div class="modal-dialog modal-sm" style="width: 100%; padding-right: 20px; margin-top: 100px;">
-            <div class="modal-content" style="width: 420px; margin-left: auto; margin-right: auto;">
+            <div class="modal-content" style="width: 460px; margin-left: auto; margin-right: auto;">
                 <div class="modal-header" style="width: 100%; margin-left: auto; margin-right: auto;">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel_title"></h4>
                 </div>
-                <div class="modal-body" style="width: 80%;">
+                <div class="modal-body">
                     <form id="OrganizationForm">
                         <table style="width: 100%;">
                             <tr style="height: 50px;">
-                                <td align="right" style="width: 75px;">部门名称：</td>
+                                <td align="right" style="width: 55px;">部门名称：</td>
                                 <td style="width: 150px;">
-                                    <input type="text" id="departmentName" validatetype="required" name="OrganizationName" class="input_text form-control">
+                                    <input type="text" id="departmentName" validatetype="required" name="OrganizationName" style="width: 100%;" class="input_text form-control">
                                 </td>
                                 <td align="center" style="width: 10px;"><span style="color: red; margin-left: 5px;">*</span></td>
                             </tr>
-                            <tr>
-                                <td align="right" style="width: 75px;">描述：</td>
+                            @*<tr style="height: 50px;">
+                                <td align="right" style="width: 55px;">组织编码：</td>
                                 <td style="width: 150px;">
-                                    <textarea id="description" name="Description" maxlength="300" style="width: 210px;" cols="50" rows="5" class="description form-control"></textarea>
+                                    <input type="text" id="OrganizationCode" name="OrganizationCode" style="width: 100%;" class="input_text form-control">
+                                </td>
+                                <td></td>
+                            </tr>*@
+                            <tr>
+                                <td align="right" style="width: 55px;">描述：</td>
+                                <td style="width: 150px;">
+                                    <textarea id="description" name="Description" maxlength="300" style="width: 100%;" cols="50" rows="5" class="description form-control"></textarea>
                                 </td>
                                 <td></td>
                             </tr>
+
                         </table>
                         <input id="parentVguid" name="ParentVguid" type="hidden" value="" />
                         <input id="Vguid" type="hidden" name="Vguid" value="" />
@@ -92,7 +99,7 @@
                     @{
                         if (currentModuleRolePermission.Edit == 1 || currentModuleRolePermission.Adds == 1)
                         {
-                        <button id="btnSave" type="button" class="btn btn-warning" style="width: 85px; background-color: #16609c!important;"><i class="iconfont btn_icon" style="color: white !important; margin-left: 0px;">&#xe614;</i><span style="margin-left: 7px; float: left;">保存</span></button>
+                            <button id="btnSave" type="button" class="btn btn-warning" style="width: 85px; background-color: #16609c!important;"><i class="iconfont btn_icon" style="color: white !important; margin-left: 0px;">&#xe614;</i><span style="margin-left: 7px; float: left;">保存</span></button>
                         }
                     }
 

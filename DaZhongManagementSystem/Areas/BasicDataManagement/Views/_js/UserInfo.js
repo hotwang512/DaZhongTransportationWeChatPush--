@@ -224,6 +224,9 @@ var $page = function () {
                     width: 185,
                     height: 25
                 });
+                selector.$jqxDepartmentDropDownButton().on("open", function () {
+                    //selector.$jqxTree().show();
+                });
                 //推送接收人下拉框(树形结构)
                 selector.$jqxTree().on('select', function (event) {
                     var args = event.args;
@@ -234,6 +237,7 @@ var $page = function () {
                     selector.$OwnedFleet().val("");
                     // selector.$TranslationOwnedFleet_Search().val("");
                     selector.$OwnedFleet().val(items.id);
+                    selector.$jqxDepartmentDropDownButton().jqxDropDownButton('close');
                     // selector.$TranslationOwnedFleet_Search().val(items.label);
                     initTable();
 
@@ -389,6 +393,7 @@ var $page = function () {
                     { name: 'UserID', type: 'string' },
                     { name: 'ID', type: 'string' },
                     { name: 'IDNumber', type: 'string' },
+                    { name: 'OwnedCompany', type: 'string' },
                     { name: 'OwnedFleet', type: 'string' },
                     { name: 'TranslationOwnedFleet', type: 'string' },
                     { name: 'Sex', type: 'string' },
@@ -433,7 +438,8 @@ var $page = function () {
                   { text: '电话号码', width: 150, datafield: 'PhoneNumber', align: 'center', cellsAlign: 'center' },
                   { text: '身份证号', width: 200, datafield: 'IDNumber', align: 'center', cellsAlign: 'center' },
                   { text: '部门', width: 350, datafield: 'TranslationOwnedFleet', align: 'center', cellsAlign: 'center' },
-                  { text: '性别', width: 80, datafield: 'Sex', align: 'center', cellsAlign: 'center' },//, cellsRenderer: genderTranslate 
+                  { text: '车队', width: 120, datafield: 'OwnedCompany', align: 'center', cellsAlign: 'center' },//, cellsRenderer: genderTranslate 
+                  //{ text: '性别', width: 80, datafield: 'Sex', align: 'center', cellsAlign: 'center' },//, cellsRenderer: genderTranslate 
                   { text: '工号', datafield: 'JobNumber', align: 'center', cellsAlign: 'center' },
                   { text: '服务卡号', datafield: 'ServiceNumber', align: 'center', cellsAlign: 'center' },
                   { text: '标签', datafield: 'LabName', align: 'center', cellsAlign: 'center' },

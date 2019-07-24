@@ -1,5 +1,6 @@
 ﻿using DaZhongManagementSystem.Entities.TableEntity;
 using DaZhongManagementSystem.Infrastructure.DraftManagement;
+using System;
 
 namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.PushDetailShow.BusinessLogic
 {
@@ -31,7 +32,13 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.PushDetailShow.Bu
         /// <returns></returns>
         public bool UpdateIsRead(string userID, string pushVguid)
         {
-            return _ps.UpdateIsRead(userID, pushVguid);
+            bool result = false;
+            Guid guid = Guid.Empty;
+            if (Guid.TryParse(pushVguid, out guid))
+            {
+                result = _ps.UpdateIsRead(userID, guid);
+            }
+            return result;
         }
 
         /// <summary>

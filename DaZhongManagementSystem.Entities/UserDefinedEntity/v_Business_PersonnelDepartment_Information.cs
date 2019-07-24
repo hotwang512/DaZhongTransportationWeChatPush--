@@ -18,7 +18,9 @@ namespace DaZhongManagementSystem.Entities.UserDefinedEntity
         public string JobNumber { get; set; }
 
         public string ServiceNumber { get; set; }
-        
+
+        public string OwnedCompany { get; set; }
+
         public Guid OwnedFleet { get; set; }
 
         public string TranslationOwnedFleet { get; set; }

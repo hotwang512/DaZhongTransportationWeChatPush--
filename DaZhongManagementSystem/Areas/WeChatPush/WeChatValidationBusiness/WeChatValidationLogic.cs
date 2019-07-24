@@ -17,6 +17,11 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.WeChatValidationBusiness
             _vl = new WeChatValidationServer();
         }
 
+        public void TestUser()
+        {
+            _vl.TestUser();
+        }
+
         /// <summary>
         /// 审核用户是否存在并保存至Person表
         /// </summary>

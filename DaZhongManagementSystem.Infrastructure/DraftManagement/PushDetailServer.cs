@@ -48,7 +48,7 @@ namespace DaZhongManagementSystem.Infrastructure.DraftManagement
         /// <param name="userID">用户微信UserID</param>
         /// <param name="pushVguid">推送内容Vguid</param>
         /// <returns></returns>
-        public bool UpdateIsRead(string userID, string pushVguid)
+        public bool UpdateIsRead(string userID, Guid pushVguid)
         {
             using (SqlSugarClient _dbMsSql = SugarDao.SugarDao_MsSql.GetInstance())
             {
@@ -56,8 +56,7 @@ namespace DaZhongManagementSystem.Infrastructure.DraftManagement
                 try
                 {
                     _dbMsSql.BeginTran();
-                    Guid vguid = Guid.Parse(pushVguid);
-                    result = _dbMsSql.Update<Business_WeChatPushDetail_Information>(new { ISRead = "1" }, i => i.PushObject == userID && i.Business_WeChatPushVguid == vguid);
+                    result = _dbMsSql.Update<Business_WeChatPushDetail_Information>(new { ISRead = "1" }, i => i.PushObject == userID && i.Business_WeChatPushVguid == pushVguid);
                     _dbMsSql.CommitTran();
                 }
                 catch (Exception exp)

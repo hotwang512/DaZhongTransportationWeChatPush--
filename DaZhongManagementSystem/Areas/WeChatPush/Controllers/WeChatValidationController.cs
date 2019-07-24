@@ -41,6 +41,13 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers
             }
 
         }
+
+        public ActionResult TestUser()
+        {
+            _wl.TestUser();
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+
         /// <summary>
         /// 
         /// </summary>

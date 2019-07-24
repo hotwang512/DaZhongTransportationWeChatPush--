@@ -71,7 +71,8 @@ namespace DaZhongManagementSystem.Infrastructure.WeChatRevenue
                 try
                 {
                     var configInfo = db.Queryable<Master_Configuration>().Where(i => i.ID == 15).SingleOrDefault();
-                    //var personInfo = db.Queryable<Business_Personnel_Information>().Where(i => i.Vguid == paymentHistoryInfo.PaymentPersonnel).SingleOrDefault(); //获取人员信息
+                    paymentHistoryInfo.CreateDate = paymentHistoryInfoOld.CreateDate;
+                    paymentHistoryInfo.CreateUser = paymentHistoryInfoOld.CreateUser;
                     paymentHistoryInfo.ChangeDate = DateTime.Now;
                     paymentHistoryInfo.ChangeUser = "sysadmin_Revenue";
                     //插入操作日志表中

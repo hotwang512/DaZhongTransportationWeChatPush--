@@ -13,7 +13,7 @@ namespace DaZhongManagementSystem.Entities.TableEntity.DaZhongPersonTable
 
         public string Name { get; set; }
 
-        public int Gender { get; set; }
+        public int? Gender { get; set; }
 
         public string BirthDay { get; set; }
 

@@ -87,6 +87,7 @@ namespace DaZhongManagementSystem.Infrastructure.BasicDataManagement
                     var model = new
                     {
                         OrganizationName = organizationModel.OrganizationName,
+                        //OrganizationCode = organizationModel.OrganizationCode,
                         Description = organizationModel.Description,
                         ChangeDate = organizationModel.ChangeDate,
                         ChangeUser = organizationModel.ChangeUser

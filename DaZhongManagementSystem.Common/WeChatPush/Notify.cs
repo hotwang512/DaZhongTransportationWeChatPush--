@@ -42,6 +42,7 @@ namespace DaZhongManagementSystem.Common.WeChatPush
             }
             catch (WxPayException ex)
             {
+                LogHelper.LogHelper.WriteLog("WxPayData内容：" + builder.ToString());
                 //若签名错误，则立即返回结果给微信支付后台
                 WxPayData res = new WxPayData();
                 res.SetValue("return_code", "FAIL");
