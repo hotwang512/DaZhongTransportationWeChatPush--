@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using DaZhongManagementSystem.Entities.TableEntity;
 using DaZhongManagementSystem.Infrastructure.RideCheckFeedback;
+using DaZhongManagementSystem.Entities.UserDefinedEntity;
 
 namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.RideCheckFeedback.BusinessLogic
 {
@@ -61,6 +62,11 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.RideCheckF
         public int GetMonthCountConfig()
         {
             return _rcfs.GetMonthCountConfig();
+        }
+
+        public List<RideCheck> GetRideCheckFailed(string numberPlate)
+        {
+            return _rcfs.GetRideCheckFailed(numberPlate);
         }
 
     }

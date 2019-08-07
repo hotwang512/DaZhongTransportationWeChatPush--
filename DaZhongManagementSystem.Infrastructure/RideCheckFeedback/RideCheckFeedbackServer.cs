@@ -7,6 +7,7 @@ using DaZhongManagementSystem.Entities.TableEntity;
 using DaZhongManagementSystem.Infrastructure.DailyLogManagement;
 using DaZhongManagementSystem.Infrastructure.SugarDao;
 using SqlSugar;
+using DaZhongManagementSystem.Entities.UserDefinedEntity;
 
 namespace DaZhongManagementSystem.Infrastructure.RideCheckFeedback
 {
@@ -233,6 +234,81 @@ namespace DaZhongManagementSystem.Infrastructure.RideCheckFeedback
                 return count;
             }
         }
+
+        public List<RideCheck> GetRideCheckFailed(string numberPlate)
+        {
+            string sql = @"select * from (select VGUID,跳车人姓名,提交时间,跳车时间,车号,所属公司,所属车队,上车地点,下车地点,服务卡号,case 跳车检查结果 when '' then '合格'  else 跳车检查结果 end as 跳车检查结果,备注信息
+ from(
+        SELECT Business_RideCheckFeedback.VGUID,Business_Personnel_Information.Name as 跳车人姓名, (Business_RideCheckFeedback_Item.FeedbackAnswer1 + ' ' + Business_RideCheckFeedback_Item.FeedbackAnswer2) as 跳车时间,
+               Business_RideCheckFeedback.ChangeDate as 提交时间, Business_RideCheckFeedback_Item.FeedbackAnswer3 as 车号, New_Organization.name as 所属公司, motacade.name as 所属车队,
+               Business_RideCheckFeedback_Item.FeedbackAnswer4 as 上车地点, Business_RideCheckFeedback_Item.FeedbackAnswer5 as 下车地点, Business_RideCheckFeedback_Item.FeedbackAnswer6 as 服务卡号,
+               rtrim(ltrim(((case  Business_RideCheckFeedback_Item_num2.FeedbackAnswer1 when'A' then '' else '不合格:' end) + '' +
+              (case  Business_RideCheckFeedback_Item_num2.FeedbackAnswer2 when'1' then '肇事痕迹' else '' end) + ' ' +
+              (case  Business_RideCheckFeedback_Item_num2.FeedbackAnswer3 when'1' then '车厢内脏' else '' end) + ' ' +
+              (case  Business_RideCheckFeedback_Item_num2.FeedbackAnswer4 when'1' then '座套脏' else '' end) +' ' +
+              (case  Business_RideCheckFeedback_Item_num2.FeedbackAnswer5 when'1' then '服务设施坏（座椅/空调/音响等）' else ' ' end)) +' ' +
+              ((case Business_RideCheckFeedback_Item_num3.FeedbackAnswer1 when'A' then '' else '不合格:' end)+'' +
+              (case  Business_RideCheckFeedback_Item_num3.FeedbackAnswer2 when'1' then '未穿识别服' else '' end)+' ' +
+              (case  Business_RideCheckFeedback_Item_num3.FeedbackAnswer4 when'1' then '留发/蓄须' else '' end) +' ' +
+              (case  Business_RideCheckFeedback_Item_num3.FeedbackAnswer5 when'1' then '仪容不整洁' else ' ' end)) +' ' +
+              ((case Business_RideCheckFeedback_Item_num4.FeedbackAnswer1 when'A' then '' else '不合格:' end)+'' +
+              (case  Business_RideCheckFeedback_Item_num4.FeedbackAnswer2 when'1' then '上车问好' else '' end)+' ' +
+              (case  Business_RideCheckFeedback_Item_num4.FeedbackAnswer3 when'1' then '确认行车路线' else '' end) +' ' +
+              (case  Business_RideCheckFeedback_Item_num4.FeedbackAnswer4 when'1' then '提醒前排乘客系好安全带' else '' end) +' ' +
+              (case  Business_RideCheckFeedback_Item_num4.FeedbackAnswer5 when'1' then '到达目的地后询问结算方式' else '' end) +' ' +
+              (case  Business_RideCheckFeedback_Item_num4.FeedbackAnswer6 when'1' then '结算后主动提供发票，提醒勿忘物品' else '' end) +' ' +
+              (case  Business_RideCheckFeedback_Item_num4.FeedbackAnswer7 when'1' then '下车前致谢、道别' else ' ' end)) +' ' +
+              ((case Business_RideCheckFeedback_Item_num5.FeedbackAnswer1 when'A' then '' else '不合格:' end)+'' +
+              (case  Business_RideCheckFeedback_Item_num5.FeedbackAnswer2 when'1' then '车内吸烟' else '' end)+' ' +
+              (case  Business_RideCheckFeedback_Item_num5.FeedbackAnswer3 when'1' then '行驶过程中打电话' else '' end) +' ' +
+              (case  Business_RideCheckFeedback_Item_num5.FeedbackAnswer4 when'1' then '不协助乘客放取行李' else '' end) +' ' +
+              (case  Business_RideCheckFeedback_Item_num5.FeedbackAnswer5 when'1' then '讲脏话' else '' end) +' ' +
+              (case  Business_RideCheckFeedback_Item_num5.FeedbackAnswer6 when'1' then '抛物' else '' end) +' ' +
+              (case  Business_RideCheckFeedback_Item_num5.FeedbackAnswer7 when'1' then '向窗外吐痰' else ' ' end))))as 跳车检查结果,
+              Business_RideCheckFeedback_Item_num6.FeedbackAnswer1 as 备注信息
+           FROM[DEV_DaZhong_TransportAtion].[dbo].[Business_RideCheckFeedback]
+              left join Business_Personnel_Information on Business_RideCheckFeedback.CreateUser = Business_Personnel_Information.Vguid
+              left join Business_RideCheckFeedback_Item on Business_RideCheckFeedback.VGUID = Business_RideCheckFeedback_Item.RideCheckFeedbackVGUID
+              left join[128.2.9.199].middata.dbo.Cab as Cab on Business_RideCheckFeedback_Item.FeedbackAnswer3 = RIGHT(rtrim(Cab.License), 6)
+              left join[128.2.9.199].middata.dbo.New_Organization as New_Organization on Cab.OrganizationID = New_Organization.id
+              left join[128.2.9.199].middata.dbo.motacade as motacade on Cab.MotorcadeID = motacade.id
+              left join (select * from Business_RideCheckFeedback_Item  where FeedbackNumber = 6) as Business_RideCheckFeedback_Item_num6 on Business_RideCheckFeedback_Item.RideCheckFeedbackVGUID = Business_RideCheckFeedback_Item_num6.RideCheckFeedbackVGUID
+              left join(select * from Business_RideCheckFeedback_Item  where FeedbackNumber = 2) as Business_RideCheckFeedback_Item_num2 on Business_RideCheckFeedback_Item.RideCheckFeedbackVGUID = Business_RideCheckFeedback_Item_num2.RideCheckFeedbackVGUID
+              left join(select * from Business_RideCheckFeedback_Item  where FeedbackNumber = 3) as Business_RideCheckFeedback_Item_num3 on Business_RideCheckFeedback_Item.RideCheckFeedbackVGUID = Business_RideCheckFeedback_Item_num3.RideCheckFeedbackVGUID
+              left join(select * from Business_RideCheckFeedback_Item  where FeedbackNumber = 4) as Business_RideCheckFeedback_Item_num4 on Business_RideCheckFeedback_Item.RideCheckFeedbackVGUID = Business_RideCheckFeedback_Item_num4.RideCheckFeedbackVGUID
+              left join(select * from Business_RideCheckFeedback_Item  where FeedbackNumber = 5) as Business_RideCheckFeedback_Item_num5 on Business_RideCheckFeedback_Item.RideCheckFeedbackVGUID = Business_RideCheckFeedback_Item_num5.RideCheckFeedbackVGUID
+           where Business_RideCheckFeedback.Status = 2 and Business_RideCheckFeedback_Item.FeedbackNumber = 1 and CONVERT(char(7), Business_RideCheckFeedback_Item.FeedbackAnswer1, 102) = '2019-07'
+                 and Cab.VehicleStatus = 1 AND Cab.OrganizationID <> '56'
+            )a)t
+         where 车号 = '{车号}' and 跳车检查结果!= '合格'
+          order by 所属公司,所属车队";
+            sql = sql.Replace("{车号}", numberPlate);
+            List<RideCheck> rideChecks = new List<RideCheck>();
+            using (SqlSugarClient dbMsSql = SugarDao_MsSql.GetInstance())
+            {
+
+                try
+                {
+                    rideChecks = dbMsSql.SqlQuery<RideCheck>(sql);
+                    if (rideChecks.Count > 0)
+                    {
+                        string user = "API_User_" + DateTime.Now.ToString("yyyyMMddHHmmss");
+                        foreach (var item in rideChecks)
+                        {
+                            dbMsSql.Update<Business_RideCheckFeedback>(new { Status = "3", ChangeUser = user }, c => c.VGUID == item.VGUID);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogHelper.WriteLog(ex.Message);
+                    //_logLogic.SaveLog(5, 34, "", userID + personModel.Name, ex.Message);
+                }
+                return rideChecks;
+            }
+        }
+
+
 
 
     }

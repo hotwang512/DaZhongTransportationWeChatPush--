@@ -251,6 +251,7 @@
     <Compile Include="Areas\WeChatPush\Controllers\WeChatValidationController.cs" />
     <Compile Include="Areas\WeChatPush\WeChatValidationBusiness\WeChatValidationLogic.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="Controllers\APIController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CookieTimeOutController.cs" />
     <Compile Include="Controllers\LoginController.cs" />

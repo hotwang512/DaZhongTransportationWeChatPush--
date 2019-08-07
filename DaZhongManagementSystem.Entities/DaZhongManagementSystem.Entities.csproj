@@ -95,11 +95,13 @@
     <Compile Include="TableEntity\Sys_User.cs" />
     <Compile Include="TableEntity\ThirdPartyPublicPlatformPayment.cs" />
     <Compile Include="UserDefinedEntity\Business_Questionnaire_Search.cs" />
+    <Compile Include="UserDefinedEntity\ExecutionResult.cs" />
     <Compile Include="UserDefinedEntity\NotExistPerson.cs" />
     <Compile Include="UserDefinedEntity\PersionSelectionRatioReport.cs" />
     <Compile Include="UserDefinedEntity\PersonnelLabel.cs" />
     <Compile Include="UserDefinedEntity\PushAPIresult.cs" />
     <Compile Include="UserDefinedEntity\ResultModel.cs" />
+    <Compile Include="UserDefinedEntity\RideCheck.cs" />
     <Compile Include="UserDefinedEntity\Search_AgreementOperation.cs" />
     <Compile Include="UserDefinedEntity\Search_QuestionReport.cs" />
     <Compile Include="UserDefinedEntity\Search_RedPacketHistory.cs" />
