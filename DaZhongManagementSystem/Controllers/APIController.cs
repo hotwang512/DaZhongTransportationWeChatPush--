@@ -28,7 +28,7 @@ namespace DaZhongManagementSystem.Controllers
                         List<string> list = new List<string>();
                         foreach (var item in rideCheckFaileds)
                         {
-                            string str = string.Format("该车于时间：{0} 上车地点{1}： 下车地点：{2} 接受过跳车检查，存在以下不合格项：{3}",
+                            string str = string.Format("该车于时间：{0} 上车地点：{1} 下车地点：{2} 接受过跳车检查，存在以下不合格项：{3}",
                                 item.跳车时间,
                                 item.上车地点,
                                 item.下车地点,
