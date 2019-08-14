@@ -277,8 +277,7 @@ namespace DaZhongManagementSystem.Infrastructure.RideCheckFeedback
               left join(select * from Business_RideCheckFeedback_Item  where FeedbackNumber = 3) as Business_RideCheckFeedback_Item_num3 on Business_RideCheckFeedback_Item.RideCheckFeedbackVGUID = Business_RideCheckFeedback_Item_num3.RideCheckFeedbackVGUID
               left join(select * from Business_RideCheckFeedback_Item  where FeedbackNumber = 4) as Business_RideCheckFeedback_Item_num4 on Business_RideCheckFeedback_Item.RideCheckFeedbackVGUID = Business_RideCheckFeedback_Item_num4.RideCheckFeedbackVGUID
               left join(select * from Business_RideCheckFeedback_Item  where FeedbackNumber = 5) as Business_RideCheckFeedback_Item_num5 on Business_RideCheckFeedback_Item.RideCheckFeedbackVGUID = Business_RideCheckFeedback_Item_num5.RideCheckFeedbackVGUID
-           where Business_RideCheckFeedback.Status = 2 and Business_RideCheckFeedback_Item.FeedbackNumber = 1 and CONVERT(char(7), Business_RideCheckFeedback_Item.FeedbackAnswer1, 102) = '2019-07'
-                 and Cab.VehicleStatus = 1 AND Cab.OrganizationID <> '56'
+           where Business_RideCheckFeedback.Status = 2 and Business_RideCheckFeedback_Item.FeedbackNumber = 1 and Cab.VehicleStatus = 1 AND Cab.OrganizationID <> '56'
             )a)t
          where 车号 = '{车号}' and 跳车检查结果!= '合格'
           order by 所属公司,所属车队";

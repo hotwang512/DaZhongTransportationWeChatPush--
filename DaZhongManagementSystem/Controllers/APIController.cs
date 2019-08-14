@@ -32,7 +32,7 @@ namespace DaZhongManagementSystem.Controllers
                                 item.跳车时间,
                                 item.上车地点,
                                 item.下车地点,
-                                item.跳车检查结果.Replace("不合格", ""));
+                                item.跳车检查结果.Replace("不合格:", ""));
                             list.Add(str);
                         }
                         result.Result = list; 
