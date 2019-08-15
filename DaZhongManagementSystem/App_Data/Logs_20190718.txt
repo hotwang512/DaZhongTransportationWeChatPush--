@@ -1,0 +1,7 @@
+
+-------------------------------header----------------------
+2019-07-18 11:13:16,485 [12] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 用户打开注册二次验证页面：Code为--UserID为--打开注册页面时间为:2019/7/18 11:13:16
+2019-07-18 11:28:02,830 [12] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 用户打开注册二次验证页面：Code为-MG7J09m0UN2azie1o99bPNXGRuZClg0mV_FgMiXiats-UserID为-Kaizi_314221589-打开注册页面时间为:2019/7/18 11:28:02
+2019-07-18 11:28:28,062 [12] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 用户打开注册二次验证页面：Code为-3MWrfgBiy0tdCp9_MCGJnfYENifKa9nVGqPOF4a8DYQ-UserID为-Kaizi_314221589-打开注册页面时间为:2019/7/18 11:28:28
+
+-------------------------------footer----------------------

@@ -96,6 +96,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AesClass.cs" />
     <Compile Include="AuthorityEnum.cs" />
     <Compile Include="ConfigurableJsonResult.cs" />
     <Compile Include="CostCookies.cs" />

@@ -262,6 +262,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\APIModel\TextPushParamModel.cs" />
     <Compile Include="Models\Filters\ActionFilter.cs" />
     <Compile Include="Models\Filters\AuthorizeFilter.cs" />
     <Compile Include="Models\Filters\Global_Application_BeginRequest.cs" />

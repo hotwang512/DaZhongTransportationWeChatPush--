@@ -36,6 +36,16 @@ namespace DaZhongManagementSystem.Infrastructure.BasicDataManagement
             }
         }
 
+        public Business_Personnel_Information GetPerson(string idNumber)
+        {
+            Business_Personnel_Information user = null;
+            using (SqlSugarClient dbMsSql = SugarDao_MsSql.GetInstance())
+            {
+                user = dbMsSql.Queryable<Business_Personnel_Information>().Where(i => i.IDNumber == idNumber).SingleOrDefault();
+            }
+            return user;
+        }
+
         /// <summary>
         /// 部门树形结构
         /// </summary>
@@ -164,7 +174,7 @@ namespace DaZhongManagementSystem.Infrastructure.BasicDataManagement
                         item.ChangeUser = CurrentUser.GetCurrentUser().LoginName;
                         //var rtn = dbMsSql.Insert(item);
                     }
-                    
+
                     result = dbMsSql.SqlBulkCopy(listLabel);
                     //删除空标签
                     dbMsSql.Delete<Business_PersonnelLabel_Information>(i => i.PersonnelVVGUID == personVGUID && i.LabelName == "");

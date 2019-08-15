@@ -19,6 +19,13 @@ namespace DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.UserInfo
             _us = new UserInfoServer();
         }
 
+
+        public Business_Personnel_Information GetPerson(string idNumber)
+        {
+            return _us.GetPerson(idNumber);
+        }
+
+
         /// <summary>
         /// 获取用户详细信息（用于更改用户所在部门）
         /// </summary>

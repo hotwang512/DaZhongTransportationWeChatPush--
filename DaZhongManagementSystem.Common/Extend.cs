@@ -33,6 +33,6 @@ namespace DaZhongManagementSystem.Common
             return jsSerializer.Serialize(model);
         }
 
-      
+
     }
 }

@@ -533,12 +533,12 @@ namespace DaZhongManagementSystem.Infrastructure.DraftManagement
 
                         //存入操作日志表
                         string logData = JsonHelper.ModelToJson(weChatMain);
-                        _ll.SaveLog(1, 13, CurrentUser.GetCurrentUser().LoginName, weChatMain.Title, logData);
+                        _ll.SaveLog(1, 13, weChatMain.CreatedUser, weChatMain.Title, logData);
                     }
                     _dbMsSql.Delete<Business_WeChatPushDetail_Information>(i => i.Business_WeChatPushVguid == weChatMain.VGUID);
                     //存入操作日志表
                     string log = JsonHelper.ModelToJson(weChatDetailList);
-                    _ll.SaveLog(1, 15, CurrentUser.GetCurrentUser().LoginName, weChatMain.Title, log);
+                    _ll.SaveLog(1, 15, weChatMain.CreatedUser, weChatMain.Title, log);
                     _dbMsSql.SqlBulkCopy(weChatDetailList);
                     _dbMsSql.CommitTran();
 
@@ -573,7 +573,7 @@ namespace DaZhongManagementSystem.Infrastructure.DraftManagement
                     {
                         //存入操作日志表
                         string logData = JsonHelper.ModelToJson(weChatMain);
-                        _ll.SaveLog(4, 14, Common.CurrentUser.GetCurrentUser().LoginName, weChatMain.Title, logData);
+                        _ll.SaveLog(4, 14, weChatMain.ChangeUser, weChatMain.Title, logData);
                         db.Delete<Business_WeChatPush_MoreGraphic_Information>(i => i.WeChatPushVguid == weChatMain.VGUID);
                         db.InsertRange(pushMoreGraphicList);
                         db.Delete<Business_WeChatPushDetail_Information>(i => i.Business_WeChatPushVguid == weChatMain.VGUID);
@@ -584,7 +584,7 @@ namespace DaZhongManagementSystem.Infrastructure.DraftManagement
                     {
                         //存入操作日志表
                         string logData = JsonHelper.ModelToJson(weChatMain);
-                        _ll.SaveLog(1, 15, Common.CurrentUser.GetCurrentUser().LoginName, weChatMain.Title, logData);
+                        _ll.SaveLog(1, 15, weChatMain.ChangeUser, weChatMain.Title, logData);
                         db.Insert(weChatMain);
                         db.InsertRange(pushMoreGraphicList);
                         db.SqlBulkCopy(weChatDetailList);

@@ -187,7 +187,62 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.DraftList.Busines
             }
             return result;
         }
+        /// <summary>
+        /// 保存推送信息（主信息，详细信息）
+        /// </summary>
+        /// <param name="pushMsgModel"></param>
+        /// <returns></returns>
+        public bool APISavePushMsg(U_PushMsg pushMsgModel)
+        {
+            bool result = false;
+            Business_WeChatPush_Information weChatMain = new Business_WeChatPush_Information();
+            List<Business_WeChatPushDetail_Information> weChatDetailList = new List<Business_WeChatPushDetail_Information>();
 
+            //主信息赋值(微信推送信息)
+            weChatMain.Title = pushMsgModel.Title;
+            weChatMain.PushType = pushMsgModel.PushType;
+            weChatMain.MessageType = pushMsgModel.MessageType;
+            weChatMain.Timed = pushMsgModel.Timed;
+            weChatMain.TimedSendTime = pushMsgModel.TimedSendTime;
+            weChatMain.Important = pushMsgModel.Important;
+            weChatMain.Message = pushMsgModel.Message;
+            weChatMain.CoverImg = pushMsgModel.CoverImg;
+            weChatMain.CoverDescption = pushMsgModel.CoverDescption;
+            weChatMain.PeriodOfValidity = pushMsgModel.PeriodOfValidity;
+            weChatMain.PushDate = pushMsgModel.PushDate;
+            weChatMain.ExercisesVGUID = pushMsgModel.ExercisesVGUID; //推送习题Vguid
+            weChatMain.KnowledgeVGUID = pushMsgModel.KnowledgeVGUID; //推送知识库Vguid
+            weChatMain.QuestionVGUID = pushMsgModel.QuestionVGUID;//问卷Vguid
+            weChatMain.PushPeople = pushMsgModel.PushPeople;
+            weChatMain.Status = 3;
+            weChatMain.CreatedDate = pushMsgModel.CreatedDate;
+            weChatMain.CreatedUser = pushMsgModel.CreatedUser;
+            weChatMain.VGUID = pushMsgModel.VGUID;
+            weChatMain.History = pushMsgModel.History;
+            weChatMain.RevenueType = null;
+            weChatMain.CountersignType = null;
+            weChatMain.Label = pushMsgModel.Label;
+
+
+            //副表信息赋值(微信推送详细信息)
+            string pushObject = pushMsgModel.PushObject.TrimEnd('|');
+            string[] arrObject = pushObject.Split('|');
+            weChatMain.Department_VGUID = Guid.Empty;
+            foreach (var item in arrObject)
+            {
+                Business_WeChatPushDetail_Information weChatDetail = new Business_WeChatPushDetail_Information();
+                weChatDetail.Business_WeChatPushVguid = weChatMain.VGUID;
+                weChatDetail.Type = pushMsgModel.PushType.ToString();
+                weChatDetail.Vguid = Guid.NewGuid();
+                weChatDetail.ISRead = "0"; //未读
+                weChatDetail.PushObject = item;
+                weChatDetail.CreatedDate = pushMsgModel.CreatedDate;
+                weChatDetail.CreatedUser = pushMsgModel.CreatedUser;
+                weChatDetailList.Add(weChatDetail);
+            }
+            result = _ds.SavePushMsg(weChatMain, weChatDetailList, false);
+            return result;
+        }
         /// <summary>
         /// 保存推送信息（主信息，详细信息）
         /// </summary>
@@ -374,6 +429,59 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.DraftList.Busines
             }
 
             return result;
+        }
+
+
+        /// <summary>
+        /// 保存多图文信息
+        /// </summary>
+        /// <param name="wechatPushList"></param>
+        /// <param name="wechatPushMoreGraphicList"></param>
+        /// <param name="isEdit"></param>
+        /// <param name="saveType"></param>
+        ///  <param name="countersignType"></param>
+        /// <returns></returns>
+        public bool APISaveImagePushMsg(U_PushMsg pushMsgModel, List<Business_WeChatPush_MoreGraphic_Information> pushMoreGraphicList)
+        {
+            List<Business_WeChatPushDetail_Information> weChatDetailList = new List<Business_WeChatPushDetail_Information>();
+            var weChatMain = new Business_WeChatPush_Information();
+
+            weChatMain.Title = pushMsgModel.Title;
+            weChatMain.PushType = pushMsgModel.PushType;
+            weChatMain.MessageType = pushMsgModel.MessageType;
+            weChatMain.Timed = pushMsgModel.Timed;
+            weChatMain.TimedSendTime = pushMsgModel.TimedSendTime;
+            weChatMain.Important = pushMsgModel.Important;
+            weChatMain.Message = pushMsgModel.Message;
+            weChatMain.CoverImg = pushMsgModel.CoverImg;
+            weChatMain.CoverDescption = pushMsgModel.CoverDescption;
+            weChatMain.PeriodOfValidity = pushMsgModel.PeriodOfValidity;
+            weChatMain.PushDate = pushMsgModel.PushDate;
+            weChatMain.PushPeople = pushMsgModel.PushPeople;
+            weChatMain.Status = 4;
+            weChatMain.CreatedDate = pushMsgModel.CreatedDate;
+            weChatMain.CreatedUser = pushMsgModel.CreatedUser;
+            weChatMain.VGUID = pushMsgModel.VGUID;
+            weChatMain.History = pushMsgModel.History;
+            weChatMain.Label = pushMsgModel.Label;
+            weChatMain.CountersignType = null;
+
+            string pushObject = pushMsgModel.PushObject.TrimEnd('|');
+            string[] arrObject = pushObject.Split('|');
+            foreach (var item in arrObject)
+            {
+                Business_WeChatPushDetail_Information weChatDetail = new Business_WeChatPushDetail_Information();
+                weChatDetail.Business_WeChatPushVguid = weChatMain.VGUID;
+                weChatDetail.Type = pushMsgModel.PushType.ToString();
+                weChatDetail.Vguid = Guid.NewGuid();
+                weChatDetail.ISRead = "0"; //未读
+                weChatDetail.PushObject = item;
+                weChatDetail.CreatedDate = pushMsgModel.CreatedDate;
+                weChatDetail.CreatedUser = pushMsgModel.CreatedUser;
+                weChatDetailList.Add(weChatDetail);
+            }
+            return _ds.SaveImagePushMsg(weChatMain, pushMoreGraphicList, weChatDetailList, false);
+
         }
 
         /// <summary>
@@ -949,7 +1057,7 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.DraftList.Busines
             }
             return _ds.SaveUpLoadMaintence(newTable);
         }
-        
+
         /// <summary>
         /// 获取所有人员标签
         /// </summary>
