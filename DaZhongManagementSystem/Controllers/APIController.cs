@@ -159,7 +159,7 @@ namespace DaZhongManagementSystem.Controllers
             return Json(result);
         }
 
-        public JsonResult GraphicPush(string SECURITYKEY, string pushparam)
+        public JsonResult GraphicPush(string SECURITYKEY, string pushparam, bool OAuth2 = false)
         {
             ExecutionResult result = new ExecutionResult();
             try
@@ -172,7 +172,7 @@ namespace DaZhongManagementSystem.Controllers
                     string _sendUrl = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={0}";
                     string postUrl = string.Format(_sendUrl, accessToken);
                     //获取推送内容Json
-                    string json = GetPushJson(textPush);
+                    string json = GetPushJson(OAuth2, textPush);
                     string pushResult = PostWebRequest(postUrl, json, Encoding.UTF8);
                 }
                 else
@@ -242,11 +242,9 @@ namespace DaZhongManagementSystem.Controllers
             return result;
         }
 
-        protected string GetPushJson(List<PushParamModel> pushMsg)
+        protected string GetPushJson(bool OAuth2, List<PushParamModel> pushMsg)
         {
-            string pushUrl = string.Empty;
-            string url = string.Empty;
-
+            string _oAuthUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type=code&scope=snsapi_base#wechat_redirect";
             string responeJsonStr = "";
             responeJsonStr = "{";
             responeJsonStr += "\"touser\": \"" + pushMsg[0].PushPeoples + "\",";
@@ -258,10 +256,20 @@ namespace DaZhongManagementSystem.Controllers
             responeJsonStr += "\"articles\":[";
             foreach (var content in pushMsg)
             {
+                string pushUrl = string.Empty;
+                if (OAuth2)
+                {
+                    pushUrl = string.Format(_oAuthUrl, WxPayConfig.APPID, content.Url);
+                }
+                else
+                {
+                    pushUrl = content.Url;
+                }
+
                 responeJsonStr += " {";
                 responeJsonStr += "\"title\": \"" + content.Title + "\",";
                 responeJsonStr += "\"description\": \"" + content.Message + "\",";
-                responeJsonStr += "\"url\": \"" + content.Url + "\",";
+                responeJsonStr += "\"url\": \"" + pushUrl + "\",";
                 responeJsonStr += "\"picurl\": \"" + content.Image + "\"";
                 responeJsonStr += "}";
                 responeJsonStr += ",";

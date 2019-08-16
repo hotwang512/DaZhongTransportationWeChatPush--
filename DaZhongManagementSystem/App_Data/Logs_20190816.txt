@@ -1,0 +1,8 @@
+
+-------------------------------header----------------------
+2019-08-16 15:57:09,294 [65] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 填充无效，无法被移除。
+2019-08-16 15:57:48,174 [65] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 填充无效，无法被移除。
+2019-08-16 15:58:31,321 [65] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 填充无效，无法被移除。
+2019-08-16 15:59:35,663 [65] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 填充无效，无法被移除。
+2019-08-16 16:00:25,147 [65] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 填充无效，无法被移除。
+2019-08-16 16:02:22,293 [65] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 填充无效，无法被移除。
