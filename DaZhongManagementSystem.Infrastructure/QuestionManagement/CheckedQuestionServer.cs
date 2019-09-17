@@ -135,9 +135,8 @@ namespace DaZhongManagementSystem.Infrastructure.QuestionManagement
         {
             using (SqlSugarClient _dbMsSql = SugarDao.SugarDao_MsSql.GetInstance())
             {
-                Guid mainVguid = Guid.Parse(Vguid);
-                return _dbMsSql.Queryable<Business_QuestionnaireDetail>().Where(i => i.QuestionnaireVguid == mainVguid).OrderBy(c => "QuestionTitleID+1", OrderByType.Asc).ToList();
-
+                return _dbMsSql.SqlQuery<Business_QuestionnaireDetail>("select * from Business_QuestionnaireDetail where QuestionnaireVguid=@mainVguid order by QuestionTitleID+1", new { mainVguid = Vguid });
+                //return _dbMsSql.Queryable<Business_QuestionnaireDetail>().Where(i => i.QuestionnaireVguid == mainVguid).OrderBy(c => "QuestionTitleID+1", OrderByType.Asc).ToList();
             }
         }
     }
