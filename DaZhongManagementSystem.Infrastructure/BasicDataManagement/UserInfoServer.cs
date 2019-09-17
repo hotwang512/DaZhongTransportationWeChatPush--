@@ -45,7 +45,15 @@ namespace DaZhongManagementSystem.Infrastructure.BasicDataManagement
             }
             return user;
         }
-
+        public Business_Personnel_Information GetPersonByPhoneNumber(string phoneNumber)
+        {
+            Business_Personnel_Information user = null;
+            using (SqlSugarClient dbMsSql = SugarDao_MsSql.GetInstance())
+            {
+                user = dbMsSql.Queryable<Business_Personnel_Information>().Where(i => i.PhoneNumber == phoneNumber).SingleOrDefault();
+            }
+            return user;
+        }
         /// <summary>
         /// 部门树形结构
         /// </summary>

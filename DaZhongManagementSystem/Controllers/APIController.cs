@@ -74,6 +74,41 @@ namespace DaZhongManagementSystem.Controllers
         }
 
         /// <summary>
+        /// 根据手机号码获取身份证号码
+        /// </summary>
+        /// <param name="SECURITYKEY">加密值</param>
+        /// <param name="phoneNumber">手机号码</param>
+        /// <returns></returns>
+        public JsonResult UserIDNumber(string SECURITYKEY, string phoneNumber)
+        {
+            ExecutionResult result = new ExecutionResult();
+            try
+            {
+                if (API_Authentication(SECURITYKEY))
+                {
+                    result.Result = "";
+                    UserInfoLogic logic = new UserInfoLogic();
+                    var user = logic.GetPersonByPhoneNumber(phoneNumber);
+                    if (user != null)
+                    {
+                        result.Result = user.IDNumber;
+                    }
+                    result.Success = true;
+                }
+                else
+                {
+                    result.Message = "SECURITYKEY 无效！";
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = ex.Message;
+                LogHelper.WriteLog(ex.Message);
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
         /// 根据微信code获取企业号人员信息
         /// </summary>
         /// <param name="SECURITYKEY">加密值</param>
@@ -244,6 +279,7 @@ namespace DaZhongManagementSystem.Controllers
 
         protected string GetPushJson(bool OAuth2, List<PushParamModel> pushMsg)
         {
+            var agentid = SyntacticSugar.ConfigSugar.GetAppString("WeChatAgentID", "1");
             string _oAuthUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type=code&scope=snsapi_base#wechat_redirect";
             string responeJsonStr = "";
             responeJsonStr = "{";
@@ -251,7 +287,7 @@ namespace DaZhongManagementSystem.Controllers
             responeJsonStr += "\"toparty\": \"\",";
             responeJsonStr += "\"totag\": \"\",";
             responeJsonStr += "\"msgtype\": \"news\",";
-            responeJsonStr += "\"agentid\":\"10\",";
+            responeJsonStr += "\"agentid\":\"" + agentid + "\",";
             responeJsonStr += "\"news\": {";
             responeJsonStr += "\"articles\":[";
             foreach (var content in pushMsg)

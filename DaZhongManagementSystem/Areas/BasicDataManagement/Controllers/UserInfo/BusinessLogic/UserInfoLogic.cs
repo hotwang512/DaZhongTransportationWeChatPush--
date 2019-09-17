@@ -24,7 +24,10 @@ namespace DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.UserInfo
         {
             return _us.GetPerson(idNumber);
         }
-
+        public Business_Personnel_Information GetPersonByPhoneNumber(string phoneNumber)
+        {
+            return _us.GetPersonByPhoneNumber(phoneNumber);
+        }
 
         /// <summary>
         /// 获取用户详细信息（用于更改用户所在部门）

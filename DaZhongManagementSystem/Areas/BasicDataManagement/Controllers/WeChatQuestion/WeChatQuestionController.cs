@@ -46,19 +46,21 @@ namespace DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.WeChatQu
                 ViewData["isHistory"] = "1";    //从消息历史界面跳转而来
                 wechatMain = vguidStr.Split(',')[2];
             }
-            string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
-            U_WeChatUserID userInfo = new U_WeChatUserID();
-            string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
-            userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
+            //string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
+            //U_WeChatUserID userInfo = new U_WeChatUserID();
+            //string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
+            //userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
+            //string userid = userInfo.UserId;
+            string userid = "WangCunBiao";
             string answerCount = _wl.GetAnswerCount();
             //8f3d8ccc-82d9-4a76-b0c7-2dc585d86b64
             //userInfo.UserId = "13774418547";
-            Business_Personnel_Information personInfoModel = GetUserInfo(userInfo.UserId);//获取人员表信息
+            Business_Personnel_Information personInfoModel = GetUserInfo(userid);//获取人员表信息
 
             bool isRead = false;
             if (pushContentVguid != string.Empty)
             {
-                isRead = UpdateIsRead(pushContentVguid, userInfo.UserId);//更新是否查看推送
+                isRead = UpdateIsRead(pushContentVguid, userid);//更新是否查看推送
             }
             ViewData["wechatMain"] = wechatMain;
             ViewBag.answerCount = answerCount;
