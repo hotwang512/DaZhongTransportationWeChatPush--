@@ -152,6 +152,5 @@ namespace DaZhongManagementSystem.Areas.QuestionManagement.Controllers.QuestionM
             models.respnseInfo = models.isSuccess == true ? "1" : "0";
             return Json(models, JsonRequestBehavior.AllowGet);
         }
-
     }
 }

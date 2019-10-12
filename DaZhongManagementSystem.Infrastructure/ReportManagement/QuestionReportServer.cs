@@ -357,5 +357,74 @@ namespace DaZhongManagementSystem.Infrastructure.ReportManagement
                 return list;
             }
         }
+
+        /// <summary>
+        /// 获取心理评测数据源
+        /// </summary>
+        /// <param name="vguid">习题vguid</param>
+        /// <returns></returns>
+        public List<PsychologicalEvaluationModel> GetPsychologicalEvaluationSource(string vguid, string start, string end)
+        {
+            List<PsychologicalEvaluationModel> models = new List<PsychologicalEvaluationModel>();
+            using (SqlSugarClient _dbMsSql = SugarDao.SugarDao_MsSql.GetInstance())
+            {
+                models = _dbMsSql.SqlQuery<PsychologicalEvaluationModel>("exec usp_PsychologicalEvaluation @vguid,@start,@end", new { vguid = vguid, start = start, end = end });
+            }
+
+            foreach (PsychologicalEvaluationModel item in models)
+            {
+                if (item.ptScore.Value >= 11 && item.phqScore.Value <= 2)
+                {
+                    item.ColorBlock = "blue";
+                }
+                else if (
+                    (item.ptScore.Value >= 11 && (item.phqScore.Value >= 3 && item.phqScore.Value <= 5))
+                    ||
+                    (item.ptScore.Value >= 5 && item.ptScore.Value <= 10 && item.phqScore.Value <= 5)
+                    )
+                {
+                    item.ColorBlock = "green";
+                }
+                else if (
+                  (item.ptScore.Value >= 11 && (item.phqScore.Value >= 6 && item.phqScore.Value <= 8))
+                  ||
+                  ((item.ptScore.Value >= 5 && item.ptScore.Value <= 10) && (item.phqScore.Value >= 6 && item.phqScore.Value <= 8))
+                  )
+                {
+                    item.ColorBlock = "yellow";
+                }
+                else
+                {
+                    item.ColorBlock = "red";
+                }
+            }
+            return models;
+        }
+
+        public string ExportPsychologicalEvaluationSource(string vguid, string start, string end)
+        {
+            List<PsychologicalEvaluationModel> list = GetPsychologicalEvaluationSource(vguid, start, end);
+            DataTable dtSource = new DataTable("tb");
+            dtSource.Columns.AddRange(new DataColumn[] {
+                new DataColumn("Name",typeof(string)),
+                new DataColumn("ChangeDate",typeof(string)),
+                new DataColumn("ptScore",typeof(decimal)),
+                new DataColumn("phqScore",typeof(decimal)),
+                new DataColumn("ColorBlock",typeof(string))
+            });
+            foreach (var item in list)
+            {
+                DataRow row = dtSource.NewRow();
+                row["Name"] = item.Name;
+                row["ChangeDate"] = item.ChangeDate;
+                row["ptScore"] = item.ptScore;
+                row["phqScore"] = item.phqScore;
+                row["ColorBlock"] = item.ColorBlock;
+                dtSource.Rows.Add(row);
+            }
+            return ExportExcel.ExportExcelsTo("PsychologicalEvaluation.xlsx", "PsychologicalEvaluation" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xls", dtSource);
+        }
+
+
     }
 }

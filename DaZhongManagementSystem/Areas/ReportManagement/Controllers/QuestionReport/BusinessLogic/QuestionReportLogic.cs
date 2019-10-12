@@ -81,7 +81,7 @@ namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.QuestionRep
             {
                 rateModel1.Share = (exerciseSsetsRate[0].Questionsperson / exerciseSsetsRate[0].numberofanswer * 100).ToString("F2") + "%";
             }
-           
+
             listRateModel.Add(rateModel1);
 
             RateModel rateModel2 = new RateModel();
@@ -94,7 +94,7 @@ namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.QuestionRep
             {
                 rateModel2.Share = ((1 - exerciseSsetsRate[0].Questionsperson / exerciseSsetsRate[0].numberofanswer) * 100).ToString("F2") + "%";
             }
-          
+
             listRateModel.Add(rateModel2);
 
             RateModel rateModel3 = new RateModel();
@@ -112,7 +112,7 @@ namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.QuestionRep
             {
                 rateModel4.Share = (exerciseSsetsRate[0].numberofanswer - exerciseSsetsRate[0].Questionsperson).ToString();
             }
-            
+
             listRateModel.Add(rateModel4);
             return listRateModel;
         }
@@ -125,6 +125,15 @@ namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.QuestionRep
         public void Export(string exerciseVguid, string exportType, string departmentVguid)
         {
             _ss.Export(exerciseVguid, exportType, departmentVguid);
+        }
+        public List<PsychologicalEvaluationModel> GetPsychologicalEvaluationSource(string vguid, string start, string end)
+        {
+            return _ss.GetPsychologicalEvaluationSource(vguid, start, end);
+        }
+
+        public string ExportPsychologicalEvaluationSource(string vguid, string start, string end)
+        {
+            return _ss.ExportPsychologicalEvaluationSource(vguid, start, end);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.QuestionRep
         public ActionResult QuestionReport()
         {
             List<Business_Questionnaire> exerciseList = _sl.GetCheckedQuestionList();
-            Sys_Role_Module roleModuleModel = _al.GetRoleModulePermission(Common.CurrentUser.GetCurrentUser().Role, Common.Tools.ModuleVguid.ScoreRecordsModule);
+            Sys_Role_Module roleModuleModel = _al.GetRoleModulePermission(Common.CurrentUser.GetCurrentUser().Role, Common.Tools.ModuleVguid.QuestionReport);
             ViewData["currLoginName"] = CurrentUser.GetCurrentUser().LoginName;
             ViewBag.exerciseCheckedList = exerciseList;
             ViewBag.CurrentModulePermission = roleModuleModel;

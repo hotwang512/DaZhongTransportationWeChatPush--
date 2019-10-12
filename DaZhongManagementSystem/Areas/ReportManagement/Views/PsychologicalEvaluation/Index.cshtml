@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "心理评测报表";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var currentModuleRolePermission = ViewBag.CurrentModulePermission as Sys_Role_Module;
+    var exerciseCheckedList = ViewBag.ExerciseCheckedList as List<Business_Questionnaire>;
+}
+@using DaZhongManagementSystem.Entities.TableEntity;
+
+
+@section pageTitle
+{
+    @ViewBag.Title
+}
+
+@section js
+{
+    <script src="@Url.Content("~/Areas/ReportManagement/Views/_js/PsychologicalEvaluation.js")"></script>
+    <script src="@Url.Content("~/_theme/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js")"></script>
+    <script src="@Url.Content("~/_theme/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js")"></script>
+}
+
+@section css
+{
+    <link href="@Url.Content("~/_theme/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Areas/ReportManagement/Views/_css/PushMsgReport.css")" rel="stylesheet" />
+
+}
+
+<div class="mk">
+    <div class="header_mk">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">查询</span></div>
+    </div>
+    <div class="body_mk" style="height: 95px">
+        <table id="searchTable" style="margin-top: 20px; width: 1220px; margin-left: 20px;">
+            <tr style="height: 45px;">
+                <td align="center" style="width: 80px;">问卷名称：</td>
+                <td style="width: 210px;">
+                    <select id="ExercisesName_Search" class="input_text form-control">
+                        <option value=""></option>
+                        @{
+                            foreach (var item in exerciseCheckedList)
+                            {
+                                <option value="@item.Vguid">@item.QuestionnaireName</option>
+                            }
+                        }
+                    </select>
+                </td>
+                <td align="right">时间起：</td>
+                <td>
+                    <input id="txtForm" type="text" class="input_text form-control" value="@DateTime.Now.AddMonths(-3).ToString("yyyy-MM-dd HH:mm:ss")" />
+                </td>
+                <td align="right">时间止：</td>
+                <td>
+                    <input id="txtTo" type="text" class="input_text form-control" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")" />
+                </td>
+                <td align="right">
+                    <button id="btnSearch" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe604;</i><span style="margin-left: 7px; float: left;">查询</span></button>
+                </td>
+                <td align="center">
+                    <button id="btnReset" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe603;</i><span style="margin-left: 7px; float: left;">重置</span></button>
+                </td>
+                @if (currentModuleRolePermission.Export == 1)
+                {
+                    <td align="center">
+                        <button id="btnExport" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe607;</i><span style="margin-left: 7px; float: left;">导出</span></button>
+                    </td>
+                }
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="mk" style="border-bottom: 0px;">
+    <div class="header_mk" style="border-bottom: 0px;">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">数据统计</span></div>
+    </div>
+    <div id="jqxTable" class="jqxTable" style="border-left: 0px; ">
+    </div>
+</div>
+
+

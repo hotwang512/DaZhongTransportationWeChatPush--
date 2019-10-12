@@ -58,6 +58,26 @@ namespace DaZhongManagementSystem.Common.Tools
         public static readonly string PushRecordsModule = "5CCEF2ED-75F5-4FF6-95EB-3556DDA2DA59";
 
         public static readonly string PaymentRecordsModule = "99E1B93C-74CB-481F-96F6-9B25373AB018";
+
+        /// <summary>
+        /// 问卷报表
+        /// </summary>
+        public static readonly string QuestionReport = "c1222b32-48f0-487b-9c7f-52d0653221ab";
+        /// <summary>
+        /// 跳车检查统计报表
+        /// </summary>
+        public static readonly string SelectionRatioReport = "13522b41-60ea-48e4-a22d-7f6edb01e748";
+        /// <summary>
+        /// 人员跳车检查报表
+        /// </summary>
+        public static readonly string PersionSelectionRatioReport = "036c26c7-afe2-4f29-a710-6e9a4d9727c1";
+        /// <summary>
+        /// 心理评测报表
+        /// </summary>
+        public static readonly string PsychologicalEvaluation = "c10d6b1b-e69c-48d4-918f-754864999d7a";
+
+
+
         /// <summary>
         /// 操作日志
         /// </summary>

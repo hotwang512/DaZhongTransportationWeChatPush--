@@ -99,6 +99,7 @@
     <Compile Include="UserDefinedEntity\NotExistPerson.cs" />
     <Compile Include="UserDefinedEntity\PersionSelectionRatioReport.cs" />
     <Compile Include="UserDefinedEntity\PersonnelLabel.cs" />
+    <Compile Include="UserDefinedEntity\PsychologicalEvaluationModel.cs" />
     <Compile Include="UserDefinedEntity\PushAPIresult.cs" />
     <Compile Include="UserDefinedEntity\ResultModel.cs" />
     <Compile Include="UserDefinedEntity\RideCheck.cs" />

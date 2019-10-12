@@ -46,12 +46,12 @@ namespace DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.WeChatQu
                 ViewData["isHistory"] = "1";    //从消息历史界面跳转而来
                 wechatMain = vguidStr.Split(',')[2];
             }
-            //string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
-            //U_WeChatUserID userInfo = new U_WeChatUserID();
-            //string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
-            //userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
-            //string userid = userInfo.UserId;
-            string userid = "WangCunBiao";
+            string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
+            U_WeChatUserID userInfo = new U_WeChatUserID();
+            string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
+            userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
+            string userid = userInfo.UserId;
+            //string userid = "WangCunBiao";
             string answerCount = _wl.GetAnswerCount();
             //8f3d8ccc-82d9-4a76-b0c7-2dc585d86b64
             //userInfo.UserId = "13774418547";

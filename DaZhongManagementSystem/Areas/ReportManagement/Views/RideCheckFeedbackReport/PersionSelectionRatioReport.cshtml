@@ -1,6 +1,8 @@
-﻿@{
+﻿@using DaZhongManagementSystem.Entities.TableEntity;
+@{
     ViewBag.Title = "跳车反馈单报表";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var currentModuleRolePermission = ViewBag.CurrentModulePermission as Sys_Role_Module;
     //var modelData = ViewBag.ModelData as DaZhongManagementSystem.Entities.UserDefinedEntity.SelectionRatioReport;
 }
 @section pageTitle
@@ -48,9 +50,12 @@
                 <td align="center">
                     <button id="btnReset" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe603;</i><span style="margin-left: 7px; float: left;">重置</span></button>
                 </td>
-                <td align="center">
-                    <button id="btnExport" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe603;</i><span style="margin-left: 7px; float: left;">导出</span></button>
-                </td>
+                @if (currentModuleRolePermission.Export == 1)
+                {
+                    <td align="center">
+                        <button id="btnExport" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe603;</i><span style="margin-left: 7px; float: left;">导出</span></button>
+                    </td>
+                }
             </tr>
         </table>
     </div>

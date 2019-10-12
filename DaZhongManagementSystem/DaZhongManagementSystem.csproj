@@ -18,7 +18,7 @@
     <AssemblyName>DaZhongManagementSystem</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -199,6 +199,8 @@
     <Compile Include="Areas\QuestionManagement\QuestionManagementAreaRegistration.cs" />
     <Compile Include="Areas\ReportManagement\Controllers\PaymentReport\BusinessLogic\PaymentReportLogic.cs" />
     <Compile Include="Areas\ReportManagement\Controllers\PaymentReport\PaymentReportController.cs" />
+    <Compile Include="Areas\ReportManagement\Controllers\PsychologicalEvaluation\BusinessLogic\PsychologicalEvaluationLogic.cs" />
+    <Compile Include="Areas\ReportManagement\Controllers\PsychologicalEvaluation\PsychologicalEvaluationController.cs" />
     <Compile Include="Areas\ReportManagement\Controllers\QuestionReport\BusinessLogic\QuestionReportLogic.cs" />
     <Compile Include="Areas\ReportManagement\Controllers\QuestionReport\QuestionReportController.cs" />
     <Compile Include="Areas\ReportManagement\Controllers\RideCheckFeedbackReport\BusinessLogic\RideCheckFeedbackReportLogic.cs" />
@@ -369,6 +371,7 @@
     <Content Include="Areas\QuestionManagement\Views\_js\QuestionList.js" />
     <Content Include="Areas\ReportManagement\Views\_js\PaymentReport.js" />
     <Content Include="Areas\ReportManagement\Views\_js\PersionSelectionRatioReport.js" />
+    <Content Include="Areas\ReportManagement\Views\_js\PsychologicalEvaluation.js" />
     <Content Include="Areas\ReportManagement\Views\_js\QuestionReport.js" />
     <Content Include="Areas\ReportManagement\Views\_css\RideCheckFeedbackReport.css" />
     <Content Include="Areas\ReportManagement\Views\_js\RideCheckFeedbackReport.js" />
@@ -2149,6 +2152,7 @@
     <Content Include="Areas\RideCheckFeedback\Views\RideCheckFeedback\Index.cshtml" />
     <Content Include="Areas\ReportManagement\Views\RideCheckFeedbackReport\SelectionRatioReport.cshtml" />
     <Content Include="Areas\ReportManagement\Views\RideCheckFeedbackReport\PersionSelectionRatioReport.cshtml" />
+    <Content Include="Areas\ReportManagement\Views\PsychologicalEvaluation\Index.cshtml" />
     <None Include="Properties\PublishProfiles\DaZhong.pubxml" />
     <Content Include="ReportTemplate\PushTemplate.xlsx" />
     <Content Include="ReportTemplate\ScoreTemplate.xlsx" />
@@ -2411,7 +2415,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>4884</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:4884/</IISUrl>
+          <IISUrl>http://localhost:8088/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:8088/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
