@@ -2168,6 +2168,7 @@
     <Content Include="PushTemplate\保养计划模板.xlsx" />
     <Content Include="ReportTemplate\PersionSelectionRatioReportTemplate.xlsx" />
     <Content Include="ReportTemplate\SelectionRatioReportTemplate.xlsx" />
+    <Content Include="ReportTemplate\PsychologicalEvaluation.xlsx" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />

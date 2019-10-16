@@ -59,6 +59,7 @@ var $page = function () {
                     { name: 'ptScore', type: 'string' },
                     { name: 'phqScore', type: 'string' },
                     { name: 'ColorBlock', type: 'string' },
+                    { name: 'Result', type: 'string' },
                 ],
                 datatype: "json",
                 id: "VGUID",//主键
@@ -83,6 +84,7 @@ var $page = function () {
                   { text: 'PT成绩', width: 80, datafield: 'ptScore', align: 'center', cellsAlign: 'center' },// 
                   { text: 'PHQ成绩', width: 80, datafield: 'phqScore', align: 'center', cellsAlign: 'center' },
                   { text: '区块', width: 80, datafield: 'ColorBlock', align: 'center', cellsAlign: 'center', cellsRenderer: genderColorBlock },
+                  { text: '结果', datafield: 'Result', align: 'left', cellsAlign: 'left' }
                 ]
             });
     }

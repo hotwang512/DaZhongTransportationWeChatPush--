@@ -373,9 +373,11 @@ namespace DaZhongManagementSystem.Infrastructure.ReportManagement
 
             foreach (PsychologicalEvaluationModel item in models)
             {
+                item.Result = "待面试";
                 if (item.ptScore.Value >= 11 && item.phqScore.Value <= 2)
                 {
                     item.ColorBlock = "blue";
+                    item.Result = "可录用";
                 }
                 else if (
                     (item.ptScore.Value >= 11 && (item.phqScore.Value >= 3 && item.phqScore.Value <= 5))
@@ -384,6 +386,7 @@ namespace DaZhongManagementSystem.Infrastructure.ReportManagement
                     )
                 {
                     item.ColorBlock = "green";
+                    item.Result = "可录用";
                 }
                 else if (
                   (item.ptScore.Value >= 11 && (item.phqScore.Value >= 6 && item.phqScore.Value <= 8))
@@ -392,6 +395,7 @@ namespace DaZhongManagementSystem.Infrastructure.ReportManagement
                   )
                 {
                     item.ColorBlock = "yellow";
+
                 }
                 else
                 {
@@ -410,7 +414,8 @@ namespace DaZhongManagementSystem.Infrastructure.ReportManagement
                 new DataColumn("ChangeDate",typeof(string)),
                 new DataColumn("ptScore",typeof(decimal)),
                 new DataColumn("phqScore",typeof(decimal)),
-                new DataColumn("ColorBlock",typeof(string))
+                new DataColumn("ColorBlock",typeof(string)),
+                new DataColumn("Result",typeof(string))
             });
             foreach (var item in list)
             {
@@ -420,6 +425,7 @@ namespace DaZhongManagementSystem.Infrastructure.ReportManagement
                 row["ptScore"] = item.ptScore;
                 row["phqScore"] = item.phqScore;
                 row["ColorBlock"] = item.ColorBlock;
+                row["Result"] = item.Result;
                 dtSource.Rows.Add(row);
             }
             return ExportExcel.ExportExcelsTo("PsychologicalEvaluation.xlsx", "PsychologicalEvaluation" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xls", dtSource);
