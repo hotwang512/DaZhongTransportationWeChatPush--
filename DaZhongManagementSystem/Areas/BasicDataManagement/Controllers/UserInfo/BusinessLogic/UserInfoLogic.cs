@@ -29,6 +29,10 @@ namespace DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.UserInfo
             return _us.GetPersonByPhoneNumber(phoneNumber);
         }
 
+        public void UpdatePhoneNumber(string userid, string phoneNumber)
+        {
+            _us.UpdatePhoneNumber(userid, phoneNumber);
+        }
         /// <summary>
         /// 获取用户详细信息（用于更改用户所在部门）
         /// </summary>

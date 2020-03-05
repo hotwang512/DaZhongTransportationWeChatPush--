@@ -15,14 +15,19 @@ namespace DaZhongManagementSystem.Common.WeChatPush
         /// 获取公司AccessToken
         /// </summary>
         /// <returns></returns>
-        public static string GetAccessoken()
+        public static string GetAccessoken(bool isContact = false)
         {
             //获取AccessTokenUrl
             string tokenUrl = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={0}&corpsecret={1}";
             string respText = "";
             string accessToken = "";
+            string AppSecret = WxPayConfig.APPSECRET;
+            if (isContact)
+            {
+                AppSecret = WxPayConfig.APPCONTACTSECRET;
+            }
             //获取josn数据
-            string url = string.Format(tokenUrl, WxPayConfig.APPID, WxPayConfig.APPSECRET);
+            string url = string.Format(tokenUrl, WxPayConfig.APPID, AppSecret);
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -407,7 +412,6 @@ namespace DaZhongManagementSystem.Common.WeChatPush
             return result;
         }
 
-
         /// <summary>
         /// Post数据接口
         /// </summary>
@@ -416,7 +420,7 @@ namespace DaZhongManagementSystem.Common.WeChatPush
         /// <param name="dataEncode">编码方式</param>
         /// <param name="isUseCert">是否使用证书</param>
         /// <returns></returns>
-        protected static string PostWebRequest(string postUrl, string jsonData, Encoding dataEncode, bool isUseCert = false)
+        public static string PostWebRequest(string postUrl, string jsonData, Encoding dataEncode, bool isUseCert = false)
         {
             string ret = string.Empty;
             try

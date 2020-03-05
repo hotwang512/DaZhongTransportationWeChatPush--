@@ -17,6 +17,8 @@ namespace DaZhongManagementSystem.Common.WeChatPush
 
         public static readonly string APPSECRET = ConfigSugar.GetAppString("Secret");
 
+        public static readonly string APPCONTACTSECRET = ConfigSugar.GetAppString("ContactSecret");
+
         public static readonly string MCHID = ConfigSugar.GetAppString("MCHID");    //商户id号
 
         public static readonly string KEY = ConfigSugar.GetAppString("APIKey");

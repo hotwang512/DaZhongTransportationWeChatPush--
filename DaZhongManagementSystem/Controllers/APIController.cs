@@ -158,6 +158,7 @@ namespace DaZhongManagementSystem.Controllers
                     pushMsg.PushPeople = textPush.founder;
                     pushMsg.CreatedUser = "微企推送";
                     pushMsg.CreatedDate = DateTime.Now;
+                    pushMsg.PeriodOfValidity = DateTime.Now.AddMonths(1);
                     UserInfoLogic userInfoLogic = new UserInfoLogic();
                     foreach (string item in textPush.PushPeople)
                     {
@@ -208,7 +209,13 @@ namespace DaZhongManagementSystem.Controllers
                     string postUrl = string.Format(_sendUrl, accessToken);
                     //获取推送内容Json
                     string json = GetPushJson(OAuth2, textPush);
-                    string pushResult = PostWebRequest(postUrl, json, Encoding.UTF8);
+                    string pushResult = WeChatTools.PostWebRequest(postUrl, json, Encoding.UTF8);
+                    var wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
+                    if (wechatResult.errcode == "0")
+                    {
+                        result.Success = true;
+                    }
+                    result.Message = pushResult;
                 }
                 else
                 {
@@ -233,6 +240,7 @@ namespace DaZhongManagementSystem.Controllers
             pushMsg.Title = textPush[0].Title;
             pushMsg.Message = textPush[0].Message;
             pushMsg.PushPeople = textPush[0].founder;
+            pushMsg.PeriodOfValidity = DateTime.Now.AddMonths(1);
             pushMsg.CreatedUser = "微企推送";
             pushMsg.CreatedDate = DateTime.Now;
             UserInfoLogic userInfoLogic = new UserInfoLogic();
@@ -277,6 +285,86 @@ namespace DaZhongManagementSystem.Controllers
             return result;
         }
 
+
+        public JsonResult CreateContact(string SECURITYKEY, string pushparam)
+        {
+
+            ExecutionResult result = new ExecutionResult();
+            try
+            {
+                if (API_Authentication(SECURITYKEY))
+                {
+                    string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken(true);
+                    string _sendUrl = "https://qyapi.weixin.qq.com/cgi-bin/user/create?access_token={0}";
+                    U_WeChatRegistered user = Extend.JsonToModel<U_WeChatRegistered>(pushparam);
+                    string postUrl = string.Format(_sendUrl, accessToken);
+                    string jsonData = "{\"userid\":\"" + user.userid + "\",\"name\":\"" + user.name + "\",\"department\":[2],\"position\":\"司机\",\"mobile\":\"" + user.mobile + "\",\"gender\":\"" + user.gender + "\"}";
+                    string pushResult = WeChatTools.PostWebRequest(postUrl, jsonData, Encoding.UTF8);
+                    var wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
+                    if (wechatResult.errcode == "0")
+                    {
+                        _sendUrl = "https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers?access_token={0}";
+                        postUrl = string.Format(_sendUrl, accessToken);
+                        jsonData = "{\"tagid\":1, \"userlist\":[\"" + user.userid + "\"]}";
+                        pushResult = WeChatTools.PostWebRequest(postUrl, jsonData, Encoding.UTF8);
+                        wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
+                        if (wechatResult.errcode == "0")
+                        {
+                            result.Success = true;
+                        }
+                    }
+                    result.Message = pushResult;
+                }
+                else
+                {
+                    result.Message = "SECURITYKEY 无效！";
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = ex.Message;
+                LogHelper.WriteLog(ex.Message);
+            }
+            return Json(result);
+        }
+
+        public JsonResult EditContactMobile(string SECURITYKEY, string pushparam)
+        {
+
+            ExecutionResult result = new ExecutionResult();
+            try
+            {
+                if (API_Authentication(SECURITYKEY))
+                {
+                    string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken(true);
+                    string _sendUrl = "https://qyapi.weixin.qq.com/cgi-bin/user/update?access_token={0}";
+                    U_WeChatRegistered user = Extend.JsonToModel<U_WeChatRegistered>(pushparam);
+                    UserInfoLogic userInfoLogic = new UserInfoLogic();
+                    userInfoLogic.UpdatePhoneNumber(user.userid, user.mobile);
+                    string postUrl = string.Format(_sendUrl, accessToken);
+                    string jsonData = "{\"userid\":\"" + user.userid + "\",\"mobile\":\"" + user.mobile + "\"}";
+                    string pushResult = WeChatTools.PostWebRequest(postUrl, jsonData, Encoding.UTF8);
+                    var wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
+                    if (wechatResult.errcode == "0")
+                    {
+                        result.Success = true;
+                    }
+                    result.Message = pushResult;
+                }
+                else
+                {
+                    result.Message = "SECURITYKEY 无效！";
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = ex.Message;
+                LogHelper.WriteLog(ex.Message);
+            }
+            return Json(result);
+        }
+
+
         protected string GetPushJson(bool OAuth2, List<PushParamModel> pushMsg)
         {
             var agentid = SyntacticSugar.ConfigSugar.GetAppString("WeChatAgentID", "1");
@@ -315,49 +403,6 @@ namespace DaZhongManagementSystem.Controllers
             responeJsonStr += "}";
             return responeJsonStr;
 
-        }
-
-        /// <summary>
-        /// Post数据接口
-        /// </summary>
-        /// <param name="postUrl">接口地址</param>
-        /// <param name="jsonData">提交json数据</param>
-        /// <param name="dataEncode">编码方式</param>
-        /// <param name="isUseCert">是否使用证书</param>
-        /// <returns></returns>
-        protected string PostWebRequest(string postUrl, string jsonData, Encoding dataEncode, bool isUseCert = false)
-        {
-            string ret = string.Empty;
-            try
-            {
-                byte[] byteArray = dataEncode.GetBytes(jsonData); //转化
-                HttpWebRequest webReq = (HttpWebRequest)WebRequest.Create(new Uri(postUrl));
-                webReq.Method = "POST";
-                webReq.ContentType = "application/x-www-form-urlencoded";
-
-                webReq.ContentLength = byteArray.Length;
-                if (isUseCert)
-                {
-                    string path = AppDomain.CurrentDomain.BaseDirectory;
-                    X509Certificate2 cert = new X509Certificate2(path + WxPayConfig.SSLCERT_PATH, WxPayConfig.SSLCERT_PASSWORD);
-                    webReq.ClientCertificates.Add(cert);
-                }
-                Stream newStream = webReq.GetRequestStream();
-                newStream.Write(byteArray, 0, byteArray.Length);//写入参数
-                newStream.Close();
-                HttpWebResponse response = (HttpWebResponse)webReq.GetResponse();
-                StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
-                ret = sr.ReadToEnd();
-                sr.Close();
-                response.Close();
-                newStream.Close();
-            }
-            catch (Exception ex)
-            {
-                LogHelper.WriteLog(ex.Message);
-                return ex.Message;
-            }
-            return ret;
         }
     }
 }

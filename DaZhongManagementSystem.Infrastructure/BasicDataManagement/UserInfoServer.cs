@@ -54,6 +54,14 @@ namespace DaZhongManagementSystem.Infrastructure.BasicDataManagement
             }
             return user;
         }
+
+        public void UpdatePhoneNumber(string userid, string phoneNumber)
+        {
+            using (SqlSugarClient dbMsSql = SugarDao_MsSql.GetInstance())
+            {
+                dbMsSql.Update<Business_Personnel_Information>(new { PhoneNumber = phoneNumber }, i => i.UserID == userid);
+            }
+        }
         /// <summary>
         /// 部门树形结构
         /// </summary>

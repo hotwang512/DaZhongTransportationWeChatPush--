@@ -111,6 +111,8 @@
     <Compile Include="UserDefinedEntity\U_QuestionAnswerDetail.cs" />
     <Compile Include="UserDefinedEntity\U_QuestionReport.cs" />
     <Compile Include="UserDefinedEntity\U_QuestionSsetsRate.cs" />
+    <Compile Include="UserDefinedEntity\U_WeChatRegistered.cs" />
+    <Compile Include="UserDefinedEntity\U_WechatResult.cs" />
     <Compile Include="UserDefinedEntity\WebChat_json_data.cs" />
     <Compile Include="View\v_Business_ProtocolOperations_Information.cs" />
     <Compile Include="UserDefinedEntity\Business_ExerciseLibrary_Infomation_Search.cs" />
