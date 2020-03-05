@@ -46,7 +46,7 @@
             'indent', '|',
             'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
              'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-            'simpleupload', 'insertimage', 'insertvideo', 'pagebreak', '|',
+            'simpleupload', 'insertimage', 'attachment', 'insertvideo', 'pagebreak', '|',
             'horizontal',  'spechars', '|',
             'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'preview','fullscreen'
         ]]
