@@ -286,7 +286,7 @@ namespace DaZhongManagementSystem.Controllers
         }
 
 
-        public JsonResult CreateContact(string SECURITYKEY, string pushparam)
+        public JsonResult WeChatRegistered(string SECURITYKEY, string pushparam)
         {
 
             ExecutionResult result = new ExecutionResult();
@@ -328,7 +328,7 @@ namespace DaZhongManagementSystem.Controllers
             return Json(result);
         }
 
-        public JsonResult EditContactMobile(string SECURITYKEY, string pushparam)
+        public JsonResult WeChatMobileChange(string SECURITYKEY, string pushparam)
         {
 
             ExecutionResult result = new ExecutionResult();
@@ -406,6 +406,172 @@ namespace DaZhongManagementSystem.Controllers
         }
 
 
+        public JsonResult TextCardPush(string SECURITYKEY, string pushparam, bool OAuth2 = false)
+        {
+            ExecutionResult result = new ExecutionResult();
+            try
+            {
+                if (API_Authentication(SECURITYKEY))
+                {
+                    PushParamModel textPush = Extend.JsonToModel<PushParamModel>(pushparam);
+                    var textPushs = new List<PushParamModel> { textPush };
+                    result = SaveGraphicPushData(textPushs);
+                    string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
+                    string _sendUrl = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={0}";
+                    string postUrl = string.Format(_sendUrl, accessToken);
+                    //获取推送内容Json
+                    string json = GetTextCardPushJson(OAuth2, textPush);
+                    string pushResult = WeChatTools.PostWebRequest(postUrl, json, Encoding.UTF8);
+                    var wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
+                    if (wechatResult.errcode == "0")
+                    {
+                        result.Success = true;
+                    }
+                    result.Message = pushResult;
+                }
+                else
+                {
+                    result.Message = "SECURITYKEY 无效！";
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = ex.Message;
+                LogHelper.WriteLog(ex.Message);
+            }
+            return Json(result);
+        }
 
+
+        protected string GetTextCardPushJson(bool OAuth2, PushParamModel pushMsg)
+        {
+            var agentid = SyntacticSugar.ConfigSugar.GetAppString("WeChatAgentID", "1");
+            string _oAuthUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type=code&scope=snsapi_base#wechat_redirect";
+            string responeJsonStr = "";
+            responeJsonStr = "{";
+            responeJsonStr += "\"touser\": \"" + pushMsg.PushPeoples + "\",";
+            responeJsonStr += "\"toparty\": \"\",";
+            responeJsonStr += "\"totag\": \"\",";
+            responeJsonStr += "\"msgtype\": \"textcard\",";
+            responeJsonStr += "\"agentid\":\"" + agentid + "\",";
+            responeJsonStr += "\"textcard\": {";
+
+            string pushUrl = string.Empty;
+            if (OAuth2)
+            {
+                pushUrl = string.Format(_oAuthUrl, WxPayConfig.APPID, pushMsg.Url);
+            }
+            else
+            {
+                pushUrl = pushMsg.Url;
+            }
+            responeJsonStr += "\"title\": \"" + pushMsg.Title + "\",";
+            responeJsonStr += "\"description\": \"" + pushMsg.Message + "\",";
+            responeJsonStr += "\"url\": \"" + pushUrl + "\",";
+            //responeJsonStr += "\"picurl\": \"" + pushMsg.Image + "\"";
+            responeJsonStr += "\"btntxt\": \"更多\"";
+            responeJsonStr += "}";
+            responeJsonStr += "}";
+            return responeJsonStr;
+        }
+
+        //public JsonResult WeChatRegistered(string SECURITYKEY, string pushparam)
+        //{
+        //    ExecutionResult result = new ExecutionResult();
+        //    try
+        //    {
+        //        if (API_Authentication(SECURITYKEY))
+        //        {
+        //            WeChatRegisteredModel textPush = Extend.JsonToModel<WeChatRegisteredModel>(pushparam);
+        //            string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
+        //            string _sendUrl = "https://qyapi.weixin.qq.com/cgi-bin/user/create?access_token={0}";
+        //            string postUrl = string.Format(_sendUrl, accessToken);
+        //            //获取推送内容Json
+        //            string json = GetWeChatRegisteredPushJson(textPush);
+        //            string pushResult = WeChatTools.PostWebRequest(postUrl, json, Encoding.UTF8);
+        //            var wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
+        //            if (wechatResult.errcode == "0")
+        //            {
+        //                result.Success = true;
+        //            }
+        //            result.Message = pushResult;
+        //        }
+        //        else
+        //        {
+        //            result.Message = "SECURITYKEY 无效！";
+        //        }
+
+
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        result.Message = ex.Message;
+        //        LogHelper.WriteLog(ex.Message);
+        //    }
+        //    return Json(result);
+        //}
+
+        //protected string GetWeChatRegisteredPushJson(WeChatRegisteredModel pushMsg)
+        //{
+        //    var agentid = SyntacticSugar.ConfigSugar.GetAppString("WeChatAgentID", "1");
+        //    string responeJsonStr = "";
+        //    responeJsonStr = "{";
+        //    responeJsonStr += "\"userid\": \"" + pushMsg.userid + "\",";
+        //    responeJsonStr += "\"name\":\"" + pushMsg.name + "\",";
+        //    responeJsonStr += "\"mobile\": \"" + pushMsg.mobile + "\",";
+        //    responeJsonStr += "\"gender\": \"" + pushMsg.gender + "\"";
+        //    responeJsonStr += "}";
+        //    return responeJsonStr;
+        //}
+
+
+        //public JsonResult WeChatMobileChange(string SECURITYKEY, string pushparam)
+        //{
+        //    ExecutionResult result = new ExecutionResult();
+        //    try
+        //    {
+        //        if (API_Authentication(SECURITYKEY))
+        //        {
+        //            WeChatRegisteredModel textPush = Extend.JsonToModel<WeChatRegisteredModel>(pushparam);
+        //            string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
+        //            string _sendUrl = "https://qyapi.weixin.qq.com/cgi-bin/user/update?access_token={0}";
+        //            string postUrl = string.Format(_sendUrl, accessToken);
+        //            //获取推送内容Json
+        //            string json = GetWeChatMobileChangePushJson(textPush);
+        //            string pushResult = WeChatTools.PostWebRequest(postUrl, json, Encoding.UTF8);
+        //            var wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
+        //            if (wechatResult.errcode == "0")
+        //            {
+        //                result.Success = true;
+        //            }
+        //            result.Message = pushResult;
+        //        }
+        //        else
+        //        {
+        //            result.Message = "SECURITYKEY 无效！";
+        //        }
+
+
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        result.Message = ex.Message;
+        //        LogHelper.WriteLog(ex.Message);
+        //    }
+        //    return Json(result);
+        //}
+
+        //protected string GetWeChatMobileChangePushJson(WeChatRegisteredModel pushMsg)
+        //{
+        //    var agentid = SyntacticSugar.ConfigSugar.GetAppString("WeChatAgentID", "1");
+        //    string responeJsonStr = "";
+        //    responeJsonStr = "{";
+        //    responeJsonStr += "\"userid\": \"" + pushMsg.userid + "\",";
+        //    responeJsonStr += "\"mobile\": \"" + pushMsg.mobile + "\"";
+        //    responeJsonStr += "}";
+        //    return responeJsonStr;
+        //}
     }
 }
