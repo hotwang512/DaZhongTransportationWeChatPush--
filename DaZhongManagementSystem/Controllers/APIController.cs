@@ -295,18 +295,12 @@ namespace DaZhongManagementSystem.Controllers
                 if (API_Authentication(SECURITYKEY))
                 {
                     string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken(true);
-                    string _sendUrl = "https://qyapi.weixin.qq.com/cgi-bin/user/create?access_token={0}";
                     U_WeChatRegistered user = Extend.JsonToModel<U_WeChatRegistered>(pushparam);
-                    string postUrl = string.Format(_sendUrl, accessToken);
-                    string jsonData = "{\"userid\":\"" + user.userid + "\",\"name\":\"" + user.name + "\",\"department\":[2],\"position\":\"司机\",\"mobile\":\"" + user.mobile + "\",\"gender\":\"" + user.gender + "\"}";
-                    string pushResult = WeChatTools.PostWebRequest(postUrl, jsonData, Encoding.UTF8);
+                    string pushResult = WeChatTools.CreateUser(accessToken, user);
                     var wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
                     if (wechatResult.errcode == "0")
                     {
-                        _sendUrl = "https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers?access_token={0}";
-                        postUrl = string.Format(_sendUrl, accessToken);
-                        jsonData = "{\"tagid\":1, \"userlist\":[\"" + user.userid + "\"]}";
-                        pushResult = WeChatTools.PostWebRequest(postUrl, jsonData, Encoding.UTF8);
+                        pushResult = WeChatTools.TagWeChatData(accessToken, user.userid);
                         wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
                         if (wechatResult.errcode == "0")
                         {
@@ -337,13 +331,10 @@ namespace DaZhongManagementSystem.Controllers
                 if (API_Authentication(SECURITYKEY))
                 {
                     string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken(true);
-                    string _sendUrl = "https://qyapi.weixin.qq.com/cgi-bin/user/update?access_token={0}";
                     U_WeChatRegistered user = Extend.JsonToModel<U_WeChatRegistered>(pushparam);
                     UserInfoLogic userInfoLogic = new UserInfoLogic();
                     userInfoLogic.UpdatePhoneNumber(user.userid, user.mobile);
-                    string postUrl = string.Format(_sendUrl, accessToken);
-                    string jsonData = "{\"userid\":\"" + user.userid + "\",\"mobile\":\"" + user.mobile + "\"}";
-                    string pushResult = WeChatTools.PostWebRequest(postUrl, jsonData, Encoding.UTF8);
+                    string pushResult = WeChatTools.WeChatMobileChange(accessToken, user.userid, user.mobile);
                     var wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
                     if (wechatResult.errcode == "0")
                     {

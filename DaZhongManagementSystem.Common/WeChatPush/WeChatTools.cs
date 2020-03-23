@@ -6,6 +6,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Web;
 using System.Web.Script.Serialization;
+using DaZhongManagementSystem.Entities.UserDefinedEntity;
 
 namespace DaZhongManagementSystem.Common.WeChatPush
 {
@@ -128,6 +129,22 @@ namespace DaZhongManagementSystem.Common.WeChatPush
         }
 
         /// <summary>
+        /// 创建微信通讯录中的用户
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static string CreateUser(string accessToken, U_WeChatRegistered user)
+        {
+            string createUserUrl = "https://qyapi.weixin.qq.com/cgi-bin/user/create?access_token={0}";
+            string url = string.Format(createUserUrl, accessToken);
+            string jsonData = "{\"userid\":\"" + user.userid + "\",\"name\":\"" + user.name + "\",\"department\":[2],\"position\":\"司机\",\"mobile\":\"" + user.mobile + "\",\"gender\":\"" + user.gender + "\"}";
+            string respText = PostWebRequest(url, jsonData, Encoding.UTF8);
+            return respText;
+        }
+
+
+        /// <summary>
         /// 删除微信通讯录中的用户
         /// </summary>
         /// <param name="accessToken"></param>
@@ -172,6 +189,30 @@ namespace DaZhongManagementSystem.Common.WeChatPush
 
             return respText;
         }
+
+        /// <summary>
+        /// 更新通讯录人员手机号码
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="userID"></param>
+        /// <param name="mobile"></param>
+        /// <returns></returns>
+        public static string WeChatMobileChange(string accessToken, string userID, string mobile)
+        {
+            string respText = "";
+            string updateUserUrl = "https://qyapi.weixin.qq.com/cgi-bin/user/update?access_token={0}";
+
+            string responeJsonStr = "";
+            responeJsonStr = "{";
+            responeJsonStr += "\"userid\": \"" + userID + "\",";
+            responeJsonStr += "\"mobile\": \"" + mobile + "\"";
+            responeJsonStr += "}";
+            string url = string.Format(updateUserUrl, accessToken);
+            respText = PostWebRequest(url, responeJsonStr, Encoding.UTF8);
+
+
+            return respText;
+        }
         /// <summary>
         /// 启用微信通讯录人员
         /// </summary>
@@ -194,7 +235,25 @@ namespace DaZhongManagementSystem.Common.WeChatPush
 
             return respText;
         }
+        /// <summary>
+        /// 微信通讯录人员添加标记
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public static string TagWeChatData(string accessToken, string userID)
+        {
+            string respText = "";
+            string tagUserUrl = "https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers?access_token={0}";
 
+            string responeJsonStr = "";
+            responeJsonStr = "{\"tagid\":1, \"userlist\":[\"" + userID + "\"]}";
+            string url = string.Format(tagUserUrl, accessToken);
+            respText = PostWebRequest(url, responeJsonStr, Encoding.UTF8);
+
+
+            return respText;
+        }
         /// <summary>
         /// 根据userid获取openid
         /// </summary>
