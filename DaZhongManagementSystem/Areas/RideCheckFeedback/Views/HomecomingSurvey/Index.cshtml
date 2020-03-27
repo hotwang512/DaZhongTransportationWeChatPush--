@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+@using DaZhongManagementSystem.Entities.TableEntity;
+@{
+    Business_HomecomingSurvey bhs = Model as Business_HomecomingSurvey;
+    string startDate = "";
+    string endDate = "";
+    if (bhs.Vguid != Guid.Empty)
+    {
+        startDate = bhs.StartDate == DateTime.MinValue ? "" : bhs.StartDate.ToString("yyyy-MM-dd");
+        endDate = bhs.EndDate == DateTime.MinValue ? "" : bhs.EndDate.ToString("yyyy-MM-dd");
+    }
+    string whetherReturnHome = bhs.WhetherReturnHome == "1" ? "checked=\"checked\"" : "";
+}
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="@Url.Content("~/Areas/RideCheckFeedback/Views/_css/weui.min.css")"> <!-- jquery weui 插件 -->
+    <link rel="stylesheet" href="@Url.Content("~/Areas/RideCheckFeedback/Views/_css/layui.css")"> <!-- layui 插件 -->
+    <link rel="stylesheet" href="@Url.Content("~/Areas/RideCheckFeedback/Views/_css/jquery-weui.min.css")"> <!-- jquery weui 插件 -->
+    <link rel="stylesheet" href="@Url.Content("~/Areas/RideCheckFeedback/Views/_css/layer.css")" id="layui_layer_skinlayercss" style="">  <!-- layui 插件 -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/RideCheckFeedback/Views/_js/hs/jquery.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/RideCheckFeedback/Views/_js/hs/jquery-weui.min.js")"></script> <!-- jquery weui 插件 -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/RideCheckFeedback/Views/_js/hs/swiper.min.js")"></script> <!-- jquery weui 插件 -->
+    <script type="text/javascript" src="@Url.Content("~/Areas/RideCheckFeedback/Views/_js/hs/main.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/RideCheckFeedback/Views/_js/hs/layer.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/RideCheckFeedback/Views/_js/hs/layui.js")"></script>  <!-- layui 插件 -->
+    <style>
+        body {
+            height: 100%;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .weui-form-preview__label {
+            color: black;
+            margin-right: 0px;
+            margin-bottom: 5px;
+        }
+
+        .demos-title {
+            text-align: center;
+            font-size: 22px;
+            color: black;
+            font-weight: 600;
+            margin: 0 13%;
+        }
+
+        .demos-bottom {
+            text-align: center;
+            font-size: 17px;
+            color: black;
+            font-weight: 600;
+            margin: 5px 13%;
+        }
+
+        .demos-header {
+            padding: 6px 0;
+            background-color: #F9F9F9;
+        }
+
+        .weui-label {
+            text-align: right;
+        }
+
+        input[type="date"]:before {
+            content: attr(placeholder);
+            color: #757575;
+        }
+
+        .weui-cells {
+            margin-top: 0px;
+        }
+
+            .weui-cells:after, .weui-cells:before {
+                border: 0px;
+            }
+
+        .weui-cell:before {
+            border: 0px;
+        }
+
+        hr {
+            margin: 5px 0px;
+        }
+
+        .weui-input {
+            height: 2em;
+        }
+    </style>
+</head>
+<body ontouchstart="" style="">
+    <header class="demos-header">
+        <h2 class="demos-title">出租车驾驶员返乡情况调查</h2>
+    </header>
+    <div class="weui-cells weui-cells_form" id="root">
+        <hr style="height:0px">
+        <input id="Vguid" type="hidden" value="@bhs.Vguid" />
+        <input id="CreatedUser" type="hidden" value="@bhs.CreatedUser" />
+        <input id="Year" type="hidden" value="@bhs.Year" />
+        <!-- 车牌号码 -->
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">车牌号码<font style="color:red"> *</font>：</label>
+            </div>
+            <div class="weui-cell__bd">
+                <label style="width: 33px;display: inline-block;">沪</label>
+                <input class="weui-input" value="@bhs.LicensePlate" style="width: 80%" type="text" id="cphm" maxlength="6" placeholder="请输入车牌号码" onkeyup="value = value.replace(/[\W]/g, '') ">
+            </div>
+        </div>
+        <hr>
+        <!-- 姓名 -->
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">姓名<font style="color:red"> *</font>：</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" value="@bhs.Name" type="text" id="name" readonly="readonly" placeholder="请输入姓名">
+            </div>
+        </div>
+        <hr>
+        <!-- 2020年返乡情况-->
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <label class="weui-label" style="width:150px;margin-left: -9%">@DateTime.Now.Year.ToString()年返乡情况</label>
+            </div>
+            <div class="weui-cell__ft">
+                <div class="weui-cells weui-cells_checkbox">
+                    <label class="weui-cell weui-check__label">
+                        不计划返乡
+                        <input type="checkbox" @whetherReturnHome class="weui-check" name="check_2020" onchange="checkChanage(this,'to_2020','back_2020','不计划返乡')" id="check_2020">
+                        <i class="weui-icon-checked"></i>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <!-- 返乡情况 -->
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">返乡日期<font style="color:red"> *</font>：</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="date" value="@startDate" id="to_2020" onchange="dateChanage(this,'请选择返乡日期')">
+            </div>
+        </div>
+        <!-- 回沪情况 -->
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">回沪日期<font style="color:red"> *</font>：</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="date" value="@endDate" id="back_2020" onchange="dateChanage(this,'请选择回沪日期')">
+            </div>
+        </div>
+    </div>
+    <div class="weui-footer" style="margin-top: 5%;">
+        <button type="button" id="sumbit" onclick="sumbit()" class="layui-btn layui-btn-lg layui-btn-normal" style="width:75%">提交</button>
+    </div>
+    <script>
+        //时间框提示文字
+        function dateChanage(item, placeholder) {
+            if ($(item).val() != "") {
+                $(item).removeAttr('placeholder');
+            } else {
+                $(item).attr('placeholder', placeholder);
+            }
+        }
+        //check框改变事件
+        function checkChanage(item, id1, id2, placeholder) {
+            if ($(item).is(":checked") == true) {
+                $("#" + id1).attr('placeholder', placeholder);
+                $("#" + id2).attr('placeholder', placeholder);
+                $("#" + id1).val("");
+                $("#" + id1).attr("disabled", "disabled");
+                $("#" + id2).val("");
+                $("#" + id2).attr("disabled", "disabled");
+                $("#" + id1).parent().attr("style", "background-color:#dfdfdf");
+                $("#" + id2).parent().attr("style", "background-color:#dfdfdf");
+
+            } else {
+                /* $($(item).parent().parent()).attr("style","background-color:white"); */
+                //$("#" + id1).attr('placeholder', '请选择返乡日期');
+                //$("#" + id2).attr('placeholder', '请选择回沪日期');
+                $("#" + id1).removeAttr("disabled");
+                $("#" + id1).parent().attr("style", "background-color:white");
+                $("#" + id2).removeAttr("disabled");
+                $("#" + id2).parent().attr("style", "background-color:white");
+            }
+        }
+        if ('@bhs.WhetherReturnHome' == "1") {
+            checkChanage($("#check_2020")[0], 'to_2020', 'back_2020', '不计划返乡')
+        }
+
+        function sumbit() {
+            var year = '@DateTime.Now.ToString()';
+            if ($("#cphm").val() == "") {
+                layer.msg('请输入车牌号码', { time: 1000 });
+                return;
+            }
+            if ($("#cphm").val().length > 6) {
+                layer.msg('车牌号码过长，请重新输入', { time: 1000 });
+                $("#cphm").val("");
+                return;
+            }
+            if ($("#name").val() == "") {
+                layer.msg('请输入姓名', { time: 1000 });
+                return;
+            }
+            if ($("#check_2020").is(":checked") == false && ($("#to_2020").val() == "" || $("#back_2020").val() == "")) {
+                layer.msg('请选择' + year + '年返乡情况', { time: 1000 });
+                return;
+            }
+
+            var oDate1 = new Date($("#to_2020").val());
+            var oDate2 = new Date($("#back_2020").val());
+            if (oDate1 > oDate2) {
+                layer.msg('返乡日期不能大于回沪日期', { time: 1000 });
+                return;
+            }
+
+
+            var index = layer.load(1, {
+                shade: [0.5, '#292C34'] //0.1透明度的白色背景
+            });
+            var form = new FormData();
+            form.append("LicensePlate", $("#cphm").val());
+            form.append("Name", $("#name").val());
+            var returnHome = $("#check_2020").is(":checked") ? "1" : "0";
+            form.append("WhetherReturnHome", returnHome);
+            form.append("StartDate", $("#to_2020").val());
+            form.append("EndDate", $("#back_2020").val());
+            form.append("Vguid", $("#Vguid").val());
+            form.append("Year", $("#Year").val());
+            form.append("CreatedUser", $("#CreatedUser").val());
+            $.ajax({
+                url: '/RideCheckFeedback/HomecomingSurvey/SaveHomecomingSurvey',
+                dataType: 'json',
+                type: 'post',
+                data: form,
+                processData: false,
+                contentType: false,
+                success: function (msg) {
+                    layer.closeAll();
+                    if (msg == "0") {
+                        $.toast("提交成功", 3000, function () {
+                            location.reload();
+                        });
+
+                    } else if (msg == "1") {
+                        layer.alert('提交失败，请稍后重试！', { icon: 2 })
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

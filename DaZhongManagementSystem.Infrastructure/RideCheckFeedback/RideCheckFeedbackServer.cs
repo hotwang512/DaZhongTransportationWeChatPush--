@@ -285,7 +285,6 @@ namespace DaZhongManagementSystem.Infrastructure.RideCheckFeedback
             List<RideCheck> rideChecks = new List<RideCheck>();
             using (SqlSugarClient dbMsSql = SugarDao_MsSql.GetInstance())
             {
-
                 try
                 {
                     rideChecks = dbMsSql.SqlQuery<RideCheck>(sql);
@@ -301,10 +300,9 @@ namespace DaZhongManagementSystem.Infrastructure.RideCheckFeedback
                 catch (Exception ex)
                 {
                     LogHelper.WriteLog(ex.Message);
-                    //_logLogic.SaveLog(5, 34, "", userID + personModel.Name, ex.Message);
                 }
-                return rideChecks;
             }
+            return rideChecks;
         }
 
 

@@ -96,6 +96,7 @@
     <Compile Include="ReportManagement\ScoreReportServer.cs" />
     <Compile Include="ReportManagement\SelectionRatioReportServer.cs" />
     <Compile Include="RevenueServer.cs" />
+    <Compile Include="RideCheckFeedback\HomecomingSurveyServer.cs" />
     <Compile Include="RideCheckFeedback\RideCheckFeedbackServer.cs" />
     <Compile Include="Salary\SalaryServer.cs" />
     <Compile Include="QRCodeManagement\ScanDataServer.cs" />

@@ -204,6 +204,8 @@
     <Compile Include="Areas\ReportManagement\Controllers\QuestionReport\BusinessLogic\QuestionReportLogic.cs" />
     <Compile Include="Areas\ReportManagement\Controllers\QuestionReport\QuestionReportController.cs" />
     <Compile Include="Areas\ReportManagement\Controllers\RideCheckFeedbackReport\BusinessLogic\RideCheckFeedbackReportLogic.cs" />
+    <Compile Include="Areas\RideCheckFeedback\Controllers\HomecomingSurvey\BusinessLogic\HomecomingSurveyLogic.cs" />
+    <Compile Include="Areas\RideCheckFeedback\Controllers\HomecomingSurvey\HomecomingSurveyController.cs" />
     <Compile Include="Areas\RideCheckFeedback\Controllers\RideCheckFeedback\BusinessLogic\RideCheckFeedbackLogic.cs" />
     <Compile Include="Areas\RideCheckFeedback\Controllers\RideCheckFeedback\RideCheckFeedbackController.cs" />
     <Compile Include="Areas\ReportManagement\Controllers\RideCheckFeedbackReport\RideCheckFeedbackReportController.cs" />
@@ -377,6 +379,13 @@
     <Content Include="Areas\ReportManagement\Views\_css\RideCheckFeedbackReport.css" />
     <Content Include="Areas\ReportManagement\Views\_js\RideCheckFeedbackReport.js" />
     <Content Include="Areas\RideCheckFeedback\Views\_css\index2.css" />
+    <Content Include="Areas\RideCheckFeedback\Views\_css\layui.css" />
+    <Content Include="Areas\RideCheckFeedback\Views\_js\hs\jquery-weui.min.js" />
+    <Content Include="Areas\RideCheckFeedback\Views\_js\hs\jquery.min.js" />
+    <Content Include="Areas\RideCheckFeedback\Views\_js\hs\layer.js" />
+    <Content Include="Areas\RideCheckFeedback\Views\_js\hs\layui.js" />
+    <Content Include="Areas\RideCheckFeedback\Views\_js\hs\main.js" />
+    <Content Include="Areas\RideCheckFeedback\Views\_js\hs\swiper.min.js" />
     <Content Include="Areas\RideCheckFeedback\Views\_js\need\layer.css" />
     <Content Include="Areas\RideCheckFeedback\Views\_css\mobileSelect.css" />
     <Content Include="Areas\RideCheckFeedback\Views\_img\add_image.png" />
@@ -2046,8 +2055,11 @@
     <Content Include="_theme\_css\chosen-sprite.png" />
     <Content Include="_theme\_css\chosen.css" />
     <Content Include="_theme\_css\common.css" />
+    <Content Include="Areas\RideCheckFeedback\Views\_css\jquery-weui.min.css" />
     <Content Include="_theme\_css\jquery.gritter.css" />
+    <Content Include="Areas\RideCheckFeedback\Views\_css\layer.css" />
     <Content Include="_theme\_css\style.default.css" />
+    <Content Include="Areas\RideCheckFeedback\Views\_css\weui.min.css" />
     <Content Include="_theme\_js\alertPopShow.js" />
     <Content Include="_theme\_js\chosen.jquery.js" />
     <Content Include="_theme\_js\code.photoswipe-3.0.5.min.js" />
@@ -2154,6 +2166,7 @@
     <Content Include="Areas\ReportManagement\Views\RideCheckFeedbackReport\SelectionRatioReport.cshtml" />
     <Content Include="Areas\ReportManagement\Views\RideCheckFeedbackReport\PersionSelectionRatioReport.cshtml" />
     <Content Include="Areas\ReportManagement\Views\PsychologicalEvaluation\Index.cshtml" />
+    <Content Include="Areas\RideCheckFeedback\Views\HomecomingSurvey\Index.cshtml" />
     <None Include="Properties\PublishProfiles\DaZhong.pubxml" />
     <Content Include="ReportTemplate\PushTemplate.xlsx" />
     <Content Include="ReportTemplate\ScoreTemplate.xlsx" />

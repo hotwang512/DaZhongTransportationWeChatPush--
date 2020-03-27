@@ -55,6 +55,7 @@
     <Compile Include="TableEntity\Business_ExercisesAnswer_Information.cs" />
     <Compile Include="TableEntity\Business_ExercisesDetail_Infomation.cs" />
     <Compile Include="TableEntity\Business_Exercises_Infomation.cs" />
+    <Compile Include="TableEntity\Business_HomecomingSurvey.cs" />
     <Compile Include="TableEntity\Business_KnowledgeBase_Information.cs" />
     <Compile Include="TableEntity\Business_OperationLog.cs" />
     <Compile Include="TableEntity\Business_PaymentHistory_Information.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="UserDefinedEntity\PsychologicalEvaluationModel.cs" />
     <Compile Include="UserDefinedEntity\PushAPIresult.cs" />
     <Compile Include="UserDefinedEntity\ResultModel.cs" />
+    <Compile Include="UserDefinedEntity\ReturnHomeStatistics.cs" />
     <Compile Include="UserDefinedEntity\RideCheck.cs" />
     <Compile Include="UserDefinedEntity\Search_AgreementOperation.cs" />
     <Compile Include="UserDefinedEntity\Search_QuestionReport.cs" />
