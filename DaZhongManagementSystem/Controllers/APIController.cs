@@ -300,12 +300,12 @@ namespace DaZhongManagementSystem.Controllers
                     var wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
                     if (wechatResult.errcode == "0")
                     {
-                        pushResult = WeChatTools.TagWeChatData(accessToken, user.userid);
-                        wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
-                        if (wechatResult.errcode == "0")
-                        {
-                            result.Success = true;
-                        }
+                        //pushResult = WeChatTools.TagWeChatData(accessToken, user.userid);
+                        //wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
+                        //if (wechatResult.errcode == "0")
+                        //{
+                        result.Success = true;
+                        //}
                     }
                     result.Message = pushResult;
                 }

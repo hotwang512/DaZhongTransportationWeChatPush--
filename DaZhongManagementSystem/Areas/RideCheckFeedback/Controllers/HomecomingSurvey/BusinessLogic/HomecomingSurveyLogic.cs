@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using DaZhongManagementSystem.Entities.TableEntity;
+using DaZhongManagementSystem.Entities.UserDefinedEntity;
 using DaZhongManagementSystem.Infrastructure.RideCheckFeedback;
 
 namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.HomecomingSurvey.BusinessLogic
@@ -35,6 +36,17 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.Homecoming
             hs.ChangeUser = hs.CreatedUser;
             hs.ChangeDate = DateTime.Now;
             _hss.UpdateHomecomingSurvey(hs);
+        }
+
+        public List<ReturnHomeStatistics> ReturnHomeStatistics()
+        {
+            return _hss.ReturnHomeStatistics();
+        }
+
+        public void ReturnHomeStatisticsExport(string dept)
+        {
+            var datasource = _hss.ExportReturnHomeStatistics(dept);
+            Common.ExportExcel.ExportExcelsTo("HomecomingSurveyTemplate.xlsx", "返乡统计.xlsx", datasource);
         }
     }
 }

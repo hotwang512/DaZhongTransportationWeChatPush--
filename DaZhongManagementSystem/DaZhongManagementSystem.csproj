@@ -391,6 +391,7 @@
     <Content Include="Areas\RideCheckFeedback\Views\_img\add_image.png" />
     <Content Include="Areas\RideCheckFeedback\Views\_js\layer.js" />
     <Content Include="Areas\RideCheckFeedback\Views\_js\mobileSelect.js" />
+    <Content Include="Areas\RideCheckFeedback\Views\_js\returnHomeStatistics.js" />
     <Content Include="Areas\RideCheckFeedback\Views\_js\ridecheckfeedback.js" />
     <Content Include="Areas\RideCheckFeedback\Views\_js\selectDate.js" />
     <Content Include="Areas\WeChatPay\Views\_js\WechatPay.js" />
@@ -2167,6 +2168,7 @@
     <Content Include="Areas\ReportManagement\Views\RideCheckFeedbackReport\PersionSelectionRatioReport.cshtml" />
     <Content Include="Areas\ReportManagement\Views\PsychologicalEvaluation\Index.cshtml" />
     <Content Include="Areas\RideCheckFeedback\Views\HomecomingSurvey\Index.cshtml" />
+    <Content Include="Areas\RideCheckFeedback\Views\HomecomingSurvey\ReturnHomeStatistics.cshtml" />
     <None Include="Properties\PublishProfiles\DaZhong.pubxml" />
     <Content Include="ReportTemplate\PushTemplate.xlsx" />
     <Content Include="ReportTemplate\ScoreTemplate.xlsx" />
@@ -2183,6 +2185,7 @@
     <Content Include="ReportTemplate\PersionSelectionRatioReportTemplate.xlsx" />
     <Content Include="ReportTemplate\SelectionRatioReportTemplate.xlsx" />
     <Content Include="ReportTemplate\PsychologicalEvaluation.xlsx" />
+    <Content Include="ReportTemplate\HomecomingSurveyTemplate.xlsx" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />

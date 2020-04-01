@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using DaZhongManagementSystem.Common.LogHelper;
@@ -54,15 +55,13 @@ namespace DaZhongManagementSystem.Infrastructure.RideCheckFeedback
         public List<ReturnHomeStatistics> ReturnHomeStatistics()
         {
             List<ReturnHomeStatistics> rhsList = new List<ReturnHomeStatistics>();
-            string sql = @"select OrganizationName,COUNT(NoReturnHome),COUNT(ReturnHome) from(
-                          select o.OrganizationName,p.OwnedFleet, 
-                          case h.WhetherReturnHome when '1' then '1' end as 'NoReturnHome', 
-                          case h.WhetherReturnHome when '0' then '0' end as 'ReturnHome'
-                          from[dbo].[Business_HomecomingSurvey] h
-                          left join Business_Personnel_Information p on h.CreatedUser = p.UserID
-                          left join[Master_Organization] o on p.OwnedFleet = o.Vguid
-                          )a
-                          group by OwnedFleet, OrganizationName order by OrganizationName";
+            string sql = @"select o.OrganizationName,
+                            COUNT(case h.WhetherReturnHome when '1' then '1' end) as NoReturnHome,
+                            COUNT(case h.WhetherReturnHome when '0' then '0' end) as ReturnHome
+                            from [dbo].[Business_HomecomingSurvey] h
+                            left join Business_Personnel_Information p on h.CreatedUser=p.UserID
+                            left join [Master_Organization] o on p.OwnedFleet=o.Vguid
+                            group by p.OwnedFleet,o.OrganizationName order by OrganizationName";
             using (SqlSugarClient dbMsSql = SugarDao_MsSql.GetInstance())
             {
                 try
@@ -77,6 +76,32 @@ namespace DaZhongManagementSystem.Infrastructure.RideCheckFeedback
             return rhsList;
         }
 
+
+        public DataTable ExportReturnHomeStatistics(string dept)
+        {
+            DataTable dt = new DataTable();
+            string sql = string.Format(@"select o.OrganizationName,
+                            COUNT(case h.WhetherReturnHome when '1' then '1' end) as NoReturnHome,
+                            COUNT(case h.WhetherReturnHome when '0' then '0' end) as ReturnHome
+                            from [dbo].[Business_HomecomingSurvey] h
+                            left join Business_Personnel_Information p on h.CreatedUser=p.UserID
+                            left join [Master_Organization] o on p.OwnedFleet=o.Vguid
+                            where p.OwnedFleet like '%{0}%'
+                            group by p.OwnedFleet,o.OrganizationName order by OrganizationName", dept);
+            using (SqlSugarClient dbMsSql = SugarDao_MsSql.GetInstance())
+            {
+                try
+                {
+                    dt = dbMsSql.GetDataTable(sql);
+                    dt.TableName = "table";
+                }
+                catch (Exception ex)
+                {
+                    LogHelper.WriteLog(ex.Message);
+                }
+            }
+            return dt;
+        }
 
 
     }
