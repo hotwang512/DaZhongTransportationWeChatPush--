@@ -132,7 +132,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="menue_body" style="display: block;">
+            <div class="menue_body" style="display: none;">
                 <table>
                     @if (roleModulePermissionList.Any(i => i.PageID == 1) || isSysAdmin)
                 {
@@ -166,7 +166,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="menue_body" style="display: block;">
+            <div class="menue_body" style="display: none;">
                 <table>
                     @if (roleModulePermissionList.Any(i => i.PageID == 3) || isSysAdmin)
                 {
@@ -209,7 +209,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="menue_body" style="display: block;">
+            <div class="menue_body" style="display: none;">
                 <table>
                     @if (roleModulePermissionList.Any(i => i.PageID == 27) || isSysAdmin)
                 {
@@ -244,7 +244,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="menue_body" style="display: block;">
+            <div class="menue_body" style="display: none;">
                 <table>
                     @if (roleModulePermissionList.Any(i => i.PageID == 17) || isSysAdmin)
                 {
@@ -279,7 +279,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="menue_body" style="display: block;">
+            <div class="menue_body" style="display: none;">
                 <table>
                     @if (roleModulePermissionList.Any(i => i.PageID == 19) || isSysAdmin)
                 {
@@ -462,7 +462,7 @@
                     }
                     @if (roleModulePermissionList.Any(i => i.PageID == 30) || isSysAdmin)
                 {
-                        <tr class="menue_item" id="RideCheckFeedbackReport" pageurl="/ReportManagement/RideCheckFeedbackReport/SelectionRatioReport">
+                        <tr class="menue_item" id="SelectionRatioReport" pageurl="/ReportManagement/RideCheckFeedbackReport/SelectionRatioReport">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">跳车检查统计报表</td>
                             <td></td>
@@ -478,9 +478,25 @@
                     }
                     @if (roleModulePermissionList.Any(i => i.PageID == 32) || isSysAdmin)
                 {
-                        <tr class="menue_item" id="PersionSelectionRatioReport" pageurl="/ReportManagement/PsychologicalEvaluation/Index">
+                        <tr class="menue_item" id="PsychologicalEvaluation" pageurl="/ReportManagement/PsychologicalEvaluation/Index">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">心理评测报表</td>
+                            <td></td>
+                        </tr>
+                    }
+                    @if (roleModulePermissionList.Any(i => i.PageID == 32) || isSysAdmin)
+                {
+                        <tr class="menue_item" id="ReturnHomeStatistics" pageurl="/RideCheckFeedback/HomecomingSurvey/ReturnHomeStatistics">
+                            <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
+                            <td class="menue_text">返乡统计报表</td>
+                            <td></td>
+                        </tr>
+                    }
+                    @if (roleModulePermissionList.Any(i => i.PageID == 32) || isSysAdmin)
+                {
+                        <tr class="menue_item" id="ExerciseTotalReport" pageurl="/ReportManagement/QuestionReport/ExerciseTotalReport">
+                            <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
+                            <td class="menue_text">答题统计报表</td>
                             <td></td>
                         </tr>
                     }

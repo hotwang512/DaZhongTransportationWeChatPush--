@@ -18,6 +18,7 @@ namespace DaZhongManagementSystem.Common.Tools
         public static string Dtb2Json(DataTable dtb)
         {
             JavaScriptSerializer jss = new JavaScriptSerializer();
+            jss.MaxJsonLength = int.MaxValue;
             System.Collections.ArrayList dic = new System.Collections.ArrayList();
             foreach (DataRow dr in dtb.Rows)
             {

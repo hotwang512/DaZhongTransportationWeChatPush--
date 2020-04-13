@@ -268,6 +268,7 @@
     </Compile>
     <Compile Include="Models\APIModel\TextPushParamModel.cs" />
     <Compile Include="Models\APIModel\WeChatRegisteredModel.cs" />
+    <Compile Include="Models\CJsonResult.cs" />
     <Compile Include="Models\Filters\ActionFilter.cs" />
     <Compile Include="Models\Filters\AuthorizeFilter.cs" />
     <Compile Include="Models\Filters\Global_Application_BeginRequest.cs" />
@@ -372,6 +373,7 @@
     <Content Include="Areas\QuestionManagement\Views\_js\CheckedQuestionList.js" />
     <Content Include="Areas\QuestionManagement\Views\_js\QuestionDetail.js" />
     <Content Include="Areas\QuestionManagement\Views\_js\QuestionList.js" />
+    <Content Include="Areas\ReportManagement\Views\_js\ExerciseTotalReport.js" />
     <Content Include="Areas\ReportManagement\Views\_js\PaymentReport.js" />
     <Content Include="Areas\ReportManagement\Views\_js\PersionSelectionRatioReport.js" />
     <Content Include="Areas\ReportManagement\Views\_js\PsychologicalEvaluation.js" />
@@ -2169,6 +2171,7 @@
     <Content Include="Areas\ReportManagement\Views\PsychologicalEvaluation\Index.cshtml" />
     <Content Include="Areas\RideCheckFeedback\Views\HomecomingSurvey\Index.cshtml" />
     <Content Include="Areas\RideCheckFeedback\Views\HomecomingSurvey\ReturnHomeStatistics.cshtml" />
+    <Content Include="Areas\ReportManagement\Views\QuestionReport\ExerciseTotalReport.cshtml" />
     <None Include="Properties\PublishProfiles\DaZhong.pubxml" />
     <Content Include="ReportTemplate\PushTemplate.xlsx" />
     <Content Include="ReportTemplate\ScoreTemplate.xlsx" />

@@ -7,7 +7,8 @@
     $jqxDepartmentDropDownButton: function () { return $("#jqxDepartmentDropDownButton") },
     $jqxTree: function () { return $("#jqxTree") },
     $OwnedFleet: function () { return $("#OwnedFleet") },
-    $year: function () { return $("#year") }
+    $startDate: function () { return $("#StartDate") },
+    $endDate: function () { return $("#EndDate") }
 }
 var $page = function () {
 
@@ -21,7 +22,26 @@ var $page = function () {
         initDepartment();
 
     }; //addEvent end
-
+    //生效时间控件
+    selector.$startDate().datepicker({
+        format: 'yyyy-mm',
+        autoclose: true,//自动关闭
+        maxViewMode: 'years',
+        minViewMode: "months",
+        startView: "months",
+        language: 'zh-CN',
+        orientation: "bottom right"
+    });
+    //生效时间控件
+    selector.$endDate().datepicker({
+        format: 'yyyy-mm',
+        autoclose: true,//自动关闭
+        maxViewMode: 'years',
+        minViewMode: "months",
+        startView: "months",
+        language: 'zh-CN',
+        orientation: "bottom right"
+    });
     //查询按钮事件
     selector.$btnSearch().on('click', function () {
         LoadTable();
@@ -36,9 +56,10 @@ var $page = function () {
         LoadTable();
     });
     selector.$btnExport().click(function () {
-        var year = selector.$year().val();
-        var dept = selector.$OwnedFleet().val()
-        window.location.href = "/RideCheckFeedback/HomecomingSurvey/ReturnHomeStatisticsExport?year=" + year + "&dept=" + dept;
+        var dept = selector.$OwnedFleet().val() == "" ? "fc17a729-28e4-483f-9fbf-179018b67224" : selector.$OwnedFleet().val();
+        var startDate = selector.$startDate().val();
+        var endDate = selector.$endDate().val();
+        window.location.href = "/ReportManagement/QuestionReport/ExportExerciseTotalReport?startDate=" + startDate + "&endDate=" + endDate + "&dept=" + dept;
     });
     //初始化下拉框
     function initDepartment() {
@@ -68,9 +89,6 @@ var $page = function () {
                     // selector.$TranslationOwnedFleet_Search().val("");
                     selector.$OwnedFleet().val(items.id);
                     selector.$jqxDepartmentDropDownButton().jqxDropDownButton('close');
-                    // selector.$TranslationOwnedFleet_Search().val(items.label);
-                    initTable();
-
                 });
                 var source =
                         {
@@ -113,44 +131,50 @@ var $page = function () {
     //加载团队表
     function LoadTable() {
 
-        var hsSource =
+        var fieldArray = new Array();
+        var colArray = new Array();
+
+        var datasource =
             {
-                datafields:
-                [
-                    { name: "OrganizationName", type: 'string' },
-                    { name: 'ReturnHome', type: 'string' },
-                    { name: 'NoReturnHome', type: 'string' },
-                    { name: 'VGUID', type: 'string' },
-                ],
                 datatype: "json",
-                id: "vguid",//主键
+                id: "IDNumber",
                 async: true,
-                data: { year: selector.$year().val(), dept: selector.$OwnedFleet().val() },
-                url: "/RideCheckFeedback/HomecomingSurvey/ReturnHomeStatisticsSource"    //获取数据源的路径
+                data: {
+                    dept: selector.$OwnedFleet().val() == "" ? "fc17a729-28e4-483f-9fbf-179018b67224" : selector.$OwnedFleet().val(),
+                    startDate: selector.$startDate().val(),
+                    endDate: selector.$endDate().val()
+                },
+                url: "/ReportManagement/QuestionReport/ExerciseTotalReportSource"
             };
-        var typeAdapter = new $.jqx.dataAdapter(hsSource, {
+        var typeAdapter = new $.jqx.dataAdapter(datasource, {
             downloadComplete: function (data) {
-                hsSource.totalrecords = data.TotalRows;
+                datasource = data;
+                for (var obj in datasource[0]) {
+                    fieldArray.push({ name: obj, type: 'string' });
+                    if (obj == "OrganizationName") {
+                        colArray.push({ text: '公司/部门', width: 200, datafield: 'OrganizationName', align: 'center', cellsAlign: 'center' });
+                    }
+                    else if (obj == "Name") {
+                        colArray.push({ text: '姓名', width: 150, datafield: 'Name', align: 'center', cellsAlign: 'center' });
+                    }
+                    else if (obj == "IDNumber") {
+                        colArray.push({ text: '身份证号码', width: 150, datafield: 'IDNumber', align: 'center', cellsAlign: 'center' });
+                    } else {
+                        colArray.push({ text: obj, width: 150, datafield: obj, align: 'center', cellsAlign: 'center' });
+                    }
+                }
+                datasource.datafields = fieldArray;
             }
         });
         //创建卡信息列表（主表）
         selector.$grid().jqxDataTable(
             {
-                //pageable: true,
                 width: "100%",
                 height: 480,
-                //pageSize: 10,
-                serverProcessing: true,
-                //pagerButtonsCount: 10,
+                pageable: true,
                 source: typeAdapter,
                 theme: "office",
-                columns: [
-
-                  { text: '公司/部门', width: 150, datafield: 'OrganizationName', align: 'center', cellsAlign: 'center' },
-                  { text: '返乡人数', width: 150, datafield: 'ReturnHome', align: 'center', cellsAlign: 'center' },
-                  { text: '不返乡人数', width: 200, datafield: 'NoReturnHome', align: 'center', cellsAlign: 'center' },
-                  { text: 'VGUID', datafield: 'VGUID', hidden: true }
-                ]
+                columns: colArray
             });
     }
 }

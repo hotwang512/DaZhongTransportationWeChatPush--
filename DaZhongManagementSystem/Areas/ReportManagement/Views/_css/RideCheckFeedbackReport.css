@@ -4,11 +4,12 @@
 .mainDiv {
     background: #ffffff;
     padding: 5px;
+    text-align: left;
 }
 
 #RideCheckFeedbackReportTable {
-    width: 100%;
-    margin: auto;
+    width: 700px;
+    /*margin: auto;*/
 }
 
     #RideCheckFeedbackReportTable th {

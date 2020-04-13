@@ -80,6 +80,7 @@
     <Compile Include="TableEntity\CS_Master_1.cs" />
     <Compile Include="TableEntity\CS_Master_2.cs" />
     <Compile Include="TableEntity\DaZhongPersonTable\AllEmployee.cs" />
+    <Compile Include="TableEntity\DaZhongPersonTable\AllTrainers.cs" />
     <Compile Include="TableEntity\DriverRevenueTable\Cab.cs" />
     <Compile Include="TableEntity\DriverRevenueTable\Driver.cs" />
     <Compile Include="TableEntity\DriverRevenueTable\Organization.cs" />

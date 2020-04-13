@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using DaZhongManagementSystem.Common;
+using System.Data;
 
 namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.QuestionReport.BusinessLogic
 {
@@ -134,6 +136,15 @@ namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.QuestionRep
         public string ExportPsychologicalEvaluationSource(string vguid, string start, string end)
         {
             return _ss.ExportPsychologicalEvaluationSource(vguid, start, end);
+        }
+        public DataTable ExerciseTotalReport(string startDate, string endDate, string dept)
+        {
+            return _ss.GetExerciseTotalSource(startDate, endDate, dept);
+        }
+        public void ExportExerciseTotalReport(string startDate, string endDate, string dept)
+        {
+            var sources = _ss.GetExerciseTotalSource(startDate, endDate, dept);
+            ExportExcel.ExportExcels("答题统计.xls", sources);
         }
     }
 }

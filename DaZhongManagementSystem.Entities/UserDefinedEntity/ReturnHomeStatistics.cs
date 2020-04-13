@@ -7,6 +7,7 @@ namespace DaZhongManagementSystem.Entities.UserDefinedEntity
 {
     public class ReturnHomeStatistics
     {
+        public Guid VGUID { get { return Guid.NewGuid(); } }
         public string OrganizationName { get; set; }
 
         public string NoReturnHome { get; set; }

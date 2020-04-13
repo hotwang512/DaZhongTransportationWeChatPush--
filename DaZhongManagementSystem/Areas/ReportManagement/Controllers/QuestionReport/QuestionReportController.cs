@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using DaZhongManagementSystem.Common;
 using DaZhongManagementSystem.Controllers;
+using System.Data;
+using DaZhongManagementSystem.Common.Tools;
+using DaZhongManagementSystem.Models;
 
 namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.QuestionReport
 {
@@ -74,6 +77,32 @@ namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.QuestionRep
             model = _sl.GetExerciseRateDetail(vguid, departmentVguid);
 
             return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ExerciseTotalReport(string startDate, string endDate, string dept)
+        {
+            return View();
+        }
+
+        public CJsonResult ExerciseTotalReportSource(string startDate, string endDate, string dept)
+        {
+            var source = _sl.ExerciseTotalReport(startDate, endDate, dept);
+
+            List<Dictionary<string, object>> dic = new List<Dictionary<string, object>>();
+            foreach (DataRow dr in source.Rows)
+            {
+                Dictionary<string, object> drow = new Dictionary<string, object>();
+                foreach (DataColumn dc in source.Columns)
+                {
+                    drow.Add(dc.ColumnName, dr[dc.ColumnName]);
+                }
+                dic.Add(drow);
+            }
+            return new CJsonResult { Data = dic, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        public void ExportExerciseTotalReport(string startDate, string endDate, string dept)
+        {
+            _sl.ExportExerciseTotalReport(startDate, endDate, dept);
         }
 
         /// <summary>

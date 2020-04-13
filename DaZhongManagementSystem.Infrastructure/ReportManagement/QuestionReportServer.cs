@@ -431,6 +431,16 @@ namespace DaZhongManagementSystem.Infrastructure.ReportManagement
             return ExportExcel.ExportExcelsTo("PsychologicalEvaluation.xlsx", "PsychologicalEvaluation" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xls", dtSource);
         }
 
+        public DataTable GetExerciseTotalSource(string start, string end, string dept)
+        {
+            DataTable dt = new DataTable();
 
+            using (SqlSugarClient _dbMsSql = SugarDao.SugarDao_MsSql.GetInstance())
+            {
+                dt = _dbMsSql.GetDataTable(string.Format("exec usp_CT_Total '{0}-01','{1}-01','{2}'", start, end, dept));
+                dt.TableName = "table";
+            }
+            return dt;
+        }
     }
 }

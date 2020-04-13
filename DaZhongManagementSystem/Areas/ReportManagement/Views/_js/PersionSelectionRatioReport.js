@@ -59,8 +59,8 @@ var $page = function () {
                     { name: "IDNumber", type: 'string' },
                     { name: 'Name', type: 'string' },
                     { name: 'Sex', type: 'string' },
-                    { name: 'PhoneNumber', type: 'PhoneNumber' },
-                    { name: 'Counts', type: 'Counts' },
+                    { name: 'PhoneNumber', type: 'string' },
+                    { name: 'Counts', type: 'string' },
                 ],
                 datatype: "json",
                 id: "VGUID",//主键

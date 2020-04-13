@@ -226,6 +226,15 @@ namespace DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.UserInfo
             }
 
         }
+
+        public void InsertTrainers(U_WeChatRegistered ruser)
+        {
+            _us.InsertTrainers(ruser);
+        }
+        public void UpdateTrainers(U_WeChatRegistered ruser)
+        {
+            _us.UpdateTrainers(ruser);
+        }
     }
 
 }

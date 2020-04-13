@@ -294,18 +294,15 @@ namespace DaZhongManagementSystem.Controllers
             {
                 if (API_Authentication(SECURITYKEY))
                 {
-                    string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken(true);
+                    string accessToken = WeChatTools.GetAccessoken(true);
                     U_WeChatRegistered user = Extend.JsonToModel<U_WeChatRegistered>(pushparam);
                     string pushResult = WeChatTools.CreateUser(accessToken, user);
                     var wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
                     if (wechatResult.errcode == "0")
                     {
-                        //pushResult = WeChatTools.TagWeChatData(accessToken, user.userid);
-                        //wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
-                        //if (wechatResult.errcode == "0")
-                        //{
+                        UserInfoLogic logic = new UserInfoLogic();
+                        logic.InsertTrainers(user);
                         result.Success = true;
-                        //}
                     }
                     result.Message = pushResult;
                 }
@@ -338,6 +335,8 @@ namespace DaZhongManagementSystem.Controllers
                     var wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
                     if (wechatResult.errcode == "0")
                     {
+                        UserInfoLogic logic = new UserInfoLogic();
+                        logic.UpdateTrainers(user);
                         result.Success = true;
                     }
                     result.Message = pushResult;

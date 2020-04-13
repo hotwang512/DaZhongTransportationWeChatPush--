@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "返乡统计报表";
+    ViewBag.Title = "答题统计报表";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var currentModuleRolePermission = ViewBag.CurrentModulePermission as Sys_Role_Module;
 }
@@ -13,14 +13,28 @@
 
 @section js
 {
-    <script src="@Url.Content("~/Areas/RideCheckFeedback/Views/_js/returnHomeStatistics.js")"></script>
+    <script src="@Url.Content("~/Areas/ReportManagement/Views/_js/ExerciseTotalReport.js")"></script>
+    <script src="@Url.Content("~/_theme/bootstrap-datepicker/bootstrap-datepicker.js")"></script>
+    <script src="@Url.Content("~/_theme/bootstrap-datepicker/bootstrap-datepicker.zh-CN.js")"></script>
+    <script src="@Url.Content("~/_theme/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js")"></script>
 }
 
 @section css
 {
     <link href="@Url.Content("~/Areas/ReportManagement/Views/_css/PushMsgReport.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/_theme/bootstrap-datepicker/datepicker.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/_theme/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.css")" rel="stylesheet" />
 }
+<style>
+    .dropdown-menu {
+        min-width: 230px;
+        z-index: 999 !important;
+    }
 
+    .ui-datepicker-calendar {
+        display: none;
+    }
+</style>
 <!-- 中部条件 -->
 <div class="mk">
     <div class="header_mk">
@@ -28,29 +42,17 @@
         <div class="header_text_div"><span class="header_text_span">查询</span></div>
     </div>
     <div class="body_mk" style="height: 70px">
-        <table style="margin-top: 20px; width: 800px; margin-left: 20px;">
+        <table style="margin-top: 20px; width: 1200px; margin-left: 20px;">
             <tr style="height: 45px;">
-                <td align="center" style="width: 80px;">年份：</td>
+                <td align="right" style="width: 80px;">开始年月：</td>
                 <td style="width: 210px;">
-                    <select id="year" class="input_text form-control">
-                        @{
-                            int year = DateTime.Now.Year;
-                            for (int i = year - 10; i <= year; i++)
-                            {
-                                if (i == year)
-                                {
-                                    <option value="@i"  selected="selected">@i</option>
-                                }
-                                else
-                                {
-                                    <option value="@i">@i</option>
-                                }
-                            }
-                        }
-
-                    </select>
+                    <input id="StartDate" type="text" class="input_text form-control" value="@DateTime.Now.Year.ToString()-01" />
                 </td>
-                <td align="right">部门</td>
+                <td align="right" style="width: 80px;">结束年月：</td>
+                <td style="width: 210px;">
+                    <input id="EndDate" type="text" class="input_text form-control" value="@DateTime.Now.ToString("yyyy-MM")" />
+                </td>
+                <td align="right" style="width: 80px;">部门：</td>
                 <td style="width: 210px;">
                     <div id="jqxDepartmentDropDownButton" class="input_text form-control">
                         <div style="width: 285px;" id="jqxTree">

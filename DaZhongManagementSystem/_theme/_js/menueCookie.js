@@ -42,7 +42,6 @@ var menueHelp = {
         $("#" + menueId).parents(".menue_body").css("display", "block");
         $(".menue_item").removeClass("munue_ItemSelcted");
         $("#" + menueId).addClass("munue_ItemSelcted");
-
     }
 }
 

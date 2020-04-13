@@ -6,8 +6,8 @@
     string endDate = "";
     if (bhs.Vguid != Guid.Empty)
     {
-        startDate = bhs.StartDate == DateTime.MinValue ? "" : bhs.StartDate.ToString("yyyy-MM-dd");
-        endDate = bhs.EndDate == DateTime.MinValue ? "" : bhs.EndDate.ToString("yyyy-MM-dd");
+        startDate = bhs.StartDate == null ? "" : bhs.StartDate.Value.ToString("yyyy-MM-dd");
+        endDate = bhs.EndDate == null ? "" : bhs.EndDate.Value.ToString("yyyy-MM-dd");
     }
     string whetherReturnHome = bhs.WhetherReturnHome == "1" ? "checked=\"checked\"" : "";
 }
@@ -195,7 +195,7 @@
         }
 
         function sumbit() {
-            var year = '@DateTime.Now.ToString()';
+            var year = '@DateTime.Now.Year.ToString()';
             if ($("#cphm").val() == "") {
                 layer.msg('请输入车牌号码', { time: 1000 });
                 return;
@@ -246,7 +246,7 @@
                     layer.closeAll();
                     if (msg == "0") {
                         $.toast("提交成功", 3000, function () {
-                            location.reload();
+                            WeixinJSBridge.call('closeWindow');
                         });
 
                     } else if (msg == "1") {

@@ -11,6 +11,8 @@ namespace DaZhongManagementSystem.Entities.UserDefinedEntity
 
         public string name { get; set; }
 
+        public string idcard { get; set; }
+
         public string mobile { get; set; }
 
         public string gender { get; set; }

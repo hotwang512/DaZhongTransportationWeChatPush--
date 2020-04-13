@@ -37,6 +37,7 @@ if (fee == "0%" || fee == "") {
 
 //点击微信支付按钮
 $(".btn_wc").on("click", function () {
+    $(".btn_wc").attr({ "disabled": "disabled" });
     $.ajax({
         url: "/WeChatPush/WeChatRevenue/IsValid",
         data: { pushContentVguid: $("#txtpushContentVguid").val() },
@@ -75,11 +76,11 @@ function startWxPay(revenue, total_fee) {
         url: "/WeChatPush/WeChatRevenue/GetPaySign",
         data: { openid: $("#txtOpenId").val(), revenueFee: revenue, totalFee: total_fee, personVguid: $("#txtVguid").val(), pushContentVguid: $("#txtpushContentVguid").val(), revenueType: 2 },
         beforeSend: function () {
-            $(".btn_wc").attr({ "disabled": "disabled" });
+            //$(".btn_wc").attr({ "disabled": "disabled" });
         },
         success: function (res) {
             if (res.success == true) {
-                $(".btn_wc").removeAttr("disabled");
+                //$(".btn_wc").removeAttr("disabled");
                 callpay(res);
             } else {
                 alert("写入支付信息失败，请重试!")
@@ -102,6 +103,7 @@ function jsApiCall(res) {
         function (res) {
             if (res.err_msg == "get_brand_wcpay_request:ok") {
                 //  AddPaymentHistory();
+                $(".btn_wc").removeAttr("disabled");
                 WeixinJSBridge.call('closeWindow');  //关闭窗口
             }     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。 
             else if (res.err_msg == "get_brand_wcpay_request:fail") {

@@ -27,7 +27,7 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.Homecoming
         {
             hs.Vguid = Guid.NewGuid();
             hs.Year = DateTime.Now.Year.ToString();
-            hs.ChangeDate = hs.CreatedDate = DateTime.Now;
+            hs.CreatedDate = hs.CreatedDate = DateTime.Now;
             _hss.AddHomecomingSurvey(hs);
         }
 
@@ -38,15 +38,15 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.Homecoming
             _hss.UpdateHomecomingSurvey(hs);
         }
 
-        public List<ReturnHomeStatistics> ReturnHomeStatistics()
+        public List<ReturnHomeStatistics> ReturnHomeStatistics(string year, string dept)
         {
-            return _hss.ReturnHomeStatistics();
+            return _hss.ReturnHomeStatistics(year, dept);
         }
 
-        public void ReturnHomeStatisticsExport(string dept)
+        public void ReturnHomeStatisticsExport(string year, string dept)
         {
-            var datasource = _hss.ExportReturnHomeStatistics(dept);
-            Common.ExportExcel.ExportExcelsTo("HomecomingSurveyTemplate.xlsx", "返乡统计.xlsx", datasource);
+            var datasource = _hss.ExportReturnHomeStatistics(year, dept);
+            Common.ExportExcel.ExportExcels("HomecomingSurveyTemplate.xlsx", "返乡统计.xls", datasource);
         }
     }
 }
