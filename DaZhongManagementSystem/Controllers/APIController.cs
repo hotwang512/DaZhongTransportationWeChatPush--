@@ -406,7 +406,7 @@ namespace DaZhongManagementSystem.Controllers
                     PushParamModel textPush = Extend.JsonToModel<PushParamModel>(pushparam);
                     var textPushs = new List<PushParamModel> { textPush }; 
                     result = SaveGraphicPushData(textPushs);
-                    string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
+                    string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken(); 
                     string _sendUrl = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={0}";
                     string postUrl = string.Format(_sendUrl, accessToken);
                     //获取推送内容Json
