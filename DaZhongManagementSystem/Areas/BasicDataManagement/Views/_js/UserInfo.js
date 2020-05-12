@@ -128,16 +128,16 @@ var $page = function () {
                                 selector.$departmentDropDownButton().jqxDropDownButton('setContent', dropDownContent);
                             });
                             var source =
-                                    {
-                                        datatype: "json",
-                                        datafields: [
-                                            { name: 'OrganizationName' },
-                                            { name: 'ParentVguid' },
-                                            { name: 'Vguid' }
-                                        ],
-                                        id: 'Vguid',
-                                        localdata: msg
-                                    };
+                            {
+                                datatype: "json",
+                                datafields: [
+                                    { name: 'OrganizationName' },
+                                    { name: 'ParentVguid' },
+                                    { name: 'Vguid' }
+                                ],
+                                id: 'Vguid',
+                                localdata: msg
+                            };
                             var dataAdapter = new $.jqx.dataAdapter(source);
                             // perform Data Binding.
                             dataAdapter.dataBind();
@@ -188,15 +188,15 @@ var $page = function () {
                 for (var i = 1; i < msg.length; i++) {
                     var id = i + 1;
                     var obj = '<tr style="height: 50px;" class="addLabelClass">' +
-             ' <td align="right" style="width: 75px;">标签：</td>' +
-             ' <td style="width: 240px;">' +
-                 '<input type="text" id="txtLabel' + id + '" name="Label" class="input_text form-control" value=' + msg[i] + '>' +
-                 '<div style="float: left;">' +
-                    // '<img id="imgPop' + i + '" onclick="addLabel(' + i + ')" style="float: left; margin-top: 5px; width: 25px; cursor: pointer" src="/_theme/images/timg.jpg"/>' +
-                     '<a href="#" class="removeclass" onclick="deleteOption(' + id + ')" ><i class="iconfont btn_icon" style="color: black !important;margin-top: 2px;">&#xe60a;</i></a>' +
-                 '</div>' +
-             '</td>' +
-     '</tr>';
+                        ' <td align="right" style="width: 75px;">标签：</td>' +
+                        ' <td style="width: 240px;">' +
+                        '<input type="text" id="txtLabel' + id + '" name="Label" class="input_text form-control" value=' + msg[i] + '>' +
+                        '<div style="float: left;">' +
+                        // '<img id="imgPop' + i + '" onclick="addLabel(' + i + ')" style="float: left; margin-top: 5px; width: 25px; cursor: pointer" src="/_theme/images/timg.jpg"/>' +
+                        '<a href="#" class="removeclass" onclick="deleteOption(' + id + ')" ><i class="iconfont btn_icon" style="color: black !important;margin-top: 2px;">&#xe60a;</i></a>' +
+                        '</div>' +
+                        '</td>' +
+                        '</tr>';
                     $("#OrganizationForm table").append(obj);
                 }
 
@@ -243,16 +243,16 @@ var $page = function () {
 
                 });
                 var source =
-                        {
-                            datatype: "json",
-                            datafields: [
-                                { name: 'OrganizationName' },
-                                { name: 'ParentVguid' },
-                                { name: 'Vguid' }
-                            ],
-                            id: 'Vguid',
-                            localdata: msg
-                        };
+                {
+                    datatype: "json",
+                    datafields: [
+                        { name: 'OrganizationName' },
+                        { name: 'ParentVguid' },
+                        { name: 'Vguid' }
+                    ],
+                    id: 'Vguid',
+                    localdata: msg
+                };
                 var dataAdapter = new $.jqx.dataAdapter(source);
                 // perform Data Binding.
                 dataAdapter.dataBind();
@@ -385,8 +385,8 @@ var $page = function () {
     function LoadTable() {
 
         var UserInfoListSource =
-            {
-                datafields:
+        {
+            datafields:
                 [
                     { name: "checkbox", type: null },
                     { name: 'name', type: 'string' },
@@ -409,12 +409,20 @@ var $page = function () {
                     { name: 'vguid', type: 'string' },
                     { name: 'LabName', type: 'string' }
                 ],
-                datatype: "json",
-                id: "vguid",//主键
-                async: true,
-                data: { "name": selector.$name_Search().val(), "JobNumber": selector.$jobNumber_Search().val(), "ServiceNumber": selector.$serviceNum_Search().val(), "IDNumber": selector.$userID_Search().val(), "PhoneNumber": selector.$mobilePhone_Search().val(), "OwnedFleet": selector.$OwnedFleet().val(), "TranslationApprovalStatus": selector.$Status_Search().val() },
-                url: "/BasicDataManagement/UserInfo/GetUserListBySearch"    //获取数据源的路径
-            };
+            datatype: "json",
+            id: "vguid",//主键
+            async: true,
+            data: {
+                "name": selector.$name_Search().val().trim().trim(),
+                "JobNumber": selector.$jobNumber_Search().val().trim(),
+                "ServiceNumber": selector.$serviceNum_Search().val(),
+                "IDNumber": selector.$userID_Search().val().trim(),
+                "PhoneNumber": selector.$mobilePhone_Search().val().trim(),
+                "OwnedFleet": selector.$OwnedFleet().val(),
+                "TranslationApprovalStatus": selector.$Status_Search().val()
+            },
+            url: "/BasicDataManagement/UserInfo/GetUserListBySearch"    //获取数据源的路径
+        };
         var typeAdapter = new $.jqx.dataAdapter(UserInfoListSource, {
             downloadComplete: function (data) {
                 UserInfoListSource.totalrecords = data.TotalRows;
@@ -432,24 +440,24 @@ var $page = function () {
                 source: typeAdapter,
                 theme: "office",
                 columns: [
-                  { width: 35, text: "", datafield: "checkbox", align: 'center', cellsAlign: 'center', cellsRenderer: cellsRendererFunc, renderer: rendererFunc, rendered: renderedFunc, autoRowHeight: false },
-                //  { text: '微信UserID', width: 150, datafield: 'UserID', align: 'center', cellsAlign: 'center' },
-                  { text: '人员姓名', width: 150, datafield: 'name', align: 'center', cellsAlign: 'center' },
-                  { text: '电话号码', width: 150, datafield: 'PhoneNumber', align: 'center', cellsAlign: 'center' },
-                  { text: '身份证号', width: 200, datafield: 'IDNumber', align: 'center', cellsAlign: 'center' },
-                  { text: '部门', width: 350, datafield: 'TranslationOwnedFleet', align: 'center', cellsAlign: 'center' },
-                  { text: '车队', width: 120, datafield: 'OwnedCompany', align: 'center', cellsAlign: 'center' },//, cellsRenderer: genderTranslate 
-                  //{ text: '性别', width: 80, datafield: 'Sex', align: 'center', cellsAlign: 'center' },//, cellsRenderer: genderTranslate 
-                  { text: '工号', datafield: 'JobNumber', align: 'center', cellsAlign: 'center' },
-                  { text: '服务卡号', datafield: 'ServiceNumber', align: 'center', cellsAlign: 'center' },
-                  { text: '标签', datafield: 'LabName', align: 'center', cellsAlign: 'center' },
-                  //{ text: '创建时间', datafield: 'CreatedDate', align: 'center', cellsAlign: 'center', datatype: 'date', cellsformat: "yyyy-MM-dd" },
-                  //{ text: '创建人', datafield: 'CreatedUser', align: 'center', cellsAlign: 'center' },
-                  //{ text: '修改时间', datafield: 'ChangeDate', align: 'center', cellsAlign: 'center', datatype: 'date', cellsformat: "yyyy-MM-dd" },
-                  //{ text: '修改人', datafield: 'ChangeUser', align: 'center', cellsAlign: 'center' },
-                  { text: '状态', datafield: 'ApprovalStatus', align: 'center', cellsAlign: 'center', cellsRenderer: statusTranslate },
-                  //{ text: 'OwnedFleet', datafield: 'OwnedFleet', hidden: true },
-                  { text: 'VGUID', datafield: 'vguid', hidden: true }
+                    { width: 35, text: "", datafield: "checkbox", align: 'center', cellsAlign: 'center', cellsRenderer: cellsRendererFunc, renderer: rendererFunc, rendered: renderedFunc, autoRowHeight: false },
+                    //  { text: '微信UserID', width: 150, datafield: 'UserID', align: 'center', cellsAlign: 'center' },
+                    { text: '人员姓名', width: 150, datafield: 'name', align: 'center', cellsAlign: 'center' },
+                    { text: '电话号码', width: 150, datafield: 'PhoneNumber', align: 'center', cellsAlign: 'center' },
+                    { text: '身份证号', width: 200, datafield: 'IDNumber', align: 'center', cellsAlign: 'center' },
+                    { text: '部门', width: 350, datafield: 'TranslationOwnedFleet', align: 'center', cellsAlign: 'center' },
+                    { text: '车队', width: 120, datafield: 'OwnedCompany', align: 'center', cellsAlign: 'center' },//, cellsRenderer: genderTranslate 
+                    //{ text: '性别', width: 80, datafield: 'Sex', align: 'center', cellsAlign: 'center' },//, cellsRenderer: genderTranslate 
+                    { text: '工号', datafield: 'JobNumber', align: 'center', cellsAlign: 'center' },
+                    { text: '服务卡号', datafield: 'ServiceNumber', align: 'center', cellsAlign: 'center' },
+                    { text: '标签', datafield: 'LabName', align: 'center', cellsAlign: 'center' },
+                    //{ text: '创建时间', datafield: 'CreatedDate', align: 'center', cellsAlign: 'center', datatype: 'date', cellsformat: "yyyy-MM-dd" },
+                    //{ text: '创建人', datafield: 'CreatedUser', align: 'center', cellsAlign: 'center' },
+                    //{ text: '修改时间', datafield: 'ChangeDate', align: 'center', cellsAlign: 'center', datatype: 'date', cellsformat: "yyyy-MM-dd" },
+                    //{ text: '修改人', datafield: 'ChangeUser', align: 'center', cellsAlign: 'center' },
+                    { text: '状态', datafield: 'ApprovalStatus', align: 'center', cellsAlign: 'center', cellsRenderer: statusTranslate },
+                    //{ text: 'OwnedFleet', datafield: 'OwnedFleet', hidden: true },
+                    { text: 'VGUID', datafield: 'vguid', hidden: true }
                 ]
             });
     }
@@ -608,14 +616,14 @@ function focus() {
 function addLabel(id) {
     var i = id + 1;
     var obj = '<tr style="height: 50px;" class="addLabelClass">' +
-                ' <td align="right" style="width: 75px;">标签：</td>' +
-                ' <td style="width: 240px;">' +
-                    '<input type="text" id="txtLabel' + i + '" name="Label" class="input_text form-control">' +
-                    '<div style="float: left;">' +
-                       // '<img id="imgPop' + i + '" onclick="addLabel(' + i + ')" style="float: left; margin-top: 5px; width: 25px; cursor: pointer" src="/_theme/images/timg.jpg"/>' +
-                        '<a href="#" class="removeclass" onclick="deleteOption(' + i + ')" ><i class="iconfont btn_icon" style="color: black !important;margin-top: 2px;">&#xe60a;</i></a>' +
-                    '</div>' +
-                '</td>' +
+        ' <td align="right" style="width: 75px;">标签：</td>' +
+        ' <td style="width: 240px;">' +
+        '<input type="text" id="txtLabel' + i + '" name="Label" class="input_text form-control">' +
+        '<div style="float: left;">' +
+        // '<img id="imgPop' + i + '" onclick="addLabel(' + i + ')" style="float: left; margin-top: 5px; width: 25px; cursor: pointer" src="/_theme/images/timg.jpg"/>' +
+        '<a href="#" class="removeclass" onclick="deleteOption(' + i + ')" ><i class="iconfont btn_icon" style="color: black !important;margin-top: 2px;">&#xe60a;</i></a>' +
+        '</div>' +
+        '</td>' +
         '</tr>';
     $("#OrganizationForm table").append(obj);
     //$("#imgPop" + id).remove();

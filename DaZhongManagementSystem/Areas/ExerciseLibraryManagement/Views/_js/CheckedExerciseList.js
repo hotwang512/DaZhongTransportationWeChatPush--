@@ -93,8 +93,8 @@ var $page = function () {
     function LoadTable() {
 
         var UserInfoListSource =
-            {
-                datafields:
+        {
+            datafields:
                 [
                     { name: "checkbox", type: null },
                     { name: 'ExerciseName', type: 'string' },
@@ -110,12 +110,18 @@ var $page = function () {
                     { name: 'Score', type: 'string' },
                     { name: 'Vguid', type: 'string' }
                 ],
-                datatype: "json",
-                id: "VGUID",//主键
-                async: true,
-                data: { "ExerciseName": selector.$exerciseName_Search().val(), "ExerciseType": selector.$ExerciseType_Search().val(), "InputType": selector.$inputType_Search().val(), "CreatedTimeStart": selector.$createdTimeStart_Search().val(), "CreatedTimeEnd": selector.$createTimeEnd_Search().val() },
-                url: "/ExerciseLibraryManagement/CheckedExerciseLibrary/GetCheckedExerciseListBySearch"    //获取数据源的路径
-            };
+            datatype: "json",
+            id: "VGUID",//主键
+            async: true,
+            data: {
+                "ExerciseName": selector.$exerciseName_Search().val().trim(),
+                "ExerciseType": selector.$ExerciseType_Search().val(),
+                "InputType": selector.$inputType_Search().val(),
+                "CreatedTimeStart": selector.$createdTimeStart_Search().val(),
+                "CreatedTimeEnd": selector.$createTimeEnd_Search().val()
+            },
+            url: "/ExerciseLibraryManagement/CheckedExerciseLibrary/GetCheckedExerciseListBySearch"    //获取数据源的路径
+        };
         var typeAdapter = new $.jqx.dataAdapter(UserInfoListSource, {
             downloadComplete: function (data) {
                 UserInfoListSource.totalrecords = data.TotalRows;
@@ -133,17 +139,17 @@ var $page = function () {
                 source: typeAdapter,
                 theme: "office",
                 columns: [
-                 { width: 35, text: "", datafield: "checkbox", align: 'center', cellsAlign: 'center', cellsRenderer: cellsRendererFunc, renderer: rendererFunc, rendered: renderedFunc, autoRowHeight: false },
-                  { text: '习题名称', width: 350, datafield: 'ExerciseName', align: 'center', cellsAlign: 'center' },
-                  { text: '习题录入类型', width: 150, datafield: 'TranslateInputType', align: 'center', cellsAlign: 'center' },
-                  { text: '习题类型', width: 150, datafield: 'TranslateExerciseType', align: 'center', cellsAlign: 'center' },
-                  //{ text: '习题有效日期', width: 180, datafield: 'EffectiveDate', align: 'center', cellsAlign: 'center', datatype: 'date', cellsformat: "yyyy-MM-dd HH:mm:ss" },
-                  { text: '习题创建日期', width: 180, datafield: 'CreatedDate', align: 'center', cellsAlign: 'center', datatype: 'date', cellsformat: "yyyy-MM-dd HH:mm:ss" },
-                  { text: '选项', datafield: 'Option', align: 'center', cellsAlign: 'center', cellsRenderer: showExercise },
-                  { text: '答案', width: 150, datafield: 'Answer', align: 'center', cellsAlign: 'center', cellsRenderer: translationAnswer },
-                  { text: '分值', width: 150, datafield: 'Score', align: 'center', cellsAlign: 'center' },
-                  { text: '习题状态', width: 150, datafield: 'TranslateStatusExerciseType', align: 'center', cellsAlign: 'center' },
-                  { text: 'VGUID', datafield: 'Vguid', hidden: true }
+                    { width: 35, text: "", datafield: "checkbox", align: 'center', cellsAlign: 'center', cellsRenderer: cellsRendererFunc, renderer: rendererFunc, rendered: renderedFunc, autoRowHeight: false },
+                    { text: '习题名称', width: 350, datafield: 'ExerciseName', align: 'center', cellsAlign: 'center' },
+                    { text: '习题录入类型', width: 150, datafield: 'TranslateInputType', align: 'center', cellsAlign: 'center' },
+                    { text: '习题类型', width: 150, datafield: 'TranslateExerciseType', align: 'center', cellsAlign: 'center' },
+                    //{ text: '习题有效日期', width: 180, datafield: 'EffectiveDate', align: 'center', cellsAlign: 'center', datatype: 'date', cellsformat: "yyyy-MM-dd HH:mm:ss" },
+                    { text: '习题创建日期', width: 180, datafield: 'CreatedDate', align: 'center', cellsAlign: 'center', datatype: 'date', cellsformat: "yyyy-MM-dd HH:mm:ss" },
+                    { text: '选项', datafield: 'Option', align: 'center', cellsAlign: 'center', cellsRenderer: showExercise },
+                    { text: '答案', width: 150, datafield: 'Answer', align: 'center', cellsAlign: 'center', cellsRenderer: translationAnswer },
+                    { text: '分值', width: 150, datafield: 'Score', align: 'center', cellsAlign: 'center' },
+                    { text: '习题状态', width: 150, datafield: 'TranslateStatusExerciseType', align: 'center', cellsAlign: 'center' },
+                    { text: 'VGUID', datafield: 'Vguid', hidden: true }
                 ]
             });
     }

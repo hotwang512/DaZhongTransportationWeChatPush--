@@ -75,12 +75,12 @@ var $page = function () {
                 checkedItems = checkedItems.substr(0, checkedItems.length - 1);
             }
             var data = {
-                "Title": selector.$txtTitle().val(),
+                "Title": selector.$txtTitle().val().trim(),
                 "Result": checkedItems,
                 "OperationTimeFrom": selector.$txtOperationTimeFrom().val(),
                 "OperationTimeTo": selector.$txtOperationTimeTo().val(),
-                "Name": selector.$txtName().val(),
-                "PhoneNumber": selector.$txtMobilePhone().val()
+                "Name": selector.$txtName().val().trim(),
+                "PhoneNumber": selector.$txtMobilePhone().val().trim()
             };
             window.location.href = "/WeChatPush/AgreementOperation/Export?para=" + JSON.stringify(data);
         });
@@ -100,8 +100,8 @@ var $page = function () {
             checkedItems = checkedItems.substr(0, checkedItems.length - 1);
         }
         var source =
-            {
-                datafields:
+        {
+            datafields:
                 [
                     //{ name: "checkbox", type: null },
                     { name: 'Title', type: 'string' },
@@ -111,19 +111,19 @@ var $page = function () {
                     { name: 'PhoneNumber', type: 'string' },
                     { name: 'Vguid', type: 'string' },
                 ],
-                datatype: "json",
-                id: "Vguid",//主键
-                async: true,
-                data: {
-                    "Title": selector.$txtTitle().val(),
-                    "Result": checkedItems,
-                    "OperationTimeFrom": selector.$txtOperationTimeFrom().val(),
-                    "OperationTimeTo": selector.$txtOperationTimeTo().val(),
-                    "Name": selector.$txtName().val(),
-                    "PhoneNumber": selector.$txtMobilePhone().val()
-                },
-                url: "/WeChatPush/AgreementOperation/GetAgreementOpertaionList"    //获取数据源的路径
-            };
+            datatype: "json",
+            id: "Vguid",//主键
+            async: true,
+            data: {
+                "Title": selector.$txtTitle().val(),
+                "Result": checkedItems,
+                "OperationTimeFrom": selector.$txtOperationTimeFrom().val(),
+                "OperationTimeTo": selector.$txtOperationTimeTo().val(),
+                "Name": selector.$txtName().val(),
+                "PhoneNumber": selector.$txtMobilePhone().val()
+            },
+            url: "/WeChatPush/AgreementOperation/GetAgreementOpertaionList"    //获取数据源的路径
+        };
         var typeAdapter = new $.jqx.dataAdapter(source, {
             downloadComplete: function (data) {
                 source.totalrecords = data.TotalRows;
@@ -141,13 +141,13 @@ var $page = function () {
                 source: typeAdapter,
                 theme: "office",
                 columns: [
-               //   { width: 35, text: "", datafield: "checkbox", align: 'center', cellsAlign: 'center', cellsRenderer: cellsRendererFunc, renderer: rendererFunc, rendered: renderedFunc, autoRowHeight: false },
-                  { text: '协议标题', width: '20%', datafield: 'Title', align: 'center', cellsAlign: 'center', cellsRenderer: detailFunc },
-                  { text: '操作人', width: '20%', datafield: 'Name', align: 'center', cellsAlign: 'center' },
-                  { text: '手机号', width: '20%', datafield: 'PhoneNumber', align: 'center', cellsAlign: 'center' },
-                  { text: '操作结果', width: '20%', datafield: 'Result', align: 'center', cellsAlign: 'center' },
-                  { text: '操作时间', width: '20%', datafield: 'OperationTime', align: 'center', cellsAlign: 'center', datatype: 'date', cellsformat: "yyyy-MM-dd HH:mm" },
-                  { text: 'VGUID', datafield: 'Vguid', hidden: true }
+                    //   { width: 35, text: "", datafield: "checkbox", align: 'center', cellsAlign: 'center', cellsRenderer: cellsRendererFunc, renderer: rendererFunc, rendered: renderedFunc, autoRowHeight: false },
+                    { text: '协议标题', width: '20%', datafield: 'Title', align: 'center', cellsAlign: 'center', cellsRenderer: detailFunc },
+                    { text: '操作人', width: '20%', datafield: 'Name', align: 'center', cellsAlign: 'center' },
+                    { text: '手机号', width: '20%', datafield: 'PhoneNumber', align: 'center', cellsAlign: 'center' },
+                    { text: '操作结果', width: '20%', datafield: 'Result', align: 'center', cellsAlign: 'center' },
+                    { text: '操作时间', width: '20%', datafield: 'OperationTime', align: 'center', cellsAlign: 'center', datatype: 'date', cellsformat: "yyyy-MM-dd HH:mm" },
+                    { text: 'VGUID', datafield: 'Vguid', hidden: true }
                 ]
             });
 
@@ -162,16 +162,16 @@ var $page = function () {
     //初始化标签下拉框
     function initDropdownList() {
         var source =
-            {
-                datatype: "json",
-                datafields: [
-                    { name: 'Result' },
-                 //   { name: 'VGUID' }
-                ],
-                id: 'LabelName',
-                url: '/WeChatPush/AgreementOperation/GetAgreementTypeList',
-                //async: false,
-            };
+        {
+            datatype: "json",
+            datafields: [
+                { name: 'Result' },
+                //   { name: 'VGUID' }
+            ],
+            id: 'LabelName',
+            url: '/WeChatPush/AgreementOperation/GetAgreementTypeList',
+            //async: false,
+        };
         var dataAdapter = new $.jqx.dataAdapter(source);
         selector.$jqxWidget().jqxDropDownList({ checkboxes: true, source: dataAdapter, placeHolder: "===请选择===", displayMember: "Result", valueMember: "Result", width: 210, height: 35 });
         selector.$jqxWidget().jqxDropDownList('checkIndex', -1);

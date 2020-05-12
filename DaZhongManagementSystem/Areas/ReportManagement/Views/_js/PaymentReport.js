@@ -147,8 +147,8 @@ var $page = function () {
             $.ajax({
                 url: "/ReportManagement/PaymentReport/GetPaymentCount",
                 data: {
-                    "Name": selector.$txtName().val(),
-                    "PhoneNumber": selector.$txtMobilePhone().val(),
+                    "Name": selector.$txtName().val().trim(),
+                    "PhoneNumber": selector.$txtMobilePhone().val().trim(),
                     "PayDateFrom": selector.$txtPaymentForm().val(),
                     "PayDateTo": selector.$txtPaymentTo().val(),
                     "Department": selector.$txtDeparment().val(),

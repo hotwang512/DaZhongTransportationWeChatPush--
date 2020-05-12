@@ -53,8 +53,8 @@ var $page = function () {
     function LoadTable() {
 
         var DraftListSource =
-            {
-                datafields:
+        {
+            datafields:
                 [
                     { name: "checkbox", type: null },
                     { name: 'PushType', type: 'string' },
@@ -72,17 +72,17 @@ var $page = function () {
                     { name: 'TranslateStatus', type: 'string' },
                     { name: 'Message', type: 'string' }
                 ],
-                datatype: "json",
-                id: "Vguid",//主键
-                async: true,
-                data: {
-                    "Title": selector.$title_Search().val(),
-                    "PushType": selector.$pushType_Search().val(),
-                    "Important": selector.$isImportant_Search().val(),
-                    "PushDate": selector.$pushDate_Search().val()
-                },
-                url: "/WeChatPush/PushedList/GetWeChatPushListBySearch"    //获取数据源的路径
-            };
+            datatype: "json",
+            id: "Vguid",//主键
+            async: true,
+            data: {
+                "Title": selector.$title_Search().val().trim(),
+                "PushType": selector.$pushType_Search().val(),
+                "Important": selector.$isImportant_Search().val(),
+                "PushDate": selector.$pushDate_Search().val()
+            },
+            url: "/WeChatPush/PushedList/GetWeChatPushListBySearch"    //获取数据源的路径
+        };
         var typeAdapter = new $.jqx.dataAdapter(DraftListSource, {
             downloadComplete: function (data) {
                 DraftListSource.totalrecords = data.TotalRows;
@@ -104,17 +104,17 @@ var $page = function () {
                 source: typeAdapter,
                 theme: "office",
                 columns: [
-                  { width: 35, text: "", datafield: "checkbox", align: 'center', cellsAlign: 'center', cellsRenderer: cellsRendererFunc, renderer: rendererFunc, rendered: renderedFunc, autoRowHeight: false },
-                  { text: '推送标题', datafield: 'Title', align: 'center', cellsAlign: 'center', cellsRenderer: detailFunc },
-                  { text: '推送类型', datafield: 'TranslatePushType', align: 'center', cellsAlign: 'center' },
-                  { text: '推送消息类型', datafield: 'TranslateMessageType', align: 'center', cellsAlign: 'center' },
-                  { text: '是否定时发送', datafield: 'Timed', align: 'center', cellsAlign: 'center', cellsRenderer: TranslateTimed },
-                  { text: '定时发送时间', datafield: 'TimedSendTime', align: 'center', cellsAlign: 'center', datatype: 'date', cellsformat: "yyyy-MM-dd HH:mm", cellsRenderer: translateTime },
-                  { text: '推送有效时间', datafield: 'PeriodOfValidity', align: 'center', cellsAlign: 'center', datatype: 'date', cellsformat: "yyyy-MM-dd HH:mm", cellsRenderer: translateTime },
-                  { text: '推送时间', datafield: 'PushDate', align: 'center', cellsAlign: 'center', datatype: 'date', cellsformat: "yyyy-MM-dd HH:mm", cellsRenderer: translateTime },
-                  { text: '推送人员', datafield: 'PushPeople', align: 'center', cellsAlign: 'center' },
-                  { text: '推送内容', datafield: 'Message', align: 'center', cellsAlign: 'center', hidden: true },
-                  { text: 'VGUID', datafield: 'VGUID', hidden: true }
+                    { width: 35, text: "", datafield: "checkbox", align: 'center', cellsAlign: 'center', cellsRenderer: cellsRendererFunc, renderer: rendererFunc, rendered: renderedFunc, autoRowHeight: false },
+                    { text: '推送标题', datafield: 'Title', align: 'center', cellsAlign: 'center', cellsRenderer: detailFunc },
+                    { text: '推送类型', datafield: 'TranslatePushType', align: 'center', cellsAlign: 'center' },
+                    { text: '推送消息类型', datafield: 'TranslateMessageType', align: 'center', cellsAlign: 'center' },
+                    { text: '是否定时发送', datafield: 'Timed', align: 'center', cellsAlign: 'center', cellsRenderer: TranslateTimed },
+                    { text: '定时发送时间', datafield: 'TimedSendTime', align: 'center', cellsAlign: 'center', datatype: 'date', cellsformat: "yyyy-MM-dd HH:mm", cellsRenderer: translateTime },
+                    { text: '推送有效时间', datafield: 'PeriodOfValidity', align: 'center', cellsAlign: 'center', datatype: 'date', cellsformat: "yyyy-MM-dd HH:mm", cellsRenderer: translateTime },
+                    { text: '推送时间', datafield: 'PushDate', align: 'center', cellsAlign: 'center', datatype: 'date', cellsformat: "yyyy-MM-dd HH:mm", cellsRenderer: translateTime },
+                    { text: '推送人员', datafield: 'PushPeople', align: 'center', cellsAlign: 'center' },
+                    { text: '推送内容', datafield: 'Message', align: 'center', cellsAlign: 'center', hidden: true },
+                    { text: 'VGUID', datafield: 'VGUID', hidden: true }
                 ]
             });
         index = 0;

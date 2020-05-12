@@ -501,8 +501,8 @@ var $page = function () {
     function LoadTable() {
 
         var UserInfoListSource =
-            {
-                datafields:
+        {
+            datafields:
                 [
                     { name: "checkbox", type: null },
                     { name: 'ExerciseName', type: 'string' },
@@ -518,12 +518,17 @@ var $page = function () {
                     { name: 'Score', type: 'string' },
                     { name: 'Vguid', type: 'string' }
                 ],
-                datatype: "json",
-                id: "VGUID",//主键
-                async: true,
-                data: { "ExerciseName": selector.$exerciseName_Search().val(), "InputType": selector.$inputType_Search().val(), "ExerciseType": selector.$ExerciseType_Search().val(), "CreatedDate": selector.$CreatedDate_Search().val() }, //"EffectiveDate": selector.$effectiveDate_Search().val()
-                url: "/ExerciseLibraryManagement/ExerciseLibraryManagement/GetExerciseListBySearch"    //获取数据源的路径
-            };
+            datatype: "json",
+            id: "VGUID",//主键
+            async: true,
+            data: {
+                "ExerciseName": selector.$exerciseName_Search().val().trim(),
+                "InputType": selector.$inputType_Search().val(),
+                "ExerciseType": selector.$ExerciseType_Search().val(),
+                "CreatedDate": selector.$CreatedDate_Search().val()
+            }, //"EffectiveDate": selector.$effectiveDate_Search().val()
+            url: "/ExerciseLibraryManagement/ExerciseLibraryManagement/GetExerciseListBySearch"    //获取数据源的路径
+        };
         var typeAdapter = new $.jqx.dataAdapter(UserInfoListSource, {
             downloadComplete: function (data) {
                 UserInfoListSource.totalrecords = data.TotalRows;
@@ -541,17 +546,17 @@ var $page = function () {
                 source: typeAdapter,
                 theme: "office",
                 columns: [
-                  { width: 35, text: "", datafield: "checkbox", align: 'center', cellsAlign: 'center', cellsRenderer: cellsRendererFunc, renderer: rendererFunc, rendered: renderedFunc, autoRowHeight: false },
-                  { text: '习题名称', width: 350, datafield: 'ExerciseName', align: 'center', cellsAlign: 'center' },
-                  { text: '习题录入类型', width: 150, datafield: 'TranslateInputType', align: 'center', cellsAlign: 'center' },
-                  { text: '习题类型', width: 150, datafield: 'TranslateExerciseType', align: 'center', cellsAlign: 'center' },
-                  //{ text: '习题有效日期', width: 180, datafield: 'EffectiveDate', align: 'center', cellsAlign: 'center', datatype: 'date', cellsformat: "yyyy-MM-dd HH:mm:ss" },
-                  { text: '习题创建日期', width: 180, datafield: 'CreatedDate', align: 'center', cellsAlign: 'center', datatype: 'date', cellsformat: "yyyy-MM-dd HH:mm:ss" },
-                  { text: '选项', datafield: 'Option', align: 'center', cellsAlign: 'center', cellsRenderer: showExercise },
-                  { text: '答案', width: 150, datafield: 'Answer', align: 'center', cellsAlign: 'center', cellsRenderer: translationAnswer },
-                  { text: '分值', width: 150, datafield: 'Score', align: 'center', cellsAlign: 'center' },
-                  { text: '习题状态', width: 150, datafield: 'TranslateStatusExerciseType', align: 'center', cellsAlign: 'center' },
-                  { text: 'VGUID', datafield: 'Vguid', hidden: true }
+                    { width: 35, text: "", datafield: "checkbox", align: 'center', cellsAlign: 'center', cellsRenderer: cellsRendererFunc, renderer: rendererFunc, rendered: renderedFunc, autoRowHeight: false },
+                    { text: '习题名称', width: 350, datafield: 'ExerciseName', align: 'center', cellsAlign: 'center' },
+                    { text: '习题录入类型', width: 150, datafield: 'TranslateInputType', align: 'center', cellsAlign: 'center' },
+                    { text: '习题类型', width: 150, datafield: 'TranslateExerciseType', align: 'center', cellsAlign: 'center' },
+                    //{ text: '习题有效日期', width: 180, datafield: 'EffectiveDate', align: 'center', cellsAlign: 'center', datatype: 'date', cellsformat: "yyyy-MM-dd HH:mm:ss" },
+                    { text: '习题创建日期', width: 180, datafield: 'CreatedDate', align: 'center', cellsAlign: 'center', datatype: 'date', cellsformat: "yyyy-MM-dd HH:mm:ss" },
+                    { text: '选项', datafield: 'Option', align: 'center', cellsAlign: 'center', cellsRenderer: showExercise },
+                    { text: '答案', width: 150, datafield: 'Answer', align: 'center', cellsAlign: 'center', cellsRenderer: translationAnswer },
+                    { text: '分值', width: 150, datafield: 'Score', align: 'center', cellsAlign: 'center' },
+                    { text: '习题状态', width: 150, datafield: 'TranslateStatusExerciseType', align: 'center', cellsAlign: 'center' },
+                    { text: 'VGUID', datafield: 'Vguid', hidden: true }
                 ]
             });
     }
@@ -651,17 +656,17 @@ selector.$grid().on('rowDoubleClick', function (event) {
         for (var i = 1; i < singleOption.length; i++) {
             fieldCount++;
             selector.$singleInputsWrapper().append("<div style='height: 40px;'>" +
-                  "<div class='option' style='position: absolute; margin-top: 10px;'>" +
-                      "<span style='font-size: 14px;'>选项" + fieldCount + "：</span>" +
-                  "</div>" +
-                  "<input id='field_" + fieldCount + "' type='text' style='width: 75%; margin-left: 45px;' name='singleOption' class='input_text form-control'/>" +
-                  "<div class='deleteOption'>" +
-                      "<a href='#' class='removeclass'><i class='iconfont btn_icon' style='color: black !important;'>&#xe60a;</i></a>" +
-                  "</div>" +
-                  "<div class='singleCorrectAnswer' style='position: absolute; left: 82%;'>" +
-                      "<input type='checkbox' class='singleChecked' style='margin-top: 10px;' value='" + fieldCount + "'/>" +
-                  "</div>" +
-              "</div>");
+                "<div class='option' style='position: absolute; margin-top: 10px;'>" +
+                "<span style='font-size: 14px;'>选项" + fieldCount + "：</span>" +
+                "</div>" +
+                "<input id='field_" + fieldCount + "' type='text' style='width: 75%; margin-left: 45px;' name='singleOption' class='input_text form-control'/>" +
+                "<div class='deleteOption'>" +
+                "<a href='#' class='removeclass'><i class='iconfont btn_icon' style='color: black !important;'>&#xe60a;</i></a>" +
+                "</div>" +
+                "<div class='singleCorrectAnswer' style='position: absolute; left: 82%;'>" +
+                "<input type='checkbox' class='singleChecked' style='margin-top: 10px;' value='" + fieldCount + "'/>" +
+                "</div>" +
+                "</div>");
             singleCount++;
             $("#field_" + fieldCount).val(singleOption[i].split(letter[i] + ".")[1]);
             selector.$singleChecked().each(function () {
@@ -689,17 +694,17 @@ selector.$grid().on('rowDoubleClick', function (event) {
         for (var i = 1; i < multipleOption.length; i++) {
             multipleFieldCount++;
             selector.$multipleInputsWrapper().append("<div style='height: 40px;'>" +
-                  "<div class='option' style='position: absolute; margin-top: 10px;'>" +
-                      "<span style='font-size: 14px;'>选项" + multipleFieldCount + "：</span>" +
-                  "</div>" +
-                  "<input id='multipleField_" + multipleFieldCount + "' type='text' style='width: 75%; margin-left: 45px;' name='multipleOption' class='input_text form-control'/>" +
-                  "<div class='deleteOption'>" +
-                      "<a href='#' class='removeMultipleClass'><i class='iconfont btn_icon' style='color: black !important;'>&#xe60a;</i></a>" +
-                  "</div>" +
-                  "<div class='multipleCorrectAnswer' style='position: absolute; left: 82%;'>" +
-                      "<input id='firstMultipleCheck' type='checkbox' class='multipleChecked' style='margin-top: 10px;' value='" + multipleFieldCount + "' />" +
-                  "</div>" +
-              "</div>");
+                "<div class='option' style='position: absolute; margin-top: 10px;'>" +
+                "<span style='font-size: 14px;'>选项" + multipleFieldCount + "：</span>" +
+                "</div>" +
+                "<input id='multipleField_" + multipleFieldCount + "' type='text' style='width: 75%; margin-left: 45px;' name='multipleOption' class='input_text form-control'/>" +
+                "<div class='deleteOption'>" +
+                "<a href='#' class='removeMultipleClass'><i class='iconfont btn_icon' style='color: black !important;'>&#xe60a;</i></a>" +
+                "</div>" +
+                "<div class='multipleCorrectAnswer' style='position: absolute; left: 82%;'>" +
+                "<input id='firstMultipleCheck' type='checkbox' class='multipleChecked' style='margin-top: 10px;' value='" + multipleFieldCount + "' />" +
+                "</div>" +
+                "</div>");
             multipleCount++;
             $("#multipleField_" + multipleFieldCount).val(multipleOption[i].split(letter[i] + ".")[1]);
             selector.$multipleChecked().each(function () {
@@ -804,14 +809,14 @@ function newExerciseDetail() {
     selector.$singleScore().val("");
     selector.$singleInputsWrapper().find('div').remove();
     selector.$singleInputsWrapper().append("<div style='height: 40px;'>" +
-          "<div class='option' style='position: absolute; margin-top: 10px;'>" +
-              "<span style='font-size: 14px;'>选项1：</span>" +
-          "</div>" +
-          "<input id='field_1' type='text' style='width: 75%; margin-left: 45px;' name='singleOption' class='input_text form-control'/>" +
-          "<div class='singleCorrectAnswer' style='position: absolute; left: 82%;'>" +
-              "<input id='firstSingleCheck' type='checkbox' class='singleChecked' style='margin-top: 10px;' value='1'/>" +
-          "</div>" +
-      "</div>");
+        "<div class='option' style='position: absolute; margin-top: 10px;'>" +
+        "<span style='font-size: 14px;'>选项1：</span>" +
+        "</div>" +
+        "<input id='field_1' type='text' style='width: 75%; margin-left: 45px;' name='singleOption' class='input_text form-control'/>" +
+        "<div class='singleCorrectAnswer' style='position: absolute; left: 82%;'>" +
+        "<input id='firstSingleCheck' type='checkbox' class='singleChecked' style='margin-top: 10px;' value='1'/>" +
+        "</div>" +
+        "</div>");
     fieldCount = 1;
     singleCount = 1;
     //清空多选题内容
@@ -819,14 +824,14 @@ function newExerciseDetail() {
     selector.$multipleScore().val("");
     selector.$multipleInputsWrapper().find('div').remove();
     selector.$multipleInputsWrapper().append("<div style='height: 40px;'>" +
-          "<div class='option' style='position: absolute; margin-top: 10px;'>" +
-              "<span style='font-size: 14px;'>选项1：</span>" +
-          "</div>" +
-          "<input id='multipleField_1' type='text' style='width: 75%; margin-left: 45px;' name='multipleOption' class='input_text form-control'/>" +
-          "<div class='multipleCorrectAnswer' style='position: absolute; left: 82%;'>" +
-              "<input id='firstMultipleCheck' type='checkbox' class='multipleChecked' style='margin-top: 10px;' value='1'/>" +
-          "</div>" +
-      "</div>");
+        "<div class='option' style='position: absolute; margin-top: 10px;'>" +
+        "<span style='font-size: 14px;'>选项1：</span>" +
+        "</div>" +
+        "<input id='multipleField_1' type='text' style='width: 75%; margin-left: 45px;' name='multipleOption' class='input_text form-control'/>" +
+        "<div class='multipleCorrectAnswer' style='position: absolute; left: 82%;'>" +
+        "<input id='firstMultipleCheck' type='checkbox' class='multipleChecked' style='margin-top: 10px;' value='1'/>" +
+        "</div>" +
+        "</div>");
     multipleCount = 1;
     multipleFieldCount = 1;
     //清空判断题内容
@@ -861,17 +866,17 @@ selector.$btnAddSingleOption().on('click', function () {
     if (singleCount < maxInputs) {
         fieldCount++;
         selector.$singleInputsWrapper().append("<div style='height: 40px;'>" +
-              "<div class='option' style='position: absolute; margin-top: 10px;'>" +
-                  "<span style='font-size: 14px;'>选项" + fieldCount + "：</span>" +
-              "</div>" +
-              "<input id='field_" + fieldCount + "' type='text' style='width: 75%; margin-left: 45px;' name='singleOption' class='input_text form-control'/>" +
-              "<div class='deleteOption'>" +
-                  "<a href='#' class='removeclass'><i class='iconfont btn_icon' style='color: black !important;'>&#xe60a;</i></a>" +
-              "</div>" +
-              "<div class='singleCorrectAnswer' style='position: absolute; left: 82%;'>" +
-                  "<input type='checkbox' class='singleChecked' style='margin-top: 10px;' value='" + fieldCount + "'/>" +
-              "</div>" +
-          "</div>");
+            "<div class='option' style='position: absolute; margin-top: 10px;'>" +
+            "<span style='font-size: 14px;'>选项" + fieldCount + "：</span>" +
+            "</div>" +
+            "<input id='field_" + fieldCount + "' type='text' style='width: 75%; margin-left: 45px;' name='singleOption' class='input_text form-control'/>" +
+            "<div class='deleteOption'>" +
+            "<a href='#' class='removeclass'><i class='iconfont btn_icon' style='color: black !important;'>&#xe60a;</i></a>" +
+            "</div>" +
+            "<div class='singleCorrectAnswer' style='position: absolute; left: 82%;'>" +
+            "<input type='checkbox' class='singleChecked' style='margin-top: 10px;' value='" + fieldCount + "'/>" +
+            "</div>" +
+            "</div>");
         singleCount++;
     }
     return false;
@@ -892,17 +897,17 @@ selector.$btnAddmultipleOption().on('click', function () {
     if (multipleCount < maxInputs) {
         multipleFieldCount++;
         selector.$multipleInputsWrapper().append("<div style='height: 40px;'>" +
-              "<div class='option' style='position: absolute; margin-top: 10px;'>" +
-                  "<span style='font-size: 14px;'>选项" + multipleFieldCount + "：</span>" +
-              "</div>" +
-              "<input id='multipleField_" + multipleFieldCount + "' type='text' style='width: 75%; margin-left: 45px;' name='multipleOption' class='input_text form-control'/>" +
-              "<div class='deleteOption'>" +
-                  "<a href='#' class='removeMultipleClass'><i class='iconfont btn_icon' style='color: black !important;'>&#xe60a;</i></a>" +
-              "</div>" +
-              "<div class='multipleCorrectAnswer' style='position: absolute; left: 82%;'>" +
-                  "<input type='checkbox' class='multipleChecked' style='margin-top: 10px;' value='" + multipleFieldCount + "' />" +
-              "</div>" +
-          "</div>");
+            "<div class='option' style='position: absolute; margin-top: 10px;'>" +
+            "<span style='font-size: 14px;'>选项" + multipleFieldCount + "：</span>" +
+            "</div>" +
+            "<input id='multipleField_" + multipleFieldCount + "' type='text' style='width: 75%; margin-left: 45px;' name='multipleOption' class='input_text form-control'/>" +
+            "<div class='deleteOption'>" +
+            "<a href='#' class='removeMultipleClass'><i class='iconfont btn_icon' style='color: black !important;'>&#xe60a;</i></a>" +
+            "</div>" +
+            "<div class='multipleCorrectAnswer' style='position: absolute; left: 82%;'>" +
+            "<input type='checkbox' class='multipleChecked' style='margin-top: 10px;' value='" + multipleFieldCount + "' />" +
+            "</div>" +
+            "</div>");
         multipleCount++;
     }
     return false;

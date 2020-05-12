@@ -84,8 +84,8 @@ var $page = function () {
                 id: "Vguid",//主键
                 async: true,
                 data: {
-                    "Name": selector.$txtName().val(),
-                    "UserID": selector.$txtMobilePhone().val(),
+                    "Name": selector.$txtName().val().trim(),
+                    "UserID": selector.$txtMobilePhone().val().trim(),
                     "RedpacketStatus": selector.$RedpacketType().val(),
                     "ReceiveDateFrom": selector.$txtOperationTimeFrom().val(),
                     "ReceiveDateTo": selector.$txtOperationTimeTo().val()

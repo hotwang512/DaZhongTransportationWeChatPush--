@@ -119,12 +119,12 @@ var $page = function () {
         //导出
         selector.$btnExport().on("click", function () {
             var data = {
-                "Name": selector.$txtName().val(),
-                "PhoneNumber": selector.$txtMobilePhone().val(),
-                "IDNumber": selector.$txtUserIDNo().val(),
-                "JobNumber": selector.$txtJobNumber().val(),
+                "Name": selector.$txtName().val().trim(),
+                "PhoneNumber": selector.$txtMobilePhone().val().trim(),
+                "IDNumber": selector.$txtUserIDNo().val().trim(),
+                "JobNumber": selector.$txtJobNumber().val().trim(),
                 "PaymentStatus": selector.$txtStatus().val(),
-                "TransactionID": selector.$txtTransactionId().val(),
+                "TransactionID": selector.$txtTransactionId().val().trim(),
                 "PayDateFrom": selector.$txtPaymentForm().val(),
                 "PayDateTo": selector.$txtPaymentTo().val()
             };
@@ -159,12 +159,12 @@ var $page = function () {
                     id: "VGUID",//主键
                     async: true,
                     data: {
-                        "Name": selector.$txtName().val(),
-                        "PhoneNumber": selector.$txtMobilePhone().val(),
-                        "IDNumber": selector.$txtUserIDNo().val(),
-                        "JobNumber": selector.$txtJobNumber().val(),
+                        "Name": selector.$txtName().val().trim(),
+                        "PhoneNumber": selector.$txtMobilePhone().val().trim(),
+                        "IDNumber": selector.$txtUserIDNo().val().trim(),
+                        "JobNumber": selector.$txtJobNumber().val().trim(),
                         "PaymentStatus": selector.$txtStatus().val(),
-                        "TransactionID": selector.$txtTransactionId().val(),
+                        "TransactionID": selector.$txtTransactionId().val().trim(),
                         "PayDateFrom": selector.$txtPaymentForm().val(),
                         "PayDateTo": selector.$txtPaymentTo().val()
                     },

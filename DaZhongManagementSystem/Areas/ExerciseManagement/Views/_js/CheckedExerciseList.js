@@ -112,8 +112,8 @@ var $page = function () {
     function LoadTable() {
 
         var UserInfoListSource =
-            {
-                datafields:
+        {
+            datafields:
                 [
                     { name: "checkbox", type: null },
                     { name: 'ExercisesName', type: 'string' },
@@ -126,12 +126,19 @@ var $page = function () {
                     { name: 'Remarks', type: 'string' },
                     { name: 'Vguid', type: 'string' }
                 ],
-                datatype: "json",
-                id: "VGUID",//主键
-                async: true,
-                data: { "ExercisesName": selector.$exerciseName_Search().val(), "Status": selector.$exerciseStstus_Search().val(), "InputType": selector.$inputType_Search().val(), "EffectiveDate": selector.$effectiveDate_Search().val(), "CreatedTimeStart": selector.$createdTimeStart_Search().val(), "CreatedTimeEnd": selector.$createTimeEnd_Search().val() },
-                url: "/ExerciseManagement/CheckedExercise/GetExerciseListBySearch"    //获取数据源的路径
-            };
+            datatype: "json",
+            id: "VGUID",//主键
+            async: true,
+            data: {
+                "ExercisesName": selector.$exerciseName_Search().val().trim().trim(),
+                "Status": selector.$exerciseStstus_Search().val(),
+                "InputType": selector.$inputType_Search().val(),
+                "EffectiveDate": selector.$effectiveDate_Search().val(),
+                "CreatedTimeStart": selector.$createdTimeStart_Search().val(),
+                "CreatedTimeEnd": selector.$createTimeEnd_Search().val()
+            },
+            url: "/ExerciseManagement/CheckedExercise/GetExerciseListBySearch"    //获取数据源的路径
+        };
         var typeAdapter = new $.jqx.dataAdapter(UserInfoListSource, {
             downloadComplete: function (data) {
                 UserInfoListSource.totalrecords = data.TotalRows;
@@ -153,14 +160,14 @@ var $page = function () {
                 source: typeAdapter,
                 theme: "office",
                 columns: [
-                  { width: 35, text: "", datafield: "checkbox", align: 'center', cellsAlign: 'center', cellsRenderer: cellsRendererFunc, renderer: rendererFunc, rendered: renderedFunc, autoRowHeight: false },
-                  { text: '习题名称', width: 350, datafield: 'ExercisesName', align: 'center', cellsAlign: 'center', cellsRenderer: detailFunc },
-                  { text: '习题有效日期', width: 180, datafield: 'EffectiveDate', align: 'center', cellsAlign: 'center', datatype: 'date', cellsformat: "yyyy-MM-dd HH:mm:ss" },
-                  { text: '习题状态', width: 150, datafield: 'TranslateStatus', align: 'center', cellsAlign: 'center' },
-                  { text: '习题录入类型', width: 150, datafield: 'TranslateInputType', align: 'center', cellsAlign: 'center' },
-                  { text: '描述', datafield: 'Description', align: 'center', cellsAlign: 'center' },
-                  { text: '备注', datafield: 'Remarks', align: 'center', cellsAlign: 'center' },
-                  { text: 'VGUID', datafield: 'Vguid', hidden: true }
+                    { width: 35, text: "", datafield: "checkbox", align: 'center', cellsAlign: 'center', cellsRenderer: cellsRendererFunc, renderer: rendererFunc, rendered: renderedFunc, autoRowHeight: false },
+                    { text: '习题名称', width: 350, datafield: 'ExercisesName', align: 'center', cellsAlign: 'center', cellsRenderer: detailFunc },
+                    { text: '习题有效日期', width: 180, datafield: 'EffectiveDate', align: 'center', cellsAlign: 'center', datatype: 'date', cellsformat: "yyyy-MM-dd HH:mm:ss" },
+                    { text: '习题状态', width: 150, datafield: 'TranslateStatus', align: 'center', cellsAlign: 'center' },
+                    { text: '习题录入类型', width: 150, datafield: 'TranslateInputType', align: 'center', cellsAlign: 'center' },
+                    { text: '描述', datafield: 'Description', align: 'center', cellsAlign: 'center' },
+                    { text: '备注', datafield: 'Remarks', align: 'center', cellsAlign: 'center' },
+                    { text: 'VGUID', datafield: 'Vguid', hidden: true }
                 ]
             });
         index = 0;

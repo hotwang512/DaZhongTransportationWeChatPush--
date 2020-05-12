@@ -53,8 +53,8 @@ var $page = function () {
 
     function LoadTable() {
         var roleTypeSource =
-            {
-                datafields:
+        {
+            datafields:
                 [
                     { name: 'Title', type: 'string' },
                     { name: 'SumQTY', type: 'string' },
@@ -62,12 +62,12 @@ var $page = function () {
                     { name: 'Reads', type: 'string' },
                     { name: 'VGUID', type: 'string' }
                 ],
-                datatype: "json",
-                id: "VGUID",
-                async: true,
-                data: { "pushMsgName": selector.$pushName_Search().val() },
-                url: "/ReportManagement/PushMsgReport/GetPushMsgReportList"   //获取数据源的路径
-            };
+            datatype: "json",
+            id: "VGUID",
+            async: true,
+            data: { "pushMsgName": selector.$pushName_Search().val().trim() },
+            url: "/ReportManagement/PushMsgReport/GetPushMsgReportList"   //获取数据源的路径
+        };
         var typeAdapter = new $.jqx.dataAdapter(roleTypeSource, {
             downloadComplete: function (data) {
                 roleTypeSource.totalrecords = data.TotalRows;
@@ -86,11 +86,11 @@ var $page = function () {
                 theme: "office",
                 columnsHeight: 40,
                 columns: [
-                  { text: '推送名称', datafield: 'Title', width: 150, align: 'center', cellsAlign: 'center' },
-                  { text: '推送总人数', datafield: 'SumQTY', align: 'center', cellsAlign: 'center', width: 200 },
-                  { text: '未读推送比例', datafield: 'NoRead', align: 'center', cellsAlign: 'center', cellsRenderer: noReadFunc },
-                  { text: '已读推送比例', datafield: 'Reads', align: 'center', cellsAlign: 'center', cellsRenderer: readFunc },
-                  { text: 'Vguid', datafield: 'VGUID', hidden: true }
+                    { text: '推送名称', datafield: 'Title', width: 150, align: 'center', cellsAlign: 'center' },
+                    { text: '推送总人数', datafield: 'SumQTY', align: 'center', cellsAlign: 'center', width: 200 },
+                    { text: '未读推送比例', datafield: 'NoRead', align: 'center', cellsAlign: 'center', cellsRenderer: noReadFunc },
+                    { text: '已读推送比例', datafield: 'Reads', align: 'center', cellsAlign: 'center', cellsRenderer: readFunc },
+                    { text: 'Vguid', datafield: 'VGUID', hidden: true }
                 ]
             });
     }

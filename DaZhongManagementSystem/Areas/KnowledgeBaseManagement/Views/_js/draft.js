@@ -120,8 +120,8 @@ var $page = function () {
     //加载表格
     function initTable() {
         var source =
-            {
-                datafields:
+        {
+            datafields:
                 [
                     { name: "checkbox", type: null },
                     { name: 'Title', type: 'string' },
@@ -135,12 +135,17 @@ var $page = function () {
                     { name: 'Remark', type: 'date' },
                     { name: 'Vguid', type: 'string' }
                 ],
-                datatype: "json",
-                id: "VGUID",//主键
-                async: true,
-                data: { "Title": selector.$txtTitle().val(), "Remark": selector.$txtRemark().val(), "Type": selector.$drdType().val(), "CreatedDate": selector.$txtCreateDate().val() },
-                url: "/KnowledgeBaseManagement/Draft/GetKnowledgeListBySearch"    //获取数据源的路径
-            };
+            datatype: "json",
+            id: "VGUID",//主键
+            async: true,
+            data: {
+                "Title": selector.$txtTitle().val().trim(),
+                "Remark": selector.$txtRemark().val().trim(),
+                "Type": selector.$drdType().val(),
+                "CreatedDate": selector.$txtCreateDate().val()
+            },
+            url: "/KnowledgeBaseManagement/Draft/GetKnowledgeListBySearch"    //获取数据源的路径
+        };
         var typeAdapter = new $.jqx.dataAdapter(source, {
             downloadComplete: function (data) {
                 source.totalrecords = data.TotalRows;
@@ -158,15 +163,15 @@ var $page = function () {
                 source: typeAdapter,
                 theme: "office",
                 columns: [
-                  { width: 35, text: "", datafield: "checkbox", align: 'center', cellsAlign: 'center', cellsRenderer: cellsRendererFunc, renderer: rendererFunc, rendered: renderedFunc, autoRowHeight: false },
-                  { text: '名称', width: 350, datafield: 'Title', align: 'center', cellsAlign: 'center', cellsRenderer: detailFunc },
-                //  { text: '内容', datafield: 'Content', align: 'center', cellsAlign: 'center' },             
-                  { text: '录入类型', width: 250, datafield: 'TranslateType', align: 'center', cellsAlign: 'center' },
-                  { text: '创建人', width: 250, datafield: 'CreatedUser', align: 'center', cellsAlign: 'center' },
-                  { text: '创建日期', width: 280, datafield: 'CreatedDate', align: 'center', cellsAlign: 'center', datatype: 'date', cellsformat: "yyyy-MM-dd HH:mm:ss" },
-                  { text: '备注', datafield: 'Remark', align: 'center', cellsAlign: 'center' },
-                  { text: '状态', width: 150, datafield: 'TranslateStatus', align: 'center', cellsAlign: 'center' },
-                  { text: 'VGUID', datafield: 'Vguid', hidden: true }
+                    { width: 35, text: "", datafield: "checkbox", align: 'center', cellsAlign: 'center', cellsRenderer: cellsRendererFunc, renderer: rendererFunc, rendered: renderedFunc, autoRowHeight: false },
+                    { text: '名称', width: 350, datafield: 'Title', align: 'center', cellsAlign: 'center', cellsRenderer: detailFunc },
+                    //  { text: '内容', datafield: 'Content', align: 'center', cellsAlign: 'center' },             
+                    { text: '录入类型', width: 250, datafield: 'TranslateType', align: 'center', cellsAlign: 'center' },
+                    { text: '创建人', width: 250, datafield: 'CreatedUser', align: 'center', cellsAlign: 'center' },
+                    { text: '创建日期', width: 280, datafield: 'CreatedDate', align: 'center', cellsAlign: 'center', datatype: 'date', cellsformat: "yyyy-MM-dd HH:mm:ss" },
+                    { text: '备注', datafield: 'Remark', align: 'center', cellsAlign: 'center' },
+                    { text: '状态', width: 150, datafield: 'TranslateStatus', align: 'center', cellsAlign: 'center' },
+                    { text: 'VGUID', datafield: 'Vguid', hidden: true }
                 ]
             });
     }

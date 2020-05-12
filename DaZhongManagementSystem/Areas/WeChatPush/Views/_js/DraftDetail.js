@@ -1520,7 +1520,7 @@ var $page = function () {
                 datatype: "json",
                 id: "vguid",//主键
                 async: true,
-                data: { 'TranslationApprovalStatus': "已关注", "name": selector.$name_Search().val(), "OwnedFleet": selector.$OwnedFleet().val(), "PhoneNumber": selector.$MobilePhone_Search().val(), "LabelName": checkedItems },
+                data: { 'TranslationApprovalStatus': "已关注", "name": selector.$name_Search().val().trim(), "OwnedFleet": selector.$OwnedFleet().val().trim(), "PhoneNumber": selector.$MobilePhone_Search().val().trim(), "LabelName": checkedItems },
                 url: "/BasicDataManagement/UserInfo/GetUserListBySearch"  //获取数据源的路径
             };
             var typeAdapter = new $.jqx.dataAdapter(source, {
