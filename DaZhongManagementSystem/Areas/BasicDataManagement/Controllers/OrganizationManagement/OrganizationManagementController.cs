@@ -35,13 +35,23 @@ namespace DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.Organiza
         /// 获取组织结构属性结构数据
         /// </summary>
         /// <returns></returns>
-        public string GetOrganizationTreeList()
+        public JsonResult GetOrganizationTreeList()
         {
             List<Master_Organization> organizationModel = _ol.GetOrganizationModel();
-            string jsonString = DaZhongManagementSystem.Common.Extend.ModelToJson<List<Master_Organization>>(organizationModel);
-            return jsonString;
+            //string jsonString = DaZhongManagementSystem.Common.Extend.ModelToJson(organizationModel);
+            return Json(organizationModel, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 获取组织结构属性结构数据
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetUserOrganizationTreeList()
+        {
+            List<Master_Organization> organizationModel = _ol.GetUserOrganizationModel();
+            //string jsonString = DaZhongManagementSystem.Common.Extend.ModelToJson(organizationModel);
+            return Json(organizationModel, JsonRequestBehavior.AllowGet);
+        }
         /// <summary>
         /// 通过vguid获取部门详细信息
         /// </summary>

@@ -57,6 +57,25 @@ namespace DaZhongManagementSystem.Common.WeChatPush
 
         }
 
+        public static string GetUserInfo(string accessToken)
+        {
+            string userInfoUrl = "https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token={0}&department_id=1&fetch_child=1";
+            string url = string.Format(userInfoUrl, accessToken);
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            string respText = "";
+            using (Stream resStream = response.GetResponseStream())
+            {
+                StreamReader reader = new StreamReader(resStream, Encoding.UTF8);
+                respText = reader.ReadToEnd();
+                resStream.Close();
+                reader.Close();
+            }
+            return respText;
+        }
+
+
         /// <summary>
         /// 通过企业Code获取用户信息
         /// </summary>

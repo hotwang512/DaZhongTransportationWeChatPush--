@@ -91,94 +91,89 @@ var $page = function () {
         selector.$jqxTree().jqxTree('clearSelection');
         selector.$OwnedFleet().val("");
     });
-
+    var row = {};
     //双击编辑事件
     selector.$grid().on('rowDoubleClick', function (event) {
-
+        row = {};
         if ($("#btnReturnFormal").length > 0) {
             var args = event.args;
             var key = args.key;
-            var row = args.row;
+            row = args.row;
+            initLabel(row.vguid);
+            //推送接收人下拉框
             $.ajax({
-                url: "/BasicDataManagement/UserInfo/GetUserDepartment",
-                data: { "personVguid": row.vguid },
+                url: "/BasicDataManagement/OrganizationManagement/GetUserOrganizationTreeList",
+                data: {},
+                traditional: true,
                 type: "post",
                 success: function (msg) {
-                    selector.$userName().val(msg.Name);
-                    selector.$departmentVguid().val(msg.OwnedFleet);
-                    selector.$personnelVguid().val(msg.Vguid);
-
+                    selector.$userName().val(row.name);
+                    selector.$departmentVguid().val(row.OwnedFleet);
+                    selector.$personnelVguid().val(row.vguid);
                     //推送接收人下拉框
-                    $.ajax({
-                        url: "/BasicDataManagement/UserInfo/GetOrganizationTreeList",
-                        data: {},
-                        traditional: true,
-                        type: "post",
-                        success: function (msg) {
-                            //推送接收人下拉框
-                            selector.$departmentDropDownButton().jqxDropDownButton({
-                                width: 150,
-                                height: 25
-                            });
-                            //推送接收人下拉框(树形结构)
-                            selector.$departmentTree().on('select', function (event) {
-                                var args = event.args;
-                                var item = selector.$departmentTree().jqxTree('getItem', args.element);
-                                var dropDownContent = '<div style="position: relative; margin-left: 3px; margin-top: 5px;">' + item.label + '</div>';
-                                selector.$departmentDropDownButton().jqxDropDownButton('setContent', dropDownContent);
-                            });
-                            var source =
-                            {
-                                datatype: "json",
-                                datafields: [
-                                    { name: 'OrganizationName' },
-                                    { name: 'ParentVguid' },
-                                    { name: 'Vguid' }
-                                ],
-                                id: 'Vguid',
-                                localdata: msg
-                            };
-                            var dataAdapter = new $.jqx.dataAdapter(source);
-                            // perform Data Binding.
-                            dataAdapter.dataBind();
-                            var records = dataAdapter.getRecordsHierarchy('Vguid', 'ParentVguid', 'items',
-                                [
-                                    {
-                                        name: 'OrganizationName',
-                                        map: 'label'
-                                    },
-                                    {
-                                        name: 'Vguid',
-                                        map: 'id'
-                                    },
-                                    {
-                                        name: 'ParentVguid',
-                                        map: 'parentId'
-                                    }
-                                ]);
-                            selector.$departmentTree().jqxTree({ source: records, width: '207px', height: '250px', incrementalSearch: true });//, checkboxes: true
-                            var str = selector.$departmentVguid().val();
-                            selector.$departmentTree().jqxTree('selectItem', $("#" + str)[0]);// $("#home")[0]+ str
-                            selector.$departmentTree().jqxTree('expandAll');
-                        }
+                    selector.$departmentDropDownButton().jqxDropDownButton({
+                        width: 150,
+                        height: 25
                     });
-
-                    initLabel();
-
-
-                    //弹出编辑框
-                    selector.$myModalLabel_title().text("编辑员工所在部门");
-                    selector.$userInfoDialog().modal({ backdrop: 'static', keyboard: false });
-                    selector.$userInfoDialog().modal('show');
+                    //推送接收人下拉框(树形结构)
+                    selector.$departmentTree().on('select', function (event) {
+                        var args = event.args;
+                        var item = selector.$departmentTree().jqxTree('getItem', args.element);
+                        var dropDownContent = '<div style="position: relative; margin-left: 3px; margin-top: 5px;">' + item.label + '</div>';
+                        selector.$departmentDropDownButton().jqxDropDownButton('setContent', dropDownContent);
+                    });
+                    var source =
+                    {
+                        datatype: "json",
+                        datafields: [
+                            { name: 'OrganizationName' },
+                            { name: 'ParentVguid' },
+                            { name: 'Vguid' }
+                        ],
+                        id: 'Vguid',
+                        localdata: msg
+                    };
+                    var dataAdapter = new $.jqx.dataAdapter(source);
+                    // perform Data Binding.
+                    dataAdapter.dataBind();
+                    var records = dataAdapter.getRecordsHierarchy('Vguid', 'ParentVguid', 'items',
+                        [
+                            {
+                                name: 'OrganizationName',
+                                map: 'label'
+                            },
+                            {
+                                name: 'Vguid',
+                                map: 'id'
+                            },
+                            {
+                                name: 'ParentVguid',
+                                map: 'parentId'
+                            }
+                        ]);
+                    selector.$departmentTree().jqxTree({ source: records, width: '207px', height: '250px', incrementalSearch: true });//, checkboxes: true
+                    var str = selector.$departmentVguid().val();
+                    selector.$departmentTree().jqxTree('selectItem', $("#" + str)[0]);// $("#home")[0]+ str
+                    selector.$departmentTree().jqxTree('expandAll');
                 }
             });
+
+           
+
+
+            //弹出编辑框
+            selector.$myModalLabel_title().text("编辑员工所在部门");
+            selector.$userInfoDialog().modal({ backdrop: 'static', keyboard: false });
+            selector.$userInfoDialog().modal('show');
+            //    }
+            //});
         }
     });
     //初始化标签
-    function initLabel() {
+    function initLabel(personVguid) {
         $.ajax({
             url: '/BasicDataManagement/UserInfo/GetPersonLabel',
-            data: { 'personVguid': selector.$personnelVguid().val() },
+            data: { 'personVguid': personVguid },
             type: 'post',
             dataType: 'json',
             success: function (msg) {

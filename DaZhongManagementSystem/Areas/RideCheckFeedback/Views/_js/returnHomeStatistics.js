@@ -44,7 +44,7 @@ var $page = function () {
     function initDepartment() {
         //推送接收人下拉框
         $.ajax({
-            url: "/BasicDataManagement/UserInfo/GetOrganizationTreeList",
+            url: "/BasicDataManagement/OrganizationManagement/GetUserOrganizationTreeList",
             data: {},
             traditional: true,
             type: "post",

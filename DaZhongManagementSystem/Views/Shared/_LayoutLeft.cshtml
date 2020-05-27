@@ -17,7 +17,7 @@
     bool exerciseManagement = roleModulePermissionList.Any(i => i.PageID == 3 || i.PageID == 12 || i.PageID == 15);//习题管理
     bool questionManagement = roleModulePermissionList.Any(i => i.PageID == 27 || i.PageID == 28);//问卷管理
     bool weChatPush = roleModulePermissionList.Any(i => i.PageID == 4 || i.PageID == 5 || i.PageID == 6 || i.PageID == 7 || i.PageID == 16);//微信推送
-    bool reportManagement = roleModulePermissionList.Any(i => i.PageID == 8 || i.PageID == 14 || i.PageID == 24 || i.PageID == 29 || i.PageID == 30 || i.PageID == 31 || i.PageID == 32);//报表
+    bool reportManagement = roleModulePermissionList.Any(i => i.PageID == 8 || i.PageID == 14 || i.PageID == 24 || i.PageID == 29 || i.PageID == 30 || i.PageID == 31 || i.PageID == 32 || i.PageID == 33 || i.PageID == 34);//报表
     bool dailyLogManage = roleModulePermissionList.Any(i => i.PageID == 9);//日志
     bool systemManagement = roleModulePermissionList.Any(i => i.PageID == 10 || i.PageID == 11 || i.PageID == 13);//系统管理
     bool exerciseLibraryManagement = roleModulePermissionList.Any(i => i.PageID == 17 || i.PageID == 18);//习题库管理
@@ -135,7 +135,7 @@
             <div class="menue_body" style="display: none;">
                 <table>
                     @if (roleModulePermissionList.Any(i => i.PageID == 1) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="OrganizationManagement" pageurl="/BasicDataManagement/OrganizationManagement/OrganizationManagement">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">组织结构管理</td>
@@ -143,7 +143,7 @@
                         </tr>
                     }
                     @if (roleModulePermissionList.Any(i => i.PageID == 2) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="UserInfoManagement" pageurl="/BasicDataManagement/UserInfo/UserInfo">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">人员信息</td>
@@ -169,7 +169,7 @@
             <div class="menue_body" style="display: none;">
                 <table>
                     @if (roleModulePermissionList.Any(i => i.PageID == 3) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="ExerciseManagement" pageurl="/ExerciseManagement/ExerciseManagement/ExerciseList">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">习题管理</td>
@@ -177,7 +177,7 @@
                         </tr>
                     }
                     @if (roleModulePermissionList.Any(i => i.PageID == 12) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="CheckExerciseManagement" pageurl="/ExerciseManagement/CheckedExercise/CheckedList">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">已审核习题</td>
@@ -185,7 +185,7 @@
                         </tr>
                     }
                     @if (roleModulePermissionList.Any(i => i.PageID == 15) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="MarkingExercise" pageurl="/ExerciseManagement/MarkingExercise/MarkingExercise">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">习题阅卷</td>
@@ -212,7 +212,7 @@
             <div class="menue_body" style="display: none;">
                 <table>
                     @if (roleModulePermissionList.Any(i => i.PageID == 27) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="QuestionManagement" pageurl="/QuestionManagement/QuestionManagement/QuestionList">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">问卷草稿</td>
@@ -220,7 +220,7 @@
                         </tr>
                     }
                     @if (roleModulePermissionList.Any(i => i.PageID == 28) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="CheckQuestionManagement" pageurl="/QuestionManagement/CheckedQuestion/CheckedList">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">已审核问卷</td>
@@ -247,7 +247,7 @@
             <div class="menue_body" style="display: none;">
                 <table>
                     @if (roleModulePermissionList.Any(i => i.PageID == 17) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="ExerciseLibraryManagement" pageurl="/ExerciseLibraryManagement/ExerciseLibraryManagement/ExerciseLibraryList">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">草稿习题</td>
@@ -255,7 +255,7 @@
                         </tr>
                     }
                     @if (roleModulePermissionList.Any(i => i.PageID == 18) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="CheckExerciseLibraryManagement" pageurl="/ExerciseLibraryManagement/CheckedExerciseLibrary/CheckedList">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">正式习题</td>
@@ -282,7 +282,7 @@
             <div class="menue_body" style="display: none;">
                 <table>
                     @if (roleModulePermissionList.Any(i => i.PageID == 19) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="draftKnowledge" pageurl="/KnowledgeBaseManagement/Draft/DraftList">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">草稿列表</td>
@@ -290,7 +290,7 @@
                         </tr>
                     }
                     @if (roleModulePermissionList.Any(i => i.PageID == 20) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="formalKnowledge" pageurl="/KnowledgeBaseManagement/Formal/FormalList">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">正式列表</td>
@@ -319,7 +319,7 @@
             <div class="menue_body" style="display: none;">
                 <table>
                     @if (roleModulePermissionList.Any(i => i.PageID == 4) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="DraftList" pageurl="/WeChatPush/DraftList/DraftList">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">草稿列表</td>
@@ -327,7 +327,7 @@
                         </tr>
                     }
                     @if (roleModulePermissionList.Any(i => i.PageID == 5) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="CommitedList" pageurl="/WeChatPush/CommitedList/CommitedList">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">已提交列表</td>
@@ -335,7 +335,7 @@
                         </tr>
                     }
                     @if (roleModulePermissionList.Any(i => i.PageID == 6) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="CheckedList" pageurl="/WeChatPush/CheckedList/CheckedList">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">已审核列表</td>
@@ -343,7 +343,7 @@
                         </tr>
                     }
                     @if (roleModulePermissionList.Any(i => i.PageID == 7) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="PushedList" pageurl="/WeChatPush/PushedList/PushedList">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">已推送列表</td>
@@ -351,7 +351,7 @@
                         </tr>
                     }
                     @if (roleModulePermissionList.Any(i => i.PageID == 16) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="history" pageurl="/WeChatPush/History/History">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">推送历史</td>
@@ -359,7 +359,7 @@
                         </tr>
                     }
                     @if (roleModulePermissionList.Any(i => i.PageID == 25) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="agreement" pageurl="/WeChatPush/AgreementOperation/AgreementOperationList">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">协议操作历史</td>
@@ -367,7 +367,7 @@
                         </tr>
                     }
                     @if (roleModulePermissionList.Any(i => i.PageID == 26) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="RedpacketMoney" pageurl="/WeChatPush/RedPacketOperation/RedPacketOperationList">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">红包领取历史</td>
@@ -375,7 +375,7 @@
                         </tr>
                     }
                     @if (roleModulePermissionList.Any(i => i.PageID == 26) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="payment" pageurl="/WeChatPush/PaymentOperation/Index">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">企业付款历史</td>
@@ -402,7 +402,7 @@
             <div class="menue_body" style="display: none;">
                 <table>
                     @if (roleModulePermissionList.Any(i => i.PageID == 23) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="PaymentHistory" pageurl="/PaymentManagement/PaymentHistory/PaymentHistory">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">支付历史</td>
@@ -429,7 +429,7 @@
             <div class="menue_body" style="display: none;">
                 <table>
                     @if (roleModulePermissionList.Any(i => i.PageID == 8) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="ScoreRecords" pageurl="/ReportManagement/ScoreReport/ScoreReport">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">成绩报表</td>
@@ -437,7 +437,7 @@
                         </tr>
                     }
                     @if (roleModulePermissionList.Any(i => i.PageID == 14) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="PushMsgRecords" pageurl="/ReportManagement/PushMsgReport/PushMsgReport">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">推送报表</td>
@@ -445,7 +445,7 @@
                         </tr>
                     }
                     @if (roleModulePermissionList.Any(i => i.PageID == 24) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="PaymentRecords" pageurl="/ReportManagement/PaymentReport/PaymentReport">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">支付报表</td>
@@ -453,7 +453,7 @@
                         </tr>
                     }
                     @if (roleModulePermissionList.Any(i => i.PageID == 29) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="QuestionRecords" pageurl="/ReportManagement/QuestionReport/QuestionReport">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">问卷报表</td>
@@ -461,7 +461,7 @@
                         </tr>
                     }
                     @if (roleModulePermissionList.Any(i => i.PageID == 30) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="SelectionRatioReport" pageurl="/ReportManagement/RideCheckFeedbackReport/SelectionRatioReport">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">跳车检查统计报表</td>
@@ -469,7 +469,7 @@
                         </tr>
                     }
                     @if (roleModulePermissionList.Any(i => i.PageID == 31) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="PersionSelectionRatioReport" pageurl="/ReportManagement/RideCheckFeedbackReport/PersionSelectionRatioReport">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">人员跳车检查报表</td>
@@ -477,23 +477,23 @@
                         </tr>
                     }
                     @if (roleModulePermissionList.Any(i => i.PageID == 32) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="PsychologicalEvaluation" pageurl="/ReportManagement/PsychologicalEvaluation/Index">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">心理评测报表</td>
                             <td></td>
                         </tr>
                     }
-                    @if (roleModulePermissionList.Any(i => i.PageID == 32) || isSysAdmin)
-                {
+                    @if (roleModulePermissionList.Any(i => i.PageID == 33) || isSysAdmin)
+                    {
                         <tr class="menue_item" id="ReturnHomeStatistics" pageurl="/RideCheckFeedback/HomecomingSurvey/ReturnHomeStatistics">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">返乡统计报表</td>
                             <td></td>
                         </tr>
                     }
-                    @if (roleModulePermissionList.Any(i => i.PageID == 32) || isSysAdmin)
-                {
+                    @if (roleModulePermissionList.Any(i => i.PageID == 34) || isSysAdmin)
+                    {
                         <tr class="menue_item" id="ExerciseTotalReport" pageurl="/ReportManagement/QuestionReport/ExerciseTotalReport">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">答题统计报表</td>
@@ -543,7 +543,7 @@
             <div class="menue_body" style="display: none;">
                 <table>
                     @if (roleModulePermissionList.Any(i => i.PageID == 10) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="UserManagement" pageurl="/Systemmanagement/UserManage/UserManagement">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">用户管理</td>
@@ -551,7 +551,7 @@
                         </tr>
                     }
                     @if (roleModulePermissionList.Any(i => i.PageID == 11) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="AuthorityManagement" pageurl="/Systemmanagement/AuthorityManagement/AuthorityManagement">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">角色权限管理</td>
@@ -559,7 +559,7 @@
                         </tr>
                     }
                     @if (roleModulePermissionList.Any(i => i.PageID == 13) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="ConfigManagement" pageurl="/Systemmanagement/ConfigManagement/ConfigManagement">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">配置文件管理</td>
@@ -585,7 +585,7 @@
             <div class="menue_body" style="display: none;">
                 <table>
                     @if (roleModulePermissionList.Any(i => i.PageID == 21) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="generatioCode" pageurl="/QRCodeManagement/CodeGenerate/Index">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">二维码生成</td>
@@ -593,7 +593,7 @@
                         </tr>
                     }
                     @if (roleModulePermissionList.Any(i => i.PageID == 22) || isSysAdmin)
-                {
+                    {
                         <tr class="menue_item" id="scanCode" pageurl="/QRCodeManagement/ScanHistory/ScanHistoryList">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">扫码历史</td>

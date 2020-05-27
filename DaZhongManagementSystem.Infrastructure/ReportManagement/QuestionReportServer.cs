@@ -434,7 +434,10 @@ namespace DaZhongManagementSystem.Infrastructure.ReportManagement
         public DataTable GetExerciseTotalSource(string start, string end, string dept)
         {
             DataTable dt = new DataTable();
-
+            if (string.IsNullOrEmpty(dept))
+            {
+                dept = CurrentUser.GetCurrentUser().Department;
+            }
             using (SqlSugarClient _dbMsSql = SugarDao.SugarDao_MsSql.GetInstance())
             {
                 dt = _dbMsSql.GetDataTable(string.Format("exec usp_CT_Total '{0}-01','{1}-01','{2}'", start, end, dept));

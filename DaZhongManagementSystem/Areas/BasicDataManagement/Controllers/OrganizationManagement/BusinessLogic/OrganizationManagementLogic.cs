@@ -24,6 +24,10 @@ namespace DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.Organiza
             return _os.GetOrganizationModel();
         }
 
+        public List<Master_Organization> GetUserOrganizationModel()
+        {
+            return _os.GetUserOrganizationModel();
+        }
         /// <summary>
         /// 通过vguid获取部门详细信息
         /// </summary>

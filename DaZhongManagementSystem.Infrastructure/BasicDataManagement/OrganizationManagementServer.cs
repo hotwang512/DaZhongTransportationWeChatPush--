@@ -29,6 +29,21 @@ namespace DaZhongManagementSystem.Infrastructure.BasicDataManagement
             }
         }
 
+        public List<Master_Organization> GetUserOrganizationModel()
+        {
+            using (SqlSugarClient dbMsSql = SugarDao.SugarDao_MsSql.GetInstance())
+            {
+                string sql = string.Format(@";with cte as 
+                                            (
+                                                select * from Master_Organization where Vguid = '{0}'
+                                                union all
+                                                select air.* from Master_Organization as air inner join cte on air.ParentVguid = cte.Vguid
+                                            )select * from cte", CurrentUser.GetCurrentUser().Department);
+                var organizationModel = dbMsSql.SqlQuery<Master_Organization>(sql);
+                return organizationModel;
+            }
+        }
+
         /// <summary>
         /// 通过vguid获取部门详细信息
         /// </summary>

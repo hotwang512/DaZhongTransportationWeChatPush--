@@ -39,7 +39,7 @@ var $page = function () {
         selector.$btnReset().on("click", function () {
             selector.$txtName().val("");
             selector.$txtMobilePhone().val("");
-            selector.$txtUserIDNo().val("");
+            //selector.$txtUserIDNo().val("");
             selector.$txtJobNumber().val("");
             selector.$txtStatus().val("1"),
             selector.$txtTransactionId().val("");
@@ -121,7 +121,7 @@ var $page = function () {
             var data = {
                 "Name": selector.$txtName().val().trim(),
                 "PhoneNumber": selector.$txtMobilePhone().val().trim(),
-                "IDNumber": selector.$txtUserIDNo().val().trim(),
+                //"IDNumber": selector.$txtUserIDNo().val().trim(),
                 "JobNumber": selector.$txtJobNumber().val().trim(),
                 "PaymentStatus": selector.$txtStatus().val(),
                 "TransactionID": selector.$txtTransactionId().val().trim(),
@@ -161,7 +161,7 @@ var $page = function () {
                     data: {
                         "Name": selector.$txtName().val().trim(),
                         "PhoneNumber": selector.$txtMobilePhone().val().trim(),
-                        "IDNumber": selector.$txtUserIDNo().val().trim(),
+                        //"IDNumber": selector.$txtUserIDNo().val().trim(),
                         "JobNumber": selector.$txtJobNumber().val().trim(),
                         "PaymentStatus": selector.$txtStatus().val(),
                         "TransactionID": selector.$txtTransactionId().val().trim(),

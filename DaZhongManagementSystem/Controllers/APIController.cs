@@ -286,6 +286,72 @@ namespace DaZhongManagementSystem.Controllers
         }
 
 
+        public JsonResult WeChatRegistrationVerification(string SECURITYKEY, string pushparam)
+        {
+            ExecutionResult result = new ExecutionResult();
+            try
+            {
+                if (API_Authentication(SECURITYKEY))
+                {
+
+                    U_WeChatRegistered user = Extend.JsonToModel<U_WeChatRegistered>(pushparam);
+                    string accessToken = WeChatTools.GetAccessoken(true);
+                    string pushResult = WeChatTools.GetUserInfo(accessToken);
+                    U_WechatUsersResult usersResult = Extend.JsonToModel<U_WechatUsersResult>(pushResult);
+                    var fuser = usersResult.userlist.Find(c => c.userid == c.mobile && c.mobile == user.mobile);
+                    if (fuser != null)
+                    {
+                        result.Success = true;
+                        result.Message = string.Format("存在微信USERID为{0},手机号码为{1}的用户！", fuser.userid, fuser.mobile);
+                        result.Result = 1;//
+                        return Json(result);
+                    }
+                    fuser = usersResult.userlist.Find(c => c.userid == user.idcard && c.mobile == user.mobile);
+                    if (fuser != null)
+                    {
+                        result.Success = true;
+                        result.Message = string.Format("存在微信USERID为{0},手机号码为{1}的用户！", fuser.userid, fuser.mobile);
+                        result.Result = 2;//
+                        return Json(result);
+                    }
+                    fuser = usersResult.userlist.Find(c => c.userid == user.mobile);
+                    if (fuser != null)
+                    {
+                        result.Success = true;
+                        result.Message = string.Format("存在微信USERID为{0},手机号码为{1}的用户！", fuser.userid, fuser.mobile);
+                        result.Result = 3;//
+                        return Json(result);
+                    }
+                    fuser = usersResult.userlist.Find(c => c.userid == user.idcard);
+                    if (fuser != null)
+                    {
+                        result.Success = true;
+                        result.Message = string.Format("存在微信USERID为{0},手机号码为{1}的用户！", fuser.userid, fuser.mobile);
+                        result.Result = 4;//
+                        return Json(result);
+                    }
+                    fuser = usersResult.userlist.Find(c => c.mobile == user.mobile);
+                    if (fuser != null)
+                    {
+                        result.Success = true;
+                        result.Message = string.Format("存在微信USERID为{0},手机号码为{1}的用户！", fuser.userid, fuser.mobile);
+                        result.Result = 5;//
+                        return Json(result);
+                    }
+                    result.Success = true;
+                    result.Message = "微信不存在该用户!";
+                    result.Result = 0;//
+                    return Json(result);
+                }
+            }
+
+            catch (Exception ex)
+            {
+                result.Message = ex.Message;
+                LogHelper.WriteLog(ex.Message);
+            }
+            return Json(result);
+        }
         public JsonResult WeChatRegistered(string SECURITYKEY, string pushparam)
         {
 
@@ -296,6 +362,7 @@ namespace DaZhongManagementSystem.Controllers
                 {
                     string accessToken = WeChatTools.GetAccessoken(true);
                     U_WeChatRegistered user = Extend.JsonToModel<U_WeChatRegistered>(pushparam);
+
                     string pushResult = WeChatTools.CreateUser(accessToken, user);
                     var wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
                     if (wechatResult.errcode == "0")
@@ -404,9 +471,9 @@ namespace DaZhongManagementSystem.Controllers
                 if (API_Authentication(SECURITYKEY))
                 {
                     PushParamModel textPush = Extend.JsonToModel<PushParamModel>(pushparam);
-                    var textPushs = new List<PushParamModel> { textPush };  
+                    var textPushs = new List<PushParamModel> { textPush };
                     result = SaveGraphicPushData(textPushs);
-                    string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken(); 
+                    string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
                     string _sendUrl = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={0}";
                     string postUrl = string.Format(_sendUrl, accessToken);
                     //获取推送内容Json

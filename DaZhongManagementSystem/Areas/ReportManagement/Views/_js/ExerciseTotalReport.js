@@ -65,7 +65,7 @@ var $page = function () {
     function initDepartment() {
         //推送接收人下拉框
         $.ajax({
-            url: "/BasicDataManagement/UserInfo/GetOrganizationTreeList",
+            url: "/BasicDataManagement/OrganizationManagement/GetUserOrganizationTreeList",
             data: {},
             traditional: true,
             type: "post",
@@ -91,16 +91,16 @@ var $page = function () {
                     selector.$jqxDepartmentDropDownButton().jqxDropDownButton('close');
                 });
                 var source =
-                        {
-                            datatype: "json",
-                            datafields: [
-                                { name: 'OrganizationName' },
-                                { name: 'ParentVguid' },
-                                { name: 'Vguid' }
-                            ],
-                            id: 'Vguid',
-                            localdata: msg
-                        };
+                {
+                    datatype: "json",
+                    datafields: [
+                        { name: 'OrganizationName' },
+                        { name: 'ParentVguid' },
+                        { name: 'Vguid' }
+                    ],
+                    id: 'Vguid',
+                    localdata: msg
+                };
                 var dataAdapter = new $.jqx.dataAdapter(source);
                 // perform Data Binding.
                 dataAdapter.dataBind();
@@ -133,19 +133,19 @@ var $page = function () {
 
         var fieldArray = new Array();
         var colArray = new Array();
-
+        var columnGroups = new Array();
         var datasource =
-            {
-                datatype: "json",
-                id: "IDNumber",
-                async: true,
-                data: {
-                    dept: selector.$OwnedFleet().val() == "" ? "fc17a729-28e4-483f-9fbf-179018b67224" : selector.$OwnedFleet().val(),
-                    startDate: selector.$startDate().val(),
-                    endDate: selector.$endDate().val()
-                },
-                url: "/ReportManagement/QuestionReport/ExerciseTotalReportSource"
-            };
+        {
+            datatype: "json",
+            id: "IDNumber",
+            async: true,
+            data: {
+                dept: selector.$OwnedFleet().val(),
+                startDate: selector.$startDate().val(),
+                endDate: selector.$endDate().val()
+            },
+            url: "/ReportManagement/QuestionReport/ExerciseTotalReportSource"
+        };
         var typeAdapter = new $.jqx.dataAdapter(datasource, {
             downloadComplete: function (data) {
                 datasource = data;
@@ -160,7 +160,12 @@ var $page = function () {
                     else if (obj == "IDNumber") {
                         colArray.push({ text: '身份证号码', width: 150, datafield: 'IDNumber', align: 'center', cellsAlign: 'center' });
                     } else {
-                        colArray.push({ text: obj, width: 150, datafield: obj, align: 'center', cellsAlign: 'center' });
+                        if (obj.indexOf("_1") < 0) {
+                            columnGroups.push({ text: obj, align: 'center', name: obj });
+                            colArray.push({ text: "培训", columngroup: obj, width: 80, datafield: obj + "_1", align: 'center', cellsAlign: 'center' });
+                            colArray.push({ text: "习题", columngroup: obj, width: 80, datafield: obj, align: 'center', cellsAlign: 'center' });
+
+                        }
                     }
                 }
                 datasource.datafields = fieldArray;
@@ -174,7 +179,9 @@ var $page = function () {
                 pageable: true,
                 source: typeAdapter,
                 theme: "office",
+                columnGroups: columnGroups,
                 columns: colArray
+
             });
     }
 }

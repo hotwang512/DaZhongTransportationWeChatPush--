@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using DaZhongManagementSystem.Common;
 using DaZhongManagementSystem.Common.LogHelper;
 using DaZhongManagementSystem.Entities.TableEntity;
 using DaZhongManagementSystem.Entities.UserDefinedEntity;
@@ -62,6 +63,10 @@ namespace DaZhongManagementSystem.Infrastructure.RideCheckFeedback
         public List<ReturnHomeStatistics> ReturnHomeStatistics(string year, string dept)
         {
             List<ReturnHomeStatistics> rhsList = new List<ReturnHomeStatistics>();
+            if (string.IsNullOrEmpty(dept))
+            {
+                dept = CurrentUser.GetCurrentUser().Department;
+            }
             string sql = string.Format(@"usp_HomecomingSurvey_Total '{0}','{1}'", year, dept);
             using (SqlSugarClient dbMsSql = SugarDao_MsSql.GetInstance())
             {
@@ -81,6 +86,10 @@ namespace DaZhongManagementSystem.Infrastructure.RideCheckFeedback
         public DataTable ExportReturnHomeStatistics(string year, string dept)
         {
             DataTable dt = new DataTable();
+            if (string.IsNullOrEmpty(dept))
+            {
+                dept = CurrentUser.GetCurrentUser().Department;
+            }
             string sql = string.Format(@"usp_HomecomingSurvey_Total '{0}','{1}'", year, dept);
             using (SqlSugarClient dbMsSql = SugarDao_MsSql.GetInstance())
             {
