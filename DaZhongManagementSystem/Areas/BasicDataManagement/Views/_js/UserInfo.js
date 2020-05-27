@@ -158,15 +158,10 @@ var $page = function () {
                 }
             });
 
-           
-
-
             //弹出编辑框
             selector.$myModalLabel_title().text("编辑员工所在部门");
             selector.$userInfoDialog().modal({ backdrop: 'static', keyboard: false });
             selector.$userInfoDialog().modal('show');
-            //    }
-            //});
         }
     });
     //初始化标签
