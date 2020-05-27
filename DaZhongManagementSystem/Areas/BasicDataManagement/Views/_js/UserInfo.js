@@ -81,7 +81,7 @@ var $page = function () {
     //重置按钮事件
     selector.$btnReset().on('click', function () {
         selector.$name_Search().val("");
-        selector.$Status_Search().val("");
+        selector.$Status_Search().val(""); 
         selector.$TranslationOwnedFleet_Search().val("");
         selector.$jobNumber_Search().val("");
         selector.$serviceNum_Search().val("");
