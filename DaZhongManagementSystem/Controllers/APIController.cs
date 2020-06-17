@@ -298,12 +298,13 @@ namespace DaZhongManagementSystem.Controllers
                     string accessToken = WeChatTools.GetAccessoken(true);
                     string pushResult = WeChatTools.GetUserInfo(accessToken);
                     U_WechatUsersResult usersResult = Extend.JsonToModel<U_WechatUsersResult>(pushResult);
+
                     var fuser = usersResult.userlist.Find(c => c.userid == c.mobile && c.mobile == user.mobile);
                     if (fuser != null)
                     {
                         result.Success = true;
                         result.Message = string.Format("存在微信USERID为{0},手机号码为{1}的用户！", fuser.userid, fuser.mobile);
-                        result.Result = 1;//
+                        result.Result = 1;//USERID为手机号，手机号一致
                         return Json(result);
                     }
                     fuser = usersResult.userlist.Find(c => c.userid == user.idcard && c.mobile == user.mobile);
@@ -311,7 +312,7 @@ namespace DaZhongManagementSystem.Controllers
                     {
                         result.Success = true;
                         result.Message = string.Format("存在微信USERID为{0},手机号码为{1}的用户！", fuser.userid, fuser.mobile);
-                        result.Result = 2;//
+                        result.Result = 2;//USERID为身份证号，手机号一致
                         return Json(result);
                     }
                     fuser = usersResult.userlist.Find(c => c.userid == user.mobile);
@@ -319,7 +320,7 @@ namespace DaZhongManagementSystem.Controllers
                     {
                         result.Success = true;
                         result.Message = string.Format("存在微信USERID为{0},手机号码为{1}的用户！", fuser.userid, fuser.mobile);
-                        result.Result = 3;//
+                        result.Result = 3;//USERID为手机号，手机号不一致
                         return Json(result);
                     }
                     fuser = usersResult.userlist.Find(c => c.userid == user.idcard);
@@ -327,7 +328,7 @@ namespace DaZhongManagementSystem.Controllers
                     {
                         result.Success = true;
                         result.Message = string.Format("存在微信USERID为{0},手机号码为{1}的用户！", fuser.userid, fuser.mobile);
-                        result.Result = 4;//
+                        result.Result = 4;//USERID为身份证号，手机号不一致
                         return Json(result);
                     }
                     fuser = usersResult.userlist.Find(c => c.mobile == user.mobile);
@@ -335,7 +336,7 @@ namespace DaZhongManagementSystem.Controllers
                     {
                         result.Success = true;
                         result.Message = string.Format("存在微信USERID为{0},手机号码为{1}的用户！", fuser.userid, fuser.mobile);
-                        result.Result = 5;//
+                        result.Result = 5;//手机号一致，USERID不一致
                         return Json(result);
                     }
                     result.Success = true;
@@ -397,16 +398,24 @@ namespace DaZhongManagementSystem.Controllers
                     string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken(true);
                     U_WeChatRegistered user = Extend.JsonToModel<U_WeChatRegistered>(pushparam);
                     UserInfoLogic userInfoLogic = new UserInfoLogic();
-                    userInfoLogic.UpdatePhoneNumber(user.userid, user.mobile);
-                    string pushResult = WeChatTools.WeChatMobileChange(accessToken, user.userid, user.mobile);
-                    var wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
-                    if (wechatResult.errcode == "0")
+                    var muser = userInfoLogic.GetPerson(user.idcard);
+                    if (muser == null)
                     {
-                        UserInfoLogic logic = new UserInfoLogic();
-                        logic.UpdateTrainers(user);
-                        result.Success = true;
+                        userInfoLogic.UpdatePhoneNumber(muser.UserID, user.mobile);
+                        string pushResult = WeChatTools.WeChatMobileChange(accessToken, muser.UserID, user.mobile);
+                        var wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
+                        if (wechatResult.errcode == "0")
+                        {
+                            UserInfoLogic logic = new UserInfoLogic();
+                            logic.UpdateTrainers(user);
+                            result.Success = true;
+                        }
+                        result.Message = pushResult;
                     }
-                    result.Message = pushResult;
+                    else
+                    {
+                        result.Message = string.Format("该身份证号码:{0} 用户不存在", user.idcard);
+                    }
                 }
                 else
                 {
