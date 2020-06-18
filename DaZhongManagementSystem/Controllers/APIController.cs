@@ -399,7 +399,7 @@ namespace DaZhongManagementSystem.Controllers
                     U_WeChatRegistered user = Extend.JsonToModel<U_WeChatRegistered>(pushparam);
                     UserInfoLogic userInfoLogic = new UserInfoLogic();
                     var muser = userInfoLogic.GetPerson(user.idcard);
-                    if (muser == null)
+                    if (muser != null)
                     {
                         userInfoLogic.UpdatePhoneNumber(muser.UserID, user.mobile);
                         string pushResult = WeChatTools.WeChatMobileChange(accessToken, muser.UserID, user.mobile);
