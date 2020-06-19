@@ -2439,9 +2439,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>4884</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:8088/</IISUrl>
-          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://localhost:8088/</IISAppRootUrl>
+          <IISUrl>http://localhost:4884/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

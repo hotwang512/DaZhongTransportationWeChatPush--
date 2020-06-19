@@ -402,7 +402,9 @@ namespace DaZhongManagementSystem.Controllers
                     if (muser != null)
                     {
                         userInfoLogic.UpdatePhoneNumber(muser.UserID, user.mobile);
+                        WeChatTools.DisableWeChatData(accessToken, muser.UserID);
                         string pushResult = WeChatTools.WeChatMobileChange(accessToken, muser.UserID, user.mobile);
+                        WeChatTools.EnableWeChatData(accessToken, muser.UserID);
                         var wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
                         if (wechatResult.errcode == "0")
                         {
