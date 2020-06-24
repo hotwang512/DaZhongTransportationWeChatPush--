@@ -59,7 +59,7 @@ namespace DaZhongManagementSystem.Infrastructure.BasicDataManagement
         {
             using (SqlSugarClient dbMsSql = SugarDao_MsSql.GetInstance())
             {
-                dbMsSql.Update<Business_Personnel_Information>(new { PhoneNumber = phoneNumber }, i => i.UserID == userid);
+                dbMsSql.Update<Business_Personnel_Information>(new { PhoneNumber = phoneNumber, ApprovalStatus = 4 }, i => i.UserID == userid);
             }
         }
         /// <summary>

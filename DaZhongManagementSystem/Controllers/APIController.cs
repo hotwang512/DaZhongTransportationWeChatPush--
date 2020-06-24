@@ -402,17 +402,30 @@ namespace DaZhongManagementSystem.Controllers
                     if (muser != null)
                     {
                         userInfoLogic.UpdatePhoneNumber(muser.UserID, user.mobile);
-                        WeChatTools.DisableWeChatData(accessToken, muser.UserID);
-                        string pushResult = WeChatTools.WeChatMobileChange(accessToken, muser.UserID, user.mobile);
-                        WeChatTools.EnableWeChatData(accessToken, muser.UserID);
+                        //userInfoLogic.DeleteUserInfo(new string[] { muser.Vguid.ToString() });
+                        string pushResult = WeChatTools.DeleteUser(accessToken, muser.UserID);
                         var wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
-                        if (wechatResult.errcode == "0")
+                        if (wechatResult.errcode != "0")
                         {
-                            UserInfoLogic logic = new UserInfoLogic();
-                            logic.UpdateTrainers(user);
-                            result.Success = true;
+                            result.Message = pushResult;
                         }
-                        result.Message = pushResult;
+                        else
+                        {
+                            user.userid = user.idcard;
+                            user.name = muser.Name;
+                            user.gender = muser.Sex == "0" ? "2" : muser.Sex;
+
+                            //string pushResult = WeChatTools.WeChatMobileChange(accessToken, muser.UserID, user.mobile);
+                            pushResult = WeChatTools.CreateUser(accessToken, user);
+                            wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
+                            if (wechatResult.errcode == "0")
+                            {
+                                UserInfoLogic logic = new UserInfoLogic();
+                                logic.UpdateTrainers(user);
+                                result.Success = true;
+                            }
+                            result.Message = pushResult;
+                        }
                     }
                     else
                     {
