@@ -402,35 +402,45 @@ namespace DaZhongManagementSystem.Controllers
                     if (muser != null)
                     {
                         userInfoLogic.UpdatePhoneNumber(muser.UserID, user.mobile);
-                        //userInfoLogic.DeleteUserInfo(new string[] { muser.Vguid.ToString() });
-                        string pushResult = WeChatTools.DeleteUser(accessToken, muser.UserID);
-                        var wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
-                        if (wechatResult.errcode != "0")
+                        user.userid = muser.UserID;
+                    }
+                    //userInfoLogic.DeleteUserInfo(new string[] { muser.Vguid.ToString() });
+                    string pushResult = WeChatTools.DeleteUser(accessToken, user.userid);
+                    var wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
+                    if (wechatResult.errcode != "0")
+                    {
+                        result.Message = pushResult;
+                    }
+                    else
+                    {
+                        UserInfoLogic logic = new UserInfoLogic();
+                        var allTrainers = logic.GetTrainers(user);
+                        if (allTrainers != null)
                         {
-                            result.Message = pushResult;
-                        }
-                        else
-                        {
-                            user.userid = user.idcard;
-                            user.name = muser.Name;
-                            user.gender = muser.Sex == "0" ? "2" : muser.Sex;
-
+                            user.userid = allTrainers.IDCard;
+                            user.name = allTrainers.Name;
+                            user.gender = allTrainers.Gender.ToString();
                             //string pushResult = WeChatTools.WeChatMobileChange(accessToken, muser.UserID, user.mobile);
+
                             pushResult = WeChatTools.CreateUser(accessToken, user);
                             wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
                             if (wechatResult.errcode == "0")
                             {
-                                UserInfoLogic logic = new UserInfoLogic();
                                 logic.UpdateTrainers(user);
                                 result.Success = true;
                             }
                             result.Message = pushResult;
                         }
+                        else
+                        {
+                            result.Message = string.Format("该身份证号码:{0} 用户不在同步人事信息中不存在！", user.idcard);
+                        }
                     }
-                    else
-                    {
-                        result.Message = string.Format("该身份证号码:{0} 用户不存在", user.idcard);
-                    }
+
+                    //else
+                    //{
+                    //    result.Message = string.Format("该身份证号码:{0} 用户不存在", user.idcard);
+                    //}
                 }
                 else
                 {

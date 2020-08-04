@@ -8,6 +8,7 @@ using DaZhongManagementSystem.Infrastructure.BasicDataManagement;
 using DaZhongManagementSystem.Common.Tools;
 using System.Data;
 using DaZhongManagementSystem.Common;
+using DaZhongManagementSystem.Entities.TableEntity.DaZhongPersonTable;
 
 namespace DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.UserInfo.BussinessLogic
 {
@@ -234,6 +235,10 @@ namespace DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.UserInfo
         public void UpdateTrainers(U_WeChatRegistered ruser)
         {
             _us.UpdateTrainers(ruser);
+        }
+        public AllTrainers GetTrainers(U_WeChatRegistered ruser)
+        {
+            return _us.GetTrainers(ruser);
         }
     }
 

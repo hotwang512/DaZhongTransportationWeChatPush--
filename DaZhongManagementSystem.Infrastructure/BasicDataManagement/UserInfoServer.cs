@@ -645,5 +645,18 @@ namespace DaZhongManagementSystem.Infrastructure.BasicDataManagement
                 _dbSql.Update<AllTrainers>(new { MobilePhone = ruser.mobile }, c => c.EmployeeNO == ruser.userid);
             }
         }
+        public AllTrainers GetTrainers(U_WeChatRegistered ruser)
+        {
+            AllTrainers trainers = null;
+            using (SqlSugarClient _dbSql = SugarDao_LandaVSql.GetInstance())
+            {
+                List<AllTrainers> allTrainers = _dbSql.Queryable<AllTrainers>().Where(c => c.EmployeeNO == ruser.userid).ToList();
+                if (allTrainers.Count > 0)
+                {
+                    trainers = allTrainers[0];
+                }
+            }
+            return trainers;
+        }
     }
 }
