@@ -1,0 +1,4 @@
+
+-------------------------------header----------------------
+2020-08-25 14:11:32,693 [7] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - Base-64 字符数组或字符串的长度无效。
+2020-08-25 14:15:31,259 [7] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - Base-64 字符数组或字符串的长度无效。

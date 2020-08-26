@@ -15,6 +15,9 @@ using System.Security.Cryptography.X509Certificates;
 using System.IO;
 using DaZhongManagementSystem.Common.WeChatPush;
 using DaZhongManagementSystem.Entities.TableEntity;
+using System.Threading.Tasks;
+using System.Net.Http;
+using SyntacticSugar;
 
 namespace DaZhongManagementSystem.Controllers
 {
@@ -565,6 +568,78 @@ namespace DaZhongManagementSystem.Controllers
             responeJsonStr += "}";
             return responeJsonStr;
         }
+
+
+        public JsonResult NotificationSMS(string SECURITYKEY, string pushparam)
+        {
+            ExecutionResult result = new ExecutionResult();
+            try
+            {
+                if (API_Authentication(SECURITYKEY))
+                {
+                    result = SaveNotificationSMS(pushparam);
+                    if (result.Success)
+                    {
+                        HttpClient httpClient = new HttpClient();
+                        //将服务凭证转换为Base64编码格式  
+                        byte[] auth = Encoding.UTF8.GetBytes(string.Format("{0}:{1}", ConfigSugar.GetAppString("SMSAppKey"), ConfigSugar.GetAppString("MasterSecret")));
+                        String auth64 = Convert.ToBase64String(auth);
+                        //创建并指定服务凭证，认证方案为Basic  
+                        httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", auth64);
+                        string json = pushparam;
+                        System.Net.Http.StringContent sc = new System.Net.Http.StringContent(json);
+                        sc.Headers.Remove("Content-Type");
+                        sc.Headers.Add("Content-Type", "application/json");
+                        Task<HttpResponseMessage> taskHrm = httpClient.PostAsync("https://api.sms.jpush.cn/v1/messages", sc);
+                        //Task.WaitAll(taskHrm);
+                        Task<string> taskStr = taskHrm.Result.Content.ReadAsStringAsync();
+                        result.Message = taskStr.Result;
+                        //Task.WaitAll(taskStr);
+                        if (result.Message.Contains("msg_id"))
+                        {
+                            result.Success = true;
+                        }
+                        else
+                        {
+                            result.Success = false;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = ex.Message;
+                LogHelper.WriteLog(ex.Message);
+            }
+            return Json(result);
+
+        }
+
+
+        public ExecutionResult SaveNotificationSMS(string pushparam)
+        {
+            ExecutionResult result = new ExecutionResult();
+            U_PushMsg pushMsg = new U_PushMsg();
+            pushMsg.VGUID = Guid.NewGuid();
+            pushMsg.PushType = 2;
+            pushMsg.MessageType = 3;
+
+            pushMsg.Title = "短信发送";
+            pushMsg.Message = pushparam;
+            pushMsg.PushDate = DateTime.Now;
+            pushMsg.PushPeople = "接口短信";
+            pushMsg.PeriodOfValidity = DateTime.Now.AddMonths(1);
+            pushMsg.CreatedUser = "微企推送";
+            pushMsg.CreatedDate = DateTime.Now;
+            List<Business_WeChatPush_MoreGraphic_Information> pushMoreGraphicList = new List<Business_WeChatPush_MoreGraphic_Information>();
+            DraftInfoLogic logic = new DraftInfoLogic();
+            Guid vguid = Guid.Empty;
+            result.Success = logic.APISaveImagePushMsg(pushMsg, pushMoreGraphicList);
+            result.Result = new { Uniquekey = pushMsg.VGUID };
+            return result;
+        }
+
+
 
         //public JsonResult WeChatRegistered(string SECURITYKEY, string pushparam)
         //{

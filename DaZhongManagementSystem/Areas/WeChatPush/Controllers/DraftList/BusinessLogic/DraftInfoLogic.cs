@@ -465,20 +465,22 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.DraftList.Busines
             weChatMain.History = pushMsgModel.History;
             weChatMain.Label = pushMsgModel.Label;
             weChatMain.CountersignType = null;
-
-            string pushObject = pushMsgModel.PushObject.TrimEnd('|');
-            string[] arrObject = pushObject.Split('|');
-            foreach (var item in arrObject)
+            if (!string.IsNullOrEmpty(pushMsgModel.PushObject))
             {
-                Business_WeChatPushDetail_Information weChatDetail = new Business_WeChatPushDetail_Information();
-                weChatDetail.Business_WeChatPushVguid = weChatMain.VGUID;
-                weChatDetail.Type = pushMsgModel.PushType.ToString();
-                weChatDetail.Vguid = Guid.NewGuid();
-                weChatDetail.ISRead = "0"; //未读
-                weChatDetail.PushObject = item;
-                weChatDetail.CreatedDate = pushMsgModel.CreatedDate;
-                weChatDetail.CreatedUser = pushMsgModel.CreatedUser;
-                weChatDetailList.Add(weChatDetail);
+                string pushObject = pushMsgModel.PushObject.TrimEnd('|');
+                string[] arrObject = pushObject.Split('|');
+                foreach (var item in arrObject)
+                {
+                    Business_WeChatPushDetail_Information weChatDetail = new Business_WeChatPushDetail_Information();
+                    weChatDetail.Business_WeChatPushVguid = weChatMain.VGUID;
+                    weChatDetail.Type = pushMsgModel.PushType.ToString();
+                    weChatDetail.Vguid = Guid.NewGuid();
+                    weChatDetail.ISRead = "0"; //未读
+                    weChatDetail.PushObject = item;
+                    weChatDetail.CreatedDate = pushMsgModel.CreatedDate;
+                    weChatDetail.CreatedUser = pushMsgModel.CreatedUser;
+                    weChatDetailList.Add(weChatDetail);
+                }
             }
             return _ds.SaveImagePushMsg(weChatMain, pushMoreGraphicList, weChatDetailList, false);
 
