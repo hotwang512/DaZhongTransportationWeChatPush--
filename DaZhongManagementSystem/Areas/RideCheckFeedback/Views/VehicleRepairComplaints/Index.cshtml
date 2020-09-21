@@ -1,0 +1,354 @@
+﻿<!DOCTYPE html>
+@using DaZhongManagementSystem.Entities.TableEntity;
+@{
+    Business_VehicleRepairComplaints vrc = Model as Business_VehicleRepairComplaints;
+}
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="@Url.Content("~/Areas/RideCheckFeedback/Views/_css/weui.min.css")"> <!-- jquery weui 插件 -->
+    <link rel="stylesheet" href="@Url.Content("~/Areas/RideCheckFeedback/Views/_css/layui.css")"> <!-- layui 插件 -->
+    <link rel="stylesheet" href="@Url.Content("~/Areas/RideCheckFeedback/Views/_css/jquery-weui.min.css")"> <!-- jquery weui 插件 -->
+    <link rel="stylesheet" href="@Url.Content("~/Areas/RideCheckFeedback/Views/_css/layer.css")" id="layui_layer_skinlayercss" style="">  <!-- layui 插件 -->
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/_theme/tool/jquery-form.min.js")"></script>
+    <script src="@Url.Content("~/Areas/RideCheckFeedback/Views/_js/layer.js")"></script>
+    <style>
+        body {
+            height: 100%;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .weui-form-preview__label {
+            color: black;
+            margin-right: 0px;
+            margin-bottom: 5px;
+        }
+
+        .demos-title {
+            text-align: center;
+            font-size: 22px;
+            color: black;
+            font-weight: 600;
+            margin: 0 13%;
+        }
+
+        .demos-bottom {
+            text-align: center;
+            font-size: 17px;
+            color: black;
+            font-weight: 600;
+            margin: 5px 13%;
+        }
+
+        .demos-header {
+            padding: 6px 0;
+            background-color: #F9F9F9;
+        }
+
+        .weui-label {
+            text-align: right;
+        }
+
+        input[type="date"]:before {
+            content: attr(placeholder);
+            color: #757575;
+        }
+
+        .weui-cells {
+            margin-top: 0px;
+        }
+
+            .weui-cells:after, .weui-cells:before {
+                border: 0px;
+            }
+
+        .weui-cell:before {
+            border: 0px;
+        }
+
+        hr {
+            margin: 5px 0px;
+        }
+
+        .weui-input {
+            height: 2em;
+        }
+
+        .weui-label {
+            display: block;
+            width: 128px;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+
+        select {
+            border: solid 1px #ccc;
+            height: 30px;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        textarea {
+            width: 100%;
+            height: 76px;
+            border: solid 1px #ccc;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        .image_invoice {
+            max-height: 100px;
+            max-width: 100px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body ontouchstart="" style="">
+    <header class="demos-header">
+        <h2 class="demos-title">大众出行车辆修理投诉</h2>
+    </header>
+    <div class="weui-cells weui-cells_form" id="root">
+        <hr style="height:0px">
+        <input id="VGUID" type="hidden" value="@vrc.VGUID" />
+        <input id="CreateUser" type="hidden" value="@vrc.CreateUser" />
+        <input id="CreateDate" type="hidden" value="@vrc.CreateDate" />
+        <input id="ReflectDate" type="hidden" value="@vrc.ReflectDate" />
+        <!-- 反映类别 -->
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">反映类别<font style="color:red"> *</font>：</label>
+            </div>
+            <div class="weui-cell__bd">
+                <select id="ReflectCategory" name="ReflectCategory">
+                    @if (vrc.ReflectCategory == "日常保养")
+                    {
+                        <option value="日常保养" selected="selected">日常保养</option>
+                    }
+                    else
+                    {
+                        <option value="日常保养">日常保养</option>
+                    }
+                    @if (vrc.Subsidiary == "常规修理")
+                    {
+                        <option value="常规修理" selected="selected">常规修理</option>
+                    }
+                    else
+                    {
+                        <option value="常规修理">常规修理</option>
+                    }
+                    @if (vrc.Subsidiary == "其他")
+                    {
+                        <option value="其他" selected="selected">其他</option>
+                    }
+                    else
+                    {
+                        <option value="其他">其他</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <hr>
+        <!-- 姓名 -->
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">反映人姓名<font style="color:red"> *</font>：</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" value="@vrc.ReflectName" type="text" id="ReflectName" name="ReflectName" readonly="readonly" placeholder="请输入反映人姓名">
+            </div>
+        </div>
+        <hr>
+        <!-- 工号 -->
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">反映人工号<font style="color:red"> *</font>：</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" value="@vrc.ReflectJobNumber" type="text" id="ReflectJobNumber" name="ReflectJobNumber" placeholder="请输入反映人工号">
+            </div>
+        </div>
+        <hr>
+        <!-- 车号 -->
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">车号<font style="color:red"> *</font>：</label>
+            </div>
+            <div class="weui-cell__bd">
+                <label style="width: 33px;display: inline-block;">沪</label>
+                <input class="weui-input" value="@vrc.CarNumber" style="width: 80%" id="CarNumber" name="CarNumber" type="text" maxlength="6" placeholder="请输入车号" onkeyup="value = value.replace(/[\W]/g, '') ">
+            </div>
+        </div>
+        <hr>
+        <!-- 所属分公司 -->
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">所属分公司<font style="color:red"> *</font>：</label>
+            </div>
+            <div class="weui-cell__bd">
+                <select id="Subsidiary" name="Subsidiary">
+                    @if (vrc.Subsidiary == "市南公司")
+                    {
+                        <option value="市南公司" selected="selected">市南公司</option>
+                    }
+                    else
+                    {
+                        <option value="市南公司">市南公司</option>
+                    }
+                    @if (vrc.Subsidiary == "市北公司")
+                    {
+                        <option value="市北公司" selected="selected">市北公司</option>
+                    }
+                    else
+                    {
+                        <option value="市北公司">市北公司</option>
+                    }
+                    @if (vrc.Subsidiary == "庙行公司")
+                    {
+                        <option value="庙行公司" selected="selected">庙行公司</option>
+                    }
+                    else
+                    {
+                        <option value="庙行公司">庙行公司</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <hr>
+        <!-- 联系电话 -->
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">联系电话<font style="color:red"> *</font>：</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" value="@vrc.ContactNumber" style="width: 80%" id="ContactNumber" name="ContactNumber" type="text" maxlength="11" placeholder="请输入车号" onkeyup="value = value.replace(/[\W]/g, '') ">
+            </div>
+        </div>
+        <hr>
+        <!-- 反映内容 -->
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">反映内容<font style="color:red"> *</font>：</label>
+            </div>
+            <div class="weui-cell__bd">
+                <textarea id="ReflectContent" name="ReflectContent">@vrc.ReflectContent</textarea>
+            </div>
+        </div>
+        <hr>
+        <!-- 反映内容 -->
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">问题照片<font style="color:red"> *</font>：</label>
+            </div>
+            <div class="weui-cell__bd">
+                <form id="problemPhotoForm">
+                    <input type="hidden" id="ProblemPhoto" name="ProblemPhoto" value="@vrc.ProblemPhoto" />
+                    <input type="file" id="uploadPhoto" name="uploadPhoto" class="file" onchange="uploadProblemPhoto(this)" accept="image/*" style="width:90%; padding:0px;display:none;" />
+                    <div style="margin:auto;text-align:center;">
+                        @{
+                            if (string.IsNullOrEmpty(vrc.ProblemPhoto))
+                            {
+                                vrc.ProblemPhoto = "/Areas/RideCheckFeedback/Views/_img/add_image.png";
+                            }
+                        }
+                        <img id="image" name="image" class="image_invoice" src="@vrc.ProblemPhoto" />
+
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <div class="weui-footer" style="margin-top: 5%;">
+            <button type="button" id="sumbit" onclick="sumbit()" class="layui-btn layui-btn-lg layui-btn-normal" style="width:75%">提交</button>
+        </div>
+        <script>
+            $("#image").click(function () {
+                $("#uploadPhoto").val('');
+                $("#uploadPhoto").click();
+            });
+            function uploadProblemPhoto(ele) {
+                layer.open({ type: 2 });
+                $("#problemPhotoForm").ajaxSubmit({
+                    url: "/RideCheckFeedback/VehicleRepairComplaints/uploadFile",
+                    type: "post",
+                    dataType: "json",
+                    success: function (msg) {
+                        $("#image").attr("src", msg.Data.FilePath);
+                        $("#ProblemPhoto").val(msg.Data.FilePath);
+                        layer.closeAll();
+                    }
+                });
+            }
+
+            function sumbit() {
+
+                if ($("#ReflectJobNumber").val() == "") {
+                    layer.msg('请输入反映人工号', { time: 1000 });
+                    return;
+                }
+                if ($("#CarNumber").val() == "") {
+                    layer.msg('请输入车号', { time: 1000 });
+                    $("#cphm").val("");
+                    return;
+                }
+                if ($("#ContactNumber").val() == "") {
+                    layer.msg('请输入联系电话', { time: 1000 });
+                    return;
+                }
+                if ($("#ReflectContent").val() == "") {
+                    layer.msg('请输入反映内容', { time: 1000 });
+                    return;
+                }
+                if ($("#ReflectContent").val() == "") {
+                    layer.msg('请输入反映内容', { time: 1000 });
+                    return;
+                }
+                if ($("#ProblemPhoto").val() == "") {
+                    layer.msg('请输上传问题照片', { time: 1000 });
+                    return;
+                }
+                //var index = layer.load(1, {
+                //    shade: [0.5, '#292C34'] //0.1透明度的白色背景
+                //});
+                layer.open({ type: 2 });
+                var form = new FormData();
+                form.append("ReflectCategory", $("#ReflectCategory").val());
+                form.append("ReflectName", $("#ReflectName").val());
+                form.append("ReflectJobNumber", $("#ReflectJobNumber").val());
+                form.append("CarNumber", $("#CarNumber").val());
+                form.append("ContactNumber", $("#ContactNumber").val());
+                form.append("Subsidiary", $("#Subsidiary").val());
+                form.append("ReflectContent", $("#ReflectContent").val());
+                form.append("ProblemPhoto", $("#ProblemPhoto").val());
+                form.append("VGUID", $("#VGUID").val());
+                form.append("ReflectDate", $("#ReflectDate").val());
+                form.append("CreateUser", $("#CreateUser").val());
+                $.ajax({
+                    url: '/RideCheckFeedback/VehicleRepairComplaints/SaveVehicleRepairComplaints',
+                    dataType: 'json',
+                    type: 'post',
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function (msg) {
+                        layer.closeAll();
+                        if (msg == "0") {
+                            $.toast("提交成功", 3000, function () {
+                                WeixinJSBridge.call('closeWindow');
+                            });
+
+                        } else if (msg == "1") {
+                            layer.alert('提交失败，请稍后重试！', { icon: 2 })
+                        }
+                    }
+                });
+            }
+        </script>
+</body>
+</html>

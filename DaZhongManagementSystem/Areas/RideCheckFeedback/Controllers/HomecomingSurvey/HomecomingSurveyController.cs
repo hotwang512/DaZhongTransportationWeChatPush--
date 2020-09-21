@@ -23,10 +23,10 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.Homecoming
         public ActionResult Index(string code)
         {
             U_WeChatUserID userInfo = new U_WeChatUserID();
-            //string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
-            //string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
-            //userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
-            userInfo.UserId = "18555557780";
+            string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
+            string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
+            userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
+            //userInfo.UserId = "13524338060";
             Business_Personnel_Information personInfoModel = _logic.GetUserInfo(userInfo.UserId);
             Business_HomecomingSurvey bhs = _hsl.GetHomecomingSurvey(userInfo.UserId, DateTime.Now.Year.ToString());
             if (bhs == null)

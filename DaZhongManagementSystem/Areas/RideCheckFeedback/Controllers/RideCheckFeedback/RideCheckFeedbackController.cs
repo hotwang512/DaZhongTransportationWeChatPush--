@@ -28,6 +28,7 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.RideCheckF
             U_WeChatUserID userInfo = new U_WeChatUserID();
             string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
             userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
+            //userInfo.UserId = "13524338060";
             Business_Personnel_Information personInfoModel = GetUserInfo(userInfo.UserId);//获取人员表信息
             //Business_Personnel_Information personInfoModel = GetUserInfo("WangCunBiao");//获取人员表信息
             Business_RideCheckFeedback rideCheckFeedback = new Business_RideCheckFeedback();

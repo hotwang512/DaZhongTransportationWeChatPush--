@@ -23,6 +23,13 @@ namespace DaZhongManagementSystem.Controllers
 {
     public class APIController : Controller
     {
+
+        private void ExecHistry(string apiName, string pushparam, string result)
+        {
+            LogHelper.WriteLog(string.Format("接口名称:{0}  时间:{1}  参数:{2}  结果:{3}", apiName, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), pushparam, result));
+        }
+
+
         public JsonResult GetRideCheckFailed(string numberPlate)
         {
             ExecutionResult result = new ExecutionResult();
@@ -62,6 +69,7 @@ namespace DaZhongManagementSystem.Controllers
                     result.Message = ex.Message;
                 }
             }
+            ExecHistry("GetRideCheckFailed", numberPlate, result.Success.ToString());
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -108,6 +116,7 @@ namespace DaZhongManagementSystem.Controllers
                 result.Message = ex.Message;
                 LogHelper.WriteLog(ex.Message);
             }
+            ExecHistry("UserIDNumber", phoneNumber, result.Success.ToString());
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -140,6 +149,7 @@ namespace DaZhongManagementSystem.Controllers
                 result.Message = ex.Message;
                 LogHelper.WriteLog(ex.Message);
             }
+            ExecHistry("UserInformation", code, result.Success.ToString());
             return Json(result);
         }
 
@@ -195,6 +205,7 @@ namespace DaZhongManagementSystem.Controllers
                 result.Message = ex.Message;
                 LogHelper.WriteLog(ex.Message);
             }
+            ExecHistry("TextPush", pushparam, result.Success.ToString());
             return Json(result);
         }
 
@@ -230,6 +241,7 @@ namespace DaZhongManagementSystem.Controllers
                 result.Message = ex.Message;
                 LogHelper.WriteLog(ex.Message);
             }
+            ExecHistry("GraphicPush", pushparam, result.Success.ToString());
             return Json(result);
         }
 
@@ -358,12 +370,18 @@ namespace DaZhongManagementSystem.Controllers
         }
         public JsonResult WeChatRegistered(string SECURITYKEY, string pushparam)
         {
-
             ExecutionResult result = new ExecutionResult();
             try
             {
                 if (API_Authentication(SECURITYKEY))
                 {
+                    //if (!APICount())
+                    //{
+                    //    result.Message = "删除微信官方通讯录次数已经用完！";
+                    //}
+                    //else
+                    //{
+
                     string accessToken = WeChatTools.GetAccessoken(true);
                     U_WeChatRegistered user = Extend.JsonToModel<U_WeChatRegistered>(pushparam);
 
@@ -376,6 +394,34 @@ namespace DaZhongManagementSystem.Controllers
                         result.Success = true;
                     }
                     result.Message = pushResult;
+
+
+                    //string accessToken = WeChatTools.GetAccessoken(true);
+                    //U_WeChatRegistered user = Extend.JsonToModel<U_WeChatRegistered>(pushparam);
+                    //var wResult = WeChatTools.GetUserInfoByUserID(accessToken, user.idcard);
+                    //var wechatResult = Extend.JsonToModel<U_WechatResult>(wResult);
+                    //if (wechatResult.errcode == "0")
+                    //{
+                    //    WeChatTools.DeleteUser(accessToken, user.idcard);
+                    //}
+                    //wResult = WeChatTools.GetUserId(accessToken, user.mobile);
+                    //Dictionary<string, string> dicReuslt = Extend.JsonToModel<Dictionary<string, string>>(wResult);
+                    //if (dicReuslt["errcode"] == "0")
+                    //{
+                    //    string userid = dicReuslt["userid"];
+                    //    WeChatTools.DeleteUser(accessToken, userid);
+                    //}
+
+                    //string pushResult = WeChatTools.CreateUser(accessToken, user);
+                    //wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
+                    //if (wechatResult.errcode == "0")
+                    //{
+                    //    UserInfoLogic logic = new UserInfoLogic();
+                    //    logic.InsertTrainers(user);
+                    //    result.Success = true;
+                    //}
+                    //result.Message = pushResult;
+                    //}
                 }
                 else
                 {
@@ -387,8 +433,41 @@ namespace DaZhongManagementSystem.Controllers
                 result.Message = ex.Message;
                 LogHelper.WriteLog(ex.Message);
             }
+            ExecHistry("WeChatRegistered", pushparam, result.Success.ToString());
             return Json(result);
         }
+
+
+        private bool APICount()
+        {
+            int apiCount = ConfigSugar.GetAppInt("APICount");
+            string path = this.Server.MapPath("APICount");
+            string fileName = "apicount.ini";
+            string filePath = Path.Combine(path, fileName);
+            string fileContent = System.IO.File.ReadAllText(filePath);
+            if (string.IsNullOrEmpty(fileContent))
+            {
+                fileContent = DateTime.Now.ToString("yyyy-MM-dd") + "|0";
+            }
+            string[] fileStrs = fileContent.Split('|');
+            int count = 0;
+            if (DateTime.Now.ToString("yyyy-MM-dd") == fileStrs[0])
+            {
+                count = Convert.ToInt32(fileStrs[1]);
+            }
+            if (count > apiCount)
+            {
+                return false;
+            }
+            else
+            {
+                count++;
+                fileContent = DateTime.Now.ToString("yyyy-MM-dd") + "|" + count.ToString();
+                System.IO.File.WriteAllText(filePath, fileContent);
+                return true;
+            }
+        }
+
 
         public JsonResult WeChatMobileChange(string SECURITYKEY, string pushparam)
         {
@@ -405,45 +484,43 @@ namespace DaZhongManagementSystem.Controllers
                     if (muser != null)
                     {
                         userInfoLogic.UpdatePhoneNumber(muser.UserID, user.mobile);
-                        user.userid = muser.UserID;
-                    }
-                    //userInfoLogic.DeleteUserInfo(new string[] { muser.Vguid.ToString() });
-                    string pushResult = WeChatTools.DeleteUser(accessToken, user.userid);
-                    var wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
-                    if (wechatResult.errcode != "0")
-                    {
-                        result.Message = pushResult;
-                    }
-                    else
-                    {
-                        UserInfoLogic logic = new UserInfoLogic();
-                        var allTrainers = logic.GetTrainers(user);
-                        if (allTrainers != null)
+                        //userInfoLogic.DeleteUserInfo(new string[] { muser.Vguid.ToString() });
+                        string pushResult = WeChatTools.DeleteUser(accessToken, muser.UserID);
+                        var wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
+                        if (wechatResult.errcode != "0")
                         {
-                            user.userid = allTrainers.IDCard;
-                            user.name = allTrainers.Name;
-                            user.gender = allTrainers.Gender.ToString();
-                            //string pushResult = WeChatTools.WeChatMobileChange(accessToken, muser.UserID, user.mobile);
-
-                            pushResult = WeChatTools.CreateUser(accessToken, user);
-                            wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
-                            if (wechatResult.errcode == "0")
-                            {
-                                logic.UpdateTrainers(user);
-                                result.Success = true;
-                            }
                             result.Message = pushResult;
                         }
                         else
                         {
-                            result.Message = string.Format("该身份证号码:{0} 用户不在同步人事信息中不存在！", user.idcard);
+                            UserInfoLogic logic = new UserInfoLogic();
+                            var allTrainers = logic.GetTrainers(user);
+                            if (allTrainers != null)
+                            {
+                                user.userid = allTrainers.IDCard;
+                                user.name = allTrainers.Name;
+                                user.gender = allTrainers.Gender.ToString();
+                                //string pushResult = WeChatTools.WeChatMobileChange(accessToken, muser.UserID, user.mobile);
+
+                                pushResult = WeChatTools.CreateUser(accessToken, user);
+                                wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
+                                if (wechatResult.errcode == "0")
+                                {
+                                    logic.UpdateTrainers(user);
+                                    result.Success = true;
+                                }
+                                result.Message = pushResult;
+                            }
+                            else
+                            {
+                                result.Message = string.Format("该身份证号码:{0} 用户在培训注册表中不存在！", user.idcard);
+                            }
                         }
                     }
-
-                    //else
-                    //{
-                    //    result.Message = string.Format("该身份证号码:{0} 用户不存在", user.idcard);
-                    //}
+                    else
+                    {
+                        result.Message = string.Format("该身份证号码:{0} 用户不存在", user.idcard);
+                    }
                 }
                 else
                 {
@@ -455,6 +532,7 @@ namespace DaZhongManagementSystem.Controllers
                 result.Message = ex.Message;
                 LogHelper.WriteLog(ex.Message);
             }
+            ExecHistry("WeChatRegistered", pushparam, result.Success.ToString());
             return Json(result);
         }
 
@@ -533,6 +611,7 @@ namespace DaZhongManagementSystem.Controllers
                 result.Message = ex.Message;
                 LogHelper.WriteLog(ex.Message);
             }
+            ExecHistry("WeChatRegistered", pushparam, result.Success.ToString());
             return Json(result);
         }
 
@@ -572,6 +651,7 @@ namespace DaZhongManagementSystem.Controllers
 
         public JsonResult NotificationSMS(string SECURITYKEY, string pushparam)
         {
+
             ExecutionResult result = new ExecutionResult();
             try
             {
@@ -611,6 +691,7 @@ namespace DaZhongManagementSystem.Controllers
                 result.Message = ex.Message;
                 LogHelper.WriteLog(ex.Message);
             }
+            ExecHistry("WeChatRegistered", pushparam, result.Success.ToString());
             return Json(result);
 
         }

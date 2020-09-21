@@ -213,6 +213,8 @@
     <Compile Include="Areas\RideCheckFeedback\Controllers\RideCheckFeedback\BusinessLogic\RideCheckFeedbackLogic.cs" />
     <Compile Include="Areas\RideCheckFeedback\Controllers\RideCheckFeedback\RideCheckFeedbackController.cs" />
     <Compile Include="Areas\ReportManagement\Controllers\RideCheckFeedbackReport\RideCheckFeedbackReportController.cs" />
+    <Compile Include="Areas\RideCheckFeedback\Controllers\VehicleRepairComplaints\BusinessLogic\Business_VehicleRepairComplaintsLogic.cs" />
+    <Compile Include="Areas\RideCheckFeedback\Controllers\VehicleRepairComplaints\VehicleRepairComplaints.cs" />
     <Compile Include="Areas\RideCheckFeedback\RideCheckFeedbackAreaRegistration.cs" />
     <Compile Include="Areas\WeChatPay\Controllers\WechatPayController.cs" />
     <Compile Include="Areas\WeChatPay\WeChatPayAreaRegistration.cs" />
@@ -2179,6 +2181,7 @@
     <Content Include="Areas\RideCheckFeedback\Views\HomecomingSurvey\Index.cshtml" />
     <Content Include="Areas\RideCheckFeedback\Views\HomecomingSurvey\ReturnHomeStatistics.cshtml" />
     <Content Include="Areas\ReportManagement\Views\QuestionReport\ExerciseTotalReport.cshtml" />
+    <Content Include="Areas\RideCheckFeedback\Views\VehicleRepairComplaints\Index.cshtml" />
     <None Include="Properties\PublishProfiles\DaZhong.pubxml" />
     <Content Include="ReportTemplate\PushTemplate.xlsx" />
     <Content Include="ReportTemplate\ScoreTemplate.xlsx" />

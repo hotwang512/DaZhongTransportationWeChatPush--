@@ -161,7 +161,20 @@ namespace DaZhongManagementSystem.Common.WeChatPush
             string respText = PostWebRequest(url, jsonData, Encoding.UTF8);
             return respText;
         }
-
+        /// <summary>
+        /// 创建微信通讯录中的用户
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static string GetUserId(string accessToken, string mobile)
+        {
+            string createUserUrl = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserid?access_token={0}";
+            string url = string.Format(createUserUrl, accessToken);
+            string jsonData = "{\"mobile\":\"" + mobile + "\"}";
+            string respText = PostWebRequest(url, jsonData, Encoding.UTF8);
+            return respText;
+        }
 
         /// <summary>
         /// 删除微信通讯录中的用户
