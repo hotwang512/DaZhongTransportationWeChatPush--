@@ -50,7 +50,7 @@ namespace DaZhongManagementSystem.Infrastructure.BasicDataManagement
             Business_Personnel_Information user = null;
             using (SqlSugarClient dbMsSql = SugarDao_MsSql.GetInstance())
             {
-                user = dbMsSql.Queryable<Business_Personnel_Information>().Where(i => i.PhoneNumber == phoneNumber).SingleOrDefault();
+                user = dbMsSql.Queryable<Business_Personnel_Information>().Where(i => i.PhoneNumber == phoneNumber && i.UserID != "" && i.UserID != null).SingleOrDefault();
             }
             return user;
         }

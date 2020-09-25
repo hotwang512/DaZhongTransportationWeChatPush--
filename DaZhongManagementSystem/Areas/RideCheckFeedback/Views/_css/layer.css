@@ -644,7 +644,7 @@ opacity
 
 .layui-layer-dialog {
 	min-width: 300px;
-	min-height: 100px;
+	min-height: 70px;
 }
 
 .layui-layer-dialog .layui-layer-content {

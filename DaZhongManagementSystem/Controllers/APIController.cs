@@ -116,7 +116,7 @@ namespace DaZhongManagementSystem.Controllers
                 result.Message = ex.Message;
                 LogHelper.WriteLog(ex.Message);
             }
-            ExecHistry("UserIDNumber", phoneNumber, result.Success.ToString());
+            ExecHistry("UserIDNumber", phoneNumber, JsonHelper.ModelToJson(result));
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -149,7 +149,7 @@ namespace DaZhongManagementSystem.Controllers
                 result.Message = ex.Message;
                 LogHelper.WriteLog(ex.Message);
             }
-            ExecHistry("UserInformation", code, result.Success.ToString());
+            ExecHistry("UserInformation", code, JsonHelper.ModelToJson(result));
             return Json(result);
         }
 
@@ -205,7 +205,7 @@ namespace DaZhongManagementSystem.Controllers
                 result.Message = ex.Message;
                 LogHelper.WriteLog(ex.Message);
             }
-            ExecHistry("TextPush", pushparam, result.Success.ToString());
+            ExecHistry("TextPush", pushparam, JsonHelper.ModelToJson(result));
             return Json(result);
         }
 
@@ -241,7 +241,7 @@ namespace DaZhongManagementSystem.Controllers
                 result.Message = ex.Message;
                 LogHelper.WriteLog(ex.Message);
             }
-            ExecHistry("GraphicPush", pushparam, result.Success.ToString());
+            ExecHistry("GraphicPush", pushparam, JsonHelper.ModelToJson(result));
             return Json(result);
         }
 
@@ -433,7 +433,7 @@ namespace DaZhongManagementSystem.Controllers
                 result.Message = ex.Message;
                 LogHelper.WriteLog(ex.Message);
             }
-            ExecHistry("WeChatRegistered", pushparam, result.Success.ToString());
+            ExecHistry("WeChatRegistered", pushparam, JsonHelper.ModelToJson(result));
             return Json(result);
         }
 
@@ -532,7 +532,7 @@ namespace DaZhongManagementSystem.Controllers
                 result.Message = ex.Message;
                 LogHelper.WriteLog(ex.Message);
             }
-            ExecHistry("WeChatRegistered", pushparam, result.Success.ToString());
+            ExecHistry("WeChatRegistered", pushparam, JsonHelper.ModelToJson(result));
             return Json(result);
         }
 
@@ -611,7 +611,7 @@ namespace DaZhongManagementSystem.Controllers
                 result.Message = ex.Message;
                 LogHelper.WriteLog(ex.Message);
             }
-            ExecHistry("WeChatRegistered", pushparam, result.Success.ToString());
+            ExecHistry("WeChatRegistered", pushparam, JsonHelper.ModelToJson(result));
             return Json(result);
         }
 
@@ -691,7 +691,7 @@ namespace DaZhongManagementSystem.Controllers
                 result.Message = ex.Message;
                 LogHelper.WriteLog(ex.Message);
             }
-            ExecHistry("WeChatRegistered", pushparam, result.Success.ToString());
+            ExecHistry("WeChatRegistered", pushparam, JsonHelper.ModelToJson(result));
             return Json(result);
 
         }

@@ -11,10 +11,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="stylesheet" href="@Url.Content("~/Areas/RideCheckFeedback/Views/_css/weui.min.css")"> <!-- jquery weui 插件 -->
-    <link rel="stylesheet" href="@Url.Content("~/Areas/RideCheckFeedback/Views/_css/layui.css")"> <!-- layui 插件 -->
-    <link rel="stylesheet" href="@Url.Content("~/Areas/RideCheckFeedback/Views/_css/jquery-weui.min.css")"> <!-- jquery weui 插件 -->
-    <link rel="stylesheet" href="@Url.Content("~/Areas/RideCheckFeedback/Views/_css/layer.css")" id="layui_layer_skinlayercss" style="">  <!-- layui 插件 -->
+
+    <link rel="stylesheet" href="@Url.Content("~/Areas/RideCheckFeedback/Views/_css/weui.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Areas/RideCheckFeedback/Views/_css/layui.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Areas/RideCheckFeedback/Views/_css/jquery-weui.min.css")">
     <script src="@Url.Content("~/Scripts/jquery-1.7.1.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/_theme/tool/jquery-form.min.js")"></script>
     <script src="@Url.Content("~/Areas/RideCheckFeedback/Views/_js/layer.js")"></script>
@@ -289,33 +289,26 @@
             function sumbit() {
 
                 if ($("#ReflectJobNumber").val() == "") {
-                    layer.msg('请输入反映人工号', { time: 1000 });
+                    layer.open({ content: '请输入反映人工号!', time: 2, skin: 'msg' });
                     return;
                 }
                 if ($("#CarNumber").val() == "") {
-                    layer.msg('请输入车号', { time: 1000 });
+                    layer.open({ content: '请输入车号!', time: 2, skin: 'msg' });
                     $("#cphm").val("");
                     return;
                 }
                 if ($("#ContactNumber").val() == "") {
-                    layer.msg('请输入联系电话', { time: 1000 });
+                    layer.open({ content: '请输入联系电话!', time: 2, skin: 'msg' });
                     return;
                 }
                 if ($("#ReflectContent").val() == "") {
-                    layer.msg('请输入反映内容', { time: 1000 });
+                    layer.open({ content: '请输入反映内容!', time: 2, skin: 'msg' });
                     return;
                 }
-                if ($("#ReflectContent").val() == "") {
-                    layer.msg('请输入反映内容', { time: 1000 });
+                if ($("#ProblemPhoto").val() == "") {);
+                    layer.open({ content: '请输上传问题照片!', time: 2, skin: 'msg' });
                     return;
                 }
-                if ($("#ProblemPhoto").val() == "") {
-                    layer.msg('请输上传问题照片', { time: 1000 });
-                    return;
-                }
-                //var index = layer.load(1, {
-                //    shade: [0.5, '#292C34'] //0.1透明度的白色背景
-                //});
                 layer.open({ type: 2 });
                 var form = new FormData();
                 form.append("ReflectCategory", $("#ReflectCategory").val());
