@@ -74,6 +74,7 @@
 
         hr {
             margin: 5px 0px;
+            background-color: #f1f1f1;
         }
 
         .weui-input {
@@ -110,7 +111,7 @@
         }
 
         .weui-cell {
-            padding: 6px 15px;
+            padding: 4px 15px;
             position: relative;
             display: -webkit-box;
             display: -webkit-flex;
@@ -138,30 +139,13 @@
             </div>
             <div class="weui-cell__bd">
                 <select id="ReflectCategory" name="ReflectCategory">
-                    @if (vrc.ReflectCategory == "日常保养")
-                    {
-                        <option value="日常保养" selected="selected">日常保养</option>
-                    }
-                    else
-                    {
-                        <option value="日常保养">日常保养</option>
-                    }
-                    @if (vrc.Subsidiary == "常规修理")
-                    {
-                        <option value="常规修理" selected="selected">常规修理</option>
-                    }
-                    else
-                    {
-                        <option value="常规修理">常规修理</option>
-                    }
-                    @if (vrc.Subsidiary == "其他")
-                    {
-                        <option value="其他" selected="selected">其他</option>
-                    }
-                    else
-                    {
-                        <option value="其他">其他</option>
-                    }
+                    @*<option value="日常保养" @(vrc.ReflectCategory != "日常保养" ? "" : "selected = \" selected\"")>日常保养</option>*@
+                    <option value="日常保养">日常保养</option>
+                    <option value="常规修理">常规修理</option>
+                    <option value="服务态度类-接待">服务态度类-接待</option>
+                    <option value="服务态度类-维修">服务态度类-维修</option>
+                    <option value="服务态度类-后勤">服务态度类-后勤</option>
+                    <option value="其他">其他</option>
                 </select>
             </div>
         </div>
@@ -197,6 +181,21 @@
             </div>
         </div>
         <hr>
+        <!-- 车型 -->
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">车型<font style="color:red"> *</font>：</label>
+            </div>
+            <div class="weui-cell__bd">
+                <select id="ReflectCarModel" name="ReflectCarModel">
+                    @*<option value="途观" @(vrc.ReflectCarModel != "途观" ? "" : "selected = \" selected\"")>途观</option>*@
+                    <option value="途观">途观</option>
+                    <option value="桑塔纳4000">桑塔纳4000</option>
+                    <option value=" 电动新能源">电动新能源</option>
+                </select>
+            </div>
+        </div>
+        <hr>
         <!-- 所属分公司 -->
         <div class="weui-cell">
             <div class="weui-cell__hd">
@@ -204,30 +203,10 @@
             </div>
             <div class="weui-cell__bd">
                 <select id="Subsidiary" name="Subsidiary">
-                    @if (vrc.Subsidiary == "市南公司")
-                    {
-                        <option value="市南公司" selected="selected">市南公司</option>
-                    }
-                    else
-                    {
-                        <option value="市南公司">市南公司</option>
-                    }
-                    @if (vrc.Subsidiary == "市北公司")
-                    {
-                        <option value="市北公司" selected="selected">市北公司</option>
-                    }
-                    else
-                    {
-                        <option value="市北公司">市北公司</option>
-                    }
-                    @if (vrc.Subsidiary == "庙行公司")
-                    {
-                        <option value="庙行公司" selected="selected">庙行公司</option>
-                    }
-                    else
-                    {
-                        <option value="庙行公司">庙行公司</option>
-                    }
+                    @*<option value="市南公司" @(vrc.Subsidiary != "市南公司" ? "" : "selected = \" selected\"")>途观</option>*@
+                    <option value="市南公司">市南公司</option>
+                    <option value="市北公司">市北公司</option>
+                    <option value="庙行公司">庙行公司</option>
                 </select>
             </div>
         </div>
@@ -238,7 +217,27 @@
                 <label class="weui-label">联系电话<font style="color:red"> *</font>：</label>
             </div>
             <div class="weui-cell__bd">
-                <input class="weui-input" value="@vrc.ContactNumber" style="width: 80%" id="ContactNumber" name="ContactNumber" type="text" maxlength="11" placeholder="请输入车号" onkeyup="value = value.replace(/[\W]/g, '') ">
+                <input class="weui-input" value="@vrc.ContactNumber" id="ContactNumber" name="ContactNumber" type="text" maxlength="11" placeholder="请输入联系电话" onkeyup="value = value.replace(/[\W]/g, '') ">
+            </div>
+        </div>
+        <hr>
+        <!-- 工单号 -->
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">工单号：</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" id="WorkOrderNumber" name="WorkOrderNumber" type="text" placeholder="请输入工单号">
+            </div>
+        </div>
+        <hr>
+        <!-- 工单号 -->
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">事发时间：</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" id="IncidentTime" name="IncidentTime" type="date">
             </div>
         </div>
         <hr>
@@ -327,9 +326,12 @@
                 form.append("ReflectJobNumber", $("#ReflectJobNumber").val());
                 form.append("CarNumber", $("#CarNumber").val());
                 form.append("ContactNumber", $("#ContactNumber").val());
+                form.append("ReflectCarModel", $("#ReflectCarModel").val());
                 form.append("Subsidiary", $("#Subsidiary").val());
                 form.append("ReflectContent", $("#ReflectContent").val());
                 form.append("ProblemPhoto", $("#ProblemPhoto").val());
+                form.append("WorkOrderNumber", $("#WorkOrderNumber").val());
+                form.append("IncidentTime", $("#IncidentTime").val());
                 form.append("VGUID", $("#VGUID").val());
                 form.append("ReflectDate", $("#ReflectDate").val());
                 form.append("CreateUser", $("#CreateUser").val());
@@ -343,16 +345,18 @@
                     success: function (msg) {
                         layer.closeAll();
                         if (msg == "0") {
-
-                            layer.open({
-                                content: '保存成功!', time: 2, skin: 'footer'
-                            }, function () {
-                                //WeixinJSBridge.call('closeWindow');
-                                alert("1111");
-                            });
+                            alert("保存成功!");
+                            WeixinJSBridge.call('closeWindow');
+                            //layer.open({
+                            //    content: '保存成功!', time: 2, skin: 'footer'
+                            //}, function () {
+                            //    //WeixinJSBridge.call('closeWindow');
+                            //    alert("1111");
+                            //});
 
                         } else if (msg == "1") {
-                            layer.alert('提交失败，请稍后重试！', { icon: 2 })
+                            alert("提交失败，请稍后重试！");
+                            //layer.alert('提交失败，请稍后重试！', { icon: 2 })
                         }
                     }
                 });

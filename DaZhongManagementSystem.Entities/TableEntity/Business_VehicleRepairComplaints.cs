@@ -21,9 +21,15 @@ namespace DaZhongManagementSystem.Entities.TableEntity
 
         public string ContactNumber { get; set; }
 
+        public string ReflectCarModel { get; set; }
+
         public string ReflectContent { get; set; }
 
         public string ProblemPhoto { get; set; }
+
+        public string WorkOrderNumber { get; set; }
+
+        public string IncidentTime { get; set; }
 
         public DateTime ReflectDate { get; set; }
 
