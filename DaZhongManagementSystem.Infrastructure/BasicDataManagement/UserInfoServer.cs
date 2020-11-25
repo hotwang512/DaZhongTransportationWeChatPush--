@@ -114,7 +114,7 @@ namespace DaZhongManagementSystem.Infrastructure.BasicDataManagement
                 }
                 else  //非系统管理员
                 {
-                    //查出当前登录人的部门
+                    //查出当前登录人的部门[dbo].[Sys_Role_Module]
                     Guid dep = Guid.Parse(currentUserInfo.Department);
                     ownfleet = dep.ToString();
                     var listDep = dbMsSql.SqlQuery<Guid>("SELECT * FROM dbo.TF_OrganizationFDetail('" + dep + "')");  //找到该部门以及其所有子部门

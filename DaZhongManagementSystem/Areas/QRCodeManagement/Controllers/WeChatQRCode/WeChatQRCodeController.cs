@@ -29,17 +29,21 @@ namespace DaZhongManagementSystem.Areas.QRCodeManagement.Controllers.WeChatQRCod
             U_WeChatUserID userInfo = new U_WeChatUserID();
             string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
             userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
+            userInfo.UserId = "13524338060";
             var personInfoModel = _wl.GetUserInfo(userInfo.UserId);//获取人员表信息
-            string file = "/UploadFile/WeChatQRCode/" + personInfoModel.Vguid + ".jpg";
-            System.IO.File.Delete(Server.MapPath(file));  
-            //string scale = ConfigSugar.GetAppString("QRCodeScale");
-           // int size;
-           // bool isSuccess = int.TryParse(scale, out size);
+            string file = personInfoModel.Vguid + ".jpg";
+            string forder = "UploadFile/WeChatQRCode";
+            string filePath = Path.Combine(forder, file);
+
+            string fileName = Server.MapPath(filePath);
+            if (System.IO.File.Exists(fileName))
+            {
+                System.IO.File.Delete(fileName);
+            }
             var configStr = _codeGenerateLogic.GetPersonConfiguration(personInfoModel);
-           // Create_ImgCode(configStr, isSuccess ? size : 6, personInfoModel.Vguid.ToString());
-            QRCodeHelper.GenerateQRCode(configStr, "/Areas/WeChatPush/Views/_img/logo1.png", file);
+            QRCodeHelper.GenerateQRCode(configStr, "/Areas/WeChatPush/Views/_img/logo1.png", forder, file);
             ViewData["Vguid"] = personInfoModel.Vguid;
-            ViewData["url"] = ConfigSugar.GetAppString("OpenHttpAddress") + file;
+            ViewData["url"] = ConfigSugar.GetAppString("OpenHttpAddress") + forder + "/" + file;
             return View();
         }
         /// <summary>  

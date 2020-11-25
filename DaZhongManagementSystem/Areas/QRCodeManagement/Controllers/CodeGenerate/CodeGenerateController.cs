@@ -29,15 +29,17 @@ namespace DaZhongManagementSystem.Areas.QRCodeManagement.Controllers.CodeGenerat
         {
             var personInfoModel = new Business_Personnel_Information() { Vguid = Guid.Parse("726B4C9F-0B5A-4D5B-A8EE-5BA95C38C4C7") };
             //   var personInfoModel = CurrentUser.GetCurrentUser();
-            string file = "/UploadFile/QRCode/" + personInfoModel.Vguid + ".jpg";
-            string filePath = Server.MapPath(file);
-            if (System.IO.File.Exists(filePath))
+            string file = personInfoModel.Vguid + ".jpg";
+            string forder = "UploadFile/QRCode";
+            string filePath = Path.Combine(forder, file);
+            string fileName = Server.MapPath(filePath);
+            if (System.IO.File.Exists(fileName))
             {
-                System.IO.File.Delete(Server.MapPath(filePath));
+                System.IO.File.Delete(fileName);
             }
             var configStr = _codeGenerateLogic.GetPersonConfiguration(personInfoModel);
             //  Create_ImgCode(configStr, personInfoModel.Vguid.ToString());
-            QRCodeHelper.GenerateQRCode(configStr, "/Areas/WeChatPush/Views/_img/logo1.png", file);
+            //QRCodeHelper.GenerateQRCode(configStr, "/Areas/WeChatPush/Views/_img/logo1.png", forder, file);
             ViewData["Vguid"] = personInfoModel.Vguid;
             ViewData["QRCode"] = personInfoModel.Vguid + ".jpg";
             return View();

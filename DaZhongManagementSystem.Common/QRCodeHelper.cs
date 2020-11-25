@@ -23,7 +23,7 @@ namespace DaZhongManagementSystem.Common
         /// <param name="logoPath">中间logo的路径</param>
         /// <param name="fileName">生成的二维码保存路径</param>
         /// <returns>生成的二维码</returns>
-        public static Bitmap GenerateQRCode(string content, string logoPath, string fileName)
+        public static Bitmap GenerateQRCode(string content, string logoPath, string folder, string fileName)
         {
             BarcodeWriter writer = new BarcodeWriter();
             writer.Format = BarcodeFormat.QR_CODE;
@@ -53,7 +53,13 @@ namespace DaZhongManagementSystem.Common
             bitmap3.Dispose();
             try
             {
-                bitmap2.Save(HttpContext.Current.Server.MapPath(fileName));
+                string path = HttpContext.Current.Server.MapPath(folder);
+                if (!System.IO.Directory.Exists(path))
+                {
+                    System.IO.Directory.CreateDirectory(path);
+                }
+                fileName = System.IO.Path.Combine(path, fileName);
+                bitmap2.Save(fileName);
             }
             catch (Exception ex)
             { }
