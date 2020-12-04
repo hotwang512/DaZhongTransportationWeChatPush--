@@ -56,8 +56,8 @@ namespace DaZhongManagementSystem.Infrastructure.BasicDataManagement
                 Guid vGuid = Guid.Parse(vguid);
                 var organisationDetail = dbMsSql.Queryable<Master_Organization>().Where(i => i.Vguid == vGuid).SingleOrDefault();
                 //存入操作日志表
-                string logData = JsonHelper.ModelToJson(organisationDetail);
-                _ll.SaveLog(3, 3, CurrentUser.GetCurrentUser().LoginName, organisationDetail.OrganizationName, logData);
+                //string logData = JsonHelper.ModelToJson(organisationDetail);
+                //_ll.SaveLog(3, 3, CurrentUser.GetCurrentUser().LoginName, organisationDetail.OrganizationName, logData);
 
                 return organisationDetail;
             }
