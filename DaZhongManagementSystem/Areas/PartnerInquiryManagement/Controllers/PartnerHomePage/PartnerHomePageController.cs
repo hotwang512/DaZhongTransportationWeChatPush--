@@ -3,20 +3,16 @@ using DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.WeChatExerci
 using DaZhongManagementSystem.Areas.PartnerInquiryManagement.Models;
 using DaZhongManagementSystem.Entities.TableEntity;
 using DaZhongManagementSystem.Entities.UserDefinedEntity;
-using DaZhongManagementSystem.Entities.View;
 using DaZhongManagementSystem.Infrastructure.SugarDao;
 using DaZhongTransitionLiquidation.Common.Pub;
-using JQWidgetsSugar;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SqlSugar;
 using SyntacticSugar;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.PartnerHomePage
