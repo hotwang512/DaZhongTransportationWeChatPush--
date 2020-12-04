@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+@{
+    //var code = ViewBag.code;
+    //var personInfo = ViewBag.PersonInfo as Business_Personnel_Information;
+    //var exerciseVguid = ViewBag.exerciseVguid;
+    //var openHttpAddress = SyntacticSugar.ConfigSugar.GetAppString("OpenHttpAddress");
+    //var corpID = SyntacticSugar.ConfigSugar.GetAppString("CorpID");
+    //var pushContentVguid = ViewBag.pushContentVguid;//推送内容Vguid
+    //var answerCount = ViewBag.answerCount;//答题次数
+}
+
+<style>
+    .label {
+        color: #0a0a0a !important;
+    }
+     .mainCheck{
+        border-width:0px;  width:98%;font-size:12px;/*position:absolute; left:0px; top:43px;*/
+    }
+     .mainlabel{
+        margin-top: 4px;font-size: 12px;margin-left: 1px;width: 238px;
+    }
+    #newMaintainData{
+        position: absolute;
+        background-color: rgba(242, 242, 242, 1) !important;
+        width: 100%;
+    }
+   .primary_button2{
+        width: 55px;float: right;margin-top: -12px;border:none; border-radius:5px; -moz-box-shadow:none; -webkit-box-shadow:none; box-shadow:none;
+    }
+</style>
+<html>
+<input id="hideKey" type="type" name="name" value="@ViewBag.Key" class="hide" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="blank">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title></title>
+
+    @*<link href="@Url.Content("~/Areas/BasicDataManagement/Views/_css/WeChatExercise/swiper-3.3.1.min.css")" rel="stylesheet" />*@
+    @*<link href="@Url.Content("~/Areas/BasicDataManagement/Views/_css/WeChatExercise/index2.css")" rel="stylesheet" />*@
+    @*<link href="@Url.Content("~/Areas/BasicDataManagement/Views/iconfont/iconfont.css")" rel="stylesheet" />*@
+    <link href="@Url.Content("~/Areas/PartnerInquiryManagement/Views/_css/PartnerInquiryStyle.css")" rel="stylesheet" />
+    @*<link rel="stylesheet" href="@Url.Content("~/_theme/css/bootstrap.min.css")" />*@
+    <link rel="stylesheet" href="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/styles/jqx.base.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgetsExtensions/jqxext.css")" />
+    <link href="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqx.office.css")" rel="stylesheet" />
+
+</head>
+<body>
+    <!--头部-->
+    <header></header>
+    <div style="margin-top: -60px;">
+        <!-- 保养排期 (Group) -->
+        <div id="u437" class="ax_default" data-label="保养排期" data-left="20" data-top="136" data-width="304" data-height="434">
+
+            <!-- Unnamed (Rectangle) -->
+            <div id="u438" class="ax_default box_2">
+                @*<div id="u438_div" class=""></div>*@
+                <div id="u438_text" class="text " style="display:none; visibility: hidden">
+                    <p></p>
+                </div>
+                <div id="newMaintainData"></div>
+            </div>
+        </div>
+
+        <!--  (Group) -->
+        <div id="u475" class="ax_default" data-label="" data-left="20" data-top="114" data-width="224" data-height="14">
+
+            <!-- Unnamed (Rectangle) -->
+            <div id="u476" class="ax_default _标题_3">
+                @*<div id="u476_div" class=""></div>
+                <div id="u476_text" class="text ">
+                    <p><span>车队:</span></p>
+                </div>*@
+                <select id="FleetSelect" style="width: 120px;">
+                    @*<option value="0">全部-车队</option>*@
+                    @*<option value="@fleetList" selected>@fleetList</option>*@
+                    @*<option value="仁强" selected>仁强</option>*@
+                </select> 
+            </div>
+
+            <!-- Unnamed (Shape) -->
+            @*<div id="u477" class="ax_default icon">
+                <img id="u477_img" class="img " src="https://d1icd6shlvmxi6.cloudfront.net/gsc/SPKXE1/a5/b4/ed/a5b4edee3b764f3a86defb6328e5a5ed/images/检查排班/u477.svg?token=e6138fa3d4eeedf37714c5d067d9812e9aac639dec9084fd745f0701e4b52f47">
+                <div id="u477_text" class="text " style="display:none; visibility: hidden">
+                    <p></p>
+                </div>
+            </div>*@
+
+            <!-- Unnamed (Rectangle) -->
+            <div id="u478" class="ax_default _标题_3">
+                @*<div id="u478_div" class=""></div>
+                <div id="u478_text" class="text ">
+                    <p><span>类型:</span></p>
+                </div>*@
+                @*全部、1级保养、2级保养、3级保养、验车、计价器强检*@
+                <select id="MaintainType" style="margin-left: 6px;">
+                    @*<option value="" disabled selected>类型</option>*@
+                    <option value="0">全部-类型</option>
+                    <option value="1">1级保养</option>
+                    <option value="2">2级保养</option>
+                    <option value="3">3级保养</option>
+                    <option value="4">验车</option>
+                    <option value="5">计价器强检</option>
+                </select> 
+            </div>
+
+            <!-- Unnamed (Shape) -->
+            @*<div id="u479" class="ax_default icon">
+                <img id="u479_img" class="img " src="">
+                <div id="u479_text" class="text " style="display:none; visibility: hidden">
+                    <p></p>
+                </div>
+            </div>*@
+
+            <!-- Unnamed (Rectangle) -->
+            <div id="u480" class="ax_default _标题_3">
+                @*<div id="u480_div" class=""></div>
+                <div id="u480_text" class="text ">
+                    <p><span>状态:</span></p>
+                </div>*@
+                <select id="MaintainStatus" style="margin-left: 5px;">
+                    @*<option value="" disabled selected>保养状态</option>*@
+                    <option value="">全部-状态</option>
+                    <option value="0">未过期</option>
+                    <option value="1">已过期</option>
+                </select> 
+            </div>
+
+            <!-- Unnamed (Shape) -->
+            @*<div id="u481" class="ax_default icon">
+                <img id="u481_img" class="img " src="">
+                <div id="u481_text" class="text " style="display:none; visibility: hidden">
+                    <p></p>
+                </div>
+            </div>*@
+        </div>
+
+        <!-- 搜索车辆 (Group) -->
+        <div id="u482" class="ax_default" data-label="搜索车辆" data-left="20" data-top="67" data-width="300" data-height="30">
+
+            <!-- Unnamed (Rectangle) -->
+            <div id="u483" class="ax_default box_1">
+                <input id="SearchByCarID" type="text" style="width: 100%;margin: 0px 20px;" class="input_text form-control" placeholder="输入车牌号搜索" />
+            </div>
+        </div>
+
+
+        <script src="@Url.Content("~/_theme/js/jquery-2.0.3.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/_theme/js/jquery-ui-1.10.3.custom.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/_theme/js/jquery.ui.touch-punch.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/_theme/js/jquery.slimscroll.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/_theme/js/jquery.easy-pie-chart.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/_theme/js/jquery.sparkline.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqx-all.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/_theme/tool/ejq.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/_theme/tool/jquery-form.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/_theme/_js/tool.js")"></script>
+        <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/swiper-3.3.1.jquery.min.js")"></script>
+        @*<script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/11111.js")"></script>*@
+        <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/app.js")"></script>
+        <script src="@Url.Content("~/Areas/PartnerInquiryManagement/Views/_js/checkScheduling.js")"></script>
+
+</body>
+</html>

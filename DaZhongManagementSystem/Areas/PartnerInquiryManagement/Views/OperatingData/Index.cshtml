@@ -1,0 +1,561 @@
+﻿<!DOCTYPE html>
+@{
+    //var code = ViewBag.code;
+    //var personInfo = ViewBag.PersonInfo as Business_Personnel_Information;
+    //var exerciseVguid = ViewBag.exerciseVguid;
+    //var openHttpAddress = SyntacticSugar.ConfigSugar.GetAppString("OpenHttpAddress");
+    //var corpID = SyntacticSugar.ConfigSugar.GetAppString("CorpID");
+
+    //List<string> dateList = ViewBag.DateList;
+}
+
+<style>
+    .imgjiantou {
+        top:12px !important;
+    }
+</style>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="blank">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title></title>
+
+    @*<link href="@Url.Content("~/Areas/BasicDataManagement/Views/_css/WeChatExercise/swiper-3.3.1.min.css")" rel="stylesheet" />*@
+    @*<link href="@Url.Content("~/Areas/BasicDataManagement/Views/_css/WeChatExercise/index2.css")" rel="stylesheet" />*@
+    @*<link href="@Url.Content("~/Areas/BasicDataManagement/Views/iconfont/iconfont.css")" rel="stylesheet" />*@
+    <link href="@Url.Content("~/Areas/PartnerInquiryManagement/Views/_css/PartnerInquiryStyle.css")" rel="stylesheet" />
+    @*<link href="@Url.Content("~/_theme/bootstrap-datepicker/datepicker.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/_theme/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.css")" rel="stylesheet" />*@
+
+</head>
+<body>
+    <!--头部-->
+    <header>
+        <div class="text ">
+            <div id="u134" class="ax_default" data-label="营运日报" data-left="20" data-top="102" data-width="300" data-height="131">
+
+                <!-- Unnamed (Rectangle) -->
+                <div id="u135" class="ax_default box_2">
+                    <div id="u135_div" class=""></div>
+                    <div id="u135_text" class="text " style="display:none; visibility: hidden">
+                        <p></p>
+                    </div>
+                </div>
+
+                <!-- Unnamed (Rectangle) -->
+                <div id="u136" class="ax_default _标题_3">
+                    <div id="u136_div" class=""></div>
+                    <div id="u136_text" class="text ">
+                        <p><span>每日营运汇总</span></p>
+                    </div>
+                </div>
+
+                <!-- Unnamed (Line) -->
+                <div id="u137" class="ax_default line">
+                    <img id="u137_img" class="img imgjiantou" src="/_theme/images/hengxian.png">
+                    <div id="u137_text" class="text " style="display:none; visibility: hidden">
+                        <p></p>
+                    </div>
+                </div>
+
+                <!-- 总营收 (Group) -->
+                <div id="u138" class="ax_default" data-label="总营收" data-left="28" data-top="142" data-width="88" data-height="31">
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u139" class="ax_default label">
+                        <div id="u139_div" class=""></div>
+                        <div id="u139_text" class="text ">
+                            <p><span>总营收</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u140" class="ax_default label">
+                        <div id="u140_div" class=""></div>
+                        <div id="u140_text" class="text ">
+                            <p><span><label id="value1"></label></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u141" class="ax_default label">
+                        <div id="u141_div" class=""></div>
+                        <div id="u141_text" class="text ">
+                            <p><span><label id="value2"></label></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Shape) -->
+                    <div id="u142" class="ax_default icon">
+                        
+                    </div>
+                </div>
+
+                <!-- 总差次 (Group) -->
+                <div id="u143" class="ax_default" data-label="总差次" data-left="142" data-top="142" data-width="75" data-height="31">
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u144" class="ax_default label">
+                        <div id="u144_div" class=""></div>
+                        <div id="u144_text" class="text ">
+                            <p><span>总差次</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u145" class="ax_default label">
+                        <div id="u145_div" class=""></div>
+                        <div id="u145_text" class="text ">
+                            <p><span><label id="value3"></label></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u146" class="ax_default label">
+                        <div id="u146_div" class=""></div>
+                        <div id="u146_text" class="text ">
+                            <p><span><label id="value4"></label></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Shape) -->
+                    <div id="u147" class="ax_default icon">
+                        
+                    </div>
+                </div>
+
+                <!-- 营运车辆总数 (Group) -->
+                <div id="u148" class="ax_default" data-label="营运车辆总数" data-left="240" data-top="142" data-width="77" data-height="31">
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u149" class="ax_default label">
+                        <div id="u149_div" class=""></div>
+                        <div id="u149_text" class="text ">
+                            <p><span>营运车辆总数</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u150" class="ax_default label">
+                        <div id="u150_div" class=""></div>
+                        <div id="u150_text" class="text ">
+                            <p><span><label id="value5"></label></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u151" class="ax_default label">
+                        <div id="u151_div" class=""></div>
+                        <div id="u151_text" class="text ">
+                            <p><span><label id="value6"></label></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Shape) -->
+                    <div id="u152" class="ax_default icon">
+                        
+                    </div>
+                </div>
+
+                <!-- 总线上营收 (Group) -->
+                <div id="u153" class="ax_default" data-label="总线上营收" data-left="28" data-top="191" data-width="91" data-height="31">
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u154" class="ax_default label">
+                        <div id="u154_div" class=""></div>
+                        <div id="u154_text" class="text ">
+                            <p><span>总线上营收</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u155" class="ax_default label">
+                        <div id="u155_div" class=""></div>
+                        <div id="u155_text" class="text ">
+                            <p><span><label id="value7"></label></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u156" class="ax_default label">
+                        <div id="u156_div" class=""></div>
+                        <div id="u156_text" class="text ">
+                            <p><span><label id="value8"></label></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Shape) -->
+                    <div id="u157" class="ax_default icon">
+                        <div id="u157_text" class="text " style="display:none; visibility: hidden">
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 总线上差次 (Group) -->
+                <div id="u158" class="ax_default" data-label="总线上差次" data-left="142" data-top="191" data-width="75" data-height="31">
+
+                    <!-- 总线上差次 (Rectangle) -->
+                    <div id="u159" class="ax_default label" data-label="总线上差次">
+                        <div id="u159_div" class=""></div>
+                        <div id="u159_text" class="text ">
+                            <p><span>总线上差次</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u160" class="ax_default label">
+                        <div id="u160_div" class=""></div>
+                        <div id="u160_text" class="text ">
+                            <p><span><label id="value9"></label></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u161" class="ax_default label">
+                        <div id="u161_div" class=""></div>
+                        <div id="u161_text" class="text ">
+                            <p><span><label id="value10"></label></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Shape) -->
+                    <div id="u162" class="ax_default icon">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- 日期筛选 (Group) -->
+            <div id="u163" class="ax_default" data-label="日期筛选" data-left="63" data-top="69" data-width="257" data-height="20">
+
+                <!-- Unnamed (Droplist) -->
+                <div id="u164" class="ax_default droplist">
+                    @*<div id="u164_div" class=""></div>*@
+                    <select id="u164_input" class="u164_input">
+                        @*<option class="u164_input_option" value=""></option>*@
+                        @*<option class="u164_input_option" value="XXXXXX车队2">XXXXXX车队2</option>*@
+                    </select>
+                </div>
+
+                <!-- Unnamed (Rectangle) -->
+                <div id="u165" class="ax_default _标题_3">
+                    <div id="u165_div" class=""></div>
+                    <div id="u165_text" class="text ">
+                        <p><span>车队:</span></p>
+                    </div>
+                </div>
+
+                <!-- Unnamed (Rectangle) -->
+                <div id="u166" class="ax_default _标题_3">
+                    <div id="u166_div" class=""></div>
+                    <div id="u166_text" class="text ">
+                        <p><span>日期:</span></p>
+                    </div>
+                </div>
+
+                <!-- Unnamed (Droplist) -->
+                <div id="u167" class="ax_default">
+                    @*<div id="u167_div" class="hide"></div>*@
+                    <input id="DateSearch" type="date" class="input_text form-control" max="@ViewBag.MaxDate" onchange="loadTaxiSummaryInfo()"/>
+                    
+                    @*<select id="u167_input" class="u167_input">
+                        @for (int i = 0; i < 5; i++)
+                        {
+                            <option class="u167_input_option" value="@dateList[i]">@dateList[i]</option>
+                        }
+                        @*<option class="u167_input_option" value="2020-11-05">2020-11-05</option>
+                        <option class="u167_input_option" value="2020-11-04">2020-11-04</option>
+                        <option class="u167_input_option" value="2020-11-03">2020-11-03</option>
+                    </select>*@
+                </div>
+            </div>
+
+            <!-- Unnamed (Rectangle) -->
+            @*<div id="u168" class="ax_default _标题_3">
+            <div id="u168_div" class=""></div>
+            <div id="u168_text" class="text ">
+                <p><span>返回</span></p>
+            </div>
+        </div>*@
+
+            <!-- 每日营运均值 (Group) -->
+            <div id="u169" class="ax_default" data-label="每日营运均值" data-left="20" data-top="249" data-width="300" data-height="181">
+
+                <!-- Unnamed (Rectangle) -->
+                <div id="u170" class="ax_default box_2">
+                    <div id="u170_div" class=""></div>
+                    <div id="u170_text" class="text " style="display:none; visibility: hidden">
+                        <p></p>
+                    </div>
+                </div>
+
+                <!-- Unnamed (Rectangle) -->
+                <div id="u171" class="ax_default _标题_3">
+                    <div id="u171_div" class=""></div>
+                    <div id="u171_text" class="text ">
+                        <p><span>每日营运均值</span></p>
+                    </div>
+                </div>
+
+                <!-- Unnamed (Line) -->
+                <div id="u172" class="ax_default line">
+                    <img id="u172_img" class="img" src="/_theme/images/hengxian.png">
+                    <div id="u172_text" class="text " style="display:none; visibility: hidden">
+                        <p></p>
+                    </div>
+                </div>
+
+                <!-- 车均营收 (Group) -->
+                <div id="u173" class="ax_default" data-label="车均营收" data-left="59" data-top="290" data-width="88" data-height="31">
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u174" class="ax_default label">
+                        <div id="u174_div" class=""></div>
+                        <div id="u174_text" class="text ">
+                            <p><span>车均营收</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u175" class="ax_default label">
+                        <div id="u175_div" class=""></div>
+                        <div id="u175_text" class="text ">
+                            <p><span><label id="value11"></label></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u176" class="ax_default label">
+                        <div id="u176_div" class=""></div>
+                        <div id="u176_text" class="text ">
+                            <p><span><label id="value12"></label></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Shape) -->
+                    <div id="u177" class="ax_default icon">
+                        
+                    </div>
+                </div>
+
+                <!-- 车均差次 (Group) -->
+                <div id="u178" class="ax_default" data-label="车均差次" data-left="173" data-top="290" data-width="75" data-height="31">
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u179" class="ax_default label">
+                        <div id="u179_div" class=""></div>
+                        <div id="u179_text" class="text ">
+                            <p><span>车均差次</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u180" class="ax_default label">
+                        <div id="u180_div" class=""></div>
+                        <div id="u180_text" class="text ">
+                            <p><span><label id="value13"></label></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u181" class="ax_default label">
+                        <div id="u181_div" class=""></div>
+                        <div id="u181_text" class="text ">
+                            <p><span><label id="value14"></label></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Shape) -->
+                    <div id="u182" class="ax_default icon">
+                        
+                    </div>
+                </div>
+
+                <!-- 车均线上营收 (Group) -->
+                <div id="u183" class="ax_default" data-label="车均线上营收" data-left="59" data-top="339" data-width="91" data-height="31">
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u184" class="ax_default label">
+                        <div id="u184_div" class=""></div>
+                        <div id="u184_text" class="text ">
+                            <p><span>车均线上营收</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u185" class="ax_default label">
+                        <div id="u185_div" class=""></div>
+                        <div id="u185_text" class="text ">
+                            <p><span><label id="value15"></label></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u186" class="ax_default label">
+                        <div id="u186_div" class=""></div>
+                        <div id="u186_text" class="text ">
+                            <p><span><label id="value16"></label></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Shape) -->
+                    <div id="u187" class="ax_default icon">
+                        
+                    </div>
+                </div>
+
+                <!-- 车均线上差次 (Group) -->
+                <div id="u188" class="ax_default" data-label="车均线上差次" data-left="173" data-top="339" data-width="75" data-height="31">
+
+                    <!-- 车均线上差次 (Rectangle) -->
+                    <div id="u189" class="ax_default label" data-label="车均线上差次">
+                        <div id="u189_div" class=""></div>
+                        <div id="u189_text" class="text ">
+                            <p><span>车均线上差次</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u190" class="ax_default label">
+                        <div id="u190_div" class=""></div>
+                        <div id="u190_text" class="text ">
+                            <p><span><label id="value17"></label></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u191" class="ax_default label">
+                        <div id="u191_div" class=""></div>
+                        <div id="u191_text" class="text ">
+                            <p><span><label id="value18"></label></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Shape) -->
+                    <div id="u192" class="ax_default icon">
+                        
+                    </div>
+                </div>
+
+                <!-- 车均行驶里程 (Group) -->
+                <div id="u193" class="ax_default" data-label="车均行驶里程" data-left="28" data-top="390" data-width="91" data-height="31">
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u194" class="ax_default label">
+                        <div id="u194_div" class=""></div>
+                        <div id="u194_text" class="text ">
+                            <p><span>车均行驶里程</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u195" class="ax_default label">
+                        <div id="u195_div" class=""></div>
+                        <div id="u195_text" class="text ">
+                            <p><span><label id="value19"></label></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u196" class="ax_default label">
+                        <div id="u196_div" class=""></div>
+                        <div id="u196_text" class="text ">
+                            <p><span><label id="value20"></label></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Shape) -->
+                    <div id="u197" class="ax_default icon">
+                       
+                    </div>
+                </div>
+
+                <!-- 车均营运里程s (Group) -->
+                <div id="u198" class="ax_default" data-label="车均营运里程" data-left="142" data-top="390" data-width="75" data-height="31">
+
+                    <!-- 车均营运里程 (Rectangle) -->
+                    <div id="u199" class="ax_default label" data-label="车均营运里程">
+                        <div id="u199_div" class=""></div>
+                        <div id="u199_text" class="text ">
+                            <p><span>车均营运里程</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u200" class="ax_default label">
+                        <div id="u200_div" class=""></div>
+                        <div id="u200_text" class="text ">
+                            <p><span><label id="value21"></label></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u201" class="ax_default label">
+                        <div id="u201_div" class=""></div>
+                        <div id="u201_text" class="text ">
+                            <p><span><label id="value22"></label></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Shape) -->
+                    <div id="u202" class="ax_default icon">
+                        
+                    </div>
+                </div>
+
+                <!-- 车均空驶里程 (Group) -->
+                <div id="u203" class="ax_default" data-label="车均空驶里程" data-left="238" data-top="390" data-width="75" data-height="31">
+
+                    <!-- 车均空驶里程 (Rectangle) -->
+                    <div id="u204" class="ax_default label" data-label="车均空驶里程">
+                        <div id="u204_div" class=""></div>
+                        <div id="u204_text" class="text ">
+                            <p><span>车均空驶里程</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u205" class="ax_default label">
+                        <div id="u205_div" class=""></div>
+                        <div id="u205_text" class="text ">
+                            <p><span><label id="value23"></label></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u206" class="ax_default label">
+                        <div id="u206_div" class=""></div>
+                        <div id="u206_text" class="text ">
+                            <p><span><label id="value24"></label></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Unnamed (Shape) -->
+                    <div id="u207" class="ax_default icon">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!--中间内容-->
+
+    <script src="@Url.Content("~/_theme/js/jquery-2.0.3.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/_theme/tool/jquery-form.min.js")"></script>
+    <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/swiper-3.3.1.jquery.min.js")"></script>
+    @*<script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/11111.js")"></script>*@
+    <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/app.js")"></script>
+    <script src="@Url.Content("~/_theme/bootstrap-datepicker/bootstrap-datepicker.js")"></script>
+    <script src="@Url.Content("~/_theme/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js")"></script>
+    <script src="@Url.Content("~/Areas/PartnerInquiryManagement/Views/_js/operatingData.js")"></script>
+</body>
+</html>

@@ -1,23 +1,20 @@
-﻿using DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.RideCheckFeedback.BusinessLogic;
-using DaZhongManagementSystem.Entities.UserDefinedEntity;
-using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.Mvc;
-using DaZhongManagementSystem.Common.LogHelper;
-using DaZhongManagementSystem.Models.APIModel;
-using DaZhongManagementSystem.Common;
+﻿using DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.UserInfo.BussinessLogic;
+using DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.RideCheckFeedback.BusinessLogic;
 using DaZhongManagementSystem.Areas.WeChatPush.Controllers.DraftList.BusinessLogic;
-using DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.UserInfo.BussinessLogic;
-using System.Text;
-using System.Net;
-using System.Security.Cryptography.X509Certificates;
-using System.IO;
+using DaZhongManagementSystem.Common;
+using DaZhongManagementSystem.Common.LogHelper;
 using DaZhongManagementSystem.Common.WeChatPush;
 using DaZhongManagementSystem.Entities.TableEntity;
-using System.Threading.Tasks;
-using System.Net.Http;
+using DaZhongManagementSystem.Entities.UserDefinedEntity;
+using DaZhongManagementSystem.Models.APIModel;
 using SyntacticSugar;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace DaZhongManagementSystem.Controllers
 {
@@ -173,11 +170,18 @@ namespace DaZhongManagementSystem.Controllers
                     pushMsg.CreatedDate = DateTime.Now;
                     pushMsg.PeriodOfValidity = DateTime.Now.AddMonths(1);
                     UserInfoLogic userInfoLogic = new UserInfoLogic();
+                    if (textPush.PushPeople.Count == 0)
+                    {
+                        result.Message = "推送人员不能为空！";
+                        ExecHistry("TextPush", pushparam, JsonHelper.ModelToJson(result));
+                        return Json(result);
+                    }
                     foreach (string item in textPush.PushPeople)
                     {
                         var user = userInfoLogic.GetPerson(item);
                         if (user != null && user.UserID != null && user.UserID != "")
                         {
+                            pushMsg.PushPeople += user.UserID + "|";
                             pushMsg.PushObject += user.UserID + "|";
                         }
                         else
@@ -189,6 +193,8 @@ namespace DaZhongManagementSystem.Controllers
                     {
                         result.Message = result.Message.Remove(result.Message.Length - 1, 1);
                         result.Message = "不存在身份证号码：" + result.Message;
+                        ExecHistry("TextPush", pushparam, JsonHelper.ModelToJson(result));
+                        return Json(result);
                     }
                     DraftInfoLogic logic = new DraftInfoLogic();
                     Guid vguid = Guid.Empty;
@@ -218,18 +224,21 @@ namespace DaZhongManagementSystem.Controllers
                 {
                     List<PushParamModel> textPush = Extend.JsonToModel<List<PushParamModel>>(pushparam);
                     result = SaveGraphicPushData(textPush);
-                    string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
-                    string _sendUrl = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={0}";
-                    string postUrl = string.Format(_sendUrl, accessToken);
-                    //获取推送内容Json
-                    string json = GetPushJson(OAuth2, textPush);
-                    string pushResult = WeChatTools.PostWebRequest(postUrl, json, Encoding.UTF8);
-                    var wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
-                    if (wechatResult.errcode == "0")
+                    if (result.Success)
                     {
-                        result.Success = true;
+                        string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
+                        string _sendUrl = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={0}";
+                        string postUrl = string.Format(_sendUrl, accessToken);
+                        //获取推送内容Json
+                        string json = GetPushJson(OAuth2, textPush);
+                        string pushResult = WeChatTools.PostWebRequest(postUrl, json, Encoding.UTF8);
+                        var wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
+                        if (wechatResult.errcode == "0")
+                        {
+                            result.Success = true;
+                        }
+                        result.Message = pushResult;
                     }
-                    result.Message = pushResult;
                 }
                 else
                 {
@@ -272,6 +281,12 @@ namespace DaZhongManagementSystem.Controllers
                     result.Message += item + "|";
                 }
             }
+            if (!string.IsNullOrEmpty(result.Message))
+            {
+                result.Message = result.Message.Remove(result.Message.Length - 1, 1);
+                result.Message = "不存在身份证号码：" + result.Message;
+                return result;
+            }
             textPush[0].PushPeoples = textPush[0].PushPeoples.TrimEnd('|');
 
             List<Business_WeChatPush_MoreGraphic_Information> pushMoreGraphicList = new List<Business_WeChatPush_MoreGraphic_Information>();
@@ -288,11 +303,7 @@ namespace DaZhongManagementSystem.Controllers
                 pushMoreGraphicList.Add(pushMoreGraphic);
             }
 
-            if (!string.IsNullOrEmpty(result.Message))
-            {
-                result.Message = result.Message.Remove(result.Message.Length - 1, 1);
-                result.Message = "不存在身份证号码：" + result.Message;
-            }
+
             DraftInfoLogic logic = new DraftInfoLogic();
             Guid vguid = Guid.Empty;
             result.Success = logic.APISaveImagePushMsg(pushMsg, pushMoreGraphicList);

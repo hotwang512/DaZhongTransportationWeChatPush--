@@ -1,6 +1,4 @@
-﻿using System;
-using DaZhongManagementSystem.Common.LogHelper;
-using SqlSugar;
+﻿using SqlSugar;
 using SyntacticSugar;
 
 namespace DaZhongManagementSystem.Infrastructure.SugarDao
@@ -11,6 +9,13 @@ namespace DaZhongManagementSystem.Infrastructure.SugarDao
         {
 
             string connection = ConfigSugar.GetAppString("msSqlLinck");
+            var db = new SqlSugarClient(connection);
+            return db;
+        }
+
+        public static SqlSugarClient GetInstance2()
+        {
+            string connection = ConfigSugar.GetAppString("msSqlLinck2");
             var db = new SqlSugarClient(connection);
             return db;
         }

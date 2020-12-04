@@ -1,0 +1,16 @@
+
+-------------------------------header----------------------
+2020-11-26 17:29:51,223 [7] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2020-11-26 17:29:51,231 [7] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 接口名称:TextPush  时间:2020-11-26 17:29:51  参数:{
+"Title":"测试推送",
+"Message":"测试推送内容",
+"PushPeoples":"wangcunbiao",
+"founder":"admin"
+}  结果:{"Success":false,"Message":"未将对象引用设置到对象的实例。","Result":null}
+2020-11-26 17:30:20,184 [7] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2020-11-26 17:30:20,215 [7] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 接口名称:TextPush  时间:2020-11-26 17:30:20  参数:{
+"Title":"测试推送",
+"Message":"测试推送内容",
+"PushPeople":["wangcunbiao"],
+"founder":"admin"
+}  结果:{"Success":false,"Message":"未将对象引用设置到对象的实例。","Result":null}

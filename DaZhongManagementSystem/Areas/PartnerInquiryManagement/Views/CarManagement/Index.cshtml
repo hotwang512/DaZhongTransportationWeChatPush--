@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html>
+@{
+    //var code = ViewBag.code;
+    //var personInfo = ViewBag.PersonInfo as Business_Personnel_Information;
+    //var exerciseVguid = ViewBag.exerciseVguid;
+    //var openHttpAddress = SyntacticSugar.ConfigSugar.GetAppString("OpenHttpAddress");
+    //var corpID = SyntacticSugar.ConfigSugar.GetAppString("CorpID");
+
+    //var fleetList = ViewBag.MotorcadeName;
+}
+
+<style>
+    /*.imgjiantou {
+        top: 12px !important;
+    }*/
+    .ax_default .label {
+        margin-top: -12px;
+    }
+     .violCheck{
+        border-width:0px;  width:99%;font-size:12px;/*position:absolute; left:0px; top:43px;*/
+    }
+     .viollabel{
+        margin-top: 4px;font-size: 12px;margin-left: 1px;width: 100%;
+    }
+    #newViolationData{
+        position: absolute;
+        background-color: rgba(242, 242, 242, 1) !important;
+        width: 100%;
+    }
+    #newAccidentData{
+        position: absolute;
+        background-color: rgba(242, 242, 242, 1) !important;
+        width: 100%;
+    }
+    #newOperationData{
+        position: absolute;
+        background-color: rgba(242, 242, 242, 1) !important;
+        width: 100%;
+    }
+</style>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="blank">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title></title>
+
+    @*<link href="@Url.Content("~/Areas/BasicDataManagement/Views/_css/WeChatExercise/swiper-3.3.1.min.css")" rel="stylesheet" />*@
+    @*<link href="@Url.Content("~/Areas/BasicDataManagement/Views/_css/WeChatExercise/index2.css")" rel="stylesheet" />*@
+    @*<link href="@Url.Content("~/Areas/BasicDataManagement/Views/iconfont/iconfont.css")" rel="stylesheet" />*@
+    <link href="@Url.Content("~/Areas/PartnerInquiryManagement/Views/_css/PartnerInquiryStyle.css")" rel="stylesheet" />
+
+</head>
+<body>
+    <!--头部-->
+    <header></header>
+    <div style="margin-top: -76px;">
+        <!--中间内容-->
+        <!-- 车辆指标 (Group) -->
+        <div id="u326" class="ax_default" data-label="车辆指标" data-left="20" data-top="122" data-width="300" data-height="75">
+
+            <!-- Unnamed (Rectangle) -->
+            <div id="u327" class="ax_default box_2">
+                <div id="u327_div" class=""></div>
+                <div id="u327_text" class="text " style="display:none; visibility: hidden">
+                    <p></p>
+                </div>
+            </div>
+
+            <!-- Unnamed (Rectangle) -->
+            <div id="u328" class="ax_default _标题_3">
+                <div id="u328_div" class=""></div>
+                <div id="u328_text" class="text ">
+                    <p><span>车辆每日指标</span></p>
+                </div>
+            </div>
+
+            <!-- Unnamed (Line) -->
+            <div id="u329" class="ax_default line">
+                
+            </div>
+
+            <!-- 搁车数量 (Group) -->
+            <div id="u330" class="ax_default" data-label="搁车数量" data-left="230" data-top="160" data-width="40" data-height="27">
+
+                <!-- Unnamed (Rectangle) -->
+                <div id="u331" class="ax_default label">
+                    <div id="u331_div" class=""></div>
+                    <div id="u331_text" class="text ">
+                        <p><span>搁车数量</span></p>
+                    </div>
+                </div>
+
+                <!-- Unnamed (Rectangle) -->
+                <div id="u332" class="ax_default label">
+                    <div id="u332_div" class=""></div>
+                    <div id="u332_text" class="text ">
+                        <p><span><label id="OperationCount"></label></span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 未处理违章 (Group) -->
+            <div id="u333" class="ax_default" data-label="未处理违章" data-left="70" data-top="160" data-width="50" data-height="27">
+
+                <!-- Unnamed (Rectangle) -->
+                <div id="u334" class="ax_default label">
+                    <div id="u334_div" class=""></div>
+                    <div id="u334_text" class="text ">
+                        <p><span>未处理违章</span></p>
+                    </div>
+                </div>
+
+                <!-- Unnamed (Rectangle) -->
+                <div id="u335" class="ax_default label">
+                    <div id="u335_div" class=""></div>
+                    <div id="u335_text" class="text ">
+                        <p><span><label id="ElectronicCount"></label></span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 处理中事故 (Group) -->
+            <div id="u336" class="ax_default" data-label="处理中事故" data-left="150" data-top="160" data-width="50" data-height="27">
+
+                <!-- 处理中事故 (Rectangle) -->
+                <div id="u337" class="ax_default label" data-label="处理中事故">
+                    <div id="u337_div" class=""></div>
+                    <div id="u337_text" class="text ">
+                        <p><span>处理中事故</span></p>
+                    </div>
+                </div>
+
+                <!-- Unnamed (Rectangle) -->
+                <div id="u338" class="ax_default label">
+                    <div id="u338_div" class=""></div>
+                    <div id="u338_text" class="text ">
+                        <p><span><label id="AccidentCount"></label></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 车辆指标明细 (Group) -->
+        <div id="u339" class="ax_default" data-label="车辆指标明细" data-left="20" data-top="255" data-width="300" data-height="295">
+
+            <!-- 未处理违章 (Rectangle) -->
+            <div id="u340" class="ax_default box_2 selected" style="cursor: pointer;">
+                <div id="u340_div" class="selected" tabindex="0"></div>
+                <div id="u340_text" class="text ">
+                    <p id="cache0" style=""><span id="cache1" style="">未处理违章</span></p>
+                </div>
+            </div>
+
+            <!-- 处理中事故 (Rectangle) -->
+            <div id="u341" class="ax_default box_2" style="cursor: pointer;">
+                <div id="u341_div" class="" tabindex="0"></div>
+                <div id="u341_text" class="text ">
+                    <p id="cache2" style=""><span id="cache3" style="">处理中事故</span></p>
+                </div>
+            </div>
+
+            <!-- 搁车明细 (Rectangle) -->
+            <div id="u342" class="ax_default box_2" style="cursor: pointer;">
+                <div id="u342_div" class="" tabindex="0"></div>
+                <div id="u342_text" class="text ">
+                    <p><span>搁车明细</span></p>
+                </div>
+            </div>
+
+            <!-- 未处理违章详情 (Group) -->
+            <div id="u397" class="ax_default" data-label="未处理违章" data-left="88" data-top="255" data-width="232" data-height="295" style="visibility: inherit;">
+
+                <!-- 未处理违章 (Group) -->
+
+                <div id="u398" class="ax_default" data-label="违章" data-left="88" data-top="255" data-width="232" data-height="295">
+
+                    <!-- Unnamed (Rectangle) -->
+
+                    <div id="u399" class="ax_default box_2">
+                        <div id="u399_div" class=""></div>
+                        <div id="u399_text" class="text " style="display:none; visibility: hidden">
+                            <p></p>
+                        </div>
+                        <div id="newViolationData"></div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!-- 处理中事故详情 (Group) -->
+            <div id="u343" class="ax_default hide" data-label="处理中事故" @*style="visibility: hidden; display: none;"*@ data-left="87" data-top="255" data-width="235" data-height="295">
+
+                <div id="u344" class="ax_default" data-label="事故" data-left="0" data-top="0" data-width="0" data-height="0">
+
+                    <!-- Unnamed (Rectangle) -->
+
+                    <div id="u345" class="ax_default box_2">
+                        <div id="u345_div" class=""></div>
+                        <div id="u345_text" class="text " style="display:none; visibility: hidden">
+                            <p></p>
+                        </div>
+                        <div id="newAccidentData"></div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!-- 搁车明细详情 (Group) -->
+            <div id="u383" class="ax_default ax_default_hidden hide" data-label="搁车明细" @*style="display:none; visibility: hidden"*@ data-left="88" data-top="255" data-width="234" data-height="295">
+
+                <!-- Unnamed (Rectangle) -->
+                <div id="u384" class="ax_default box_2">
+                    <div id="u384_div" class=""></div>
+                    <div id="u384_text" class="text " style="display:none; visibility: hidden">
+                        <p></p>
+                    </div>
+                    <div id="newOperationData"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 车队 (Group) -->
+        <div id="u415" class="ax_default" data-label="车队" data-left="20" data-top="89" data-width="255" data-height="22">
+
+            <!-- Unnamed (Droplist) -->
+            <div id="u416" class="ax_default droplist">
+                <div id="u416_div" class=""></div>
+                <select id="u416_input" class="u416_input">
+                    @*<option class="u264_input_option" value="@fleetList">@fleetList</option>*@
+                    @*<option class="u416_input_option" selected="" value="仁强">仁强</option>*@
+                </select>
+            </div>
+
+            <!-- Unnamed (Rectangle) -->
+            <div id="u417" class="ax_default _标题_3">
+                <div id="u417_div" class=""></div>
+                <div id="u417_text" class="text ">
+                    <p><span>车队：</span></p>
+                </div>
+            </div>
+
+            <!-- Unnamed (Rectangle) -->
+            <div id="u418" class="ax_default _标题_3">
+                <div id="u418_div" class=""></div>
+                <div id="u418_text" class="text ">
+                    <p><span>日期：</span></p>
+                </div>
+            </div>
+
+            <!-- Unnamed (Droplist) -->
+            <div id="u419" class="ax_default droplist">
+                <input id="DateSearch" type="date" class="input_text form-control" max="@ViewBag.MaxDate" onchange="loadInfo()"/>
+            </div>
+        </div>
+
+        <!-- 搜索车辆 (Group) -->
+        <div id="u420" class="ax_default" data-label="搜索车辆" data-left="20" data-top="208" data-width="300" data-height="30">
+
+            <!-- Unnamed (Rectangle) -->
+            <div id="u421" class="ax_default box_1">
+                <input id="SearchByCarID" type="text" style="width: 100%; margin: 0px 10px;" class="input_text form-control" placeholder="输入车牌号搜索" />
+            </div>
+        </div>
+    </div>
+
+    <script src="@Url.Content("~/_theme/js/jquery-2.0.3.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/_theme/js/jquery-ui-1.10.3.custom.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/_theme/js/jquery.ui.touch-punch.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/_theme/js/jquery.slimscroll.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/_theme/js/jquery.easy-pie-chart.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/_theme/js/jquery.sparkline.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqx-all.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/_theme/tool/ejq.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/_theme/tool/jquery-form.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/_theme/_js/tool.js")"></script>
+    <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/swiper-3.3.1.jquery.min.js")"></script>
+    @*<script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/11111.js")"></script>*@
+    <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/app.js")"></script>
+    <script src="@Url.Content("~/Areas/PartnerInquiryManagement/Views/_js/carManagement.js")"></script>
+
+</body>
+</html>

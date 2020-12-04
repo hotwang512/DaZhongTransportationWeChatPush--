@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+@{
+    //var code = ViewBag.code;
+    //var personInfo = ViewBag.PersonInfo as Business_Personnel_Information;
+    //var exerciseVguid = ViewBag.exerciseVguid;
+    //var openHttpAddress = SyntacticSugar.ConfigSugar.GetAppString("OpenHttpAddress");
+    //var corpID = SyntacticSugar.ConfigSugar.GetAppString("CorpID");
+
+    //List<string> ownedCompanyList = ViewBag.PersonInfo;
+
+    //var fleetList = ViewBag.MotorcadeName;
+}
+
+<style>
+    .form-control2{
+        display: block;
+    width: 100%;
+    height: 22px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #555
+    vertical-align: middle;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    }
+</style>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="blank">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title></title>
+
+    @*<link href="@Url.Content("~/Areas/BasicDataManagement/Views/_css/WeChatExercise/swiper-3.3.1.min.css")" rel="stylesheet" />*@
+    @*<link href="@Url.Content("~/Areas/BasicDataManagement/Views/_css/WeChatExercise/index2.css")" rel="stylesheet" />*@
+    @*<link href="@Url.Content("~/Areas/BasicDataManagement/Views/iconfont/iconfont.css")" rel="stylesheet" />*@
+    <link href="@Url.Content("~/Areas/PartnerInquiryManagement/Views/_css/PartnerInquiryStyle.css")" rel="stylesheet" />
+    <link rel="stylesheet" href="@Url.Content("~/_theme/css/bootstrap.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/styles/jqx.base.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgetsExtensions/jqxext.css")" />
+    <link href="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqx.office.css")" rel="stylesheet" />
+
+</head>
+<body>
+    <!--头部-->
+    <header></header>
+    <div width="400px">
+        <!--中间内容-->
+        <div id="u263" class="ax_default" data-label="车队筛选" data-left="68" data-top="71"  data-height="20">
+
+            <!-- Unnamed (Droplist) -->
+            <div id="u264" class="ax_default droplist">
+                <div id="u264_div" class=""></div>
+                <select id="u264_input" class="u264_input">
+                    @*@for (int i = 0; i < ownedCompanyList.Count; i++)
+                    {
+                        <option class="u264_input" selected="" value="@ownedCompanyList[i]">@ownedCompanyList[i]</option>
+                    }*@
+                    @*<option class="u264_input_option" value="@fleetList">@fleetList</option>*@
+                </select>
+            </div>
+
+            <!-- Unnamed (Rectangle) -->
+            <div id="u265" class="ax_default _标题_3">
+                <div id="u265_div" class=""></div>
+                <div id="u265_text" class="text ">
+                    <p><span>车队：</span></p>
+                </div>
+            </div>
+        </div>
+        <div id="u298" class="ax_default droplist">
+            <input id="DateSearch" type="date" class="input_text form-control2" max="@ViewBag.MaxDate" onchange="loadGrid()" />
+        </div>
+        <div id="u297" class="ax_default _标题_3">
+            <div id="u297_div" class=""></div>
+            <div id="u297_text" class="text ">
+                <p><span>日期：</span></p>
+            </div>
+        </div>
+
+        <!-- Unnamed (Table) -->
+        <div id="u266" class="ax_default">
+            <div id="DriverList" class="jqxTable" style=""></div>
+        </div>
+
+        <!-- 搜索车辆 (Group) -->
+        <div id="u276" class="ax_default" data-label="搜索车辆" data-left="20" data-top="100"  data-height="30">
+            <!-- Unnamed (Rectangle) -->
+            <div id="u277" class="ax_default box_1">
+                <input id="SearchByName" type="text" style="margin: 0px 20px;" class="input_text form-control" placeholder="输入姓名搜索" />
+            </div>
+        </div>
+    </div>
+
+
+    <script src="@Url.Content("~/_theme/js/jquery-2.0.3.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/_theme/js/jquery-ui-1.10.3.custom.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/_theme/js/jquery.ui.touch-punch.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/_theme/js/jquery.slimscroll.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/_theme/js/jquery.easy-pie-chart.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/_theme/js/jquery.sparkline.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqx-all.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/_theme/tool/ejq.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/_theme/tool/jquery-form.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/_theme/_js/tool.js")"></script>
+    <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/swiper-3.3.1.jquery.min.js")"></script>
+    @*<script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/11111.js")"></script>*@
+    <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/app.js")"></script>
+    <script src="@Url.Content("~/Areas/PartnerInquiryManagement/Views/_js/driverJobTraning.js")"></script>
+
+</body>
+</html>
