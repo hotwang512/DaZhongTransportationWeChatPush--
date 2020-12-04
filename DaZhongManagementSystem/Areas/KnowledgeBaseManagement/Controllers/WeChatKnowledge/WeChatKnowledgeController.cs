@@ -1,11 +1,10 @@
-﻿using System;
-using System.Web.Mvc;
-using DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.WeChatExercise.BusinessLogic;
+﻿using DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.WeChatExercise.BusinessLogic;
 using DaZhongManagementSystem.Areas.KnowledgeBaseManagement.Controllers.WeChatKnowledge.BusinessLogic;
 using DaZhongManagementSystem.Areas.WeChatPush.Controllers.PushDetailShow.BusinessLogic;
 using DaZhongManagementSystem.Entities.TableEntity;
 using DaZhongManagementSystem.Entities.UserDefinedEntity;
-using SyntacticSugar;
+using System;
+using System.Web.Mvc;
 
 namespace DaZhongManagementSystem.Areas.KnowledgeBaseManagement.Controllers.WeChatKnowledge
 {
@@ -45,16 +44,51 @@ namespace DaZhongManagementSystem.Areas.KnowledgeBaseManagement.Controllers.WeCh
                 ViewData["PushContentModel"] = pushContentModel;
                 ViewData["vguid"] = pushContentVguid;
             }
+            U_WeChatUserID userInfo = new U_WeChatUserID();
             string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
             string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
-            var userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
+            userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
+            //userInfo.UserId = "13524338060";
             _pl.UpdateIsRead(userInfo.UserId, pushContentVguid);//更新用户是否阅读推送
             Business_Personnel_Information personInfoModel = _wl.GetUserInfo(userInfo.UserId);//获取人员表信息
             ViewBag.PersonInfo = personInfoModel;
             // ViewBag.KnowledgeType = knowledgeType;
             return View();
         }
-
+        public ActionResult EtiquetteClass(string code)
+        {
+            //string knowledgeType = Request["knowledgeType"] ?? "";
+            string pushContentVguid = Request.QueryString["Vguid"] ?? ""; //"55ca3608-93d3-4245-b6f7-e4af76482edd";//
+            if (!string.IsNullOrEmpty(pushContentVguid))
+            {
+                var pushContentModel = new Business_WeChatPush_Information();
+                pushContentModel = _pl.GetPushDetail(pushContentVguid);
+                bool isValidTime = false;//未过有效期
+                if (pushContentModel != null)
+                {
+                    if (pushContentModel.PeriodOfValidity != null)
+                    {
+                        if (DateTime.Now > pushContentModel.PeriodOfValidity)
+                        {
+                            isValidTime = true;//已过有效期
+                        }
+                    }
+                }
+                ViewBag.isValidTime = isValidTime;
+                ViewData["PushContentModel"] = pushContentModel;
+                ViewData["vguid"] = pushContentVguid;
+            }
+            U_WeChatUserID userInfo = new U_WeChatUserID();
+            string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
+            string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
+            userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
+            //userInfo.UserId = "13524338060";
+            _pl.UpdateIsRead(userInfo.UserId, pushContentVguid);//更新用户是否阅读推送
+            Business_Personnel_Information personInfoModel = _wl.GetUserInfo(userInfo.UserId);//获取人员表信息
+            ViewBag.PersonInfo = personInfoModel;
+            // ViewBag.KnowledgeType = knowledgeType;
+            return View();
+        }
         /// <summary>
         /// 获取正式知识库的列表信息
         /// </summary> 
@@ -67,6 +101,17 @@ namespace DaZhongManagementSystem.Areas.KnowledgeBaseManagement.Controllers.WeCh
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 获取正式知识库的列表信息
+        /// </summary> 
+        /// <param name="pageIndex">当前页</param>
+        /// <param name="personVguid">浏览人主键</param>
+        /// <returns></returns>
+        public JsonResult GetKnowledgeList2(int pageIndex, Guid personVguid)
+        {
+            var list = _knowledgeLogic.GetKnowledgeList(pageIndex, personVguid, "2");
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult KnowledgeBaseDetail()
         {
             ViewData["Vguid"] = Request["Vguid"];

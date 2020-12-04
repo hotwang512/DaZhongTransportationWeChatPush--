@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using DaZhongManagementSystem.Common;
+﻿using DaZhongManagementSystem.Common;
 using DaZhongManagementSystem.Entities.TableEntity;
 using DaZhongManagementSystem.Entities.UserDefinedEntity;
 using DaZhongManagementSystem.Entities.View;
 using DaZhongManagementSystem.Infrastructure.DailyLogManagement;
 using DaZhongManagementSystem.Infrastructure.SugarDao;
 using SqlSugar;
+using System;
+using System.Collections.Generic;
 
 namespace DaZhongManagementSystem.Infrastructure.KnowledgeBaseManagement
 {
@@ -67,13 +67,13 @@ namespace DaZhongManagementSystem.Infrastructure.KnowledgeBaseManagement
         /// <param name="pageIndex">当前页</param>
         /// <param name="personVguid">浏览人主键</param>
         /// <returns></returns>
-        public List<V_Business_KnowledgeBase_Information> GetKnowledgeList(int pageIndex, Guid personVguid)
+        public List<V_Business_KnowledgeBase_Information> GetKnowledgeList(int pageIndex, Guid personVguid, string type = "1")
         {
             using (var db = SugarDao_MsSql.GetInstance())
             {
                 Business_Personnel_Information personInfo = new Business_Personnel_Information();
                 personInfo = db.Queryable<Business_Personnel_Information>().Where(i => i.Vguid == personVguid).SingleOrDefault();
-                var query = db.Queryable<V_Business_KnowledgeBase_Information>().Where(i => i.Status == "2").Select("Title,CreatedDate,Vguid");
+                var query = db.Queryable<V_Business_KnowledgeBase_Information>().Where(i => i.Status == "2" && i.Type == type).Select("Title,CreatedDate,Vguid");
                 query.OrderBy("CreatedDate desc");
                 var list = query.ToPageList(pageIndex, 10);
                 //存入操作日志表

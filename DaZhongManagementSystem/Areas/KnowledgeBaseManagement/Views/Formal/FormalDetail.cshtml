@@ -21,9 +21,9 @@
 
     @*富文本框*@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <script  charset="utf-8" src="@Url.Content("~/_theme/utf8net/ueditor.config.js")"></script>
+    <script charset="utf-8" src="@Url.Content("~/_theme/utf8net/ueditor.config.js")"></script>
     <script charset="utf-8" src="@Url.Content("~/_theme/utf8net/ueditor.all.min.js")"></script>
-    <script  charset="utf-8"  src="@Url.Content("~/_theme/utf8net/lang/zh-cn/zh-cn.js")"></script>
+    <script charset="utf-8" src="@Url.Content("~/_theme/utf8net/lang/zh-cn/zh-cn.js")"></script>
 
 }
 @section css{
@@ -48,25 +48,25 @@
             <div class="header_icon"></div>
             <div class="header_text_div"><span class="header_text_span">基本信息</span></div>
         </div>
-        <input type="hidden" id="txtVguid" name="Vguid" value="@knowledgeInfo.Vguid"/>
+        <input type="hidden" id="txtVguid" name="Vguid" value="@knowledgeInfo.Vguid" />
         <div class="body_mk" style="height: 580px">
             <table style="margin-top: 20px; margin-left: 20px;">
                 <tr style="height: 45px;">
                     <td align="center" style="width: 80px;">名称：</td>
                     <td style="width: 210px;">
-                        <input id="txtTitle" name="Title" validatetype="required" type="text" class="input_text form-control" value="@knowledgeInfo.Title"  readonly="readonly"/>
+                        <input id="txtTitle" name="Title" validatetype="required" type="text" class="input_text form-control" value="@knowledgeInfo.Title" readonly="readonly" />
                     </td>
                     @* <td align="center" style="width: 10px;"><span style="color: red; margin-left: 5px;">*</span></td>
-                    <td align="center" style="width: 80px;">创建人：</td>
-                    <td style="width: 210px;">
-                        <input id="txtCreatedUser" type="text" name="CreatedUser" class="input_text form-control" value="@knowledgeInfo.CreatedUser" readonly="readonly" />
-                    </td>
-                    <td align="right" style="width: 80px;">创建时间：</td>
-                    <td style="width: 210px;">
-                        <input id="txtCreatedDate" type="text" name="CreatedDate" class="input_text form-control" value="@knowledgeInfo.CreatedDate.ToString("yyyy-MM-dd HH:mm")" readonly="readonly" />
-                    </td>*@
+                        <td align="center" style="width: 80px;">创建人：</td>
+                        <td style="width: 210px;">
+                            <input id="txtCreatedUser" type="text" name="CreatedUser" class="input_text form-control" value="@knowledgeInfo.CreatedUser" readonly="readonly" />
+                        </td>
+                        <td align="right" style="width: 80px;">创建时间：</td>
+                        <td style="width: 210px;">
+                            <input id="txtCreatedDate" type="text" name="CreatedDate" class="input_text form-control" value="@knowledgeInfo.CreatedDate.ToString("yyyy-MM-dd HH:mm")" readonly="readonly" />
+                        </td>*@
                 </tr>
-               <tr style="height: 340px;">
+                <tr style="height: 300px;">
                     <td align="center" style="width: 80px;">内容：</td>
                     <td colspan="3">
                         <textarea id="txtContent" name="Content" maxlength="10000" runat="server" readonly="readonly" style="width: 90%; height: 250px;" rows="3" validatetype="required">@knowledgeInfo.Content</textarea>
