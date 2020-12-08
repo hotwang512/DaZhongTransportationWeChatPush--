@@ -23,9 +23,9 @@
 
     @*富文本框*@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <script  charset="utf-8" src="@Url.Content("~/_theme/utf8net/ueditor.config.js")"></script>
+    <script charset="utf-8" src="@Url.Content("~/_theme/utf8net/ueditor.config.js")"></script>
     <script charset="utf-8" src="@Url.Content("~/_theme/utf8net/ueditor.all.js")"></script>
-    <script  charset="utf-8"  src="@Url.Content("~/_theme/utf8net/lang/zh-cn/zh-cn.js")"></script>
+    <script charset="utf-8" src="@Url.Content("~/_theme/utf8net/lang/zh-cn/zh-cn.js")"></script>
 
 }
 @section css{
@@ -63,7 +63,7 @@
             <div class="header_icon"></div>
             <div class="header_text_div"><span class="header_text_span">基本信息</span></div>
         </div>
-        <input type="hidden" id="txtVguid" name="Vguid" value="@knowledgeInfo.Vguid"/>
+        <input type="hidden" id="txtVguid" name="Vguid" value="@knowledgeInfo.Vguid" />
         <div class="body_mk" style="height: 580px">
             <table style="margin-top: 20px; margin-left: 20px;">
                 <tr style="height: 45px;">
@@ -74,35 +74,52 @@
                     </td>
                     <td align="center" style="width: 10px;"></td>
                     @* <td align="center" style="width: 80px;">创建人：</td>
+                        <td style="width: 210px;">
+                            @{
+
+                                <input id="txtCreatedUser" type="text" name="CreatedUser" class="input_text form-control" value="@knowledgeInfo.CreatedUser" readonly="readonly" />
+                            }
+                        </td>
+                        <td align="right" style="width: 80px;">创建时间：</td>
+                        <td style="width: 210px;">
+                            @{
+                                if (isEdit)
+                                {
+                                <input id="txtCreatedDate" type="text" name="CreatedDate" class="input_text form-control" value="@knowledgeInfo.CreatedDate.ToString("yyyy-MM-dd HH:mm")" readonly="readonly" />
+                                }
+                                else
+                                {
+                                <input id="txtCreatedDate" type="text" name="CreatedDate" class="input_text form-control" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm")" readonly="readonly" />
+                                }
+                            }
+                        </td>*@
+                </tr>
+                <tr style="height: 45px;">
+                    <td align="center" style="width: 80px;">礼仪小课堂：</td>
                     <td style="width: 210px;">
-                        @{
-                          
-                            <input id="txtCreatedUser" type="text" name="CreatedUser" class="input_text form-control" value="@knowledgeInfo.CreatedUser" readonly="readonly" />
-                        }
-                    </td>
-                    <td align="right" style="width: 80px;">创建时间：</td>
-                    <td style="width: 210px;">
-                        @{
-                            if (isEdit)
+                        @{ if (knowledgeInfo.Type == "2")
                             {
-                            <input id="txtCreatedDate" type="text" name="CreatedDate" class="input_text form-control" value="@knowledgeInfo.CreatedDate.ToString("yyyy-MM-dd HH:mm")" readonly="readonly" />
+                                <input name="Type" type="checkbox" checked="checked" />
                             }
                             else
                             {
-                            <input id="txtCreatedDate" type="text" name="CreatedDate" class="input_text form-control" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm")" readonly="readonly" />
-                            } 
+                                <input name="Type" type="checkbox" />
+                            }
                         }
-                    </td>*@
+                    </td>
+                    <td align="center" style="width: 10px;"></td>
                 </tr>
                 <tr style="height: 45px;">
-                    <td align="center" class="upLoadFileTD">上传附件：
+                    <td align="center" class="upLoadFileTD">
+                        上传附件：
                         <br />
-                        <span style="color: red;">(只能上传word)</span></td>
+                        <span style="color: red;">(只能上传word)</span>
+                    </td>
                     <td class="upLoadFileTD">
                         <input type="file" name="importFile" class="input_text form-control" id="importFile" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
                     </td>
                 </tr>
-                <tr style="height: 340px;">
+                <tr style="height: 300px;">
                     <td align="center" style="width: 80px;">内容：</td>
                     <td colspan="3">
                         <textarea id="txtContent" name="Content" maxlength="10000" runat="server" style="width: 90%; height: 250px;" rows="3" validatetype="required">@knowledgeInfo.Content</textarea>
@@ -125,7 +142,7 @@
         </div>
     </div>
 </form>
-<input type="hidden" id="isEdit" value="@ViewBag.isEdit"/>
+<input type="hidden" id="isEdit" value="@ViewBag.isEdit" />
 <input type="hidden" id="ReadsPermission" value="@currentModuleRolePermission.Reads" />
 <input type="hidden" id="EditPermission" value="@currentModuleRolePermission.Edit" />
 <input type="hidden" id="DeletesPermission" value="@currentModuleRolePermission.Deletes" />

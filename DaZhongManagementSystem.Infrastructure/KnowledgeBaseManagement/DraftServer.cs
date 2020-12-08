@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlTypes;
-using System.Linq;
-using System.Text;
-using DaZhongManagementSystem.Common;
+﻿using DaZhongManagementSystem.Common;
 using DaZhongManagementSystem.Entities.TableEntity;
 using DaZhongManagementSystem.Entities.UserDefinedEntity;
 using DaZhongManagementSystem.Entities.View;
@@ -12,6 +6,10 @@ using DaZhongManagementSystem.Infrastructure.DailyLogManagement;
 using DaZhongManagementSystem.Infrastructure.SugarDao;
 using SqlSugar;
 using SyntacticSugar;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 
 namespace DaZhongManagementSystem.Infrastructure.KnowledgeBaseManagement
 {
@@ -170,12 +168,13 @@ namespace DaZhongManagementSystem.Infrastructure.KnowledgeBaseManagement
             {
                 try
                 {
+                    knowledgeBaseInfo.Type = knowledgeBaseInfo.Type == "on" ? "2" : knowledgeBaseInfo.Type;
                     if (isEdit) //编辑
                     {
                         knowledgeBaseInfo.Status = saveType == "1" ? "1" : "2";
                         knowledgeBaseInfo.ChangeUser = CurrentUser.GetCurrentUser().LoginName;
                         knowledgeBaseInfo.ChangeDate = DateTime.Now;
-                        db.DisableUpdateColumns = new[] { "Type", "CreatedUser", "CreatedDate", "Vguid" };
+                        db.DisableUpdateColumns = new[] { "CreatedUser", "CreatedDate", "Vguid" };
                         string knowledgeJson = JsonHelper.ModelToJson(knowledgeBaseInfo);
                         _ll.SaveLog(saveType == "1" ? 1 : 8, 42, Common.CurrentUser.GetCurrentUser().LoginName, knowledgeBaseInfo.Title, knowledgeJson);
                         db.Update<Business_KnowledgeBase_Information>(knowledgeBaseInfo, c => c.Vguid == knowledgeBaseInfo.Vguid);
@@ -183,6 +182,7 @@ namespace DaZhongManagementSystem.Infrastructure.KnowledgeBaseManagement
                     }
                     else //新增
                     {
+                        knowledgeBaseInfo.Type = knowledgeBaseInfo.Type == "on" ? "2" : knowledgeBaseInfo.Type;
                         knowledgeBaseInfo.Status = saveType == "1" ? "1" : "2";
                         knowledgeBaseInfo.Type = "1";
                         knowledgeBaseInfo.CreatedDate = DateTime.Now;

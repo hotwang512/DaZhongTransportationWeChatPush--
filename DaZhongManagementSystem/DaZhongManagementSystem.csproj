@@ -385,6 +385,7 @@
     <Content Include="Areas\ExerciseManagement\Views\_js\MarkingExercise.js" />
     <Content Include="Areas\KnowledgeBaseManagement\Views\_js\draft.js" />
     <Content Include="Areas\KnowledgeBaseManagement\Views\_js\draftDetail.js" />
+    <Content Include="Areas\KnowledgeBaseManagement\Views\_js\EtiquetteClass.js" />
     <Content Include="Areas\KnowledgeBaseManagement\Views\_js\formal.js" />
     <Content Include="Areas\KnowledgeBaseManagement\Views\_js\formalDetail.js" />
     <Content Include="Areas\KnowledgeBaseManagement\Views\_js\WeChatKnowledge.js" />
@@ -2224,6 +2225,7 @@
     <Content Include="Areas\PartnerInquiryManagement\Views\PartnerHomePage\Index.cshtml" />
     <Content Include="Areas\PartnerInquiryManagement\Views\PartnerHomePage\Index2.cshtml" />
     <Content Include="Areas\PartnerInquiryManagement\Views\Web.config" />
+    <Content Include="Areas\KnowledgeBaseManagement\Views\WeChatKnowledge\EtiquetteClass.cshtml" />
     <None Include="Properties\PublishProfiles\DaZhong.pubxml" />
     <Content Include="ReportTemplate\PushTemplate.xlsx" />
     <Content Include="ReportTemplate\ScoreTemplate.xlsx" />
