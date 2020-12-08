@@ -32,7 +32,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
             U_WeChatUserID userInfo = new U_WeChatUserID();
             string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
             userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
-            userInfo.UserId = "13671595340";//合伙人
+            //userInfo.UserId = "13671595340";//合伙人
             //userInfo.UserId = "15921961501";//司机
             Business_Personnel_Information personInfoModel = GetUserInfo(userInfo.UserId);//获取人员表信息
             if (personInfoModel.DepartmenManager == 10 || personInfoModel.DepartmenManager == 11)
@@ -45,7 +45,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
                 Personnel.OldMotorcadeName = personInfoModel.OwnedFleet;//公司
                 Personnel.OldOrganization = personInfoModel.OwnedCompany;//车队
                 Personnel.Organization = organizationDetail.Description;
-                Personnel.Organization = "第一服务中心";
+                //Personnel.Organization = "第一服务中心";
                 Personnel.MotorcadeName = personInfoModel.OwnedCompany;//车队
                 var key = PubGet.GetUserKey + personInfoModel.Vguid;
                 var csche = CacheManager<Personnel_Info>.GetInstance().Get(key);
