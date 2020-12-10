@@ -1,5 +1,6 @@
 ﻿var code = getQueryString("code");
 var fleet = decodeURI(getQueryString("fleet"));
+var fleetOne = decodeURI(getQueryString("fleetOne"));
 var $page = function () {
 
     this.init = function () {
@@ -8,8 +9,8 @@ var $page = function () {
     var selector = this.selector = {};
 
     function addEvent() {
-        $("#u343").hide();
-        $("#u383").hide();
+        $("#newAccidentData2").hide();
+        $("#newOperationData2").hide();
         //加载车队
         var html = "";
         var fleetList = fleet.split(",");
@@ -22,38 +23,36 @@ var $page = function () {
             html = '<option class="u416_input_option" value="' + fleet + '" selected>' + fleet + '</option>';
         }
         $("#u416_input").append(html);
+        $("#u416_input").val(fleetOne);
         //未处理违章
         $("#u340").on("click", function () {
-            $("#u340_div").addClass("selected");
-            $("#u341_div").removeClass("selected");
-            $("#u342_div").removeClass("selected");
-            $("#u397").show();
-            $("#u343").hide();
-            $("#u383").hide();
-            $("#u418").show();//日期标签
-            $("#DateSearch").show();//日期控件
+            $("#u340").addClass("selected");
+            $("#u341").removeClass("selected");
+            $("#u342").removeClass("selected");
+            $("#newViolationData2").show();
+            $("#newAccidentData2").hide();
+            $("#newOperationData2").hide();
+            $("#DateDiv").show();//日期标签
         });
         //处理中事故
         $("#u341").on("click", function () {
-            $("#u340_div").removeClass("selected");
-            $("#u341_div").addClass("selected");
-            $("#u342_div").removeClass("selected");
-            $("#u397").hide();
-            $("#u343").show();
-            $("#u383").hide();
-            $("#u418").show();//日期标签
-            $("#DateSearch").show();//日期控件
+            $("#u340").removeClass("selected");
+            $("#u341").addClass("selected");
+            $("#u342").removeClass("selected");
+            $("#newViolationData2").hide();
+            $("#newAccidentData2").show();
+            $("#newOperationData2").hide();
+            $("#DateDiv").show();//日期标签
         });
         //搁车明细
         $("#u342").on("click", function () {
-            $("#u340_div").removeClass("selected");
-            $("#u341_div").removeClass("selected");
-            $("#u342_div").addClass("selected");
-            $("#u397").hide();
-            $("#u343").hide();
-            $("#u383").show();
-            $("#u418").hide();//日期标签
-            $("#DateSearch").hide();//日期控件
+            $("#u340").removeClass("selected");
+            $("#u341").removeClass("selected");
+            $("#u342").addClass("selected");
+            $("#newViolationData2").hide();
+            $("#newAccidentData2").hide();
+            $("#newOperationData2").show();
+            $("#DateDiv").hide();//日期标签
         });
         //加载未处理违章数据
         loadRegulationsInfo();
@@ -106,6 +105,8 @@ function loadRegulationsInfo(carID) {
             if (msg != null) {
                 $("#ElectronicCount").text(msg.length);
                 createElectronicDiv(msg);
+            } else {
+                $("#ElectronicCount").text(msg.length);
             }
         }
     });
@@ -121,6 +122,8 @@ function loadAccidentInfo(carID) {
             if (msg != null) {
                 $("#AccidentCount").text(msg.length);
                 createAccidentDiv(msg);
+            } else {
+                $("#AccidentCount").text(msg.length);
             }
         }
     });
@@ -136,13 +139,14 @@ function loadOperationInfo(carID) {
             if (msg != null) {
                 $("#OperationCount").text(msg.length);
                 createOperationDiv(msg);
+            } else {
+                $("#OperationCount").text(msg.length);
             }
         }
     });
 }
 function createElectronicDiv(data) {
     var html = "";
-   
     for (var i = 0; i < data.length; i++) {
         var divHide = '<div class="violCheck">';
         //var driverName = data[i].driverName
@@ -153,16 +157,16 @@ function createElectronicDiv(data) {
         var violationAddress = data[i].area;
         var violationInfo = data[i].act;
         html += divHide +
+                    '<div class="viollabel" style="font-weight: bold;">扣分：' + deductPoints + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;罚款：' + fine + '</div>' +
                     '<div class="viollabel">' + carId + '</div>' +
                     '<div class="viollabel">违章日期：' + violationDate + '</div>' +
-                    '<div class="viollabel">扣分：' + deductPoints + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;罚款：' + fine + '</div>' +
                     '<div class="viollabel"><span>违章地点：</span>' + violationAddress + '</div>' +
                     '<div class="viollabel"><span>违章行为：</span>' + violationInfo + '</div>' +
                     //' <img id="imgLine2" class="img " src="/_theme/images/hengxian.png">'
                     '<hr style="width: 100%;"/>'
                + '</div>' + '</div>'
     }
-    $("#newViolationData").append(html);
+    $("#newViolationData2").append(html);
 }
 function createAccidentDiv(data) {
     var html = "";
@@ -177,16 +181,17 @@ function createAccidentDiv(data) {
         var violationAddress = data[i].accidentLocation;//事故地点
         var divHide = '<div class="violCheck">';
         html += divHide +
+            '<div class="viollabel" style="font-weight: bold;font-size: 14px;">' + accidentLevel + '—' + accidentType + '</div>' +
             '<div class="viollabel">' + driverName + '&nbsp;&nbsp;' + carId + '</div>' +
             '<div class="viollabel">事故日期：' + accidentDate + '</div>' +
             '<div class="viollabel">事故编号：' + accidentNo + '</div>' +
-            '<div class="viollabel">事故等级：' + accidentLevel + '&nbsp;&nbsp;事故类型：' + accidentType + '</div>' +
+            //'<div class="viollabel">事故等级：' + accidentLevel + '&nbsp;&nbsp;事故类型：' + accidentType + '</div>' +
             '<div class="viollabel">事故地点：' + violationAddress + '</div>' +
             //' <img id="imgLine2" class="img " src="/_theme/images/hengxian.png">'
             '<hr style="width: 100%;"/>'
    + '</div>' + '</div>'
     }
-    $("#newAccidentData").append(html);
+    $("#newAccidentData2").append(html);
 }
 function createOperationDiv(data) {
     var html = "";
@@ -201,5 +206,5 @@ function createOperationDiv(data) {
             '<hr style="width: 100%;"/>'
    + '</div>'
     }
-    $("#newOperationData").append(html);
+    $("#newOperationData2").append(html);
 }

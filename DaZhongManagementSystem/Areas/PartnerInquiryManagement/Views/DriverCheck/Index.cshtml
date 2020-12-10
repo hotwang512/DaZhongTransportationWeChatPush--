@@ -30,48 +30,26 @@
         font-size: 12px;
         margin-left: 10px;
         width: 280px;
-        font-weight: bold;
+        /*font-weight: bold;*/
     }
     .mainlabel{
          margin-top: 4px;
         font-size: 12px;
         margin-left: 10px;
         width: 280px;
-        font-weight: bold;
+        /*font-weight: bold;*/
     }
 
-    #newViolationData {
-        position: absolute;
-        margin-top: 40px;
-        width:100%;
-    }
-    #newMaintainData {
-        position: absolute;
-        margin-top: 35px;
-        /*background-color: rgba(242, 242, 242, 1) !important;*/
-        width: 100%;
-    }
+
     #newAccidentData {
         position: absolute;
-        background-color: rgba(242, 242, 242, 1) !important;
-        margin-top: 32px;
+        /*background-color: rgba(242, 242, 242, 1) !important;*/
+        margin-top: 45px;
         width:100%;
-    }
-
-     .primary_button2 {
-        width: 55px;
-        float: right;
-        margin-top: 0px;
-        border: none;
-        border-radius: 5px;
-        -moz-box-shadow: none;
-        -webkit-box-shadow: none;
-        box-shadow: none;
-        font-size: 12px;
     }
 </style>
 <html>
-<input id="hideCode" type="type" name="name" value="@ViewBag.Code" class="hide" />
+<input id="hideCode" type="type" name="name" value="@ViewBag.Code" class="" style="display:none" />
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="">
@@ -86,422 +64,118 @@
     @*<link href="@Url.Content("~/Areas/BasicDataManagement/Views/_css/WeChatExercise/swiper-3.3.1.min.css")" rel="stylesheet" />*@
     @*<link href="@Url.Content("~/Areas/BasicDataManagement/Views/_css/WeChatExercise/index2.css")" rel="stylesheet" />*@
     @*<link href="@Url.Content("~/Areas/BasicDataManagement/Views/iconfont/iconfont.css")" rel="stylesheet" />*@
-    <link href="@Url.Content("~/Areas/PartnerInquiryManagement/Views/_css/PartnerInquiryStyle.css")" rel="stylesheet" />
+    @*<link href="@Url.Content("~/Areas/PartnerInquiryManagement/Views/_css/PartnerInquiryStyle.css")" rel="stylesheet" />
     <link rel="stylesheet" href="@Url.Content("~/_theme/css/bootstrap.min.css")" />
     <link rel="stylesheet" href="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/styles/jqx.base.css")" />
     <link rel="stylesheet" href="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgetsExtensions/jqxext.css")" />
-    <link href="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqx.office.css")" rel="stylesheet" />
-
+    <link href="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqx.office.css")" rel="stylesheet" />*@
+    <link href="@Url.Content("~/Areas/PartnerInquiryManagement/Views/_css/NewPartnerHomePage.css")" rel="stylesheet" />
 </head>
-<body>
-    <!--头部-->
-    <div style="">
-        <div style="margin-top: -60px;">
-            <!--中间内容-->
-            <!-- 营运日报 (Group) -->
-            <div id="u500" class="ax_default" data-label="营运日报" data-left="20" data-top="104" data-width="300" data-height="133">
-
-                <!-- Unnamed (Rectangle) -->
-                <div id="u501" class="ax_default box_2">
-                    <div id="u501_div" class=""></div>
-                    <div id="u501_text" class="text " style="display:none; visibility: hidden">
-                        <p></p>
-                    </div>
-                </div>
-
-                <!-- Unnamed (Rectangle) -->
-                <div id="u502" class="ax_default _标题_3">
-                    <div id="u502_div" class=""></div>
-                    <div id="u502_text" class="text ">
-                        <p style="font-size:10px;">
-                            <span style="font-family:'Arial Negreta', 'Arial Normal', 'Arial';font-weight:700;font-size:13px;">每日营收&nbsp;&nbsp; </span>
-                            <span style="font-family:'Arial Normal', 'Arial';font-weight:400;">(<label id="DateTime"></label>)</span>
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Unnamed (Line) -->
-                <div id="u503" class="ax_default line">
-                    <img id="u503_img" class="img " src="/_theme/images/hengxian2.png">
-                    <div id="u503_text" class="text " style="display:none; visibility: hidden">
-                        <p></p>
-                    </div>
-                </div>
-
-                <!-- 总营收 (Group) -->
-                <div id="u504" class="ax_default" data-label="总营收" data-left="20" data-top="147" data-width="88" data-height="31">
-
-                    <!-- Unnamed (Rectangle) -->
-                    <div id="u505" class="ax_default label">
-                        <div id="u505_div" class=""></div>
-                        <div id="u505_text" class="text ">
-                            <p><span>总营收</span></p>
-                        </div>
-                    </div>
-
-                    <!-- Unnamed (Rectangle) -->
-                    <div id="u506" class="ax_default label">
-                        <div id="u506_div" class=""></div>
-                        <div id="u506_text" class="text ">
-                            <p><span><label id="value1"></label></span></p>
-                        </div>
-                    </div>
-
-                    <!-- Unnamed (Rectangle) -->
-                    <div id="u507" class="ax_default label">
-                        <div id="u507_div" class=""></div>
-                        <div id="u507_text" class="text ">
-                            <p><span><label id="value2" class="rate"></label></span></p>
-                        </div>
-                    </div>
-
-                    <!-- Unnamed (Shape) -->
-                    <div id="u508" class="ax_default icon">
-
-                    </div>
-                </div>
-                <!-- 总差次 (Group) -->
-                <div id="u509" class="ax_default" data-label="总差次" data-left="134" data-top="147" data-width="75" data-height="31">
-
-                    <!-- Unnamed (Rectangle) -->
-                    <div id="u510" class="ax_default label">
-                        <div id="u510_div" class=""></div>
-                        <div id="u510_text" class="text ">
-                            <p><span>总差次</span></p>
-                        </div>
-                    </div>
-
-                    <!-- Unnamed (Rectangle) -->
-                    <div id="u511" class="ax_default label">
-                        <div id="u511_div" class=""></div>
-                        <div id="u511_text" class="text ">
-                            <p><span><label id="value3"></label></span></p>
-                        </div>
-                    </div>
-
-                    <!-- Unnamed (Rectangle) -->
-                    <div id="u512" class="ax_default label">
-                        <div id="u512_div" class=""></div>
-                        <div id="u512_text" class="text ">
-                            <p><span><label id="value4" class="rate"></label></span></p>
-                        </div>
-                    </div>
-
-                    <!-- Unnamed (Shape) -->
-                    <div id="u513" class="ax_default icon">
-
-                    </div>
-                </div>
-                <!-- 线上总营收 (Group) -->
-                <div id="u514" class="ax_default" data-label="线上总营收" data-left="229" data-top="147" data-width="91" data-height="31">
-
-                    <!-- Unnamed (Rectangle) -->
-                    <div id="u515" class="ax_default label">
-                        <div id="u515_div" class=""></div>
-                        <div id="u515_text" class="text ">
-                            <p><span>线上总营收</span></p>
-                        </div>
-                    </div>
-
-                    <!-- Unnamed (Rectangle) -->
-                    <div id="u516" class="ax_default label">
-                        <div id="u516_div" class=""></div>
-                        <div id="u516_text" class="text ">
-                            <p><span><label id="value5"></label></span></p>
-                        </div>
-                    </div>
-
-                    <!-- Unnamed (Rectangle) -->
-                    <div id="u517" class="ax_default label">
-                        <div id="u517_div" class=""></div>
-                        <div id="u517_text" class="text ">
-                            <p><span><label id="value6" class="rate"></label></span></p>
-                        </div>
-                    </div>
-
-                    <!-- Unnamed (Shape) -->
-                    <div id="u518" class="ax_default icon">
-
-                    </div>
-                </div>
-                <!-- 线上总差次 (Group) -->
-                <div id="u519" class="ax_default" data-label="线上总差次" data-left="28" data-top="196" data-width="75" data-height="31">
-
-                    <!-- 线上总差次 (Rectangle) -->
-                    <div id="u520" class="ax_default label" data-label="线上总差次">
-                        <div id="u520_div" class=""></div>
-                        <div id="u520_text" class="text ">
-                            <p><span>线上总差次</span></p>
-                        </div>
-                    </div>
-
-                    <!-- Unnamed (Rectangle) -->
-                    <div id="u521" class="ax_default label">
-                        <div id="u521_div" class=""></div>
-                        <div id="u521_text" class="text ">
-                            <p><span><label id="value7"></label></span></p>
-                        </div>
-                    </div>
-
-                    <!-- Unnamed (Rectangle) -->
-                    <div id="u522" class="ax_default label">
-                        <div id="u522_div" class=""></div>
-                        <div id="u522_text" class="text ">
-                            <p><span><label id="value8" class="rate"></label></span></p>
-                        </div>
-                    </div>
-
-                    <!-- Unnamed (Shape) -->
-                    <div id="u523" class="ax_default icon">
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- 车辆检查排期 (Group) -->
-            <div id="u524" class="ax_default" data-label="车辆检查排期" data-left="20" data-top="251" data-width="300" data-height="110">
-
-                <!-- Unnamed (Rectangle) -->
-                <div id="u525" class="ax_default box_2">
-                    <div id="u525_div" class=""></div>
-                    <div id="u525_text" class="text " style="display:none; visibility: hidden">
-                        <p></p>
-                    </div>
-                    <div id="newMaintainData"></div>
-                </div>
-
-                <!-- Unnamed (Rectangle) -->
-                <div id="u526" class="ax_default _标题_3">
-                    <div id="u526_div" class=""></div>
-                    <div id="u526_text" class="text ">
-                        <p><span>车辆检查排期</span></p>
-                    </div>
-                </div>
-
-                <!-- Unnamed (Line) -->
-                <div id="u527" class="ax_default line">
-                    <img id="u527_img" class="img " src="/_theme/images/hengxian2.png">
-                    <div id="u527_text" class="text " style="display:none; visibility: hidden">
-                        <p></p>
-                    </div>
-                </div>
-            </div>
+<body style="background-image: linear-gradient(#fff, #00000033);">
+    <div style="width:100%;font-size:12px;position: relative;">
+        <table style="width: 100%;">
+            <tr style="font-size: 20px;">
+                <td style="font-weight: bold;">
+                    @*<label id="Month"></label>/<label id="Day"></label>&nbsp;&nbsp;<label id="Week"></label>*@
+                    Hi，<label id="CabLicense"></label><div id="mainTap" style="display:none"><span>！保养已延期</span></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label id="Name"></label>&nbsp;&nbsp;<label id="MotorcadeName"></label>
+                </td>
+            </tr>
+        </table>
+        <div style="width:100%;margin-top: 10px;background:#fff;height:125px;border-radius: 12px;">
+            <table style="width:100%;position: absolute;margin-top: 5px;">
+                <tr>
+                    <td>
+                        <div id="DateLabel"><label id="Month"></label>/<label id="Day"></label></div><span style="font-size: 20px;margin-left: 10px;font-weight:bold;">每日营收</span>
+                    </td>
+                </tr>
+            </table>
+            <table style="width:100%;position: absolute;margin-top: 45px;margin-left: 10px;">
+                <tr>
+                    <td style="width:25%"><label id="value1" class="valueA"></label></td>
+                    <td style="width:25%"><label id="value3" class="valueA"></label></td>
+                    <td style="width:25%"><label id="value5" class="valueA"></label></td>
+                    <td style="width:25%"><label id="value7" class="valueA"></label></td>
+                </tr>
+                <tr>
+                    <td><label id="value2" class="valueB"></label></td>
+                    <td><label id="value4" class="valueB"></label></td>
+                    <td><label id="value6" class="valueB"></label></td>
+                    <td><label id="value8" class="valueB"></label></td>
+                </tr>
+                <tr>
+                    <td class="valueC">总营收</td>
+                    <td class="valueC">总差次</td>
+                    <td class="valueC">总线上营收</td>
+                    <td class="valueC">总线上差次</td>
+                </tr>
+            </table>
         </div>
-
-        <!-- 未处理违章 (Group) -->
-        <div id="u533" class="ax_default" data-label="未处理违章" data-left="20" data-top="456" data-width="300" data-height="165">
-
-            <!-- Unnamed (Rectangle) -->
-            <div id="u534" class="ax_default box_2">
-                <div id="u534_div" class=""></div>
-                <div id="u534_text" class="text " style="display:none; visibility: hidden">
-                    <p></p>
-                </div>
-                <div id="newViolationData"></div>
-            </div>
-
-            <!-- Unnamed (Rectangle) -->
-            <div id="u535" class="ax_default _标题_3">
-                <div id="u535_div" class=""></div>
-                <div id="u535_text" class="text ">
-                    <p><span>未处理违章</span></p>
-                </div>
-            </div>
-
-            <!-- Unnamed (Line) -->
-            <div id="u536" class="ax_default line">
-                <img id="u536_img" class="img " src="/_theme/images/hengxian2.png">
-                <div id="u536_text" class="text " style="display:none; visibility: hidden">
-                    <p></p>
-                </div>
-            </div>
-
-            <!-- 违章 (Group) -->
-            <!-- Unnamed (Rectangle) -->
-            <div id="u543" class="ax_default label">
-                <div id="u543_div" class=""></div>
-                <div id="u543_text" class="text ">
-                    <p><span>更多</span></p>
-                </div>
-            </div>
+        <div style="width:100%;margin-top: 10px;background:#fff;height:100px;border-radius: 12px;">
+            <table style="width:100%;position: absolute;margin-top: 5px;">
+                <tr>
+                    <td>
+                        <span style="font-size: 20px;margin-left: 10px;font-weight:bold;">车检信息</span>
+                    </td>
+                </tr>
+            </table>
+            <div id="newMaintainData"></div>
         </div>
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u550" class="ax_default _标题_3">
-            <div id="u550_div" class=""></div>
-            <div id="u550_text" class="text ">
-                <p><span>姓名:&nbsp;&nbsp;<label id="Name"></label></span></p>
-            </div>
+        <div style="width:100%;margin-top: 10px;background:#fff;height:105px;border-radius: 12px;">
+            <table style="width:100%;position: absolute;margin-top: 5px;">
+                <tr>
+                    <td>
+                        <span style="font-size: 20px;margin-left: 10px;font-weight:bold;">基础服务数据</span>
+                    </td>
+                </tr>
+            </table>
+            <table style="width:100%;position: absolute;margin-top: 45px;margin-left: 10px;">
+                <tr>
+                    <td style="width:25%"><label id="Score" class="valueA"></label></td>
+                    <td style="width:25%"><label id="AnswerStatus" class="valueA"></label></td>
+                    <td style="width:25%"><label id="" class="valueA"></label></td>
+                    <td style="width:25%"><label id="" class="valueA"></label></td>
+                </tr>
+                <tr>
+                    <td class="valueC">驾驶证扣分</td>
+                    <td class="valueC">岗中培训状态</td>
+                    <td class="valueC"><label id="month1"></label>月客诉量</td>
+                    <td class="valueC"><label id="month2"></label>月表扬量</td>
+                </tr>
+            </table>
         </div>
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u551" class="ax_default _标题_3">
-            <div id="u551_div" class=""></div>
-            <div id="u551_text" class="text ">
-                <p><span>车牌:&nbsp;&nbsp;<label id="CabLicense"></label></span></p>
-            </div>
+        <div style="width:100%;margin-top: 10px;background:#fff;height:140px;border-radius: 12px;">
+            <table style="width:100%;position: absolute;margin-top: 5px;">
+                <tr>
+                    <td>
+                        <span style="font-size: 20px;margin-left: 10px;font-weight:bold;">未处理违章</span>
+                        <div id="Page6" class="ax_default countFont" style="">
+                            <label id="violationCount"></label><span>></span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div id="newViolationData"></div>
         </div>
-
-        <!-- 处理中事故 (Group) -->
-        <div id="u552" class="ax_default" data-label="处理中事故" data-left="20" data-top="631" data-width="300" data-height="165">
-
-            <!-- Unnamed (Rectangle) -->
-            <div id="u553" class="ax_default box_2">
-                <div id="u553_div" class=""></div>
-                <div id="u553_text" class="text " style="display:none; visibility: hidden">
-                    <p></p>
-                </div>
-                <div id="newAccidentData"></div>
-            </div>
-
-            <!-- Unnamed (Rectangle) -->
-            <div id="u554" class="ax_default _标题_3">
-                <div id="u554_div" class=""></div>
-                <div id="u554_text" class="text ">
-                    <p><span>处理中事故</span></p>
-                </div>
-            </div>
-
-            <!-- Unnamed (Line) -->
-            <div id="u555" class="ax_default line">
-                <img id="u555_img" class="img " src="/_theme/images/hengxian2.png">
-                <div id="u555_text" class="text " style="display:none; visibility: hidden">
-                    <p></p>
-                </div>
-            </div>
-
-            <!-- Unnamed (Rectangle) -->
-            <div id="u563" class="ax_default label">
-                <div id="u563_div" class=""></div>
-                <div id="u563_text" class="text ">
-                    <p><span>更多</span></p>
-                </div>
-            </div>
+        <div style="width:100%;margin-top: 10px;background:#fff;height:140px;border-radius: 12px;">
+            <table style="width:100%;position: absolute;margin-top: 5px;">
+                <tr>
+                    <td>
+                        <span style="font-size: 20px;margin-left: 10px;font-weight:bold;">处理中事故</span>
+                        <div id="Page7" class="ax_default countFont" style="">
+                            <label id="accidentCount"></label><span>></span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div id="newAccidentData"></div>
         </div>
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u571" class="ax_default primary_button" style="display:none">
-            <div id="u571_div" class=""></div>
-            <div id="u571_text" class="text ">
-                <p><span>保养延期</span></p>
-            </div>
-        </div>
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u572" class="ax_default _标题_3">
-            <div id="u572_div" class=""></div>
-            <div id="u572_text" class="text ">
-                <p><span>车队:&nbsp;&nbsp;<label id="MotorcadeName"></label></span></p>
-            </div>
-        </div>
-
-        <!-- 基础服务数据 (Group) -->
-        <div id="u573" class="ax_default" data-label="基础服务数据" data-left="20" data-top="371" data-width="300" data-height="75">
-
-            <!-- Unnamed (Rectangle) -->
-            <div id="u574" class="ax_default box_2">
-                <div id="u574_div" class=""></div>
-                <div id="u574_text" class="text " style="display:none; visibility: hidden">
-                    <p></p>
-                </div>
-            </div>
-
-            <!-- Unnamed (Rectangle) -->
-            <div id="u575" class="ax_default _标题_3">
-                <div id="u575_div" class=""></div>
-                <div id="u575_text" class="text ">
-                    <p><span>基础服务数据</span></p>
-                </div>
-            </div>
-
-            <!-- Unnamed (Line) -->
-            <div id="u576" class="ax_default line">
-                <img id="u576_img" class="img " src="/_theme/images/hengxian2.png">
-                <div id="u576_text" class="text " style="display:none; visibility: hidden">
-                    <p></p>
-                </div>
-            </div>
-
-            <!-- 月客诉量 (Group) -->
-            <div id="u577" class="ax_default" data-label="月客诉量" data-left="192" data-top="409" data-width="46" data-height="27">
-
-                <!-- Unnamed (Rectangle) -->
-                <div id="u578" class="ax_default label">
-                    <div id="u578_div" class=""></div>
-                    <div id="u578_text" class="text ">
-                        <p><span><label id="month1"></label>月客诉量</span></p>
-                    </div>
-                </div>
-
-                <!-- Unnamed (Rectangle) -->
-                <div id="u579" class="ax_default label">
-                    <div id="u579_div" class=""></div>
-                    <div id="u579_text" class="text ">
-                        <p><span></span></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 驾驶证扣分 (Group) -->
-            <div id="u580" class="ax_default" data-label="驾驶证扣分" data-left="32" data-top="409" data-width="50" data-height="27">
-
-                <!-- Unnamed (Rectangle) -->
-                <div id="u581" class="ax_default label">
-                    <div id="u581_div" class=""></div>
-                    <div id="u581_text" class="text ">
-                        <p><span>驾驶证扣分</span></p>
-                    </div>
-                </div>
-
-                <!-- Unnamed (Rectangle) -->
-                <div id="u582" class="ax_default label">
-                    <div id="u582_div" class=""></div>
-                    <div id="u582_text" class="text ">
-                        <p><span><label id="Score"></label></span></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 岗中培训状态 (Group) -->
-            <div id="u583" class="ax_default" data-label="岗中培训状态" data-left="107" data-top="409" data-width="60" data-height="27">
-
-                <!-- 岗中培训状态 (Rectangle) -->
-                <div id="u584" class="ax_default label" data-label="岗中培训状态">
-                    <div id="u584_div" class=""></div>
-                    <div id="u584_text" class="text ">
-                        <p><span>岗中培训状态</span></p>
-                    </div>
-                </div>
-
-                <!-- Unnamed (Rectangle) -->
-                <div id="u585" class="ax_default label">
-                    <div id="u585_div" class=""></div>
-                    <div id="u585_text" class="text ">
-                        <p><span><label id="AnswerStatus"></label></span></p>
-                    </div>
-                </div>
-            </div>
-            <!-- 月表扬量 (Group) -->
-            <div id="u586_6" class="ax_default" data-label="月表扬量" data-left="107" data-top="409" data-width="60" data-height="27">
-                <!-- Unnamed (Rectangle) -->
-                <div id="u586" class="ax_default label">
-                    <div id="u586_div" class=""></div>
-                    <div id="u586_text" class="text ">
-                        <p><span><label id="month2"></label>月表扬量</span></p>
-                    </div>
-                </div>
-
-                <!-- Unnamed (Rectangle) -->
-                <div id="u587" class="ax_default label">
-                    <div id="u587_div" class=""></div>
-                    <div id="u587_text" class="text ">
-                        <p><span></span></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
+
     <script src="@Url.Content("~/_theme/js/jquery-2.0.3.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/_theme/js/jquery-ui-1.10.3.custom.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/_theme/js/jquery.ui.touch-punch.min.js")"></script>

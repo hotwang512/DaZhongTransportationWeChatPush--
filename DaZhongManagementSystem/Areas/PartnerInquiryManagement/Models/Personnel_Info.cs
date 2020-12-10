@@ -12,8 +12,10 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Models
         public string CabLicense { get; set; }
         public string CabVMLicense { get; set; }
         public string MotorcadeName { get; set; }
+        public string MotorcadeNameRemark { get; set; }
         public string Organization { get; set; }
         public Guid OldMotorcadeName { get; set; }
         public string OldOrganization { get; set; }
+        public string DepartmenManager { get; set; }
     }
 }

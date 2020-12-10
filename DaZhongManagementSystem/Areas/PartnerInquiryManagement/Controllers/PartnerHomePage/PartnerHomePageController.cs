@@ -3,16 +3,20 @@ using DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.WeChatExerci
 using DaZhongManagementSystem.Areas.PartnerInquiryManagement.Models;
 using DaZhongManagementSystem.Entities.TableEntity;
 using DaZhongManagementSystem.Entities.UserDefinedEntity;
+using DaZhongManagementSystem.Entities.View;
 using DaZhongManagementSystem.Infrastructure.SugarDao;
 using DaZhongTransitionLiquidation.Common.Pub;
+using JQWidgetsSugar;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SqlSugar;
 using SyntacticSugar;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Mvc;
 
 namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.PartnerHomePage
@@ -38,27 +42,13 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
             if (personInfoModel.DepartmenManager == 10 || personInfoModel.DepartmenManager == 11)
             {
                 //合伙人;高级合伙人
-                Master_Organization organizationDetail = new Master_Organization();
-                organizationDetail = _ol.GetOrganizationDetail(personInfoModel.OwnedFleet.ToString());
-                Personnel_Info Personnel = new Personnel_Info();
-                Personnel.IdCard = personInfoModel.IDNumber;
-                Personnel.OldMotorcadeName = personInfoModel.OwnedFleet;//公司
-                Personnel.OldOrganization = personInfoModel.OwnedCompany;//车队
-                Personnel.Organization = organizationDetail.Description;
-                //Personnel.Organization = "第一服务中心";
-                Personnel.MotorcadeName = personInfoModel.OwnedCompany;//车队
-                var key = PubGet.GetUserKey + personInfoModel.Vguid;
-                var csche = CacheManager<Personnel_Info>.GetInstance().Get(key);
-                if(csche != null)
-                {
-                    CacheManager<Personnel_Info>.GetInstance().Remove(key);
-                }
-                CacheManager<Personnel_Info>.GetInstance().Add(key, Personnel, 8 * 60 * 60 * 1000);
-                var newfleet = Personnel.MotorcadeName;//现车队
-                ViewBag.MotorcadeName = newfleet;
-                ViewBag.Date = getTaxiSummary();
-                ViewBag.Validate = true;
-                ViewBag.Code = personInfoModel.Vguid;
+                getPartnerInfo(personInfoModel);
+
+            }
+            else if (personInfoModel.DepartmenManager == 12)
+            {
+                //公司经理
+                getManagerInfo(personInfoModel);
             }
             else if (personInfoModel.DepartmenManager == 1)
             {
@@ -92,6 +82,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
                 {
                     return View("/Areas/PartnerInquiryManagement/Views/DriverCheck/Index2.cshtml");
                 }
+
             }
             else
             {
@@ -101,46 +92,15 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
             }
             return View();
         }
-        public string GetTaxiInfo(string code)
-        {
-            var dataList = "";
-            var cm = CacheManager<Personnel_Info>.GetInstance()[PubGet.GetUserKey + code];
-            var cabVMLicense = cm.CabVMLicense;
-            JObject jObject = new JObject();
-            var value1_1 = "";
-            using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance2())
-            {
-                var date1 = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd");
-                //最新数据
-                dataList = _dbMsSql.SqlQueryJson(@"select * from t_taximeter_data where 日期='" + date1 + " 00:00:00' and 车牌号='" + cabVMLicense + "'");
-                if (dataList != null && dataList != "" && dataList.Count() > 2)
-                {
-                    Regex rgx = new Regex(@"(?i)(?<=\[)(.*)(?=\])");//中括号[]
-                    string tmp1 = rgx.Match(dataList).Value;//中括号[]
-                    JObject jo1 = (JObject)JsonConvert.DeserializeObject(tmp1);
-                    jObject = jo1;
-                    //计算上涨或者下跌率
-                    string rate = "";
-                    List<string> strValue = new List<string>() { "营收", "差次", "线上营收", "线上差次" };
-                    value1_1 = jo1[strValue[0]].TryToString();
-                }
-            }
-            return value1_1;
-        }
-        public string getTaxiSummary()
-        {
-            var date = "";
-            using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance2())
-            {
-                date = _dbMsSql.SqlQuery<string>(@"select top(1) 日期 from t_taxi_summary order by 日期 desc").ToList().FirstOrDefault();
-            }
-            return date;
-        }
         public JsonResult GetTaxiSummaryInfo(string fleet, string code)
         {
             var cm = CacheManager<Personnel_Info>.GetInstance()[PubGet.GetUserKey + code];
             var orgName = cm.Organization;
-            var fleetAll = getSqlInValue(cm.MotorcadeName);
+            var fleetAll = getSqlInValue(cm.MotorcadeName, code);
+            if (cm.DepartmenManager == "12")
+            {
+                fleetAll = getSqlInValue(cm.MotorcadeNameRemark, code);
+            }
             var dataList = "";
             var dataList2 = "";
             //var orgName = "第一服务中心";
@@ -149,17 +109,40 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
             using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance2())
             {
                 #region 查询车辆信息
-                var date = _dbMsSql.SqlQuery<string>(@"select top(1) 日期 from t_taxi_summary order by 日期 desc").ToList().FirstOrDefault();
-                dataList = _dbMsSql.SqlQueryJson(@"select * from t_taxi_summary where 日期=@Date",
-                                new { Date = date });
+                var date = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd");//昨天
+                //dataList = _dbMsSql.SqlQueryJson(@"select * from t_taxi_summary where 日期=@Date",new { Date = date });
                 var date1 = date.TryToDate();
-                var date2 = date1.AddDays(-1).ToString("yyyy-MM-dd");
-                if (fleet != "0")
+                var date2 = date1.AddDays(-1).ToString("yyyy-MM-dd");//前天
+                if (fleet == "0")
+                {
+                    fleet = fleetAll;
+                }
+                else
+                {
+                    if (cm.DepartmenManager == "12")
+                    {
+                        fleet = _dbMsSql.SqlQuery<string>(@"select Remark from DZ_Organization where status=0 and OrganizationName=@OrganizationName", new { OrganizationName = fleet }).ToList().FirstOrDefault(); ;
+                    }
+                    fleet = "'" + fleet + "'";
+                }
+                if (cm.DepartmenManager == "12")
                 {
                     //最新数据
-                    dataList = _dbMsSql.SqlQueryJson(@"select * from t_taxi_summary where 日期='" + date + "' and 车队='" + fleet + "' and 公司='" + orgName + "'");
+                    dataList = _dbMsSql.SqlQueryJson(@"select isnull(Sum(convert(decimal(18,2),上线司机数)),0) as 上线司机数,
+                                            isnull(Sum(convert(decimal(18,2),上线车辆数)),0) as 上线车辆数, 
+                                            isnull(Sum(convert(decimal(18,2),总差次)),0) as 总差次,
+                                            isnull(Sum(convert(decimal(18,2),车均营收)),0) as 车均营收, 
+                                            isnull(Sum(convert(decimal(18,2),车均差次)),0) as 车均差次,
+                                            isnull(Sum(convert(decimal(18,2),车均在线时长)),0) as 车均在线时长 
+                                            from t_taxi_summary where 日期='" + date + "' and 公司 in (" + fleet + ")");
                     //前一天数据
-                    dataList2 = _dbMsSql.SqlQueryJson(@"select * from t_taxi_summary where 日期='" + date2 + "' and 车队='" + fleet + "'and 公司='" + orgName + "'");
+                    dataList2 = _dbMsSql.SqlQueryJson(@"select isnull(Sum(convert(decimal(18,2),上线司机数)),0) as 上线司机数,
+                                            isnull(Sum(convert(decimal(18,2),上线车辆数)),0) as 上线车辆数, 
+                                            isnull(Sum(convert(decimal(18,2),总差次)),0) as 总差次,
+                                            isnull(Sum(convert(decimal(18,2),车均营收)),0) as 车均营收, 
+                                            isnull(Sum(convert(decimal(18,2),车均差次)),0) as 车均差次,
+                                            isnull(Sum(convert(decimal(18,2),车均在线时长)),0) as 车均在线时长 
+                                            from t_taxi_summary where 日期='" + date2 + "' and 公司 in (" + fleet + ")");
                 }
                 else
                 {
@@ -170,7 +153,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
                                             isnull(Sum(convert(decimal(18,2),车均营收)),0) as 车均营收, 
                                             isnull(Sum(convert(decimal(18,2),车均差次)),0) as 车均差次,
                                             isnull(Sum(convert(decimal(18,2),车均在线时长)),0) as 车均在线时长 
-                                            from t_taxi_summary where 日期='" + date + "' and 车队 in (" + fleetAll + ") and 公司='" + orgName + "'");
+                                            from t_taxi_summary where 日期='" + date + "' and 车队 in (" + fleet + ") and 公司='" + orgName + "'");
                     //前一天数据
                     dataList2 = _dbMsSql.SqlQueryJson(@"select isnull(Sum(convert(decimal(18,2),上线司机数)),0) as 上线司机数,
                                             isnull(Sum(convert(decimal(18,2),上线车辆数)),0) as 上线车辆数, 
@@ -178,7 +161,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
                                             isnull(Sum(convert(decimal(18,2),车均营收)),0) as 车均营收, 
                                             isnull(Sum(convert(decimal(18,2),车均差次)),0) as 车均差次,
                                             isnull(Sum(convert(decimal(18,2),车均在线时长)),0) as 车均在线时长 
-                                            from t_taxi_summary where 日期='" + date2 + "' and 车队 in (" + fleetAll + ") and 公司='" + orgName + "'");
+                                            from t_taxi_summary where 日期='" + date2 + "' and 车队 in (" + fleet + ") and 公司='" + orgName + "'");
                 }
                 if (dataList.Count() > 2)
                 {
@@ -195,12 +178,12 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
                     {
                         var value1_1 = jo1[item].TryToDecimal();
                         var value2_1 = jo2[item].TryToDecimal();
-                        if (value1_1 > value2_1)
+                        if (value1_1 > value2_1 && value2_1 != 0)
                         {
                             rate = "↑" + (decimal.Round((value1_1 - value2_1) / value2_1 * 100, 2)) + "%";
 
                         }
-                        else if (value1_1 < value2_1)
+                        else if (value1_1 < value2_1 && value2_1 != 0)
                         {
                             rate = "↓" + (decimal.Round((value2_1 - value1_1) / value2_1 * 100, 2)) + "%";
                         }
@@ -220,29 +203,35 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
             //保养
             var cm = CacheManager<Personnel_Info>.GetInstance()[PubGet.GetUserKey + code];
             var orgName = cm.Organization;
-            var fleetAll = getSqlInValue(cm.MotorcadeName);
+            var fleetAll = getSqlInValue(cm.MotorcadeName, code);
             List<VehicleMaintenanceInfo> resultInfo = new List<VehicleMaintenanceInfo>();
             using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance2())
             {
-                //orgName = "第一服务中心";
-                //fleet = "仁强";
-                if(fleet == "0")
+                if (fleet == "0")
                 {
-                    resultInfo = _dbMsSql.SqlQuery<VehicleMaintenanceInfo>(@"SELECT top(2) MotorcadeName,Name,CabLicense,MaintenanceType,Date,Time,Address,Yanche,vm.Status,MobilePhone
-                              FROM VehicleMaintenanceInfo vm
-                              left join [DZ_DW].[dbo].[Visionet_DriverInfo_View] vdv on vm.carNo=vdv.CabVMLicense
-                              where vdv.Organization=@OrgName  and vdv.MotorcadeName in ("+ fleetAll + @")  
-                              and vm.Status='0'
-                              order by MotorcadeName asc,Date asc,Time asc,MaintenanceType asc", new { OrgName = orgName }).ToList();
+                    fleet = fleetAll;
                 }
                 else
                 {
-                    resultInfo = _dbMsSql.SqlQuery<VehicleMaintenanceInfo>(@"SELECT top(2) MotorcadeName,Name,CabLicense,MaintenanceType,Date,Time,Address,Yanche,vm.Status,MobilePhone
+                    fleet = "'" + fleet + "'";
+                }
+                if (cm.DepartmenManager == "12")
+                {
+                    resultInfo = _dbMsSql.SqlQuery<VehicleMaintenanceInfo>(@"SELECT  MotorcadeName,Name,CabLicense,MaintenanceType,Date,Time,Address,Yanche,vm.Status,MobilePhone
                               FROM VehicleMaintenanceInfo vm
                               left join [DZ_DW].[dbo].[Visionet_DriverInfo_View] vdv on vm.carNo=vdv.CabVMLicense
-                              where vdv.Organization=@OrgName  and vdv.MotorcadeName=@Fleet  
+                              where vdv.Organization in (" + fleet + @") 
                               and vm.Status='0'
-                              order by MotorcadeName asc,Date asc,Time asc,MaintenanceType asc", new { OrgName = orgName, Fleet = fleet }).ToList();
+                              order by MotorcadeName asc,Date asc,Time asc,MaintenanceType asc").ToList();
+                }
+                else
+                {
+                    resultInfo = _dbMsSql.SqlQuery<VehicleMaintenanceInfo>(@"SELECT  MotorcadeName,Name,CabLicense,MaintenanceType,Date,Time,Address,Yanche,vm.Status,MobilePhone
+                              FROM VehicleMaintenanceInfo vm
+                              left join [DZ_DW].[dbo].[Visionet_DriverInfo_View] vdv on vm.carNo=vdv.CabVMLicense
+                              where vdv.Organization=@OrgName  and vdv.MotorcadeName in (" + fleet + @")  
+                              and vm.Status='0'
+                              order by MotorcadeName asc,Date asc,Time asc,MaintenanceType asc", new { OrgName = orgName }).ToList();
                 }
             }
             return Json(resultInfo, JsonRequestBehavior.AllowGet);
@@ -252,36 +241,45 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
             //电子警察违章
             var cm = CacheManager<Personnel_Info>.GetInstance()[PubGet.GetUserKey + code];
             var orgName = cm.Organization;
-            var fleetAll = getSqlInValue(cm.MotorcadeName);
+            var fleetAll = getSqlInValue(cm.MotorcadeName, code);
             List<Electronic_police> resultInfo = new List<Electronic_police>();
             using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance2())
             {
-                //var orgName = "第一服务中心";
                 if (fleet == "0")
                 {
-                    resultInfo = _dbMsSql.SqlQuery<Electronic_police>(@"select top(2) plate_no,peccancy_date,score,amercement,area,act from tb_electronic_police ep
-                        left join [DZ_DW].[dbo].[Visionet_CabInfo_View] vcv on ep.plate_no=vcv.CabLicense
-                        where vcv.Organization=@OrgName and vcv.Motorcade in (" + fleetAll + @") 
-                        and ep.status_cd='0'
-                        order by peccancy_date desc", new { OrgName = orgName}).ToList();
+                    fleet = fleetAll;
                 }
                 else
                 {
-                    resultInfo = _dbMsSql.SqlQuery<Electronic_police>(@"select top(2) plate_no,peccancy_date,score,amercement,area,act from tb_electronic_police ep
+                    fleet = "'" + fleet + "'";
+                }
+                if (cm.DepartmenManager == "12")
+                {
+                    resultInfo = _dbMsSql.SqlQuery<Electronic_police>(@"select  plate_no,peccancy_date,score,amercement,area,act from tb_electronic_police ep
                         left join [DZ_DW].[dbo].[Visionet_CabInfo_View] vcv on ep.plate_no=vcv.CabLicense
-                        where vcv.Organization=@OrgName and vcv.Motorcade=@Fleet 
+                        where vcv.Organization in (" + fleet + @") 
                         and ep.status_cd='0'
-                        order by peccancy_date desc", new { OrgName = orgName, Fleet = fleet }).ToList();
-                }  
+                        order by peccancy_date desc", new { OrgName = orgName }).ToList();
+                }
+                else
+                {
+                    resultInfo = _dbMsSql.SqlQuery<Electronic_police>(@"select  plate_no,peccancy_date,score,amercement,area,act from tb_electronic_police ep
+                        left join [DZ_DW].[dbo].[Visionet_CabInfo_View] vcv on ep.plate_no=vcv.CabLicense
+                        where vcv.Organization=@OrgName and vcv.Motorcade in (" + fleet + @") 
+                        and ep.status_cd='0'
+                        order by peccancy_date desc", new { OrgName = orgName }).ToList();
+                }
             }
             return Json(resultInfo, JsonRequestBehavior.AllowGet);
         }
-        public static string getSqlInValue(string motorcadeName)
+        public static string getSqlInValue(string motorcadeName, string code)
         {
+            var cm = CacheManager<Personnel_Info>.GetInstance()[PubGet.GetUserKey + code];
             var value = "";
             var str = motorcadeName.Split(',');
             foreach (var item in str)
             {
+                //循环公司或者车队,构造sql结构
                 value += "'" + item + "',";
             }
             value = value.Substring(0, value.Length - 1);
@@ -303,6 +301,121 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
                                         , new { IDNumber = personInfoModel.IDNumber }).ToList().FirstOrDefault();
             }
             return pi;
+        }
+        public void getPartnerInfo(Business_Personnel_Information personInfoModel)
+        {
+            Master_Organization organizationDetail = new Master_Organization();
+            organizationDetail = _ol.GetOrganizationDetail(personInfoModel.OwnedFleet.ToString());
+            var ownedCompany = personInfoModel.OwnedCompany;
+            if (ownedCompany == "全部")
+            {
+                ownedCompany = getAllOwnedCompany(organizationDetail.Description);
+            }
+            Personnel_Info Personnel = new Personnel_Info();
+            Personnel.IdCard = personInfoModel.IDNumber;
+            Personnel.OldMotorcadeName = personInfoModel.OwnedFleet;//公司
+            Personnel.OldOrganization = ownedCompany;//车队
+            Personnel.Organization = organizationDetail.Description;
+            //Personnel.Organization = "第一服务中心";
+            Personnel.MotorcadeName = ownedCompany;//车队
+            var key = PubGet.GetUserKey + personInfoModel.Vguid;
+            var csche = CacheManager<Personnel_Info>.GetInstance().Get(key);
+            if (csche != null)
+            {
+                CacheManager<Personnel_Info>.GetInstance().Remove(key);
+            }
+            CacheManager<Personnel_Info>.GetInstance().Add(key, Personnel, 8 * 60 * 60 * 1000);
+            var newfleet = Personnel.MotorcadeName;//现车队
+            ViewBag.MotorcadeName = newfleet;
+            //ViewBag.Date = getTaxiSummary();
+            ViewBag.Validate = true;
+            ViewBag.Code = personInfoModel.Vguid;
+        }
+        public void getManagerInfo(Business_Personnel_Information personInfoModel)
+        {
+            Master_Organization organizationDetail = new Master_Organization();
+            organizationDetail = _ol.GetOrganizationDetail(personInfoModel.OwnedFleet.ToString());
+            var ownedCompany = getAllOwnedCompany("");
+            var ownedCompanyRemark = getAllOwnedCompany("R");
+            Personnel_Info Personnel = new Personnel_Info();
+            Personnel.IdCard = personInfoModel.IDNumber;
+            Personnel.OldMotorcadeName = personInfoModel.OwnedFleet;//公司
+            Personnel.OldOrganization = ownedCompany;//当前分公司
+            Personnel.Organization = organizationDetail.Description;
+            //Personnel.Organization = "第一服务中心";
+            Personnel.MotorcadeName = ownedCompany;//当前分公司
+            Personnel.MotorcadeNameRemark = ownedCompanyRemark;//当前分公司备注
+            Personnel.DepartmenManager = "12";
+            var key = PubGet.GetUserKey + personInfoModel.Vguid;
+            var csche = CacheManager<Personnel_Info>.GetInstance().Get(key);
+            if (csche != null)
+            {
+                CacheManager<Personnel_Info>.GetInstance().Remove(key);
+            }
+            CacheManager<Personnel_Info>.GetInstance().Add(key, Personnel, 8 * 60 * 60 * 1000);
+            var newfleet = Personnel.MotorcadeName;//现车队
+            ViewBag.MotorcadeName = newfleet;
+            //ViewBag.Date = getTaxiSummary();
+            ViewBag.Validate = true;
+            ViewBag.Code = personInfoModel.Vguid;
+        }
+        public static string getAllOwnedCompany(string description)
+        {
+            var str = "";
+            var fleetList = new List<string>();
+            using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance2())
+            {
+                if (description == "")
+                {
+                    //查全公司名称
+                    fleetList = _dbMsSql.SqlQuery<string>(@"select distinct OrganizationName from DZ_Organization where status=0").ToList();
+                }
+                else if (description == "R")
+                {
+                    //查全公司备注
+                    fleetList = _dbMsSql.SqlQuery<string>(@"select distinct Remark from DZ_Organization where status=0").ToList();
+                }
+                else
+                {
+                    //查全车队名称
+                    fleetList = _dbMsSql.SqlQuery<string>(@"select CarTeamName from DZ_Organization where OrganizationName=@OrgName and status=0", new { OrgName = description }).ToList();
+
+                }
+                if (fleetList.Count > 0)
+                {
+                    foreach (var item in fleetList)
+                    {
+                        str += item + ",";
+                    }
+                    str = str.Substring(0, str.Length - 1);
+                }
+            }
+            return str;
+        }
+        public string GetTaxiInfo(string code)
+        {
+            var dataList = "";
+            var cm = CacheManager<Personnel_Info>.GetInstance()[PubGet.GetUserKey + code];
+            var cabVMLicense = cm.CabVMLicense;
+            JObject jObject = new JObject();
+            var value1_1 = "";
+            using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance2())
+            {
+                var date1 = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd");
+                //最新数据
+                dataList = _dbMsSql.SqlQueryJson(@"select * from t_taximeter_data where 日期='" + date1 + " 00:00:00' and 车牌号='" + cabVMLicense + "'");
+                if (dataList != null && dataList != "" && dataList.Count() > 2)
+                {
+                    Regex rgx = new Regex(@"(?i)(?<=\[)(.*)(?=\])");//中括号[]
+                    string tmp1 = rgx.Match(dataList).Value;//中括号[]
+                    JObject jo1 = (JObject)JsonConvert.DeserializeObject(tmp1);
+                    jObject = jo1;
+                    //计算上涨或者下跌率
+                    List<string> strValue = new List<string>() { "营收", "差次", "线上营收", "线上差次" };
+                    value1_1 = jo1[strValue[0]].TryToString();
+                }
+            }
+            return value1_1;
         }
     }
 }

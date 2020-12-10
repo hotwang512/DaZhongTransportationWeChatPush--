@@ -1,4 +1,5 @@
-﻿using DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.PartnerHomePage;
+﻿using DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.DriverManagement;
+using DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.PartnerHomePage;
 using DaZhongManagementSystem.Areas.PartnerInquiryManagement.Models;
 using DaZhongManagementSystem.Infrastructure.SugarDao;
 using DaZhongTransitionLiquidation.Common.Pub;
@@ -24,7 +25,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Dri
             var cm = CacheManager<Personnel_Info>.GetInstance()[PubGet.GetUserKey + code];
             var ownedFleet = cm.OldMotorcadeName;
             var ownedCompany = cm.OldOrganization;
-            var fleetAll = PartnerHomePageController.getSqlInValue(cm.MotorcadeName);
+            var fleetAll = PartnerHomePageController.getSqlInValue(cm.MotorcadeName,code);
             if(date == "")
             {
                 date = DateTime.Now.ToString("yyyy-MM");
@@ -34,6 +35,15 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Dri
             {
                 if (fleet == "0")
                 {
+                    fleet = fleetAll;
+                }
+                else
+                {
+                    fleet = "'" + fleet + "'";
+                }
+                if (cm.DepartmenManager == "12")
+                {
+                    var ownedFleetAll = DriverManagementController.getOwnedFleetAll(_dbMsSql, cm.MotorcadeName);
                     answerStatusList = _dbMsSql.SqlQuery<AnswerStatus>(@"select * 
                          from(select p.Name, p.IDNumber, convert(varchar(7), ei.CreatedDate, 120) as sDate,
                               case when eai.TotalScore >= 60 then '合格' --已阅答题
@@ -43,7 +53,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Dri
                           from[dbo].[Business_Personnel_Information] p
                           left join Business_ExercisesAnswer_Information eai on p.Vguid = eai.BusinessPersonnelVguid and convert(varchar, eai.CreatedDate, 23) >= @Date
                           left join Business_Exercises_Infomation ei on eai.BusinessExercisesVguid = ei.Vguid    and convert(varchar, ei.CreatedDate, 23) >= @Date
-                          where p.ApprovalStatus = '2' and p.OwnedCompany in (" + fleetAll + @") and OwnedFleet = @OwnedFleet
+                          where p.ApprovalStatus = '2'  and OwnedFleetin (" + ownedFleetAll + @")
                           )a PIVOT(MAX(Result) FOR sDate IN([Status])) AS T ", new { Date = date, OwnedFleet = ownedFleet });
                 }
                 else
@@ -57,8 +67,8 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Dri
                           from[dbo].[Business_Personnel_Information] p
                           left join Business_ExercisesAnswer_Information eai on p.Vguid = eai.BusinessPersonnelVguid and convert(varchar, eai.CreatedDate, 23) >= @Date
                           left join Business_Exercises_Infomation ei on eai.BusinessExercisesVguid = ei.Vguid    and convert(varchar, ei.CreatedDate, 23) >= @Date
-                          where p.ApprovalStatus = '2' and p.OwnedCompany = @OwnedCompany and OwnedFleet = @OwnedFleet
-                          )a PIVOT(MAX(Result) FOR sDate IN([Status])) AS T ", new { Date = date, OwnedCompany = fleet, OwnedFleet = ownedFleet });
+                          where p.ApprovalStatus = '2' and p.OwnedCompany in (" + fleet + @") and OwnedFleet = @OwnedFleet
+                          )a PIVOT(MAX(Result) FOR sDate IN([Status])) AS T ", new { Date = date, OwnedFleet = ownedFleet });
                 }
                 if (name != "" && name != null)
                 {

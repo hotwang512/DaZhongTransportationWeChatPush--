@@ -16,8 +16,9 @@
 
     .violCheck {
         border-width: 0px;
-        width: 99%;
-        font-size: 12px; /*position:absolute; left:0px; top:43px;*/
+        width: 90%;
+        font-size: 12px;
+        margin-left: 10px;
     }
 
     .viollabel {
@@ -26,20 +27,33 @@
         margin-left: 1px;
         width: 100%;
     }
-
-    #newViolationData {
+    #newViolationData2 {
         position: absolute;
-        background-color: rgba(242, 242, 242, 1) !important;
-        width: 100%;
+        margin-top: 0px !important;
+        margin-left: 0px !important; 
+        width: 100% !important;
+        height: 460px !important;
+        overflow: auto;
+        border-radius: 8px;
+        /* background-color: #ccd0; */
+        /* border: 2px; */
+        border: 1px solid #cccccc;
     }
 
-    #newAccidentData {
+    #newAccidentData2 {
         position: absolute;
-        background-color: rgba(242, 242, 242, 1) !important;
-        width: 100%;
+        margin-top: 0px !important;
+        margin-left: 0px !important; 
+        width: 100% !important;
+        height: 460px !important;
+        overflow: auto;
+        border-radius: 8px;
+        /* background-color: #ccd0; */
+        /* border: 2px; */
+        border: 1px solid #cccccc;
     }
 
-    #u340 {
+    /*#u340 {
         top: 55px !important;
         width: 68px !important;
     }
@@ -48,9 +62,9 @@
         left: 68px !important;
         top: 55px !important;
         width: 68px !important;
-    }
+    }*/
 
-    #u397 {
+    /*#u397 {
         width: 100% !important;
         left: 0% !important;
         top: -171px !important;
@@ -60,7 +74,7 @@
         width: 100% !important;
         left: 0% !important;
         top: -171px !important;
-    }
+    }*/
 </style>
 <html>
 <head>
@@ -77,13 +91,33 @@
     @*<link href="@Url.Content("~/Areas/BasicDataManagement/Views/_css/WeChatExercise/swiper-3.3.1.min.css")" rel="stylesheet" />*@
     @*<link href="@Url.Content("~/Areas/BasicDataManagement/Views/_css/WeChatExercise/index2.css")" rel="stylesheet" />*@
     @*<link href="@Url.Content("~/Areas/BasicDataManagement/Views/iconfont/iconfont.css")" rel="stylesheet" />*@
-    <link href="@Url.Content("~/Areas/PartnerInquiryManagement/Views/_css/PartnerInquiryStyle.css")" rel="stylesheet" />
-
+    @*<link href="@Url.Content("~/Areas/PartnerInquiryManagement/Views/_css/PartnerInquiryStyle.css")" rel="stylesheet" />*@
+    <link href="@Url.Content("~/Areas/PartnerInquiryManagement/Views/_css/NewPartnerHomePage.css")" rel="stylesheet" />
 </head>
 <body>
-    <!--头部-->
-    <header></header>
-    <div style="">
+    <div style="width:100%;font-size:12px;position: relative;">
+        <table style="width:100%;">
+            <tr style="font-size: 20px;">
+                <td style="font-weight: bold;">
+                    车辆管理
+                </td>
+                <td></td>
+            </tr>
+        </table>
+        <table style="width:100%;color: gray;text-align: center;">
+            <tr style="font-size: 14px;font-weight: bold;">
+                <td style="width:33%"><div id="u340" class="selected">未处理违章&nbsp;<label id="ElectronicCount"></label></div></td>
+                <td style="width:33%"><div id="u341" class="">处理中事故&nbsp;<label id="AccidentCount"></label></div></td>
+                <td style="width:33%"></td>
+            </tr>
+        </table>
+
+        <div id="newViolationData2"></div>
+        <div id="newAccidentData2"></div>
+    </div>
+
+
+    <div style="display:none">
         <!-- 未处理违章 (Rectangle) -->
         <div id="u340" class="ax_default box_2 selected" style="cursor: pointer;">
             <div id="u340_div" class="selected" tabindex="0"></div>

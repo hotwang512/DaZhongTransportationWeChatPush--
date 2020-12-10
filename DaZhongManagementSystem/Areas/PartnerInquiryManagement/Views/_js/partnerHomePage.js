@@ -3,68 +3,58 @@ var fleet = "";
 var $page = function () {
 
     this.init = function () {
+        newAddEvent();
         addEvent();
     };
     var selector = this.selector = {};
 
     function addEvent() {
-        //加载车队
-        code = $("#hideCode").val();
-        fleet = $("#hideFleet").val();
-        var html = "";
-        var fleetList = fleet.split(",");
-        if (fleetList.length > 1) {
-            html = '<option class="u74_input_option" value="0" selected>全部</option>';
-            for (var i = 0; i < fleetList.length; i++) {
-                html += '<option class="u74_input_option" value="' + fleetList[i] + '" >' + fleetList[i] + '</option>';
-            }
-        } else {
-            html = '<option class="u74_input_option" value="' + fleet + '" selected>' + fleet + '</option>';
-        }
-        $("#u74_input").append(html);
         //首页跳转
         $("#Page1").on("click", function () {
-            window.location.href = "/PartnerInquiryManagement/OperatingData/Index?code=" + code + "&fleet=" + fleet;//营运数据
+            window.location.href = "/PartnerInquiryManagement/OperatingData/Index?code=" + code + "&fleet=" + fleet + "&fleetOne=" + $("#u74_input").val();//营运数据
         });
         $("#Page2").on("click", function () {
-            window.location.href = "/PartnerInquiryManagement/DriverManagement/Index?code=" + code + "&fleet=" + fleet;//司机管理
+            window.location.href = "/PartnerInquiryManagement/DriverManagement/Index?code=" + code + "&fleet=" + fleet + "&fleetOne=" + $("#u74_input").val();//司机管理
         });
         $("#Page3").on("click", function () {
-            window.location.href = "/PartnerInquiryManagement/CarManagement/Index?code=" + code + "&fleet=" + fleet;//车辆管理
+            window.location.href = "/PartnerInquiryManagement/CarManagement/Index?code=" + code + "&fleet=" + fleet + "&fleetOne=" + $("#u74_input").val();//车辆管理
         });
         $("#Page4").on("click", function () {
-            window.location.href = "/PartnerInquiryManagement/CheckScheduling/Index?code=" + code + "&fleet=" + fleet;//排班检查
+            window.location.href = "/PartnerInquiryManagement/CheckScheduling/Index?code=" + code + "&fleet=" + fleet + "&fleetOne=" + $("#u74_input").val();//排班检查
         });
-        $("#MoreLabel").on("click", function () {
-            window.location.href = "/PartnerInquiryManagement/OperatingData/Index?code=" + code + "&fleet=" + fleet;//营运数据,首页"更多"
+        $("#Page5").on("click", function () {
+            //window.location.href = "/PartnerInquiryManagement/PayInfo/Index?code=" + code + "&fleet=" + fleet;//缴费信息
+            alert("功能暂未开放");
         });
-        $("#u80").on("click", function () {
-            window.location.href = "/PartnerInquiryManagement/CheckScheduling/Index?code=" + code + "&fleet=" + fleet;//排班检查,首页车辆检查排期"全部"
+        $("#Page6").on("click", function () {
+            window.location.href = "/PartnerInquiryManagement/CheckScheduling/Index?code=" + code + "&fleet=" + fleet + "&fleetOne=" + $("#u74_input").val();//排班检查,首页车辆检查排期"数字"
         });
-        $("#u79").on("click", function () {
-            window.location.href = "/PartnerInquiryManagement/CheckScheduling/Index?code=" + code + "&fleet=" + fleet;//排班检查,车辆检查排期按钮
-        });
-        $("#u110").on("click", function () {
-            window.location.href = "/PartnerInquiryManagement/CarManagement/Index?code=" + code + "&fleet=" + fleet;//车辆管理,首页未处理违章"全部"
-        });
-        $("#u109").on("click", function () {
-            window.location.href = "/PartnerInquiryManagement/CarManagement/Index?code=" + code + "&fleet=" + fleet;//车辆管理,未处理违章按钮
+        $("#Page7").on("click", function () {
+            window.location.href = "/PartnerInquiryManagement/CarManagement/Index?code=" + code + "&fleet=" + fleet + "&fleetOne=" + $("#u74_input").val();//车辆管理,首页未处理违章"数字"
         });
 
+        $("#u74_input").on("change", function () {
+            var fleet2 = $("#u74_input").val();
+            $(".mainCheck").remove();
+            $(".violCheck").remove();
+            loadTaxiSummaryInfo(fleet2);
+            loadVehicleMaintenanceInfo(fleet2);
+            loadCarViolationInfo(fleet2);
+        })
+    }
+    function newAddEvent() {
+        code = $("#hideCode").val();
+        fleet = $("#hideFleet").val();
+        //加载日期
+        loadDate();
+        //加载车队
+        loadFleet(fleet);
         //加载营运日报数据
         loadTaxiSummaryInfo(fleet);
         //加载车辆检车排期
         loadVehicleMaintenanceInfo(fleet);
         //加载未处理违章
         loadCarViolationInfo(fleet);
-        $("#u74_input").on("change", function () {
-            var fleet = $("#u74_input").val();
-            $(".mainCheck").remove();
-            $(".violCheck").remove();
-            loadTaxiSummaryInfo(fleet);
-            loadVehicleMaintenanceInfo(fleet);
-            loadCarViolationInfo(fleet);
-        })
     }
 };
 
@@ -73,12 +63,63 @@ $(function () {
     page.init();
 });
 
+function loadDate() {
+    var date = new Date();
+    var today = date.getDate();
+    var yesterDate = date.setTime(date.getTime() - 24 * 60 * 60 * 1000);
+    var yesterDay = getMyDate(yesterDate);
+    if (today < 10) {
+        today = "0" + today;//今天
+    }
+    //var yesterDates = yesterDate.getFullYear() + "-" + (yesterDate.getMonth() + 1) + "-" + yesterday;
+    var weekDate = (date.getMonth() + 1) + "/" + today + "/" + date.getFullYear();
+    var weekDate2 = new Date(Date.parse(weekDate));   //需要正则转换的则 此处为 ： var day = new Date(Date.parse(date.replace(/-/g, '/')));  
+    var weekToday = new Array('周日', '周一', '周二', '周三', '周四', '周五', '周六');
+    var week = weekToday[weekDate2.getDay()];
+    $("#HideDateSearch").val(yesterDay);
+    $("#YesterDays").text(yesterDay);
+    $("#Month").text(date.getMonth() + 1);
+    $("#Day").text(today);
+    $("#Week").text(week);
+}
+function getMyDate(str) {
+    var oDate = new Date(str),
+    oYear = oDate.getFullYear(),
+    oMonth = oDate.getMonth() + 1,
+    oDay = oDate.getDate(),
+    oHour = oDate.getHours(),
+    oMin = oDate.getMinutes(),
+    oSen = oDate.getSeconds(),
+    oTime = oYear + '-' + getzf(oMonth) + '-' + getzf(oDay);//最后拼接时间  
+    return oTime;
+};
+function getzf(num) {
+    //补0操作
+    if (parseInt(num) < 10) {
+        num = '0' + num;
+    }
+    return num;
+}
+function loadFleet(fleet) {
+    var html = "";
+    var fleetList = fleet.split(",");
+    if (fleetList.length > 1) {
+        html = '<option class="u74_input_option" value="0" selected>全部</option>';
+        for (var i = 0; i < fleetList.length; i++) {
+            html += '<option class="u74_input_option" value="' + fleetList[i] + '" >' + fleetList[i] + '</option>';
+        }
+    } else {
+        html = '<option class="u74_input_option" value="' + fleet + '" selected>' + fleet + '</option>';
+    }
+    $("#u74_input").append(html);
+}
 function loadTaxiSummaryInfo(fleet) {
     $.ajax({
         url: "/PartnerInquiryManagement/PartnerHomePage/GetTaxiSummaryInfo",
         type: "post",
         data: { fleet: $("#u74_input").val(), code: code },
         dataType: "json",
+        async: false,
         //traditional: true,
         success: function (msg) {
             if (msg != null) {
@@ -111,13 +152,14 @@ function loadVehicleMaintenanceInfo(fleet) {
         type: "post",
         data: { fleet: $("#u74_input").val(), code: code },
         dataType: "json",
+        async: false,
         //traditional: true,
         success: function (msg) {
             if (msg.length > 0) {
+                $("#vehicleCount").text(msg.length);
                 createCarCheckDiv(msg);
-                $("#u79").show();
             } else {
-                $("#u79").hide();
+                $("#vehicleCount").text(msg.length);
             }
         }
     });
@@ -128,13 +170,14 @@ function loadCarViolationInfo(fleet) {
         type: "post",
         data: { fleet: $("#u74_input").val(), code: code },
         dataType: "json",
+        async: false,
         //traditional: true,
         success: function (msg) {
             if (msg.length > 0) {
+                $("#violationCount").text(msg.length);
                 createCarViolationDiv(msg);
-                $("#u109").show();
             } else {
-                $("#u109").hide();
+                $("#violationCount").text(msg.length);
             }
         }
     });
@@ -142,7 +185,7 @@ function loadCarViolationInfo(fleet) {
 function createCarCheckDiv(data) {
     var html = "";
     var divHide = '<div class="mainCheck">';
-    for (var i = 0; i < data.length; i++) {
+    for (var i = 0; i < 1; i++) {
         var fleet = data[i].MotorcadeName //车队
         var driverName = data[i].Name
         var carId = data[i].CabLicense;
@@ -173,9 +216,9 @@ function createCarCheckDiv(data) {
                         '<div class="mainlabel">车队：' + fleet + '</div>' + yanche + '<div class="ax_default primary_button2" style="background-color: ' + color + ';"><span style="margin-left: 6px;color: #FFFFFF;">' + maintainLevel + '级保养</span></div>' +
                         '<div class="mainlabel">' + driverName + '&nbsp;&nbsp;&nbsp;' + carId + '</div>' +
                         '<div class="mainlabel"><span>保养时间：</span>' + maintainDate + '&nbsp;' + maintainTime + '</div>' +
-                        '<div class="mainlabel"><span>保养地点：</span>' + maintainAddress + '</div>' +
+                        '<div class="mainlabel"><span>保养地点：</span>' + maintainAddress + '</div>'
                         //' <img id="imgLine" class="img " src="/_theme/images/hengxian.png">'
-                        '<hr />'
+                        //'<hr />'
                    + '</div>'
         }
     }
@@ -184,7 +227,7 @@ function createCarCheckDiv(data) {
 function createCarViolationDiv(data) {
     var html = "";
     var divHide = '<div class="violCheck">';
-    for (var i = 0; i < data.length; i++) {
+    for (var i = 0; i < 1; i++) {
         //var driverName = data[i].driverName
         var carId = data[i].plate_no;
         var deductPoints = data[i].score;//扣分
@@ -192,17 +235,15 @@ function createCarViolationDiv(data) {
         var violationDate = data[i].peccancy_date;
         var violationAddress = data[i].area;
         var violationInfo = data[i].act;
-        if (i >= 2) {
-            divHide = '<div class="hide">'
-        }
         html += divHide +
-                    '<div class="viollabel">' + carId + '&nbsp;&nbsp;&nbsp;&nbsp;违章日期：' + violationDate + '</div>'+
-                    '<div class="viollabel">扣分：' + deductPoints + '&nbsp;&nbsp;&nbsp;罚款：' + fine + '</div>' +
+                    '<div class="viollabel" style="font-weight: bold;">扣分：' + deductPoints + '&nbsp;&nbsp;&nbsp;罚款：' + fine + '</div>' +
+                    '<div class="viollabel">' + carId + '</div>' +
+                    '<div class="viollabel">违章日期：' + violationDate + '</div>' +
                     '<div class="viollabel"><span>违章地点：</span>' + violationAddress + '</div>' +
-                    '<div class="viollabel"><span>违章行为：</span>' + violationInfo + '</div>' +
+                    '<div class="viollabel"><span>违章行为：</span>' + violationInfo + '</div>'+
                     //' <img id="imgLine2" class="img " src="/_theme/images/hengxian.png">'
-                    '<hr />'
-               + '</div>'
+                    //'<hr />'
+               '</div>'
     }
     $("#newViolationData").append(html);
 }

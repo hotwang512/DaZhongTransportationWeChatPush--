@@ -17,16 +17,14 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Che
             ViewBag.Key = "lZagKrU56xPBvyNRZjym7jrdJPwOT1Z0W+HpZaTrvUobpwSQEAue7j0iWs/b0cu2";
             return View();
         }
-        public JsonResult GetVehicleMaintenanceInfo(string fleet, string type, string status, string idCard, string code)
+        public JsonResult GetVehicleMaintenanceInfo(string fleet,string type,string status,string idCard, string code)
         {
             var cm = CacheManager<Personnel_Info>.GetInstance()[PubGet.GetUserKey + code];
             var orgName = cm.Organization;
-            var fleetAll = PartnerHomePageController.getSqlInValue(cm.MotorcadeName);
+            var fleetAll = PartnerHomePageController.getSqlInValue(cm.MotorcadeName,code);
             List<VehicleMaintenanceInfo> resultInfo = new List<VehicleMaintenanceInfo>();
             using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance2())
             {
-                //orgName = "第一服务中心";
-                //fleet = "仁强";
                 if (fleet == "0")
                 {
                     fleet = fleetAll;
@@ -35,16 +33,25 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Che
                 {
                     fleet = "'" + fleet + "'";
                 }
-                resultInfo = _dbMsSql.SqlQuery<VehicleMaintenanceInfo>(@"SELECT  MotorcadeName,Name,CabLicense,MaintenanceType,Date,Time,Address,Yanche,vm.Status,MobilePhone
+                if(cm.DepartmenManager == "12")
+                {
+                    resultInfo = _dbMsSql.SqlQuery<VehicleMaintenanceInfo>(@"SELECT  MotorcadeName,Name,CabLicense,MaintenanceType,Date,Time,Address,Yanche,vm.Status,MobilePhone
+                              FROM VehicleMaintenanceInfo vm
+                              left join [DZ_DW].[dbo].[Visionet_DriverInfo_View] vdv on vm.carNo=vdv.CabVMLicense
+                              where vdv.Organization in (" + fleet + @") 
+                              and vm.Status='0' 
+                              order by MotorcadeName asc,Date asc,Time asc,MaintenanceType asc").ToList();
+                }
+                else
+                {
+                    resultInfo = _dbMsSql.SqlQuery<VehicleMaintenanceInfo>(@"SELECT  MotorcadeName,Name,CabLicense,MaintenanceType,Date,Time,Address,Yanche,vm.Status,MobilePhone
                               FROM VehicleMaintenanceInfo vm
                               left join [DZ_DW].[dbo].[Visionet_DriverInfo_View] vdv on vm.carNo=vdv.CabVMLicense
                               where vdv.Organization=@OrgName  and vdv.MotorcadeName in (" + fleet + @") 
                               and vm.Status='0' 
-                              order by MotorcadeName asc,Date asc,Time asc,MaintenanceType asc", new { OrgName = orgName, Fleet = fleet }).ToList();
-                //if(fleet != "0")
-                //{
-                //    resultInfo = resultInfo.Where(x => x.MotorcadeName == fleet).ToList();
-                //}
+                              order by MotorcadeName asc,Date asc,Time asc,MaintenanceType asc", new { OrgName = orgName}).ToList();
+                }
+               
                 if (type != "0" && type != "")
                 {
                     if (type == "4")//验车
@@ -54,7 +61,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Che
                     else
                     {
                         resultInfo = resultInfo.Where(x => x.MaintenanceType.Contains(type)).ToList();
-                    }
+                    }                      
                 }
                 if (status != "")
                 {

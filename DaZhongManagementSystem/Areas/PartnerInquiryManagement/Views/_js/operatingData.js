@@ -1,33 +1,18 @@
 ﻿var code = getQueryString("code");
 var fleet = decodeURI(getQueryString("fleet"));
+var fleetOne = decodeURI(getQueryString("fleetOne"));
 var $page = function () {
 
     this.init = function () {
-        addEvent();
+        newAddEvent();
+        //addEvent();
     };
     var selector = this.selector = {};
-
-    function addEvent() {
-        var day1 = new Date();
-        day1.setTime(day1.getTime() - 24 * 60 * 60 * 1000);
-        var day = day1.getDate();
-        if (day < 10) {
-            day = "0" + day;
-        }
-        var s1 = day1.getFullYear() + "-" + (day1.getMonth() + 1) + "-" + day;
-        $("#DateSearch").val(s1);
+    function newAddEvent() {
+        //加载日期
+        loadDate();
         //加载车队
-        var html = "";
-        var fleetList = fleet.split(",");
-        if (fleetList.length > 1) {
-            html = '<option class="u164_input_option" value="0" selected>全部</option>';
-            for (var i = 0; i < fleetList.length; i++) {
-                html += '<option class="u164_input_option" value="' + fleetList[i] + '" >' + fleetList[i] + '</option>';
-            }
-        } else {
-            html = '<option class="u164_input_option" value="' + fleet + '" selected>' + fleet + '</option>';
-        }
-        $("#u164_input").append(html);
+        loadFleet(fleet);
         //加载营运日报数据
         loadTaxiSummaryInfo();
         $("#u164_input").on("change", function () {
@@ -45,6 +30,30 @@ function getQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
     var r = window.location.search.substr(1).match(reg);
     if (r != null) return decodeURI(r[2]); return null;
+}
+function loadDate() {
+    var day1 = new Date();
+    day1.setTime(day1.getTime() - 24 * 60 * 60 * 1000);
+    var day = day1.getDate();
+    if (day < 10) {
+        day = "0" + day;
+    }
+    var s1 = day1.getFullYear() + "-" + (day1.getMonth() + 1) + "-" + day;
+    $("#DateSearch").val(s1);
+}
+function loadFleet(fleet) {
+    var html = "";
+    var fleetList = fleet.split(",");
+    if (fleetList.length > 1) {
+        html = '<option class="u164_input_option" value="0" selected>全部</option>';
+        for (var i = 0; i < fleetList.length; i++) {
+            html += '<option class="u164_input_option" value="' + fleetList[i] + '" >' + fleetList[i] + '</option>';
+        }
+    } else {
+        html = '<option class="u164_input_option" value="' + fleet + '" selected>' + fleet + '</option>';
+    }
+    $("#u164_input").append(html);
+    $("#u164_input").val(fleetOne);
 }
 function loadTaxiSummaryInfo() {
     $.ajax({

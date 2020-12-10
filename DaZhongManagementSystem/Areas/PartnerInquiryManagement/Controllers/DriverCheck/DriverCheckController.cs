@@ -53,12 +53,12 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Dri
                     {
                         var value1_1 = jo1[item].TryToDecimal();
                         var value2_1 = jo2[item].TryToDecimal();
-                        if (value1_1 > value2_1)
+                        if (value1_1 > value2_1 && value2_1 != 0)
                         {
                             rate = "↑" + (decimal.Round((value1_1 - value2_1) / value2_1 * 100, 2)) + "%";
 
                         }
-                        else if (value1_1 < value2_1)
+                        else if (value1_1 < value2_1 && value2_1 != 0)
                         {
                             rate = "↓" + (decimal.Round((value2_1 - value1_1) / value2_1 * 100, 2)) + "%";
                         }
@@ -81,7 +81,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Dri
             List<Electronic_police> resultInfo = new List<Electronic_police>();
             using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance2())
             {
-                resultInfo = _dbMsSql.SqlQuery<Electronic_police>(@"select top(1) plate_no,peccancy_date,score,amercement,area,act from tb_electronic_police ep
+                resultInfo = _dbMsSql.SqlQuery<Electronic_police>(@"select  plate_no,peccancy_date,score,amercement,area,act from tb_electronic_police ep
                         left join [DZ_DW].[dbo].[Visionet_CabInfo_View] vcv on ep.plate_no=vcv.CabLicense
                         where vcv.Organization=@OrgName and vcv.Motorcade=@Fleet and ep.plate_no=@Plate_no and ep.status_cd='0'
                         order by peccancy_date desc", new { OrgName = orgName, Fleet = fleet, Plate_no = plate_no }).ToList();
@@ -97,7 +97,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Dri
             List<Accident_cabInfo> visionetList = new List<Accident_cabInfo>();
             using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance2())
             {
-                visionetList = _dbMsSql.SqlQuery<Accident_cabInfo>(@"SELECT top(1) driverName,carNo,occurrenceTime,accidentNo,accidentGradeName,accidentTypeName,accidentLocation
+                visionetList = _dbMsSql.SqlQuery<Accident_cabInfo>(@"SELECT  driverName,carNo,occurrenceTime,accidentNo,accidentGradeName,accidentTypeName,accidentLocation
                                         FROM [DZzl_DW].[dbo].[AccidentCompleteInfo] ac
                                         left join [DZ_DW].[dbo].[Visionet_CabInfo_View] vcv on ac.carNo=vcv.CabLicense
                                         where vcv.Organization=@OwnedCompany and vcv.Motorcade=@ownedFleet 
@@ -118,8 +118,8 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Dri
             List<string> BaseDataList = new List<string>();
             using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance2())
             {
-                score = _dbMsSql.SqlQuery<string>(@"select * from dbo.tb_query_score where id_no=@IDCard", new { IDCard = plate_no }).ToList().FirstOrDefault();
-                if (score == null || score == "")
+                score = _dbMsSql.SqlQuery<string>(@"select * from dbo.tb_query_score where id_no=@IDCard",new { IDCard = plate_no }).ToList().FirstOrDefault();
+                if(score == null || score == "")
                 {
                     score = "0";
                 }
@@ -138,7 +138,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Dri
                                   left join Business_ExercisesAnswer_Information eai on p.Vguid=eai.BusinessPersonnelVguid and convert(varchar,eai.CreatedDate,23)>=@Date
                                   left join Business_Exercises_Infomation ei on eai.BusinessExercisesVguid=ei.Vguid    and convert(varchar,ei.CreatedDate,23)>=@Date
                                   where p.ApprovalStatus='2'
-                                  )a PIVOT( MAX(Result) FOR sDate IN([Status]) ) AS T ", new { Date = date }).ToList();
+                                  )a PIVOT( MAX(Result) FOR sDate IN([Status]) ) AS T ", new { Date = date}).ToList();
                 answerStatusList = answerList.Where(x => x.IDNumber == idCard).ToList().FirstOrDefault();
             }
             BaseDataList.Add(score);
@@ -160,15 +160,15 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Dri
             List<VehicleMaintenanceInfo> resultInfo = new List<VehicleMaintenanceInfo>();
             using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance2())
             {
-                //orgName = "第一服务中心";
-                //fleet = "仁强";
-                //plate_no = "沪GV1017";
-                //idCard = "320825197806023613";
-                resultInfo = _dbMsSql.SqlQuery<VehicleMaintenanceInfo>(@"SELECT top(1) MotorcadeName,Name,CabLicense,MaintenanceType,Date,Time,Address,Yanche,vm.Status,MobilePhone
+                orgName = "第一服务中心";
+                fleet = "仁强";
+                plate_no = "沪GV1017";
+                idCard = "320825197806023613";
+                resultInfo = _dbMsSql.SqlQuery<VehicleMaintenanceInfo>(@"SELECT  MotorcadeName,Name,CabLicense,MaintenanceType,Date,Time,Address,Yanche,vm.Status,MobilePhone
                               FROM VehicleMaintenanceInfo vm
                               left join [DZ_DW].[dbo].[Visionet_DriverInfo_View] vdv on vm.carNo=vdv.CabVMLicense
                               where vdv.Organization=@OrgName  and vdv.MotorcadeName=@Fleet  
-                              and  vdv.CabLicense=@Plate_no and vdv.IdCard=@IdCard  order by Date desc,Time desc",
+                              and  vdv.CabLicense=@Plate_no and vdv.IdCard=@IdCard  order by Date desc,Time desc", 
                               new { OrgName = orgName, Fleet = fleet, Plate_no = plate_no, IdCard = idCard }).ToList();
             }
             return Json(resultInfo, JsonRequestBehavior.AllowGet);

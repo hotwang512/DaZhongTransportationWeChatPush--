@@ -1,5 +1,6 @@
 ﻿var code = getQueryString("code");
 var fleet = decodeURI(getQueryString("fleet"));
+var fleetOne = decodeURI(getQueryString("fleetOne"));
 var $page = function () {
 
     this.init = function () {
@@ -20,6 +21,7 @@ var $page = function () {
             html = '<option value="' + fleet + '" selected>' + fleet + '</option>';
         }
         $("#FleetSelect").append(html);
+        $("#FleetSelect").val(fleetOne);
         //加载保养数据
         loadVehicleMaintenance();
         $("#SearchByCarID").on("change", function () {
@@ -74,7 +76,7 @@ function loadVehicleMaintenance(carID) {
 
 function createMaintainDiv(data) {
     var html = "";
-    var divHide = '<div class="mainCheck">';
+    var divHide = '';
     for (var i = 0; i < data.length; i++) {
         var fleet = data[i].MotorcadeName //车队
         var driverName = data[i].Name
@@ -104,7 +106,7 @@ function createMaintainDiv(data) {
             'onclick="sendMessage(this)" ' +
             'style="line-height: 20px;text-align: center;"><span style="">保养提醒</span></div>';
 
-            html += divHide +
+            html += '<div class="mainCheck">' +
                         '<div class="mainlabel">车队：' + fleet + '</div>' + yanche + '<div class="ax_default primary_button2" style="background-color: ' + color + ';">' +
                         '<span style="margin-left: 6px;color: #FFFFFF;">' + maintainLevel + '级保养</span></div>' +
                         '<div class="mainlabel">' + driverName + '&nbsp;&nbsp;&nbsp;' + carId + '</div>' +
@@ -115,7 +117,7 @@ function createMaintainDiv(data) {
                    + '</div>'
         }
     }
-    $("#newMaintainData").append(html);
+    $("#newMaintainData2").append(html);
 }
 
 function sendMessage(event) {

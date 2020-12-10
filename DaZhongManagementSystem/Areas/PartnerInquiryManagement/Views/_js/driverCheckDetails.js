@@ -8,27 +8,26 @@ var $page = function () {
     var selector = this.selector = {};
 
     function addEvent() {
-        $("#u343").hide();
-        $("#u383").hide();
+        $("#newAccidentData2").hide();
         if (type == "2") {
-            $("#u340_div").removeClass("selected");
-            $("#u341_div").addClass("selected");
-            $("#u397").hide();
-            $("#u343").show();
+            $("#u340").removeClass("selected");
+            $("#u341").addClass("selected");
+            $("#newViolationData2").hide();
+            $("#newAccidentData2").show();
         }
         //未处理违章
         $("#u340").on("click", function () {
-            $("#u340_div").addClass("selected");
-            $("#u341_div").removeClass("selected");
-            $("#u397").show();
-            $("#u343").hide();
+            $("#u340").addClass("selected");
+            $("#u341").removeClass("selected");
+            $("#newViolationData2").show();
+            $("#newAccidentData2").hide();
         });
         //处理中事故
         $("#u341").on("click", function () {
-            $("#u340_div").removeClass("selected");
-            $("#u341_div").addClass("selected");
-            $("#u397").hide();
-            $("#u343").show();
+            $("#u340").removeClass("selected");
+            $("#u341").addClass("selected");
+            $("#newViolationData2").hide();
+            $("#newAccidentData2").show();
         });
         //加载未处理违章数据
         loadRegulationsInfo();
@@ -56,6 +55,7 @@ function loadRegulationsInfo(carID) {
         dataType: "json",
         success: function (msg) {
             if (msg != null) {
+                $("#ElectronicCount").text(msg.length);
                 createElectronicDiv(msg);
             }
         }
@@ -70,6 +70,7 @@ function loadAccidentInfo(carID) {
         dataType: "json",
         success: function (msg) {
             if (msg != null) {
+                $("#AccidentCount").text(msg.length);
                 createAccidentDiv(msg);
             }
         }
@@ -97,7 +98,7 @@ function createElectronicDiv(data) {
                     '<hr style="width: 100%;"/>'
                + '</div>' + '</div>'
     }
-    $("#newViolationData").append(html);
+    $("#newViolationData2").append(html);
 }
 function createAccidentDiv(data) {
     var html = "";
@@ -121,5 +122,5 @@ function createAccidentDiv(data) {
             '<hr style="width: 100%;"/>'
    + '</div>' + '</div>'
     }
-    $("#newAccidentData").append(html);
+    $("#newAccidentData2").append(html);
 }

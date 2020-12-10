@@ -1,5 +1,6 @@
 ﻿var code = getQueryString("code");
 var fleet = decodeURI(getQueryString("fleet"));
+var fleetOne = decodeURI(getQueryString("fleetOne"));
 var $page = function () {
 
     this.init = function () {
@@ -9,10 +10,10 @@ var $page = function () {
 
     function addEvent() {
         //首页跳转
-        $("#u233").on("click", function () {
+        $("#Page1").on("click", function () {
             window.location.href = "/PartnerInquiryManagement/DriverPointsDetails/Index?code=" + code + "&fleet=" + fleet;//司机计分
         });
-        $("#u250").on("click", function () {
+        $("#Page2").on("click", function () {
             window.location.href = "/PartnerInquiryManagement/DriverJobTraning/Index?code=" + code + "&fleet=" + fleet;//岗中培训司机数
         });
         //加载车队
@@ -27,6 +28,7 @@ var $page = function () {
             html = '<option class="u235_input_option" value="' + fleet + '" selected>' + fleet + '</option>';
         }
         $("#u235_input").append(html);
+        $("#u235_input").val(fleetOne);
         //加载司机计分数据
         loadDriverScore();
         //加载岗中培训数据

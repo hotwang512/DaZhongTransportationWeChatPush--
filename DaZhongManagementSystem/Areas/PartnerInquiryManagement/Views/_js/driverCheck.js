@@ -8,21 +8,15 @@ var $page = function () {
 
     function addEvent() {
         code = $("#hideCode").val();
-        $("#u543").on("click", function () {
-            window.location.href = "/PartnerInquiryManagement/DriverCheckDetails/Index?code=" + code + "&type=1"//营运数据
+        $("#Page6").on("click", function () {
+            window.location.href = "/PartnerInquiryManagement/DriverCheckDetails/Index?code=" + code + "&type=1"//未处理违章
         });
-        $("#u563").on("click", function () {
-            window.location.href = "/PartnerInquiryManagement/DriverCheckDetails/Index?code=" + code + "&type=2"//营运数据
+        $("#Page7").on("click", function () {
+            window.location.href = "/PartnerInquiryManagement/DriverCheckDetails/Index?code=" + code + "&type=2"//处理中事故
         });
-        //获取前一天日期
-        var day1 = new Date();
-        day1.setTime(day1.getTime() - 24 * 60 * 60 * 1000);
-        var day = day1.getDate();
-        if (day < 10) {
-            day = "0" + day;
-        }
-        var s1 = day1.getFullYear() + "-" + (day1.getMonth() + 1) + "-" + day;
-        $("#DateTime").text(s1);
+
+        //加载日期--获取前一天日期
+        loadDate();
         //加载基础服务数据
         loadBaseData();
         //加载营运日报数据
@@ -41,6 +35,39 @@ $(function () {
     page.init();
 });
 
+function loadDate() {
+    var date = new Date();
+    var today = date.getDate();
+    var yesterDate = date.setTime(date.getTime() - 24 * 60 * 60 * 1000);
+    var yesterDay = getMyDate(yesterDate);
+    var month = yesterDay.split("-")[1];
+    var day = yesterDay.split("-")[2];
+
+    //var yesterDates = yesterDate.getFullYear() + "-" + (yesterDate.getMonth() + 1) + "-" + yesterday;
+    //$("#HideDateSearch").val(yesterDay);
+    //$("#YesterDays").text(yesterDay);
+    $("#Month").text(month);
+    $("#Day").text(day);
+    //$("#Week").text(week);
+}
+function getMyDate(str) {
+    var oDate = new Date(str),
+    oYear = oDate.getFullYear(),
+    oMonth = oDate.getMonth() + 1,
+    oDay = oDate.getDate(),
+    oHour = oDate.getHours(),
+    oMin = oDate.getMinutes(),
+    oSen = oDate.getSeconds(),
+    oTime = oYear + '-' + getzf(oMonth) + '-' + getzf(oDay);//最后拼接时间  
+    return oTime;
+};
+function getzf(num) {
+    //补0操作
+    if (parseInt(num) < 10) {
+        num = '0' + num;
+    }
+    return num;
+}
 function loadTaxiSummaryInfo() {
     $.ajax({
         url: "/PartnerInquiryManagement/DriverCheck/GetTaxiSummaryInfo",
@@ -66,6 +93,7 @@ function loadCarViolationInfo() {
         dataType: "json",
         //traditional: true,
         success: function (msg) {
+            $("#violationCount").text(msg.length);
             createCarViolationDiv(msg);
         }
     });
@@ -77,6 +105,7 @@ function loadAccidentInfo() {
         data: { code: code },
         dataType: "json",
         success: function (msg) {
+            $("#accidentCount").text(msg.length);
             createAccidentDiv(msg);
         }
     });
@@ -155,7 +184,7 @@ function createCarViolationDiv(data) {
         html += divHide +
                    '<div class="viollabel">没有违章记录</div>' 
     } else {
-        for (var i = 0; i < data.length; i++) {
+        for (var i = 0; i < 1; i++) {
             //var driverName = data[i].driverName
             var carId = data[i].plate_no;
             var deductPoints = data[i].score;//扣分
@@ -163,18 +192,14 @@ function createCarViolationDiv(data) {
             var violationDate = data[i].peccancy_date;
             var violationAddress = data[i].area;
             var violationInfo = data[i].act;
-            if (i >= 2) {
-                divHide = '<div class="hide">'
-            }
             html += divHide +
+                        '<div class="viollabel" style="font-weight: bold;font-size: 14px;">扣分：' + deductPoints + '&nbsp;&nbsp;&nbsp;罚款：' + fine + '</div>' +
                         '<div class="viollabel">违章日期：' + violationDate + '</div>' +
-                        '<div class="viollabel">扣分：' + deductPoints + '</div>' +
-                        '<div class="viollabel">罚款：' + fine + '</div>' +
                         '<div class="viollabel"><span>违章地点：</span>' + violationAddress + '</div>' +
                         '<div class="viollabel"><span>违章行为：</span>' + violationInfo + '</div>' +
                         //' <img id="imgLine2" class="img " src="/_theme/images/hengxian.png">'
-                        '<hr style="width: 100%;margin-top: 5px;border-top: 1px solid #aaa;"/>'
-                   + '</div>'
+                        //'<hr style="width: 100%;margin-top: 5px;border-top: 1px solid #aaa;"/>'
+                   '</div>'
         }
     }
     $("#newViolationData").append(html);
@@ -186,21 +211,20 @@ function createAccidentDiv(data) {
         html += divHide +
                    '<div class="viollabel hide">没有处理中事故</div>'
     } else {
-        for (var i = 0; i < data.length; i++) {
+        for (var i = 0; i < 1; i++) {
             var accidentDate = data[i].occurrenceTime;//事故日期
             var accidentNo = data[i].accidentNo;//事故编号
             var accidentLevel = data[i].accidentGradeName;//事故等级
             var accidentType = data[i].accidentTypeName;//事故类型
             var violationAddress = data[i].accidentLocation;//事故地点
             html += divHide +
+                '<div class="viollabel" style="font-weight: bold;font-size: 14px;">' + accidentLevel + '—' + accidentType + '</div>' +
                 '<div class="viollabel">事故日期：' + accidentDate + '</div>' +
                 '<div class="viollabel">事故编号：' + accidentNo + '</div>' +
-                '<div class="viollabel">事故等级：' + accidentLevel + '</div>' +
-                '<div class="viollabel">事故类型：' + accidentType + '</div>' +
                 '<div class="viollabel">事故地点：' + violationAddress + '</div>' +
                 //' <img id="imgLine2" class="img " src="/_theme/images/hengxian.png">'
-                 '<hr style="width: 100%;margin-top: 5px;border-top: 1px solid #aaa;"/>'
-       + '</div>'
+                // '<hr style="width: 100%;margin-top: 5px;border-top: 1px solid #aaa;"/>'
+               '</div>'
         }
     }
     $("#newAccidentData").append(html);
@@ -208,7 +232,7 @@ function createAccidentDiv(data) {
 function createCarCheckDiv(data) {
     var html = "";
     var divHide = '<div class="mainCheck">';
-    for (var i = 0; i < data.length; i++) {
+    for (var i = 0; i < 1; i++) {
         var fleet = data[i].MotorcadeName //车队
         var driverName = data[i].Name
         var carId = data[i].CabLicense;
@@ -232,7 +256,7 @@ function createCarCheckDiv(data) {
                     '<span style="margin-left: 16px;color: #FFFFFF;">验车</span></div>'
         }
         if (isStatus == "1") {
-            $("#u571").show();
+            $("#mainTap").show();
         }
         html += divHide +
                         //'<div class="mainlabel">' + carId + '</div>' +

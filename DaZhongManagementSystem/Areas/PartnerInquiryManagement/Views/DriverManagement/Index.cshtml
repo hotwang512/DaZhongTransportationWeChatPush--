@@ -31,242 +31,73 @@
     @*<link href="@Url.Content("~/Areas/BasicDataManagement/Views/_css/WeChatExercise/swiper-3.3.1.min.css")" rel="stylesheet" />*@
     @*<link href="@Url.Content("~/Areas/BasicDataManagement/Views/_css/WeChatExercise/index2.css")" rel="stylesheet" />*@
     @*<link href="@Url.Content("~/Areas/BasicDataManagement/Views/iconfont/iconfont.css")" rel="stylesheet" />*@
-    <link href="@Url.Content("~/Areas/PartnerInquiryManagement/Views/_css/PartnerInquiryStyle.css")" rel="stylesheet" />
-
+    @*<link href="@Url.Content("~/Areas/PartnerInquiryManagement/Views/_css/PartnerInquiryStyle.css")" rel="stylesheet" />*@
+    <link href="@Url.Content("~/Areas/PartnerInquiryManagement/Views/_css/NewPartnerHomePage.css")" rel="stylesheet" />
 </head>
-<body>
-    <!--头部-->
-    <header></header>
-
-
-    <!--中间内容-->
-    <!-- 车辆指标 (Group) -->
-    <div id="u220" class="ax_default" data-label="车辆指标" data-left="20" data-top="100" data-width="300" data-height="75">
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u221" class="ax_default box_2">
-            <div id="u221_div" class=""></div>
-            <div id="u221_text" class="text " style="display:none; visibility: hidden">
-                <p></p>
-            </div>
+<body style="background-image: linear-gradient(#fff, #00000033);">
+    <div style="width:100%;font-size:12px;position: relative;height: 520px;">
+        <table style="width:100%;margin-top: 5px;">
+            <tr>
+                <td>
+                    <span style="font-size: 20px;margin-left: 10px;font-weight:bold;">司机管理</span>
+                    <div id="u235" class="ax_default droplist" style="float: right;margin-right: 20px;margin-top: 5px;">
+                        <select id="u235_input" class="u235_input" style="width:100px"></select>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div style="width:100%;margin-top: 10px;background:#fff;height:110px;border-radius: 12px;">
+            <table style="width:100%;position: absolute;margin-top: 5px;">
+                <tr>
+                    <td>
+                        <span style="font-size: 18px;margin-left: 10px;font-weight:bold;">司机计分</span>
+                        <div id="Page1" class="" style="float: right;margin-right: 10px;margin-top: 0px;font-size: 20px;">
+                            >
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table style="width:100%;position: absolute;margin-top: 45px;text-align:center;">
+                <tr>
+                    <td style="width:33%">记12分司机数</td>
+                    <td style="width:33%">8-11分司机数</td>
+                    <td style="width:33%">0分司机数</td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td><label id="value1"></label></td>
+                    <td><label id="value2"></label></td>
+                    <td><label id="value3"></label></td>
+                </tr>
+            </table>
         </div>
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u222" class="ax_default _标题_3">
-            <div id="u222_div" class=""></div>
-            <div id="u222_text" class="text ">
-                <p><span>司机计分</span></p>
-            </div>
-        </div>
-
-        <!-- Unnamed (Line) -->
-        <div id="u223" class="ax_default line">
-            <img id="u223_img" class="img " src="">
-            <div id="u223_text" class="text " style="display:none; visibility: hidden">
-                <p></p>
-            </div>
-        </div>
-
-        <!-- 上线司机数 (Group) -->
-        <div id="u224" class="ax_default" data-label="上线司机数" data-left="241" data-top="138" data-width="46" data-height="27">
-
-            <!-- Unnamed (Rectangle) -->
-            <div id="u225" class="ax_default label">
-                <div id="u225_div" class=""></div>
-                <div id="u225_text" class="text ">
-                    <p><span>0分司机数</span></p>
-                </div>
-            </div>
-
-            <!-- Unnamed (Rectangle) -->
-            <div id="u226" class="ax_default label">
-                <div id="u226_div" class=""></div>
-                <div id="u226_text" class="text ">
-                    <p><span><label id="value3"></label></span></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 车均营收 (Group) -->
-        <div id="u227" class="ax_default" data-label="车均营收" data-left="53" data-top="138" data-width="62" data-height="27">
-
-            <!-- Unnamed (Rectangle) -->
-            <div id="u228" class="ax_default label">
-                <div id="u228_div" class=""></div>
-                <div id="u228_text" class="text ">
-                    <p><span>记12分司机数</span></p>
-                </div>
-            </div>
-
-            <!-- Unnamed (Rectangle) -->
-            <div id="u229" class="ax_default label">
-                <div id="u229_div" class=""></div>
-                <div id="u229_text" class="text ">
-                    <p><span><label id="value1"></label></span></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 上线车辆数 (Group) -->
-        <div id="u230" class="ax_default" data-label="上线车辆数" data-left="145" data-top="138" data-width="66" data-height="27">
-
-            <!-- 车均差次 (Rectangle) -->
-            <div id="u231" class="ax_default label" data-label="车均差次">
-                <div id="u231_div" class=""></div>
-                <div id="u231_text" class="text ">
-                    <p><span>8—11分司机数</span></p>
-                </div>
-            </div>
-
-            <!-- Unnamed (Rectangle) -->
-            <div id="u232" class="ax_default label">
-                <div id="u232_div" class=""></div>
-                <div id="u232_text" class="text ">
-                    <p><span><label id="value2"></label></span></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u233" class="ax_default label">
-            <div id="u233_div" class=""></div>
-            <div id="u233_text" class="text ">
-                <p><span>详细&gt;</span></p>
-            </div>
+        <div style="width:100%;margin-top: 10px;background:#fff;height:110px;border-radius: 12px;">
+            <table style="width:100%;position: absolute;margin-top: 5px;">
+                <tr>
+                    <td>
+                        <span style="font-size: 18px;margin-left: 10px;font-weight:bold;">岗中培训司机数</span>
+                        <div id="Page2" class="" style="float: right;margin-right: 10px;margin-top: 0px;font-size: 20px;">
+                            >
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table style="width:100%;position: absolute;margin-top: 45px;text-align:center;">
+                <tr>
+                    <td style="width:33%">已答题</td>
+                    <td style="width:33%">已阅未答题</td>
+                    <td style="width:33%">未阅未答题</td>
+                </tr>
+                <tr style="height: 35px;">
+                    <td><label id="value4"></label></td>
+                    <td><label id="value5"></label></td>
+                    <td><label id="value6"></label></td>
+                </tr>
+            </table>
         </div>
     </div>
-
-    <!-- 车队筛选 (Group) -->
-    <div id="u234" class="ax_default" data-label="车队筛选" data-left="60" data-top="67" data-width="122" data-height="20">
-
-        <!-- Unnamed (Droplist) -->
-        <div id="u235" class="ax_default droplist">
-            <div id="u235_div" class=""></div>
-            <select id="u235_input" class="u235_input">
-                @*@for (int i = 0; i < ownedCompanyList.Count; i++)
-                {
-                    <option class="u235_input_option" selected="" value="@ownedCompanyList[i]">@ownedCompanyList[i]</option>
-                }*@
-                @*<option class="u235_input_option" value="@fleetList">@fleetList</option>*@
-            </select>
-        </div>
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u236" class="ax_default _标题_3">
-            <div id="u236_div" class=""></div>
-            <div id="u236_text" class="text ">
-                <p><span>车队：</span></p>
-            </div>
-        </div>
-    </div>
-
-    <!-- 车辆指标 (Group) -->
-    <div id="u237" class="ax_default" data-label="车辆指标" data-left="20" data-top="195" data-width="300" data-height="75">
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u238" class="ax_default box_2">
-            <div id="u238_div" class=""></div>
-            <div id="u238_text" class="text " style="display:none; visibility: hidden">
-                <p></p>
-            </div>
-        </div>
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u239" class="ax_default _标题_3">
-            <div id="u239_div" class=""></div>
-            <div id="u239_text" class="text ">
-                <p><span>岗中培训司机数</span></p>
-            </div>
-        </div>
-
-        <!-- Unnamed (Line) -->
-        <div id="u240" class="ax_default line">
-            
-        </div>
-
-        <!-- 上线司机数 (Group) -->
-        <div id="u241" class="ax_default" data-label="上线司机数" data-left="241" data-top="233" data-width="50" data-height="27">
-
-            <!-- Unnamed (Rectangle) -->
-            <div id="u242" class="ax_default label">
-                <div id="u242_div" class=""></div>
-                <div id="u242_text" class="text ">
-                    <p><span>未阅未答题</span></p>
-                </div>
-            </div>
-
-            <!-- Unnamed (Rectangle) -->
-            <div id="u243" class="ax_default label">
-                <div id="u243_div" class=""></div>
-                <div id="u243_text" class="text ">
-                    <p><span><label id="value6"></label></span></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 车均营收 (Group) -->
-        <div id="u244" class="ax_default" data-label="车均营收" data-left="72" data-top="233" data-width="30" data-height="27">
-
-            <!-- Unnamed (Rectangle) -->
-            <div id="u245" class="ax_default label">
-                <div id="u245_div" class=""></div>
-                <div id="u245_text" class="text ">
-                    <p><span>已答题 </span></p>
-                </div>
-            </div>
-
-            <!-- Unnamed (Rectangle) -->
-            <div id="u246" class="ax_default label">
-                <div id="u246_div" class=""></div>
-                <div id="u246_text" class="text ">
-                    <p><span><label id="value4"></label></span></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 上线车辆数 (Group) -->
-        <div id="u247" class="ax_default" data-label="上线车辆数" data-left="145" data-top="233" data-width="50" data-height="27">
-
-            <!-- 车均差次 (Rectangle) -->
-            <div id="u248" class="ax_default label" data-label="车均差次">
-                <div id="u248_div" class=""></div>
-                <div id="u248_text" class="text ">
-                    <p><span>已阅未答题</span></p>
-                </div>
-            </div>
-
-            <!-- Unnamed (Rectangle) -->
-            <div id="u249" class="ax_default label">
-                <div id="u249_div" class=""></div>
-                <div id="u249_text" class="text ">
-                    <p><span><label id="value5"></label></span></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u250" class="ax_default label">
-            <div id="u250_div" class=""></div>
-            <div id="u250_text" class="text ">
-                <p><span>详细&gt;</span></p>
-            </div>
-        </div>
-    </div>
-
 
     <script src="@Url.Content("~/_theme/js/jquery-2.0.3.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/_theme/js/jquery-ui-1.10.3.custom.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/_theme/js/jquery.ui.touch-punch.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/_theme/js/jquery.slimscroll.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/_theme/js/jquery.easy-pie-chart.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/_theme/js/jquery.sparkline.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqx-all.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/_theme/tool/ejq.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/_theme/tool/jquery-form.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/_theme/_js/tool.js")"></script>
-    <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/swiper-3.3.1.jquery.min.js")"></script>
-    @*<script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/11111.js")"></script>*@
-    <script src="@Url.Content("~/Areas/BasicDataManagement/Views/_js/WeChatExercise/app.js")"></script>
     <script src="@Url.Content("~/Areas/PartnerInquiryManagement/Views/_js/driverManagement.js")"></script>
 </body>
 </html>
