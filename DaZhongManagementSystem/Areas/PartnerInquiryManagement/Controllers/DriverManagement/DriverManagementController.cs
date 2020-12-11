@@ -124,7 +124,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Dri
                 {
                     driverScoreList = _dbMsSql.SqlQuery<DriverScore>(@"select DriverId,Name,convert(int,score) as Score from [DZ_DW].[dbo].[Visionet_DriverInfo_View] vdv
                                         left join tb_query_score qs on qs.id_no=vdv.IdCard
-                                        where vdv.Organization=@OwnedCompany and vdv.MotorcadeName in (" + fleetAll + @")  and vdv.status='1' and qs.score is not null
+                                        where vdv.Organization=@OwnedCompany and vdv.MotorcadeName in (" + fleet + @")  and vdv.status='1' and qs.score is not null
                                         order by DriverId asc",
                                         new { OwnedCompany = ownedCompany }).ToList();
                 }
