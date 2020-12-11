@@ -11,6 +11,8 @@ var $page = function () {
     function addEvent() {
         $("#newAccidentData2").hide();
         $("#newOperationData2").hide();
+        //var height = window.innerHeight - $("#carDiv").height();
+        //$("#newViolationData2").css("height", height);
         //加载车队
         var html = "";
         var fleetList = fleet.split(",");

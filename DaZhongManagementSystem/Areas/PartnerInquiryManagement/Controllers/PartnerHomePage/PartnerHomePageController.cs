@@ -36,7 +36,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
             U_WeChatUserID userInfo = new U_WeChatUserID();
             string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
             userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
-            //userInfo.UserId = "13671595340";//合伙人
+            userInfo.UserId = "13671595340";//合伙人
             //userInfo.UserId = "15921961501";//司机
             Business_Personnel_Information personInfoModel = GetUserInfo(userInfo.UserId);//获取人员表信息
             if (personInfoModel.DepartmenManager == 10 || personInfoModel.DepartmenManager == 11)
@@ -272,25 +272,6 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
             }
             return Json(resultInfo, JsonRequestBehavior.AllowGet);
         }
-        public static string getSqlInValue(string motorcadeName, string code)
-        {
-            var cm = CacheManager<Personnel_Info>.GetInstance()[PubGet.GetUserKey + code];
-            var value = "";
-            var str = motorcadeName.Split(',');
-            foreach (var item in str)
-            {
-                //循环公司或者车队,构造sql结构
-                value += "'" + item + "',";
-            }
-            value = value.Substring(0, value.Length - 1);
-            return value;
-        }
-        public Business_Personnel_Information GetUserInfo(string userID)
-        {
-            Business_Personnel_Information personModel = new Business_Personnel_Information();
-            personModel = _wl.GetUserInfo(userID);
-            return personModel;
-        }
         public Personnel_Info getPersonnelInfo(Business_Personnel_Information personInfoModel)
         {
             Personnel_Info pi = new Personnel_Info();
@@ -309,7 +290,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
             var ownedCompany = personInfoModel.OwnedCompany;
             if (ownedCompany == "全部")
             {
-                ownedCompany = getAllOwnedCompany(organizationDetail.Description);
+                ownedCompany = getAllOwnedCompany(organizationDetail.Description, "11");
             }
             Personnel_Info Personnel = new Personnel_Info();
             Personnel.IdCard = personInfoModel.IDNumber;
@@ -335,8 +316,14 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
         {
             Master_Organization organizationDetail = new Master_Organization();
             organizationDetail = _ol.GetOrganizationDetail(personInfoModel.OwnedFleet.ToString());
-            var ownedCompany = getAllOwnedCompany("");
-            var ownedCompanyRemark = getAllOwnedCompany("R");
+            var ownedCompany = personInfoModel.OwnedCompany;//查公司
+            var ownedCompanyRemark = getAllOwnedCompany(ownedCompany, "12");
+            if (ownedCompany == "全部")
+            {
+                ownedCompany = getAllOwnedCompany("全部", "12");
+                ownedCompanyRemark = getAllOwnedCompany("R", "12");
+            }
+
             Personnel_Info Personnel = new Personnel_Info();
             Personnel.IdCard = personInfoModel.IDNumber;
             Personnel.OldMotorcadeName = personInfoModel.OwnedFleet;//公司
@@ -359,23 +346,29 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
             ViewBag.Validate = true;
             ViewBag.Code = personInfoModel.Vguid;
         }
-        public static string getAllOwnedCompany(string description)
+        public static string getAllOwnedCompany(string description, string level)
         {
             var str = "";
             var fleetList = new List<string>();
             using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance2())
             {
-                if (description == "")
+                if (description != "" && level == "12")
+                {
+                    //查所配置公司备注
+                    var description2 = getSqlInValue(description,"");
+                    fleetList = _dbMsSql.SqlQuery<string>(@"select distinct Remark from DZ_Organization where OrganizationName in (" + description2 + ") and status=0").ToList();
+                }
+                else if (description == "全部" && level == "12")
                 {
                     //查全公司名称
                     fleetList = _dbMsSql.SqlQuery<string>(@"select distinct OrganizationName from DZ_Organization where status=0").ToList();
                 }
-                else if (description == "R")
+                else if (description == "R" && level == "12")
                 {
                     //查全公司备注
                     fleetList = _dbMsSql.SqlQuery<string>(@"select distinct Remark from DZ_Organization where status=0").ToList();
                 }
-                else
+                else if (description != "" && level == "11")
                 {
                     //查全车队名称
                     fleetList = _dbMsSql.SqlQuery<string>(@"select CarTeamName from DZ_Organization where OrganizationName=@OrgName and status=0", new { OrgName = description }).ToList();
@@ -391,6 +384,25 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
                 }
             }
             return str;
+        }
+        public static string getSqlInValue(string motorcadeName, string code)
+        {
+            //var cm = CacheManager<Personnel_Info>.GetInstance()[PubGet.GetUserKey + code];
+            var value = "";
+            var str = motorcadeName.Split(',');
+            foreach (var item in str)
+            {
+                //循环公司或者车队,构造sql结构
+                value += "'" + item + "',";
+            }
+            value = value.Substring(0, value.Length - 1);
+            return value;
+        }
+        public Business_Personnel_Information GetUserInfo(string userID)
+        {
+            Business_Personnel_Information personModel = new Business_Personnel_Information();
+            personModel = _wl.GetUserInfo(userID);
+            return personModel;
         }
         public string GetTaxiInfo(string code)
         {
