@@ -323,7 +323,6 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
                 ownedCompany = getAllOwnedCompany("全部", "12");
                 ownedCompanyRemark = getAllOwnedCompany("R", "12");
             }
-
             Personnel_Info Personnel = new Personnel_Info();
             Personnel.IdCard = personInfoModel.IDNumber;
             Personnel.OldMotorcadeName = personInfoModel.OwnedFleet;//公司
