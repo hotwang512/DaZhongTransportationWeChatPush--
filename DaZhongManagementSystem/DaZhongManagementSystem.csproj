@@ -390,6 +390,7 @@
     <Content Include="Areas\KnowledgeBaseManagement\Views\_js\formalDetail.js" />
     <Content Include="Areas\KnowledgeBaseManagement\Views\_js\WeChatKnowledge.js" />
     <Content Include="Areas\KnowledgeBaseManagement\Views\_js\WeChatKnowledgeDetail.js" />
+    <Content Include="Areas\PartnerInquiryManagement\Views\_css\NewPartnerHomePage.css" />
     <Content Include="Areas\PartnerInquiryManagement\Views\_css\PartnerHomePage.css" />
     <Content Include="Areas\PartnerInquiryManagement\Views\_css\PartnerInquiryStyle.css" />
     <Content Include="Areas\PartnerInquiryManagement\Views\_js\carManagement.js" />

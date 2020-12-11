@@ -160,10 +160,10 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Dri
             List<VehicleMaintenanceInfo> resultInfo = new List<VehicleMaintenanceInfo>();
             using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance2())
             {
-                orgName = "第一服务中心";
-                fleet = "仁强";
-                plate_no = "沪GV1017";
-                idCard = "320825197806023613";
+                //orgName = "第一服务中心";
+                //fleet = "仁强";
+                //plate_no = "沪GV1017";
+                //idCard = "320825197806023613";
                 resultInfo = _dbMsSql.SqlQuery<VehicleMaintenanceInfo>(@"SELECT  MotorcadeName,Name,CabLicense,MaintenanceType,Date,Time,Address,Yanche,vm.Status,MobilePhone
                               FROM VehicleMaintenanceInfo vm
                               left join [DZ_DW].[dbo].[Visionet_DriverInfo_View] vdv on vm.carNo=vdv.CabVMLicense
