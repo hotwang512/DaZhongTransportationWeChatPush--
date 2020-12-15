@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace DaZhongManagementSystem.Entities.TableEntity
 {
@@ -20,6 +17,10 @@ namespace DaZhongManagementSystem.Entities.TableEntity
         public string Subsidiary { get; set; }
 
         public string ContactNumber { get; set; }
+
+        public DateTime? EntryDate { get; set; }
+
+        public DateTime? ManufactureDate { get; set; }
 
         public string ReflectCarModel { get; set; }
 

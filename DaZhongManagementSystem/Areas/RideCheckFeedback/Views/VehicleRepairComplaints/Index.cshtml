@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <title>车辆修理申诉</title>
     <link rel="stylesheet" href="@Url.Content("~/Areas/RideCheckFeedback/Views/_css/weui.min.css")">
     <link rel="stylesheet" href="@Url.Content("~/Areas/RideCheckFeedback/Views/_css/layui.css")">
     <link rel="stylesheet" href="@Url.Content("~/Areas/RideCheckFeedback/Views/_css/jquery-weui.min.css")">
@@ -123,9 +123,9 @@
     </style>
 </head>
 <body ontouchstart="" style="">
-    <header class="demos-header">
-        <h2 class="demos-title">大众出行车辆修理投诉</h2>
-    </header>
+    @*<header class="demos-header">
+            <h2 class="demos-title">车辆修理申诉</h2>
+        </heade r>*@
     <div class="weui-cells weui-cells_form" id="root">
         <hr style="height:0px">
         <input id="VGUID" type="hidden" value="@vrc.VGUID" />
@@ -221,6 +221,26 @@
             </div>
         </div>
         <hr>
+        <!--进厂日期 -->
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">进场日期<font style="color:red"> *</font>：</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" id="EntryDate" name="ManufactureData" type="date">
+            </div>
+        </div>
+        <hr>
+        <!-- 出厂日期 -->
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">出场日期<font style="color:red"> *</font>：</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" id="ManufactureDate" name="ManufactureData" type="date">
+            </div>
+        </div>
+        <hr>
         <!-- 工单号 -->
         <div class="weui-cell">
             <div class="weui-cell__hd">
@@ -311,6 +331,14 @@
                     layer.open({ content: '请输入联系电话!', time: 2, skin: 'msg' });
                     return;
                 }
+                if ($("#EntryDate").val() == "") {
+                    layer.open({ content: '请输入进场日期!', time: 2, skin: 'msg' });
+                    return;
+                }
+                if ($("#ManufactureDate").val() == "") {
+                    layer.open({ content: '请输入出场日期!', time: 2, skin: 'msg' });
+                    return;
+                }
                 if ($("#ReflectContent").val() == "") {
                     layer.open({ content: '请输入反映内容!', time: 2, skin: 'msg' });
                     return;
@@ -319,6 +347,7 @@
                     layer.open({ content: '请输上传问题照片!', time: 2, skin: 'msg' });
                     return;
                 }
+
                 layer.open({ type: 2 });
                 var form = new FormData();
                 form.append("ReflectCategory", $("#ReflectCategory").val());
@@ -326,6 +355,8 @@
                 form.append("ReflectJobNumber", $("#ReflectJobNumber").val());
                 form.append("CarNumber", $("#CarNumber").val());
                 form.append("ContactNumber", $("#ContactNumber").val());
+                form.append("EntryDate", $("#EntryDate").val());
+                form.append("ManufactureDate", $("#ManufactureDate").val());
                 form.append("ReflectCarModel", $("#ReflectCarModel").val());
                 form.append("Subsidiary", $("#Subsidiary").val());
                 form.append("ReflectContent", $("#ReflectContent").val());
