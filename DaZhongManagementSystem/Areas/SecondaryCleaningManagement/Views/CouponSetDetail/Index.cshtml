@@ -1,0 +1,177 @@
+﻿@{
+    ViewBag.Title = "权益配置";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var equity = ViewBag.Equity as Business_EquityAllocation;
+    bool isEdit = ViewBag.isEdit;
+    if (isEdit)
+    {
+        ViewBag.Title = "编辑权益信息";
+    }
+    else
+    {
+        ViewBag.Title = "新增权益信息";
+    }
+}
+@using DaZhongManagementSystem.Entities.TableEntity;
+@using DaZhongManagementSystem.Areas.SecondaryCleaningManagement.Models
+
+@*页面标题*@
+@section pageTitle{
+    @ViewBag.Title
+}
+
+@*JS*@
+@section js{
+    <script src="@Url.Content("~/Areas/SecondaryCleaningManagement/Views/_js/couponSetDetail.js")"></script>
+    <script src="@Url.Content("/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxcore.js")"></script>
+    <script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxbuttons.js")"></script>
+    <script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxscrollbar.js")"></script>
+    <script src="@Url.Content("/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxdatatable.js")"></script>
+    <script src="@Url.Content("/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxtreegrid.js")"></script>
+    <script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxdata.js")"></script>
+    <script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxcheckbox.js")"></script>
+    <script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxlistbox.js")"></script>
+}
+
+@*css*@
+@section css{
+
+}
+
+
+<style>
+    .tangram-suggestion {
+        z-index: 9;
+    }
+</style>
+
+<table style="margin-top: 10px;">
+    <tr style="height: 50px;">
+        <td id="hideSave" style="width: 95px;">
+            <button id="btnSave" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe614;</i><span style="margin-left: 7px; float: left;">保存</span></button>
+        </td>
+        <td style="width: 95px;">
+            <button id="btnCancel" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe611; </i><span style="margin-left: 7px; float: left;">取消</span></button>
+        </td>
+    </tr>
+</table>
+
+<input type="hidden" id="txtDeparent" value="@ViewData["currentUserDepartment"]" />
+<div class="mk">
+    <div class="header_mk">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">权益信息</span></div>
+    </div>
+    <div class="body_mk" style="height: 510px;">
+        <form id="frmtable" class="form">
+            <table id="message" style="margin-top: 20px; margin-left: 20px;">
+                <tr style="height: 50px;">
+                    <td style="text-align: right; width: 90px;">权益名称：</td>
+                    <td style="width: 250px;">
+                        <input id="RightsName" name="RightsName" type="text" onfocus="" class="input_text form-control" validatetype="required" style="text-align: left;" value="" />
+                    </td>
+                    <td style="text-align: right; width: 90px;">权益描述：</td>
+                    <td style="width: 250px;">
+                        <textarea id="Description" name="Description" rows="2" cols="1" type="text" class="input_text form-control" style="text-align: left;"></textarea>
+                    </td>
+                    <td style="text-align: right; width: 90px;">权益类型：</td>
+                    <td>
+                        <input id="Type" name="Type" type="text" class="input_text form-control" style="text-align: left" />
+                    </td>
+                </tr>
+                <tr style="height: 50px;">
+                    <td style="text-align: right">有效期类型：</td>
+                    <td>
+                        <select id="ValidType" name="ValidType" class="input_text form-control">
+                            @*<option value="">===请选择===</option>*@
+                            <option value="截止日期">截止日期</option>
+                            <option value="周期">周期</option>
+                        </select>
+                    </td>
+                    <td class="deadline" style="text-align: right">有效期开始：</td>
+                    <td class="deadline" style="width: 250px;">
+                        <input id="StartValidity" type="date" class="input_text form-control" />
+                    </td>
+                    <td class="deadline" style="text-align: right">有效期结束：</td>
+                    <td class="deadline" style="width: 250px;">
+                        <input id="EndValidity" type="date" class="input_text form-control" />
+                    </td>
+                    <td class="cycle" style="text-align: right;display:none">周期：</td>
+                    <td class="cycle" style="width: 250px;display:none">
+                        <select id="Period" name="Period" class="input_text form-control">
+                            <option value="">===请选择===</option>
+                            <option value="按年">按年</option>
+                            <option value="按月">按月</option>
+                            <option value="按周">按周</option>
+                        </select>
+                    </td>
+                    <td class="cycle" style="text-align: right;display:none"></td>
+                    <td class="cycle" style="width: 250px;display:none"></td>
+                </tr>
+                <tr>
+                    <td align="right">受益人：</td>
+                    <td style="width: 240px;">
+                        <input type="text" id="pushPeople" readonly="readonly" class="input_text form-control" />
+                        <div>
+                            <img id="imgPop" style="float: left; margin-top: 5px; width: 25px; cursor: pointer" src="@Url.Content("/_theme/images/timg.jpg")" />
+                        </div>
+                    </td>
+                    <td class="" style="text-align: right;display:none"></td>
+                    <td class="" style="width: 250px;display:none">
+                    <td class="" style="text-align: right;display:none"></td>
+                    <td class="" style="width: 250px;display:none">
+                </tr>
+            </table>
+            <input type="hidden" id="VGUID" name="VGUID" value="@ViewBag.VGUID" />
+            <input id="PushObject" type="hidden" name="PushObject"  class="input_text form-control" />
+        </form>
+        <input type="hidden" id="isEdit" value="@isEdit" />
+    </div>
+</div>
+<div class="container">
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="SelectDialog">
+        <div class="modal-dialog modal-sm" style="width: 100%; padding-right: 20px; margin-top: 100px;">
+            <div class="modal-content" style="width: 850px; margin-left: auto; margin-right: auto;">
+                <div class="modal-body" style="width: 100%;">
+                    <table style="width: 99%;">
+                        <tr style="height: 45px;">
+                            <td style="width: 40px;" align="left">部门：</td>
+                            <td style="width: 210px;">
+                                <div id="DepartmentDropDownButton" class="input_text form-control">
+                                    <div style="" id="DepartmentTree">
+                                    </div>
+                                </div>
+                                <input id="OwnedFleet" type="hidden" class="input_text form-control" />
+                                <input id="TranslationOwnedFleet_Search" type="hidden" class="input_text form-control" />
+                            </td>
+                            <td align="left" style="width: 80px;">人员姓名：</td>
+                            <td style="width: 210px;">
+                                <input id="Name_Search" type="text" class="input_text form-control" />
+                            </td>
+                        </tr>
+                        <tr style="height: 45px;">
+                            <td align="left" style="width: 80px;">手机号：</td>
+                            <td style="width: 210px;">
+                                <input id="MobilePhone_Search" type="text" class="input_text form-control" />
+                            </td>
+                            <td align="left">标签：</td>
+                            <td>
+                                <div id='jqxWidget'>
+                                </div>
+                            </td>
+                            <td align="right" style="width: 210px;">
+                                <button id="btnSearch" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe604;</i><span style="margin-left: 7px; float: left;">查询</span></button>
+                                <button id="btnReset" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe603;</i><span style="margin-left: 7px; float: left;">重置</span></button>
+                            </td>
+                        </tr>
+                    </table>
+                    <div id="UserInfoList" class="jqxTable" style="border-left: 0px;"></div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnPopSave" type="button" class="btn btn-warning" style="width: 85px; background-color: #16609c!important;"><i class="iconfont btn_icon" style="color: white !important; margin-left: 0px;">&#xe61c;</i><span style="margin-left: 7px; float: left;">确定</span></button>
+                    <button id="btnPopCancel" type="button" class="btn btn-danger" style="width: 85px; border-color: #16609c!important; background-color: #16609c!important;"><i class="iconfont btn_icon" style="color: white !important; margin-left: 0px;">&#xe606;</i><span style="margin-left: 7px; float: left;">取消</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,121 @@
+﻿@{
+    ViewBag.Title = "清洗公司配置";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var cleaningModel = ViewBag.UserInfo as Business_CleaningCompany;
+
+    bool isEdit = ViewBag.isEdit;
+    if (isEdit)
+    {
+        ViewBag.Title = "编辑清洗公司信息";
+    }
+    else
+    {
+        ViewBag.Title = "新增清洗公司信息";
+    }
+    var currentModuleRolePermission = ViewBag.CurrentModulePermission as Sys_Role_Module;
+}
+@using DaZhongManagementSystem.Entities.TableEntity;
+@using DaZhongManagementSystem.Areas.SecondaryCleaningManagement.Models
+
+@*页面标题*@
+@section pageTitle{
+    @ViewBag.Title
+}
+
+@*JS*@
+@section js{
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=p9eE12qftLUPP7dmyHCYTQxFjroXwnzC"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?type=webgl&v=1.0&ak=p9eE12qftLUPP7dmyHCYTQxFjroXwnzC"></script>
+    <script type="text/javascript" src="https://map.qq.com/api/gljs?v=1.exp&key=E4SBZ-XRRW5-233IV-QIRRU-SOBA5-GLBDB"></script>
+    <script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=E4SBZ-XRRW5-233IV-QIRRU-SOBA5-GLBDB&libraries=convertor"></script>
+    <script src="@Url.Content("~/Areas/SecondaryCleaningManagement/Views/_js/cleaningCompanyDetail.js")"></script>
+    <script src="@Url.Content("~/Areas/SecondaryCleaningManagement/Views/_js/map.js")"></script>
+    @*<script src="http://ditu.google.cn/maps/api/js?key=AIzaSyBp&language=zh-CN"></script>*@
+
+
+    @*<script src="@Url.Content("~/Areas/SecondaryCleaningManagement/Views/_js/txmap.js")"></script>*@
+}
+
+@*css*@
+@section css{
+
+}
+
+<style>
+    .tangram-suggestion {
+        z-index: 9;
+    }
+</style>
+
+<table style="margin-top: 10px;">
+    <tr style="height: 50px;">
+        @if (currentModuleRolePermission.Adds == 1 || currentModuleRolePermission.Edit == 1)
+        {
+            <td style="width: 95px;">
+                <button id="btnSave" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe614;</i><span style="margin-left: 7px; float: left;">保存</span></button>
+            </td>
+        }
+        <td style="width: 95px;">
+            <button id="btnCancel" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe611; </i><span style="margin-left: 7px; float: left;">取消</span></button>
+        </td>
+        <td style="width: 95px;display:none">
+            <button id="btnCreate" type="button" class="buttons" style="width:120px"><i class="iconfont btn_icon" style="color: black !important;">&#xe614; </i><span style="margin-left: 7px; float: left;">生成二维码</span></button>
+        </td>
+    </tr>
+</table>
+
+
+<div class="mk">
+    <div class="header_mk">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">清洗公司信息</span></div>
+    </div>
+    <div class="body_mk" style="height: 510px;">
+        <form id="frmtable" class="form">
+            <table id="message" style="margin-top: 20px; margin-left: 20px;">
+                <tr style="height: 50px;">
+                    <td style="text-align: right; width: 90px;">公司名称：</td>
+                    <td style="width: 210px;">
+                        <input id="CompanyName" name="CompanyName" type="text" onfocus="searchCompany()" class="input_text form-control" validatetype="required" style="text-align: left;" value="@cleaningModel.CompanyName" />
+                        <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:210px;height:auto; display:none;"></div>
+                    </td>
+                    <td style="text-align: right; width: 90px;">公司地址：</td>
+                    <td style="width: 210px;">
+                        <textarea id="Address" name="Address" rows="2" cols="1" type="text" class="input_text form-control" style="text-align: left;" readonly="readonly" />@cleaningModel.Address</textarea>
+                    </td>
+                    <td style="text-align: right; width: 90px;">地理位置：</td>
+                    <td>
+                        <input id="Location" name="Location" type="text" class="input_text form-control" style="text-align: left" value="@cleaningModel.Location" readonly="readonly" />
+                        <input id="TXLocation" name="TXLocation" value="@cleaningModel.TXLocation" type="hidden" />
+                    </td>
+                </tr>
+                <tr style="height: 50px;">
+                    <td style="text-align: right">联系人：</td>
+                    <td>
+                        <input id="ContactPerson" name="ContactPerson" type="text" maxlength="95" class="input_text form-control" validatetype="required" style="text-align: left" value="@cleaningModel.ContactPerson" />
+                    </td>
+                    <td style="text-align: right">联系方式：</td>
+                    <td style="width: 210px;">
+                        <input id="ContactNumber" name="ContactNumber" type="text" class="input_text form-control" validatetype="required,phone" style="text-align: left;" value="@cleaningModel.ContactNumber" />
+                    </td>
+                    <td style="text-align: right">定位半径：</td>
+                    <td style="width: 210px;">
+                        <input id="Radius" name="Radius" type="text" onblur="searchRadius()" class="input_text form-control" style="text-align: left;" value="@cleaningModel.Radius" />
+                    </td>
+                </tr>
+            </table>
+            <input type="hidden" id="Vguid" name="Vguid" value="@cleaningModel.Vguid" />
+            <input id="QRCode" name="QRCode" value="@cleaningModel.QRCode" type="hidden" />
+        </form>
+        <input type="hidden" id="isEdit" value="@isEdit" />
+        <div id="allmap" style="height:400px;width:920px;position: absolute;"></div>
+        @if (cleaningModel.QRCode != "" && cleaningModel.QRCode != null)
+        {
+            <img id="QRCodeImg" src="@cleaningModel.QRCode" style="float: right;margin-right: 8%;width:300px;height:300px;" />
+        }
+        else
+        {
+            <img id="QRCodeImg" src="@cleaningModel.QRCode" style="float: right;margin-right: 8%;width:300px;height:300px;display:none" />
+        }
+    </div>
+</div>

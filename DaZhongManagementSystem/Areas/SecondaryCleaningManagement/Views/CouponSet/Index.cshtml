@@ -1,0 +1,107 @@
+﻿@{
+    ViewBag.Title = "权益配置";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var currentModuleRolePermission = ViewBag.CurrentModulePermission as Sys_Role_Module;
+    //var listAllRoles = ViewBag.listAllRoles as List<Sys_Role>;
+
+}
+@using DaZhongManagementSystem.Entities.TableEntity;
+
+@section pageTitle
+{
+    @ViewBag.Title
+}
+
+@section js
+{
+    <script src="@Url.Content("~/Areas/SecondaryCleaningManagement/Views/_js/couponSet.js")"></script>
+    <script src="@Url.Content("~/_theme/bootstrap-datepicker/bootstrap-datepicker.js")"></script>
+    <link href="@Url.Content("~/_theme/bootstrap-datepicker/datepicker.css")" rel="stylesheet" />
+}
+
+@section css
+{
+
+}
+
+@{
+    if (currentModuleRolePermission.Adds == 1 || currentModuleRolePermission.Edit == 1 || currentModuleRolePermission.Deletes == 1)
+    {
+    <table style="margin-top: 10px;">
+        <tr style="height: 50px;">
+            @if (currentModuleRolePermission.Adds == 1)
+            { 
+                <td>
+                    <button id="btnAdd" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe60e;</i><span style="margin-left: 7px; float: left;">新增</span></button>
+                </td>
+            }
+            @if (currentModuleRolePermission.Deletes == 1)
+            { 
+                <td>
+                    <button id="btnDelete" style="margin-left: 20px;" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black!important;">&#xe616;</i><span style="margin-left: 7px; float: left;">删除</span></button>
+                </td>
+            }
+            @if (currentModuleRolePermission.Edit == 1)
+            {
+                <td>
+                    <button id="btnEnable" style="margin-left: 20px;" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black!important;">&#xe612;</i><span style="margin-left: 7px; float: left;">发布</span></button>
+                </td>
+                @*<td>
+                    <button id="btnEnable" style="margin-left: 20px;" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black!important;">&#xe612;</i><span style="margin-left: 7px; float: left;">启用</span></button>
+                </td>
+                <td>
+                    <button id="btnDisable" style="margin-left: 20px;" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black!important;">&#xe613;</i><span style="margin-left: 7px; float: left;">禁用</span></button>
+                </td>*@
+            }
+        </tr>
+    </table>
+    <!-- 顶部按钮 -->
+    }
+}
+
+
+<!-- 中部条件 -->
+<div class="mk">
+    <div class="header_mk">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">查询</span></div>
+    </div>
+    <div class="body_mk" style="height: 60px">
+        <table style="margin-top: 20px; width: 800px; margin-left: 20px;">
+            <tr style="height: 45px;">
+                <td align="center" style="width: 80px;">权益名称：</td>
+                <td style="width: 230px;">
+                    <input id="RightsName" name="RightsName" type="text" class="input_text form-control" />
+                </td>
+                <td align="center" style="width: 80px;">状态：</td>
+                <td style="width: 230px;">
+                    <select id="Status" name="Status" class="input_text form-control">
+                        <option value="">===请选择===</option>
+                        <option value="未发布">未发布</option>
+                        <option value="已发布">已发布</option>
+                    </select>
+                </td>
+                <td align="left">
+                    <button id="btnSearch" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe604;</i><span style="margin-left: 7px; float: left;">查询</span></button>
+                </td>
+                <td style="width: 100px;"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!-- 中部条件 -->
+
+<!-- 底部表格 -->
+<center>
+<div class="mk" style="border-bottom: 0px;">
+    <div class="header_mk" style="border-bottom: 0px;">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">数据列表</span></div>
+    </div>
+    <div id="UserInfoList" class="jqxTable" style="border-left: 0px; ">
+    </div>
+</div>
+</center>
+<!-- 底部表格 -->
+
+

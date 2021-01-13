@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+@{
+    //var code = ViewBag.code;
+    //var personInfo = ViewBag.PersonInfo as Business_Personnel_Information;
+    //var exerciseVguid = ViewBag.exerciseVguid;
+    //var openHttpAddress = SyntacticSugar.ConfigSugar.GetAppString("OpenHttpAddress");
+    //var corpID = SyntacticSugar.ConfigSugar.GetAppString("CorpID");
+
+    //List<string> dateList = ViewBag.DateList;
+}
+<script type="text/javascript">
+    
+</script>
+
+<style>
+    .clearDiv {
+        width: 80%;
+        margin-left: 10%;
+        margin-top: 45px;
+        background: #fff;
+        height: 50px;
+        border-radius: 12px;
+        text-align: center;
+        line-height: 50px;
+        box-shadow: 2px 2px 5px #7b7878;
+    }
+
+    .fontDiv {
+        font-size: 16px;
+        margin-left: 10px;
+        letter-spacing: 10px;
+        margin-right: 25px;
+    }
+
+    .ClearLabel {
+        float: left;
+        font-size: 13px;
+        width: 46px;
+        height: 20px;
+        background-color: #58bec5;
+        color: white;
+        text-align: center;
+        line-height: 20px;
+        margin-top: 5px;
+        margin-left: 10px; /*border-radius: 6px;*/
+        border-top-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+    }
+</style>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="blank">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title></title>
+
+    @*<link href="@Url.Content("~/Areas/PartnerInquiryManagement/Views/_css/NewPartnerHomePage.css")" rel="stylesheet" />*@
+</head>
+<body style="">
+    <input id="UserVGUID" name="UserVGUID" value="@ViewBag.UserVGUID" class="" style="display:none" />
+    <input id="Hidelat"  name="name" value="" class="" style="display:none" />
+    <input id="Hidelon"  name="name" value="" class="" style="display:none" />
+    @*<input id="CompanyName" name="name" value="" class="" style="display:none" />
+    <input id="Location" name="name" value="" class="" style="display:none" />
+    <input id="Radius" name="name" value="" class="" style="display:none" />*@
+    <div id="allmap" style="display:none"></div>
+    <div id="ClearHideDiv" style="text-align: center;"></div>
+    <div id="ClearShowDiv" style="width:100%;font-size:12px;position: relative;height: 522px;display:none">
+        <table style="width:100%;margin-top: 5px;">
+            <tr>
+                <td>
+                    <span style="font-size: 20px;margin-left: 10px;font-weight:bold;">清理类型</span>
+                </td>
+            </tr>
+        </table>
+        <div id="Page1" class="clearDiv" style="margin-top: 30%;">
+            <div id="SClean" class="ClearLabel" style="display:none">免费</div><span class="fontDiv">二级清洗</span>
+        </div>
+        <div id="Page2" class="clearDiv" style="">
+            <div class="ClearLabel">免费</div><span class="fontDiv">座位套更换</span>(部份)
+        </div>
+        <div id="Page3" class="clearDiv" style="">
+            <div class="ClearLabel">免费</div><span class="fontDiv">座位套更换</span>(全套)
+        </div>
+    </div>
+
+    <!--中间内容-->
+    @*<script src="@Url.Content("~/_theme/_js/jweixin-1.0.0.js")"></script>*@
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script src="@Url.Content("~/_theme/js/jquery-2.0.3.min.js")"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=p9eE12qftLUPP7dmyHCYTQxFjroXwnzC"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?type=webgl&v=1.0&ak=p9eE12qftLUPP7dmyHCYTQxFjroXwnzC"></script>
+    @*<script src="@Url.Content("~/Areas/SecondaryCleaningManagement/Views/_js/map.js")"></script>
+    <script src="@Url.Content("~/Areas/SecondaryCleaningManagement/Views/_js/GeoUtils.js")"></script>*@
+    <script type="text/javascript" src="@Url.Content("~/_theme/tool/jquery-form.min.js")"></script>
+    <script src="@Url.Content("~/Areas/SecondaryCleaningManagement/Views/_js/cleaningTypePage.js")"></script>
+    @*<script type="text/javascript" src="@Url.Content("~/_theme/_js/common.js")"></script>*@
+    @*<script type="text/javascript" src="https://res.wx.qq.com/wwopen/js/jsapi/jweixin-1.0.0.js"></script>
+      <script type="text/javascript" src="https://open.work.weixin.qq.com/wwopen/js/jwxwork-1.0.0.js"></script>*@
+</body>
+
+</html>

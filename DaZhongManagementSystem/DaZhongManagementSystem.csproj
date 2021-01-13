@@ -79,8 +79,8 @@
       <HintPath>_lib\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\DZWeChat\DaZhongManagementSystem\bin\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="SqlSugar, Version=3.5.3.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -97,6 +97,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -105,6 +109,14 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -233,6 +245,17 @@
     <Compile Include="Areas\RideCheckFeedback\Controllers\VehicleRepairComplaints\BusinessLogic\Business_VehicleRepairComplaintsLogic.cs" />
     <Compile Include="Areas\RideCheckFeedback\Controllers\VehicleRepairComplaints\VehicleRepairComplaints.cs" />
     <Compile Include="Areas\RideCheckFeedback\RideCheckFeedbackAreaRegistration.cs" />
+    <Compile Include="Areas\SecondaryCleaningManagement\Controllers\CleaningCompanyDetail\CleaningCompanyDetailController.cs" />
+    <Compile Include="Areas\SecondaryCleaningManagement\Controllers\CleaningCompany\CleaningCompanyController.cs" />
+    <Compile Include="Areas\SecondaryCleaningManagement\Controllers\CleaningTypePage\CleaningTypePageController.cs" />
+    <Compile Include="Areas\SecondaryCleaningManagement\Controllers\CouponPage\CouponPageController.cs" />
+    <Compile Include="Areas\SecondaryCleaningManagement\Controllers\CouponSetDetail\CouponSetDetailController.cs" />
+    <Compile Include="Areas\SecondaryCleaningManagement\Controllers\CouponSet\CouponSetController.cs" />
+    <Compile Include="Areas\SecondaryCleaningManagement\Models\Business_CleaningCompany.cs" />
+    <Compile Include="Areas\SecondaryCleaningManagement\Models\Business_EquityAllocation.cs" />
+    <Compile Include="Areas\SecondaryCleaningManagement\Models\Business_MyRights.cs" />
+    <Compile Include="Areas\SecondaryCleaningManagement\Models\Business_SecondaryCleaning.cs" />
+    <Compile Include="Areas\SecondaryCleaningManagement\SecondaryCleaningManagementAreaRegistration.cs" />
     <Compile Include="Areas\WeChatPay\Controllers\WechatPayController.cs" />
     <Compile Include="Areas\WeChatPay\WeChatPayAreaRegistration.cs" />
     <Compile Include="Areas\WeChatPush\Controllers\AgreementOperation\AgreementOperationController.cs" />
@@ -437,6 +460,16 @@
     <Content Include="Areas\RideCheckFeedback\Views\_js\returnHomeStatistics.js" />
     <Content Include="Areas\RideCheckFeedback\Views\_js\ridecheckfeedback.js" />
     <Content Include="Areas\RideCheckFeedback\Views\_js\selectDate.js" />
+    <Content Include="Areas\SecondaryCleaningManagement\Views\_css\couponPage.css" />
+    <Content Include="Areas\SecondaryCleaningManagement\Views\_js\couponPage.js" />
+    <Content Include="Areas\SecondaryCleaningManagement\Views\_js\couponSet.js" />
+    <Content Include="Areas\SecondaryCleaningManagement\Views\_js\couponSetDetail.js" />
+    <Content Include="Areas\SecondaryCleaningManagement\Views\_js\GeoUtils.js" />
+    <Content Include="Areas\SecondaryCleaningManagement\Views\_js\cleaningCompany.js" />
+    <Content Include="Areas\SecondaryCleaningManagement\Views\_js\cleaningCompanyDetail.js" />
+    <Content Include="Areas\SecondaryCleaningManagement\Views\_js\cleaningTypePage.js" />
+    <Content Include="Areas\SecondaryCleaningManagement\Views\_js\map.js" />
+    <Content Include="Areas\SecondaryCleaningManagement\Views\_js\txmap.js" />
     <Content Include="Areas\WeChatPay\Views\_js\WechatPay.js" />
     <Content Include="Areas\WeChatPush\Views\_css\Agreement.css" />
     <Content Include="Areas\WeChatPush\Views\_css\CommonSlider.css" />
@@ -2235,6 +2268,13 @@
     <Content Include="Areas\PartnerInquiryManagement\Views\PartnerHomePage\Index2.cshtml" />
     <Content Include="Areas\PartnerInquiryManagement\Views\Web.config" />
     <Content Include="Areas\KnowledgeBaseManagement\Views\WeChatKnowledge\EtiquetteClass.cshtml" />
+    <Content Include="Areas\SecondaryCleaningManagement\Views\CleaningCompany\Index.cshtml" />
+    <Content Include="Areas\SecondaryCleaningManagement\Views\Web.config" />
+    <Content Include="Areas\SecondaryCleaningManagement\Views\CleaningCompanyDetail\Index.cshtml" />
+    <Content Include="Areas\SecondaryCleaningManagement\Views\CleaningTypePage\Index.cshtml" />
+    <Content Include="Areas\SecondaryCleaningManagement\Views\CouponPage\Index.cshtml" />
+    <Content Include="Areas\SecondaryCleaningManagement\Views\CouponSet\Index.cshtml" />
+    <Content Include="Areas\SecondaryCleaningManagement\Views\CouponSetDetail\Index.cshtml" />
     <None Include="Properties\PublishProfiles\DaZhong.pubxml" />
     <Content Include="ReportTemplate\PushTemplate.xlsx" />
     <Content Include="ReportTemplate\ScoreTemplate.xlsx" />

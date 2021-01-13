@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+@{
+    //var code = ViewBag.code;
+    //var personInfo = ViewBag.PersonInfo as Business_Personnel_Information;
+    //var exerciseVguid = ViewBag.exerciseVguid;
+    //var openHttpAddress = SyntacticSugar.ConfigSugar.GetAppString("OpenHttpAddress");
+    //var corpID = SyntacticSugar.ConfigSugar.GetAppString("CorpID");
+
+    //List<string> dateList = ViewBag.DateList;
+}
+<script type="text/javascript">
+    
+</script>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="blank">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title></title>
+
+    <link href="@Url.Content("~/Areas/SecondaryCleaningManagement/Views/_css/couponPage.css")" rel="stylesheet" />
+</head>
+<body style="">
+    <input id="UserVGUID" name="UserVGUID" value="@ViewBag.UserVGUID" class="" style="display:none" />
+    <div style="color: black;text-align: center;margin-top: 10px;">大众出租优惠卷</div>
+    <div id="CouponDiv"></div>
+    
+
+    <!--中间内容-->
+    <script src="@Url.Content("~/_theme/js/jquery-2.0.3.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/_theme/tool/jquery-form.min.js")"></script>
+    <script src="@Url.Content("~/Areas/SecondaryCleaningManagement/Views/_js/couponPage.js")"></script>
+</body>
+
+</html>
+
+@*<div class="coupon-item">
+    <div class="style-one">
+        <div class="info-box">
+            <table style="width:100%;text-align: center;">
+                <tr>
+                    <td style="text-align: left;"><div class="nick">二级清洗优惠</div></td>
+                    <td style="width: 50px;"><div class="lay of">免</div></td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;"><div class="nick2">(每月仅使用一次)</div></td>
+                    <td style="width: 50px;"><div class="lay of">费</div></td>
+                </tr>
+            </table>
+        </div>
+        <a href="#" onclick="js_method(0);return false;" class="get-btn">
+            <span class="receive">未使用</span>
+        </a>
+    </div>
+</div>
+<div class="coupon-item">
+    <div class="style-one">
+        <div class="info-box">
+            <table style="width:100%;text-align: center;">
+                <tr>
+                    <td style="text-align: left;"><div class="nick"><label id="RightsName"></label>权益名称</div></td>
+                    <td style="width: 50px;"><div class="lay of">免</div></td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;"><div class="nick2"><label id="Description"></label>权益描述</div></td>
+                    <td style="width: 50px;"><div class="lay of">费</div></td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;"><div class="nick2">有效时间</div></td>
+                    <td style="width: 50px;"><div class="lay of"></div></td>
+                </tr>
+            </table>
+        </div>
+        <a href="#" class="get-btn">
+            <span class="receive">未使用</span>
+        </a>
+    </div>
+</div>*@

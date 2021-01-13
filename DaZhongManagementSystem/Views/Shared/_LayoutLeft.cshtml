@@ -604,5 +604,39 @@
             </div>
         }
     }
+    @{
+        if (isSysAdmin)
+        {
+            <div class="menue_header">
+                <table style="cursor: pointer;">
+                    <tr>
+                        <td class="menue_icon_header"><i class="icon iconfont iconfont_menue">&#xe61d;</i></td>
+                        <td class="menue_text_header">二级清洗管理</td>
+                        <td align="center" style="width: 50px; font-weight: normal; color: white;"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="menue_body" style="display: none;">
+                <table>
+                    @if (isSysAdmin)
+                    {
+                        <tr class="menue_item" id="cleaningCompany" pageurl="/SecondaryCleaningManagement/CleaningCompany/Index">
+                            <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
+                            <td class="menue_text">清洗公司配置</td>
+                            <td></td>
+                        </tr>
+                    }
+                    @if (isSysAdmin)
+                    {
+                        <tr class="menue_item" id="couponSet" pageurl="/SecondaryCleaningManagement/CouponSet/Index">
+                            <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
+                            <td class="menue_text">权益配置</td>
+                            <td></td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        }
+    }
 </body>
 </html>
