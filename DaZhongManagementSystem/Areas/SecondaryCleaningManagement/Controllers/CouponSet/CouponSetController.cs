@@ -59,6 +59,7 @@ namespace DaZhongManagementSystem.Areas.SecondaryCleaningManagement.Controllers.
                 {
                     Guid vguid = Guid.Parse(item);
                     models.isSuccess = _db.Delete<Business_EquityAllocation>(i => i.VGUID == vguid);
+                    models.isSuccess = _db.Delete<Business_MyRights>(i => i.EquityVGUID == item);
                 }
             }
             models.respnseInfo = models.isSuccess == true ? "1" : "0";
@@ -74,7 +75,7 @@ namespace DaZhongManagementSystem.Areas.SecondaryCleaningManagement.Controllers.
                 {
                     Guid vguid = Guid.Parse(item);
                     models.isSuccess = _db.Update<Business_EquityAllocation>(new { Status = "已发布" }, i => i.VGUID == vguid);
-                    models.isSuccess = _db.Update<Business_MyRights>(new { Status = "未使用" }, i => i.VGUID == vguid);
+                    models.isSuccess = _db.Update<Business_MyRights>(new { Status = "未使用" }, i => i.EquityVGUID == item);
                 }
             }
             models.respnseInfo = models.isSuccess == true ? "1" : "0";

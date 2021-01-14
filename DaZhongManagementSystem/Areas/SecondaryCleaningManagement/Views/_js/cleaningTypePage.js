@@ -149,7 +149,7 @@ function getLocation() {
             var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
             //var speed = res.speed; // 速度，以米/每秒计
             //var accuracy = res.accuracy; // 位置精度
-            alert(latitude + "," + longitude);
+            //alert(latitude + "," + longitude);
             console.log(latitude + "," + longitude);
             //获取到经纬度之后,与百度地图上所设定的范围比较
             $("#Hidelat").val(latitude);
