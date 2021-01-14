@@ -47,6 +47,7 @@ function setPlace() {
     map.clearOverlays();    //清除地图上所有覆盖物
     function myFun() {
         var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果(经纬度)
+        newLng = pp;
         map.centerAndZoom(pp, 18);
         map.addOverlay(new BMapGL.Marker(pp));    //添加标注
         setLocation(pp);     //填充经纬度和具体地址
@@ -56,6 +57,7 @@ function setPlace() {
     });
     local.search(myValue);
 }
+var newLng = "";
 //根据半径绘制范围
 if ($("#Location").val() != "" && $("#Location").val() != null) {
     searchRadius();
@@ -74,6 +76,7 @@ function searchRadius() {
         fillColor: "blue",
     });
     map.addOverlay(circle);
+    map.addOverlay(new BMapGL.Marker(newLng));
 }
 
 //点击地图获取详细地址和经纬度
