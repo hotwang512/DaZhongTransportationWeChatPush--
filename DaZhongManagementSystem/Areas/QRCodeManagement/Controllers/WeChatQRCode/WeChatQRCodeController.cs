@@ -1,12 +1,12 @@
-﻿using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Web.Mvc;
-using DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.WeChatExercise.BusinessLogic;
+﻿using DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.WeChatExercise.BusinessLogic;
 using DaZhongManagementSystem.Areas.QRCodeManagement.Controllers.CodeGenerate.BusinessLogic;
 using DaZhongManagementSystem.Common;
 using DaZhongManagementSystem.Entities.UserDefinedEntity;
 using SyntacticSugar;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Web.Mvc;
 using ThoughtWorks.QRCode.Codec;
 
 namespace DaZhongManagementSystem.Areas.QRCodeManagement.Controllers.WeChatQRCode
@@ -29,7 +29,7 @@ namespace DaZhongManagementSystem.Areas.QRCodeManagement.Controllers.WeChatQRCod
             U_WeChatUserID userInfo = new U_WeChatUserID();
             string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
             userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
-            userInfo.UserId = "13524338060";
+            //userInfo.UserId = "WangCunBiao";
             var personInfoModel = _wl.GetUserInfo(userInfo.UserId);//获取人员表信息
             string file = personInfoModel.Vguid + ".jpg";
             string forder = "UploadFile/WeChatQRCode";

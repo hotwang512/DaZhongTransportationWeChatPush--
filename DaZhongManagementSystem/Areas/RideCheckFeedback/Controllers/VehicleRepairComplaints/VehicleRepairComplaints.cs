@@ -4,8 +4,6 @@ using DaZhongManagementSystem.Entities.TableEntity;
 using DaZhongManagementSystem.Entities.UserDefinedEntity;
 using SyntacticSugar;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
@@ -24,9 +22,9 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.VehicleRep
         {
             U_WeChatUserID userInfo = new U_WeChatUserID();
             string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
-            //string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
-            //userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
-            userInfo.UserId = "13524338060";
+            string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
+            userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
+            //userInfo.UserId = "13524338060";
             DateTime currentDate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
             Business_Personnel_Information personInfoModel = _logic.GetUserInfo(userInfo.UserId);
             //Business_VehicleRepairComplaints vrc = _bvrc.GetVehicleRepairComplaint(userInfo.UserId, currentDate);
