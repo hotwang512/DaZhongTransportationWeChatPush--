@@ -127,8 +127,9 @@ namespace DaZhongManagementSystem.Areas.SecondaryCleaningManagement.Controllers.
             }
             string guid = cleaning.Vguid.ToString();
             string url = ConfigSugar.GetAppString("CleaningAddress");
+            string appid = ConfigSugar.GetAppString("CorpID");
             url = url + "?VGUID=" + guid;
-            var configStr = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4f0e5e787888e2bd&redirect_uri="+ url + "&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
+            var configStr = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+ appid + "&redirect_uri="+ url + "&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
             QRCodeHelper.GenerateQRCode(configStr, "/Areas/WeChatPush/Views/_img/logo1.png", forder, file);
             return filePath;
         }

@@ -1,4 +1,5 @@
-﻿using DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.WeChatExercise.BusinessLogic;
+﻿using DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.OrganizationManagement.OrganizationManageLogic;
+using DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.WeChatExercise.BusinessLogic;
 using DaZhongManagementSystem.Areas.PartnerInquiryManagement.Models;
 using DaZhongManagementSystem.Areas.SecondaryCleaningManagement.Models;
 using DaZhongManagementSystem.Common.WeChatPush;
@@ -21,18 +22,20 @@ namespace DaZhongManagementSystem.Areas.SecondaryCleaningManagement.Controllers.
     public class CleaningTypePageController : Controller
     {
         public WeChatExerciseLogic _wl;
+        public OrganizationManagementLogic _ol;
         public CleaningTypePageController()
         {
             _wl = new WeChatExerciseLogic();
+            _ol = new OrganizationManagementLogic();
         }
         public ActionResult Index(string code)
         {
             string accessToken = WeChatTools.GetAccessoken();
             U_WeChatUserID userInfo = new U_WeChatUserID();
-            //string userInfoStr = WeChatTools.GetUserInfoByCode(accessToken, code);
-            //userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
+            string userInfoStr = WeChatTools.GetUserInfoByCode(accessToken, code);
+            userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
             //userInfo.UserId = "13671595340";//合伙人
-            userInfo.UserId = "18936495119";//司机
+            userInfo.UserId = "13611794751";//司机
             Business_Personnel_Information personInfoModel = GetUserInfo(userInfo.UserId);//获取人员表信息
             var key = PubGet.GetUserKey + personInfoModel.Vguid;
             var csche = CacheManager<Business_Personnel_Information>.GetInstance().Get(key);
@@ -63,12 +66,25 @@ namespace DaZhongManagementSystem.Areas.SecondaryCleaningManagement.Controllers.
         }
         public JsonResult GetIsClearing(string code)
         {
+            var model = new ActionResultModel<string>();
             bool isCleaning = false;
+            var cabLicense = "";
             var cm = CacheManager<Business_Personnel_Information>.GetInstance()[PubGet.GetUserKey + code];
+            using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance2())
+            {
+                //根据人员获取车辆信息
+                var manData = _dbMsSql.SqlQuery<Personnel_Info>(@"select Organization,CabLicense from [DZ_DW].[dbo].[Visionet_DriverInfo_View] 
+                                where IdCard=@ID and status='1'", new { ID = cm.IDNumber }).FirstOrDefault();
+                if (manData != null)
+                {
+                    cabLicense = manData.CabLicense;
+                }
+            }
             using (SqlSugarClient _db = SugarDao_MsSql.GetInstance())
             {
+                //一辆车一月一次免费二级清洗
                 var newDate = DateTime.Now;
-                var data = _db.Queryable<Business_SecondaryCleaning>().Where(x => x.Personnel == cm.UserID).ToList();
+                var data = _db.Queryable<Business_SecondaryCleaning>().Where(x => x.CabLicense == cabLicense).ToList();
                 foreach (var item in data)
                 {
                     var year = item.OperationDate.Year;
@@ -79,7 +95,9 @@ namespace DaZhongManagementSystem.Areas.SecondaryCleaningManagement.Controllers.
                     }
                 }
             }
-            return Json(isCleaning, JsonRequestBehavior.AllowGet);
+            model.isSuccess = isCleaning;
+            model.respnseInfo = cabLicense;
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
         public JsonResult IsPointInCircle(string companyVGUID, double lat, double lon)
         {
@@ -114,6 +132,21 @@ namespace DaZhongManagementSystem.Areas.SecondaryCleaningManagement.Controllers.
         {
             var model = new ActionResultModel<string>();
             var cm = CacheManager<Business_Personnel_Information>.GetInstance()[PubGet.GetUserKey + code];
+            var cabLicense = "";
+            var cabOrgName = "";
+            Master_Organization organizationDetail = new Master_Organization();
+            organizationDetail = _ol.GetOrganizationDetail(cm.OwnedFleet.ToString());
+            var manOrgName = organizationDetail.OrganizationName;
+            using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance2())
+            {
+                var manData = _dbMsSql.SqlQuery<Personnel_Info>(@"select Organization,CabLicense from [DZ_DW].[dbo].[Visionet_DriverInfo_View] 
+                                where IdCard=@ID and status='1'", new { ID = cm.IDNumber }).FirstOrDefault();
+                if(manData != null)
+                {
+                    cabLicense = manData.CabLicense;
+                    cabOrgName = manData.Organization;
+                }
+            }
             using (SqlSugarClient _db = SugarDao_MsSql.GetInstance())
             {
                 Business_SecondaryCleaning cleaning = new Business_SecondaryCleaning();
@@ -125,6 +158,9 @@ namespace DaZhongManagementSystem.Areas.SecondaryCleaningManagement.Controllers.
                 cleaning.OperationDate = DateTime.Now;
                 cleaning.CompanyVguid = companyVGUID;
                 cleaning.CouponType = description;
+                cleaning.CabLicense = cabLicense;
+                cleaning.CabOrgName = cabOrgName;
+                cleaning.ManOrgName = manOrgName;
                 cleaning.CreatedUser = cm.Name;
                 cleaning.CreatedDate = DateTime.Now;
                 cleaning.ChangeDate = DateTime.Now;

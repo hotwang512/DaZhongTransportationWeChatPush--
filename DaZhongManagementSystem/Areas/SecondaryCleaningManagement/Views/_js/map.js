@@ -100,6 +100,9 @@ function setLocation(pt) {
     //转换百度坐标为腾讯坐标(用于微信定位比较)
     qq.maps.convertor.translate(new qq.maps.LatLng(pt.lat, pt.lng), 3, function (res) {
         var latlng = res[0];
+        //var newlat = latlng.lat - 0.006;
+        //var newlng = latlng.lng - 0.0065;
+        //$("#TXLocation").val(newlat + "," + newlng);
         $("#TXLocation").val(latlng);
     });
 }

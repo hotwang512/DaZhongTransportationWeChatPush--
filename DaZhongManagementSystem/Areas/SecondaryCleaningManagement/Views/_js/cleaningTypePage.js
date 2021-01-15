@@ -202,7 +202,7 @@ function loadIsCleaning() {
         data: { code: code },
         type: "post",
         success: function (msg) {
-            if (msg == true) {
+            if (msg.isSuccess == true) {
                 //当月存在清洗记录
                 $("#SClean").hide();
                 isCleaning = true;
@@ -210,6 +210,8 @@ function loadIsCleaning() {
                 $("#SClean").show();
                 //alert("当月不存在清洗记录");
             }
+            //返回当前车牌号
+            //alert(msg.respnseInfo);
         }
     })
 }

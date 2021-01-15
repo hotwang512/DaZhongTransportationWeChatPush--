@@ -230,6 +230,7 @@
     <Compile Include="Areas\QuestionManagement\Controllers\QuestionManagement\BusinessLogic\QuestionLogic.cs" />
     <Compile Include="Areas\QuestionManagement\Controllers\QuestionManagement\QuestionManagementController.cs" />
     <Compile Include="Areas\QuestionManagement\QuestionManagementAreaRegistration.cs" />
+    <Compile Include="Areas\ReportManagement\Controllers\CleaningReport\CleaningReportController.cs" />
     <Compile Include="Areas\ReportManagement\Controllers\PaymentReport\BusinessLogic\PaymentReportLogic.cs" />
     <Compile Include="Areas\ReportManagement\Controllers\PaymentReport\PaymentReportController.cs" />
     <Compile Include="Areas\ReportManagement\Controllers\PsychologicalEvaluation\BusinessLogic\PsychologicalEvaluationLogic.cs" />
@@ -247,6 +248,7 @@
     <Compile Include="Areas\RideCheckFeedback\RideCheckFeedbackAreaRegistration.cs" />
     <Compile Include="Areas\SecondaryCleaningManagement\Controllers\CleaningCompanyDetail\CleaningCompanyDetailController.cs" />
     <Compile Include="Areas\SecondaryCleaningManagement\Controllers\CleaningCompany\CleaningCompanyController.cs" />
+    <Compile Include="Areas\SecondaryCleaningManagement\Controllers\CleaningInfo\CleaningInfoController.cs" />
     <Compile Include="Areas\SecondaryCleaningManagement\Controllers\CleaningTypePage\CleaningTypePageController.cs" />
     <Compile Include="Areas\SecondaryCleaningManagement\Controllers\CouponPage\CouponPageController.cs" />
     <Compile Include="Areas\SecondaryCleaningManagement\Controllers\CouponSetDetail\CouponSetDetailController.cs" />
@@ -437,6 +439,7 @@
     <Content Include="Areas\QuestionManagement\Views\_js\CheckedQuestionList.js" />
     <Content Include="Areas\QuestionManagement\Views\_js\QuestionDetail.js" />
     <Content Include="Areas\QuestionManagement\Views\_js\QuestionList.js" />
+    <Content Include="Areas\ReportManagement\Views\_js\CleaningReport.js" />
     <Content Include="Areas\ReportManagement\Views\_js\ExerciseTotalReport.js" />
     <Content Include="Areas\ReportManagement\Views\_js\PaymentReport.js" />
     <Content Include="Areas\ReportManagement\Views\_js\PersionSelectionRatioReport.js" />
@@ -461,6 +464,7 @@
     <Content Include="Areas\RideCheckFeedback\Views\_js\ridecheckfeedback.js" />
     <Content Include="Areas\RideCheckFeedback\Views\_js\selectDate.js" />
     <Content Include="Areas\SecondaryCleaningManagement\Views\_css\couponPage.css" />
+    <Content Include="Areas\SecondaryCleaningManagement\Views\_js\cleaningInfo.js" />
     <Content Include="Areas\SecondaryCleaningManagement\Views\_js\couponPage.js" />
     <Content Include="Areas\SecondaryCleaningManagement\Views\_js\couponSet.js" />
     <Content Include="Areas\SecondaryCleaningManagement\Views\_js\couponSetDetail.js" />
@@ -1111,6 +1115,9 @@
     <Content Include="_theme\jqwidgets-ver3.8.1\jqwidgets\jqxnumberinput.js" />
     <Content Include="_theme\jqwidgets-ver3.8.1\jqwidgets\jqxpanel.js" />
     <Content Include="_theme\jqwidgets-ver3.8.1\jqwidgets\jqxpasswordinput.js" />
+    <Content Include="_theme\jqwidgets-ver3.8.1\jqwidgets\jqxpivot.js" />
+    <Content Include="_theme\jqwidgets-ver3.8.1\jqwidgets\jqxpivotdesigner.js" />
+    <Content Include="_theme\jqwidgets-ver3.8.1\jqwidgets\jqxpivotgrid.js" />
     <Content Include="_theme\jqwidgets-ver3.8.1\jqwidgets\jqxpopover.js" />
     <Content Include="_theme\jqwidgets-ver3.8.1\jqwidgets\jqxprogressbar.js" />
     <Content Include="_theme\jqwidgets-ver3.8.1\jqwidgets\jqxradiobutton.js" />
@@ -2151,6 +2158,8 @@
     <Content Include="_theme\_js\common.js" />
     <Content Include="_theme\_js\enlargepicture.js" />
     <Content Include="_theme\_js\hammer.min.js" />
+    <Content Include="_theme\_js\jquery-ui-1.8.20.js" />
+    <Content Include="_theme\_js\jquery-ui-1.8.20.min.js" />
     <Content Include="_theme\_js\jquery.gritter.min.js" />
     <Content Include="_theme\_js\jweixin-1.0.0.js" />
     <Content Include="_theme\_js\menueCookie.js" />
@@ -2275,6 +2284,8 @@
     <Content Include="Areas\SecondaryCleaningManagement\Views\CouponPage\Index.cshtml" />
     <Content Include="Areas\SecondaryCleaningManagement\Views\CouponSet\Index.cshtml" />
     <Content Include="Areas\SecondaryCleaningManagement\Views\CouponSetDetail\Index.cshtml" />
+    <Content Include="Areas\SecondaryCleaningManagement\Views\CleaningInfo\Index.cshtml" />
+    <Content Include="Areas\ReportManagement\Views\CleaningReport\Index.cshtml" />
     <None Include="Properties\PublishProfiles\DaZhong.pubxml" />
     <Content Include="ReportTemplate\PushTemplate.xlsx" />
     <Content Include="ReportTemplate\ScoreTemplate.xlsx" />

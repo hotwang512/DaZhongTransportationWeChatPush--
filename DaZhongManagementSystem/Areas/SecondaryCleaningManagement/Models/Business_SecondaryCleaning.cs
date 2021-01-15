@@ -15,6 +15,9 @@ namespace DaZhongManagementSystem.Areas.SecondaryCleaningManagement.Models
         public DateTime OperationDate { get; set; }
         public string CompanyVguid { get; set; }
         public string CouponType { get; set; }
+        public string CabLicense { get; set; }
+        public string CabOrgName { get; set; }
+        public string ManOrgName { get; set; }
         public string CreatedUser { get; set; }
         public DateTime CreatedDate { get; set; }
         public string ChangeUser { get; set; }

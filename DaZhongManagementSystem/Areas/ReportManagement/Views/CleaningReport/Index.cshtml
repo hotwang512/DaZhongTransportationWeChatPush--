@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "二级清洗报表";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var currentModuleRolePermission = ViewBag.CurrentModulePermission as Sys_Role_Module;
+    //var listAllRoles = ViewBag.listAllRoles as List<Sys_Role>;
+
+}
+@using DaZhongManagementSystem.Entities.TableEntity;
+
+@section pageTitle
+{
+    @ViewBag.Title
+}
+
+@section js
+{
+    <script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxpivot.js")"></script>
+    <script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxpivotdesigner.js")"></script>
+    <script src="@Url.Content("~/_theme/jqwidgets-ver3.8.1/jqwidgets/jqxpivotgrid.js")"></script>
+    <script src="@Url.Content("~/_theme/_js/pivot.js")"></script>
+    <script src="@Url.Content("~/Areas/ReportManagement/Views/_js/CleaningReport.js")"></script>
+}
+
+@section css
+{
+    <link href="@Url.Content("~/_theme/_js/pivot.css")" rel="stylesheet" />
+}
+
+
+<!-- 中部条件 -->
+<div class="mk">
+    <div class="header_mk">
+        <div class="header_icon"></div>
+        <div class="header_text_div"><span class="header_text_span">查询</span></div>
+    </div>
+    <div class="body_mk" style="height: 60px">
+        <table style="margin-top: 20px; width: 1200px; margin-left: 20px;">
+            <tr style="height: 45px;">
+                <td align="center" style="width: 80px;">清洗类型：</td>
+                <td style="width: 210px;">
+                    <select id="CouponType" class="input_text form-control">
+                        <option value="">全部</option>
+                        <option value="二级清洗">二级清洗</option>
+                        <option value="座位套更换(部份)">座位套更换(部份)</option>
+                        <option value="座位套更换(全套)">座位套更换(全套)</option>
+                    </select>
+                </td>
+                <td align="center" style="width: 100px;">车辆所属公司：</td>
+                <td style="width: 210px;">
+                    <select id="CabOrgName" class="input_text form-control" style="">
+                        <option value="">全部</option>
+                        @{
+                            foreach (var item in ViewBag.OrgName)
+                            {
+                                <option value="@item">@item</option>
+                            }
+                        }
+                    </select>
+                    @*<input id="CabOrgName" name="CabOrgName" type="text" class="input_text form-control" />*@
+                </td>
+                <td align="center" style="width: 100px;">年月：</td>
+                <td style="width: 210px;">
+                    <input id="OperationDate" type="month" class="input_text form-control" />
+                </td>
+                <td align="center" style="width: 90px;">
+                    <button id="btnSearch" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe604;</i><span style="margin-left: 7px; float: left;">查询</span></button>
+                </td>
+                <td style="width: 95px;">
+                    <button id="btnExport" type="button" class="buttons"><i class="iconfont btn_icon" style="color: black !important;">&#xe600;</i><span style="margin-left: 7px; float: left;">导出</span></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!-- 中部条件 -->
+<!-- 底部表格 -->
+<center>
+    <div class="mk" style="border-bottom: 0px;">
+        <div class="header_mk" style="border-bottom: 0px;">
+            <div class="header_icon"></div>
+            <div class="header_text_div"><span class="header_text_span">数据列表</span></div>
+        </div>
+        <div id="pivotTable" style="width:1578px;height:535px;overflow:auto">
+            <div id="datatable" class="jqxTable" style="text-align: left;display:none"></div>
+        </div>
+    </div>
+</center>
+<!-- 底部表格 -->

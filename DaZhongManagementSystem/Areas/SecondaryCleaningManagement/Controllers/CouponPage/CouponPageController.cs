@@ -28,9 +28,9 @@ namespace DaZhongManagementSystem.Areas.SecondaryCleaningManagement.Controllers.
         {
             string accessToken = WeChatTools.GetAccessoken();
             U_WeChatUserID userInfo = new U_WeChatUserID();
-            //string userInfoStr = WeChatTools.GetUserInfoByCode(accessToken, code);
-            //userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
-            userInfo.UserId = "13671595340";//合伙人
+            string userInfoStr = WeChatTools.GetUserInfoByCode(accessToken, code);
+            userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
+            //userInfo.UserId = "13671595340";//合伙人
             //userInfo.UserId = "18936495119";//司机
             Business_Personnel_Information personInfoModel = GetUserInfo(userInfo.UserId);//获取人员表信息
             var key = PubGet.GetUserKey + personInfoModel.Vguid;

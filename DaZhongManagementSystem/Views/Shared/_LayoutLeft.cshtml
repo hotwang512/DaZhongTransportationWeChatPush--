@@ -500,6 +500,14 @@
                             <td></td>
                         </tr>
                     }
+                    @if (isSysAdmin)
+                    {
+                        <tr class="menue_item" id="CleaningReport" pageurl="/ReportManagement/CleaningReport/Index">
+                            <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
+                            <td class="menue_text">二级清洗报表</td>
+                            <td></td>
+                        </tr>
+                    }
                 </table>
             </div>
         }
@@ -631,6 +639,14 @@
                         <tr class="menue_item" id="couponSet" pageurl="/SecondaryCleaningManagement/CouponSet/Index">
                             <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
                             <td class="menue_text">权益配置</td>
+                            <td></td>
+                        </tr>
+                    }
+                    @if (isSysAdmin)
+                    {
+                        <tr class="menue_item" id="cleaningInfo" pageurl="/SecondaryCleaningManagement/CleaningInfo/Index">
+                            <td class="menue_icon"><i class="icon iconfont iconfont_menue">&#xe618;</i></td>
+                            <td class="menue_text">二级清洗查询</td>
                             <td></td>
                         </tr>
                     }
