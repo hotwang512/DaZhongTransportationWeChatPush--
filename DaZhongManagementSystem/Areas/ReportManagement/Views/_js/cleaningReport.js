@@ -60,6 +60,9 @@ var $page = function () {
                         $(".pvtAxisLabel").eq(1).css("text-align", "center")
                         $(".pvtAxisLabel").eq(2).text("月份");
                         $(".pvtAxisLabel").eq(2).css("text-align", "center")
+                        $(".pvtRowTotalLabel").text("总计");
+                        $(".pvtRowTotalLabel").css("text-align", "center")
+                        $(".pvtColTotalLabel").text("总计");
                         $(".pvtRowLabel").css("text-align", "center")
                         $("#datatable").show();
 

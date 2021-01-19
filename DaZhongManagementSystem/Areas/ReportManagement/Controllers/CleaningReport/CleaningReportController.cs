@@ -55,7 +55,7 @@ namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.CleaningRep
                     }
                 }  
                 cleaningList = _db.SqlQuery<Business_SecondaryCleaning>(@"select CouponType,CabOrgName,month(OperationDate) as 'Description',OperationDate  from Business_SecondaryCleaning
-                                               where year(OperationDate) = @Year order by OperationDate desc", new { Year = year });
+                                               where year(OperationDate) = @Year and CabOrgName != '' order by OperationDate desc", new { Year = year });
                 if (cabOrgName != "" && cabOrgName != null)
                 {
                     cleaningList = cleaningList.Where(x => x.CabOrgName.Contains(cabOrgName)).ToList();
@@ -87,7 +87,7 @@ namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.CleaningRep
                     }
                 }
                 cleaningList = _db.SqlQuery<Business_SecondaryCleaning>(@"select CouponType,CabLicense,CabOrgName,CreatedUser,ManOrgName,OperationDate  from Business_SecondaryCleaning
-                                               where year(OperationDate) = @Year order by OperationDate desc", new { Year = year });
+                                               where year(OperationDate) = @Year  and CabOrgName != ''  order by OperationDate desc", new { Year = year });
                 if (cabOrgName != "" && cabOrgName != null)
                 {
                     cleaningList = cleaningList.Where(x => x.CabOrgName.Contains(cabOrgName)).ToList();

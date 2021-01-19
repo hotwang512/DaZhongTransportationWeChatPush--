@@ -1,0 +1,10 @@
+
+-------------------------------header----------------------
+2021-01-18 16:09:45,590 [18] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 无法将类型为“System.String”的对象转换为类型“System.Collections.Generic.List`1[System.String]”
+2021-01-18 16:09:45,601 [18] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 接口名称:WeChatTextPush  时间:2021-01-18 16:09:45  参数:{"Title":"二级清洗","Message":"您已进行二级清洗,请前往核实并进行清洗","Url":"","Image":"","PushPeople":"","PushPeoples":"18936495119","founder":"18936495119"}  结果:{"Success":false,"Message":"无法将类型为“System.String”的对象转换为类型“System.Collections.Generic.List`1[System.String]”","Result":null}
+2021-01-18 16:39:12,156 [18] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 未将对象引用设置到对象的实例。
+2021-01-18 16:39:12,217 [18] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 接口名称:WeChatTextPush  时间:2021-01-18 16:39:12  参数:{"Title":"二级清洗","Message":"您已进行二级清洗,请前往核实并进行清洗","Url":"","Image":"","PushPeople":null,"PushPeoples":"18936495119","founder":"18936495119"}  结果:{"Success":false,"Message":"未将对象引用设置到对象的实例。","Result":null}
+
+-------------------------------header----------------------
+2021-01-18 16:59:24,436 [12] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 接口名称:WeChatTextPush  时间:2021-01-18 16:59:24  参数:{"Title":"二级清洗","Message":"您于2021/1/18 16:57:25,在上海市徐汇区大众大厦(徐虹中路)已进行二级清洗扫码操作,请前往核实并进行清洗","Url":"","Image":"","PushPeople":null,"PushPeoples":"18936495119","founder":"18936495119"}  结果:{"Success":true,"Message":"{\"errcode\":0,\"errmsg\":\"ok\",\"invaliduser\":\"\"}","Result":null}
+2021-01-18 17:00:28,658 [12] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 接口名称:WeChatTextPush  时间:2021-01-18 17:00:28  参数:{"Title":"二级清洗","Message":"您已于2021/1/18 17:00:23，在上海市徐汇区大众大厦(徐虹中路)进行二级清洗扫码操作，请前往核实并进行清洗","Url":"","Image":"","PushPeople":null,"PushPeoples":"18936495119","founder":"18936495119"}  结果:{"Success":true,"Message":"{\"errcode\":0,\"errmsg\":\"ok\",\"invaliduser\":\"\"}","Result":null}

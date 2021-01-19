@@ -1,11 +1,12 @@
-﻿//var code = getQueryString("code");
-var code = $("#UserVGUID").val();
-//var companyName = getQueryString("CompanyName");
+﻿var code = $("#UserVGUID").val();
 var vguid = getQueryString("VGUID");//公司VGUID
-//var newlocation = getQueryString("Location");//公司经纬度
+    //vguid = "153dd969-ab80-441c-b881-4dba7120748e";//测试
+var phoneNumber = $("#PhoneNumber").val();
 var isCleaning = false;
 var type = "";//清洗类型
 var description = "";//清洗类型描述
+var remark = "";
+var cleaningDate = "";
 var $page = function () {
 
     this.init = function () {
@@ -15,7 +16,7 @@ var $page = function () {
     var selector = this.selector = {};
 
     function addLocation() {
-        //loadCompanyLocation();
+        loadCompanyLocation();
         loadWXAPPIDInfo();
     }
     function addEvent() {
@@ -29,6 +30,7 @@ var $page = function () {
                 if (con == true) {
                     type = "1";
                     description = "二级清洗";
+                    remark = "清洗";
                     loadCleaning(type, description);
                 }
             }
@@ -37,12 +39,14 @@ var $page = function () {
         $("#Page2").on("click", function () {
             type = "2";
             description = "座位套更换(部份)";
+            remark = "更换";
             loadCleaning(type, description);
         });
         //座位套全套更换
         $("#Page3").on("click", function () {
             type = "3";
             description = "座位套更换(全套)";
+            remark = "更换";
             loadCleaning(type, description);
         });
     }
@@ -224,8 +228,9 @@ function loadCleaning(type, description) {
         data: { companyVGUID: vguid, location: WXlocation, type: type, description: description, code: code },
         type: "post",
         success: function (msg) {
-            if (msg.respnseInfo == "1") {
+            if (msg.isSuccess == true) {
                 //WindowConfirmDialog(funcOK, "已核销,请前往清洗", "确认框", "确定", "取消");
+                cleaningDate = msg.respnseInfo;
                 show_confirm(type);
             } else {
                 alert("操作失败,请重新扫码!");
@@ -242,9 +247,9 @@ function loadCleaning(type, description) {
 function show_confirm(type) {
     var r = "";
     if (type == "1") {
-        r = confirm("已核销,请前往清洗");
+        r = confirm("已核销,凭推送信息前往清洗");
     } else {
-        r = confirm("已核销,请前往更换");
+        r = confirm("已核销,凭推送信息前往更换");
     }
     if (r == true) {
         wx.closeWindow();
@@ -252,4 +257,56 @@ function show_confirm(type) {
     else {
         wx.closeWindow();
     }
+    sendWXMessage();
+    //sendMessage();
+}
+function sendWXMessage() {
+    var key = $("#Key").val();
+    var userId = $("#UserId").val();
+    var companyName = $("#CompanyName").val();
+    var param = {
+        Title: "二级清洗",
+        Message: "您已于" + cleaningDate + "，在" + companyName + "进行" + description + "扫码操作，请前往进行" + remark + "",
+        Url: "",
+        Image: "",
+        PushPeople: null,
+        PushPeoples: userId,
+        founder: userId
+    };
+    var jsonStr = JSON.stringify(param);
+    $.ajax({
+        url: "/API/WXTextPush",
+        type: "post",
+        data: { SECURITYKEY: key, pushparam: jsonStr },
+        dataType: "json",
+        success: function (msg) {
+            //if (msg.Success == true) {
+            //    alert("发送成功");
+            //} else {
+            //    alert("发送失败");
+            //}
+        }
+    });
+}
+function sendMessage(event) {
+    var key = $("#hideKey").val();
+    var param = {
+        mobile: phoneNumber,
+        temp_id: "186192",
+        temp_para: { Name: Name, Date: $.trim(Date), Time: $.trim(Time), Place: Place, lb: lbName }
+    };
+    var jsonStr = JSON.stringify(param);
+    $.ajax({
+        url: "/API/NotificationSMS",
+        type: "post",
+        data: { SECURITYKEY: key, pushparam: jsonStr },
+        dataType: "json",
+        success: function (msg) {
+            //if (msg.Success == true) {
+            //    alert("发送成功");
+            //} else {
+            //    alert("发送失败");
+            //}
+        }
+    });
 }

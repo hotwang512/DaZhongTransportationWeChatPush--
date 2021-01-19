@@ -35,7 +35,7 @@ namespace DaZhongManagementSystem.Areas.SecondaryCleaningManagement.Controllers.
             string userInfoStr = WeChatTools.GetUserInfoByCode(accessToken, code);
             userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
             //userInfo.UserId = "13671595340";//合伙人
-            userInfo.UserId = "13611794751";//司机
+            //userInfo.UserId = "18936495119";//司机
             Business_Personnel_Information personInfoModel = GetUserInfo(userInfo.UserId);//获取人员表信息
             var key = PubGet.GetUserKey + personInfoModel.Vguid;
             var csche = CacheManager<Business_Personnel_Information>.GetInstance().Get(key);
@@ -45,6 +45,9 @@ namespace DaZhongManagementSystem.Areas.SecondaryCleaningManagement.Controllers.
             }
             CacheManager<Business_Personnel_Information>.GetInstance().Add(key, personInfoModel, 8 * 60 * 60 * 1000);
             ViewBag.UserVGUID = personInfoModel.Vguid;
+            ViewBag.UserID = userInfo.UserId;
+            ViewBag.PhoneNumber = personInfoModel.PhoneNumber;
+            ViewBag.Key = "lZagKrU56xPBvyNRZjym7jrdJPwOT1Z0W+HpZaTrvUobpwSQEAue7j0iWs/b0cu2";
             return View();
         }
         public Business_Personnel_Information GetUserInfo(string userID)
@@ -166,7 +169,7 @@ namespace DaZhongManagementSystem.Areas.SecondaryCleaningManagement.Controllers.
                 cleaning.ChangeDate = DateTime.Now;
                 cleaning.ChangeUser = cm.Name;
                 model.isSuccess = _db.Insert(cleaning, false) != DBNull.Value;
-                model.respnseInfo = model.isSuccess == true ? "1" : "0";
+                model.respnseInfo = model.isSuccess == true ? cleaning.CreatedDate.TryToString() : "0";
                 //同时修改权益表中优惠券状态
                 UpdateMyRights(_db, description, cm.Vguid);
             }

@@ -625,8 +625,6 @@ namespace DaZhongManagementSystem.Controllers
             ExecHistry("WeChatRegistered", pushparam, JsonHelper.ModelToJson(result));
             return Json(result);
         }
-
-
         protected string GetTextCardPushJson(bool OAuth2, PushParamModel pushMsg)
         {
             var agentid = SyntacticSugar.ConfigSugar.GetAppString("WeChatAgentID", "1");
@@ -659,6 +657,61 @@ namespace DaZhongManagementSystem.Controllers
             return responeJsonStr;
         }
 
+        public JsonResult WXTextPush(string SECURITYKEY, string pushparam)
+        {
+            ExecutionResult result = new ExecutionResult();
+            try
+            {
+                if (API_Authentication(SECURITYKEY))
+                {
+                    PushParamModel textPush = Extend.JsonToModel<PushParamModel>(pushparam);
+                    var textPushs = new List<PushParamModel> { textPush };
+                    //result = SaveGraphicPushData(textPushs);
+                    string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
+                    string _sendUrl = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={0}";
+                    string postUrl = string.Format(_sendUrl, accessToken);
+                    //获取推送内容Json
+                    string json = GetTextPushJson(textPush);
+                    string pushResult = WeChatTools.PostWebRequest(postUrl, json, Encoding.UTF8);
+                    var wechatResult = Extend.JsonToModel<U_WechatResult>(pushResult);
+                    if (wechatResult.errcode == "0")
+                    {
+                        result.Success = true;
+                    }
+                    result.Message = pushResult;
+                }
+                else
+                {
+                    result.Message = "SECURITYKEY 无效！";
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = ex.Message;
+                LogHelper.WriteLog(ex.Message);
+            }
+            ExecHistry("WeChatTextPush", pushparam, JsonHelper.ModelToJson(result));
+            return Json(result);
+        }
+
+        private string GetTextPushJson(PushParamModel pushMsg)
+        {
+            var agentid = SyntacticSugar.ConfigSugar.GetAppString("WeChatAgentID", "1");
+            string responeJsonStr = "";
+            responeJsonStr = "{";
+            responeJsonStr += "\"touser\": \"" + pushMsg.PushPeoples + "\",";
+            responeJsonStr += "\"toparty\": \"\",";
+            responeJsonStr += "\"totag\": \"\",";
+            responeJsonStr += "\"msgtype\": \"text\",";
+            responeJsonStr += "\"agentid\":\"" + agentid + "\",";
+            responeJsonStr += "\"text\": {\"content\" : \"" + pushMsg.Message + "\"},";
+            responeJsonStr += "\"safe\": \"0\",";
+            responeJsonStr += "\"enable_id_trans\": \"0\",";
+            responeJsonStr += "\"enable_duplicate_check\": \"0\",";
+            responeJsonStr += "\"duplicate_check_interval\": \"1800\"";
+            responeJsonStr += "}";
+            return responeJsonStr;
+        }
 
         public JsonResult NotificationSMS(string SECURITYKEY, string pushparam)
         {
