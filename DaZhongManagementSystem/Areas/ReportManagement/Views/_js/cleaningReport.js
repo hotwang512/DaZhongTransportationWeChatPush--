@@ -56,7 +56,7 @@ var $page = function () {
 
                         $(".pvtAxisLabel").eq(0).text("所属公司");
                         $(".pvtAxisLabel").eq(0).css("text-align", "center")
-                        $(".pvtAxisLabel").eq(1).text("清洗类型");
+                        $(".pvtAxisLabel").eq(1).text("业务类型");
                         $(".pvtAxisLabel").eq(1).css("text-align", "center")
                         $(".pvtAxisLabel").eq(2).text("月份");
                         $(".pvtAxisLabel").eq(2).css("text-align", "center")

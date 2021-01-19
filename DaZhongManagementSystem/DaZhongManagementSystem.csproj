@@ -257,6 +257,7 @@
     <Compile Include="Areas\SecondaryCleaningManagement\Models\Business_EquityAllocation.cs" />
     <Compile Include="Areas\SecondaryCleaningManagement\Models\Business_MyRights.cs" />
     <Compile Include="Areas\SecondaryCleaningManagement\Models\Business_SecondaryCleaning.cs" />
+    <Compile Include="Areas\SecondaryCleaningManagement\Models\SecondaryCleaning.cs" />
     <Compile Include="Areas\SecondaryCleaningManagement\SecondaryCleaningManagementAreaRegistration.cs" />
     <Compile Include="Areas\WeChatPay\Controllers\WechatPayController.cs" />
     <Compile Include="Areas\WeChatPay\WeChatPayAreaRegistration.cs" />

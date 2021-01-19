@@ -32,10 +32,12 @@ namespace DaZhongManagementSystem.Areas.SecondaryCleaningManagement.Controllers.
         }
         public JsonResult GetCleaningInfo(string cabOrgName, string manOrgName,string couponType,string cabLicense)
         {
-            List<Business_SecondaryCleaning> cleaningList = new List<Business_SecondaryCleaning>();
+            List<SecondaryCleaning> cleaningList = new List<SecondaryCleaning>();
             using (SqlSugarClient _db = SugarDao_MsSql.GetInstance())
             {
-                cleaningList = _db.Queryable<Business_SecondaryCleaning>().OrderBy(x=>x.OperationDate,OrderByType.Desc).ToList();
+                cleaningList = _db.SqlQuery<SecondaryCleaning>(@"select sc.*,cc.CompanyName from Business_SecondaryCleaning as sc 
+                                left join Business_CleaningCompany as cc on sc.CompanyVguid = CAST(cc.Vguid as varchar(100))
+                                order by sc.CreatedDate desc ").ToList();
                 if (cabOrgName != "" && cabOrgName != null)
                 {
                     cleaningList = cleaningList.Where(x => x.CabOrgName.Contains(cabOrgName)).ToList();

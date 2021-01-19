@@ -75,7 +75,7 @@ namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.CleaningRep
         }
         public JsonResult ExportCleaningInfo(string cabOrgName, DateTime? operationDate, string couponType)
         {
-            List<Business_SecondaryCleaning> cleaningList = new List<Business_SecondaryCleaning>();
+            List<SecondaryCleaning> cleaningList = new List<SecondaryCleaning>();
             using (SqlSugarClient _db = SugarDao_MsSql.GetInstance())
             {
                 var year = DateTime.Now.Year;
@@ -86,8 +86,9 @@ namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.CleaningRep
                         year = operationDate.Value.Year;
                     }
                 }
-                cleaningList = _db.SqlQuery<Business_SecondaryCleaning>(@"select CouponType,CabLicense,CabOrgName,CreatedUser,ManOrgName,OperationDate  from Business_SecondaryCleaning
-                                               where year(OperationDate) = @Year  and CabOrgName != ''  order by OperationDate desc", new { Year = year });
+                cleaningList = _db.SqlQuery<SecondaryCleaning>(@"select sc.CouponType,sc.CabLicense,sc.CabOrgName,sc.CreatedUser,sc.ManOrgName,cc.CompanyName,sc.OperationDate  from Business_SecondaryCleaning as sc
+                                left join Business_CleaningCompany as cc on sc.CompanyVguid = CAST(cc.Vguid as varchar(100))
+                                where year(OperationDate) = @Year  and CabOrgName != ''  order by OperationDate desc", new { Year = year });
                 if (cabOrgName != "" && cabOrgName != null)
                 {
                     cleaningList = cleaningList.Where(x => x.CabOrgName.Contains(cabOrgName)).ToList();
@@ -102,7 +103,7 @@ namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.CleaningRep
                 {
                     cleaningList = cleaningList.Where(x => x.CouponType == couponType).ToList();
                 }
-                List<string> header = new List<string>() { "清洗类型", "清洗车辆", "车辆所属公司", "当前驾驶员", "驾驶员所属公司", "操作时间" };
+                List<string> header = new List<string>() { "业务类型", "车辆", "车辆所属公司", "当前司机", "司机所属公司", "操作地点", "操作时间" };
                 ExportExcel(cleaningList, header);
             }
             return Json(cleaningList, JsonRequestBehavior.AllowGet);
@@ -113,7 +114,7 @@ namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.CleaningRep
         /// <param name="list">数据集合</param>
         /// <param name="header">数据表头</param>
         /// <returns></returns>
-        public bool ExportExcel(List<Business_SecondaryCleaning> cleaningList, List<string> header)
+        public bool ExportExcel(List<SecondaryCleaning> cleaningList, List<string> header)
         {
             var isSuccess = false;
             Workbook wb = new Workbook(FileFormatType.Xlsx);
@@ -147,7 +148,8 @@ namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.CleaningRep
                     sheet.Cells[i + 1, 2].PutValue(cleaningList[i].CabOrgName.ToString());
                     sheet.Cells[i + 1, 3].PutValue(cleaningList[i].CreatedUser.ToString());
                     sheet.Cells[i + 1, 4].PutValue(cleaningList[i].ManOrgName.ToString());
-                    sheet.Cells[i + 1, 5].PutValue(cleaningList[i].OperationDate.ToString());
+                    sheet.Cells[i + 1, 5].PutValue(cleaningList[i].CompanyName.ToString());
+                    sheet.Cells[i + 1, 6].PutValue(cleaningList[i].OperationDate.ToString());
                 }
             }
             catch (Exception e)
