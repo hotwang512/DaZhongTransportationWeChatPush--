@@ -132,7 +132,7 @@ namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.CleaningRep
                 style.HorizontalAlignment = TextAlignmentType.Center;  //设置居中
                 style.Font.Size = 12;//文字大小
                 style.Font.IsBold = true;//粗体
-                style.HorizontalAlignment = TextAlignmentType.Center;//文字居中
+                //style.HorizontalAlignment = TextAlignmentType.Center;//文字居中
 
                 int rowIndex = 0;
                 for (int i = 0; i < header.Count; i++)

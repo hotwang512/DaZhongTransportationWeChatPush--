@@ -351,7 +351,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
             var fleetList = new List<string>();
             using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance2())
             {
-                if (description != "" && level == "12")
+                if (description != "" && level == "12" && description != "全部" && description != "R")
                 {
                     //查所配置公司备注
                     var description2 = getSqlInValue(description,"");
@@ -371,7 +371,6 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
                 {
                     //查全车队名称
                     fleetList = _dbMsSql.SqlQuery<string>(@"select CarTeamName from DZ_Organization where OrganizationName=@OrgName and status=0", new { OrgName = description }).ToList();
-
                 }
                 if (fleetList.Count > 0)
                 {
