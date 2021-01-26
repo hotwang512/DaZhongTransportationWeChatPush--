@@ -63,13 +63,27 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Ope
                                         isnull(Sum(convert(decimal(18,2),营运车辆总数)),0) as 营运车辆总数,
                                         isnull(Sum(convert(decimal(18,2),总线上营收)),0) as 总线上营收, 
                                         isnull(Sum(convert(decimal(18,2),总线上差次)),0) as 总线上差次,
-                                        isnull(Sum(convert(decimal(18,2),车均营收)),0) as 车均营收,
-                                        isnull(Sum(convert(decimal(18,2),车均差次)),0) as 车均差次,
-                                        isnull(Sum(convert(decimal(18,2),车均线上营收)),0) as 车均线上营收, 
-                                        isnull(Sum(convert(decimal(18,2),车均线上差次)),0) as 车均线上差次,
-                                        isnull(Sum(convert(decimal(18,2),车均行驶里程)),0) as 车均行驶里程, 
-                                        isnull(Sum(convert(decimal(18,2),车均营运里程)),0) as 车均营运里程,
-                                        isnull(Sum(convert(decimal(18,2),车均空驶里程)),0) as 车均空驶里程 
+                                        convert(decimal(18,2),
+                                        isnull(Sum(convert(decimal(18,2),车均营收)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均营收,
+			                            convert(decimal(18,2),
+			                            isnull(Sum(convert(decimal(18,2),车均差次)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均差次,
+                                        convert(decimal(18,2),
+			                            isnull(Sum(convert(decimal(18,2),车均线上营收)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均线上营收,
+                                        convert(decimal(18,2),
+			                            isnull(Sum(convert(decimal(18,2),车均线上差次)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均线上差次, 
+                                        convert(decimal(18,2),
+			                            isnull(Sum(convert(decimal(18,2),车均行驶里程)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均行驶里程, 
+                                        convert(decimal(18,2),
+			                            isnull(Sum(convert(decimal(18,2),车均营运里程)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均营运里程, 
+                                        convert(decimal(18,2),
+			                            isnull(Sum(convert(decimal(18,2),车均空驶里程)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均空驶里程
                                         from t_taxi_summary where 日期='" + dateSearch + "' and 公司 in (" + fleet + ") ");
                     //前一天数据
                     dataList2 = _dbMsSql.SqlQueryJson(@"select isnull(Sum(convert(decimal(18,2),总营收)),0) as 总营收,
@@ -77,13 +91,27 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Ope
                                         isnull(Sum(convert(decimal(18,2),营运车辆总数)),0) as 营运车辆总数,
                                         isnull(Sum(convert(decimal(18,2),总线上营收)),0) as 总线上营收, 
                                         isnull(Sum(convert(decimal(18,2),总线上差次)),0) as 总线上差次,
-                                        isnull(Sum(convert(decimal(18,2),车均营收)),0) as 车均营收,
-                                        isnull(Sum(convert(decimal(18,2),车均差次)),0) as 车均差次,
-                                        isnull(Sum(convert(decimal(18,2),车均线上营收)),0) as 车均线上营收, 
-                                        isnull(Sum(convert(decimal(18,2),车均线上差次)),0) as 车均线上差次,
-                                        isnull(Sum(convert(decimal(18,2),车均行驶里程)),0) as 车均行驶里程, 
-                                        isnull(Sum(convert(decimal(18,2),车均营运里程)),0) as 车均营运里程,
-                                        isnull(Sum(convert(decimal(18,2),车均空驶里程)),0) as 车均空驶里程  
+                                        convert(decimal(18,2),
+                                        isnull(Sum(convert(decimal(18,2),车均营收)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均营收,
+			                            convert(decimal(18,2),
+			                            isnull(Sum(convert(decimal(18,2),车均差次)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均差次,
+                                         convert(decimal(18,2),
+			                            isnull(Sum(convert(decimal(18,2),车均线上营收)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均线上营收,
+                                        convert(decimal(18,2),
+			                            isnull(Sum(convert(decimal(18,2),车均线上差次)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均线上差次, 
+                                        convert(decimal(18,2),
+			                            isnull(Sum(convert(decimal(18,2),车均行驶里程)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均行驶里程, 
+                                        convert(decimal(18,2),
+			                            isnull(Sum(convert(decimal(18,2),车均营运里程)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均营运里程, 
+                                        convert(decimal(18,2),
+			                            isnull(Sum(convert(decimal(18,2),车均空驶里程)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均空驶里程  
                                         from t_taxi_summary where 日期='" + date2 + "' and 公司 in (" + fleet + ") ");
                 }
                 else
@@ -94,13 +122,27 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Ope
                                         isnull(Sum(convert(decimal(18,2),营运车辆总数)),0) as 营运车辆总数,
                                         isnull(Sum(convert(decimal(18,2),总线上营收)),0) as 总线上营收, 
                                         isnull(Sum(convert(decimal(18,2),总线上差次)),0) as 总线上差次,
-                                        isnull(Sum(convert(decimal(18,2),车均营收)),0) as 车均营收,
-                                        isnull(Sum(convert(decimal(18,2),车均差次)),0) as 车均差次,
-                                        isnull(Sum(convert(decimal(18,2),车均线上营收)),0) as 车均线上营收, 
-                                        isnull(Sum(convert(decimal(18,2),车均线上差次)),0) as 车均线上差次,
-                                        isnull(Sum(convert(decimal(18,2),车均行驶里程)),0) as 车均行驶里程, 
-                                        isnull(Sum(convert(decimal(18,2),车均营运里程)),0) as 车均营运里程,
-                                        isnull(Sum(convert(decimal(18,2),车均空驶里程)),0) as 车均空驶里程 
+                                        convert(decimal(18,2),
+                                        isnull(Sum(convert(decimal(18,2),车均营收)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均营收,
+			                            convert(decimal(18,2),
+			                            isnull(Sum(convert(decimal(18,2),车均差次)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均差次,
+                                         convert(decimal(18,2),
+			                            isnull(Sum(convert(decimal(18,2),车均线上营收)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均线上营收,
+                                        convert(decimal(18,2),
+			                            isnull(Sum(convert(decimal(18,2),车均线上差次)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均线上差次, 
+                                        convert(decimal(18,2),
+			                            isnull(Sum(convert(decimal(18,2),车均行驶里程)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均行驶里程, 
+                                        convert(decimal(18,2),
+			                            isnull(Sum(convert(decimal(18,2),车均营运里程)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均营运里程, 
+                                        convert(decimal(18,2),
+			                            isnull(Sum(convert(decimal(18,2),车均空驶里程)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均空驶里程
                                         from t_taxi_summary where 日期='" + dateSearch + "' and 车队 in (" + fleet + ") and 公司='" + orgName + "'");
                     //前一天数据
                     dataList2 = _dbMsSql.SqlQueryJson(@"select isnull(Sum(convert(decimal(18,2),总营收)),0) as 总营收,
@@ -108,13 +150,27 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Ope
                                         isnull(Sum(convert(decimal(18,2),营运车辆总数)),0) as 营运车辆总数,
                                         isnull(Sum(convert(decimal(18,2),总线上营收)),0) as 总线上营收, 
                                         isnull(Sum(convert(decimal(18,2),总线上差次)),0) as 总线上差次,
-                                        isnull(Sum(convert(decimal(18,2),车均营收)),0) as 车均营收,
-                                        isnull(Sum(convert(decimal(18,2),车均差次)),0) as 车均差次,
-                                        isnull(Sum(convert(decimal(18,2),车均线上营收)),0) as 车均线上营收, 
-                                        isnull(Sum(convert(decimal(18,2),车均线上差次)),0) as 车均线上差次,
-                                        isnull(Sum(convert(decimal(18,2),车均行驶里程)),0) as 车均行驶里程, 
-                                        isnull(Sum(convert(decimal(18,2),车均营运里程)),0) as 车均营运里程,
-                                        isnull(Sum(convert(decimal(18,2),车均空驶里程)),0) as 车均空驶里程  
+                                        convert(decimal(18,2),
+                                        isnull(Sum(convert(decimal(18,2),车均营收)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均营收,
+			                            convert(decimal(18,2),
+			                            isnull(Sum(convert(decimal(18,2),车均差次)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均差次,
+                                         convert(decimal(18,2),
+			                            isnull(Sum(convert(decimal(18,2),车均线上营收)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均线上营收,
+                                        convert(decimal(18,2),
+			                            isnull(Sum(convert(decimal(18,2),车均线上差次)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均线上差次, 
+                                        convert(decimal(18,2),
+			                            isnull(Sum(convert(decimal(18,2),车均行驶里程)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均行驶里程, 
+                                        convert(decimal(18,2),
+			                            isnull(Sum(convert(decimal(18,2),车均营运里程)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均营运里程, 
+                                        convert(decimal(18,2),
+			                            isnull(Sum(convert(decimal(18,2),车均空驶里程)),0)/
+			                            isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均空驶里程  
                                         from t_taxi_summary where 日期='" + date2 + "' and 车队 in (" + fleet + ") and 公司='" + orgName + "'");
                 }
                 if (dataList.Count() > 2)

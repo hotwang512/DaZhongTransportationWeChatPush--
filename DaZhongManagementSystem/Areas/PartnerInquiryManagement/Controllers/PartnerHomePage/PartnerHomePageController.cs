@@ -36,7 +36,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
             U_WeChatUserID userInfo = new U_WeChatUserID();
             string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
             userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
-            //userInfo.UserId = "13671595340";//合伙人
+            userInfo.UserId = "13671595340";//合伙人
             //userInfo.UserId = "15921961501";//司机
             Business_Personnel_Information personInfoModel = GetUserInfo(userInfo.UserId);//获取人员表信息
             if (personInfoModel.DepartmenManager == 10 || personInfoModel.DepartmenManager == 11)
@@ -131,17 +131,29 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
                     dataList = _dbMsSql.SqlQueryJson(@"select isnull(Sum(convert(decimal(18,2),上线司机数)),0) as 上线司机数,
                                             isnull(Sum(convert(decimal(18,2),上线车辆数)),0) as 上线车辆数, 
                                             isnull(Sum(convert(decimal(18,2),总差次)),0) as 总差次,
-                                            isnull(Sum(convert(decimal(18,2),车均营收)),0) as 车均营收, 
-                                            isnull(Sum(convert(decimal(18,2),车均差次)),0) as 车均差次,
-                                            isnull(Sum(convert(decimal(18,2),车均在线时长)),0) as 车均在线时长 
+                                            convert(decimal(18,2),
+			                                isnull(Sum(convert(decimal(18,2),车均营收)),0)/
+			                                isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均营收,
+			                                convert(decimal(18,2),
+			                                isnull(Sum(convert(decimal(18,2),车均差次)),0)/
+			                                isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均差次,
+			                                convert(decimal(18,2),
+			                                isnull(Sum(convert(decimal(18,2),车均在线时长)),0)/
+			                                isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均在线时长
                                             from t_taxi_summary where 日期='" + date + "' and 公司 in (" + fleet + ")");
                     //前一天数据
                     dataList2 = _dbMsSql.SqlQueryJson(@"select isnull(Sum(convert(decimal(18,2),上线司机数)),0) as 上线司机数,
                                             isnull(Sum(convert(decimal(18,2),上线车辆数)),0) as 上线车辆数, 
                                             isnull(Sum(convert(decimal(18,2),总差次)),0) as 总差次,
-                                            isnull(Sum(convert(decimal(18,2),车均营收)),0) as 车均营收, 
-                                            isnull(Sum(convert(decimal(18,2),车均差次)),0) as 车均差次,
-                                            isnull(Sum(convert(decimal(18,2),车均在线时长)),0) as 车均在线时长 
+                                            convert(decimal(18,2),
+			                                isnull(Sum(convert(decimal(18,2),车均营收)),0)/
+			                                isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均营收,
+			                                convert(decimal(18,2),
+			                                isnull(Sum(convert(decimal(18,2),车均差次)),0)/
+			                                isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均差次,
+			                                convert(decimal(18,2),
+			                                isnull(Sum(convert(decimal(18,2),车均在线时长)),0)/
+			                                isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均在线时长
                                             from t_taxi_summary where 日期='" + date2 + "' and 公司 in (" + fleet + ")");
                 }
                 else
@@ -150,17 +162,29 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
                     dataList = _dbMsSql.SqlQueryJson(@"select isnull(Sum(convert(decimal(18,2),上线司机数)),0) as 上线司机数,
                                             isnull(Sum(convert(decimal(18,2),上线车辆数)),0) as 上线车辆数, 
                                             isnull(Sum(convert(decimal(18,2),总差次)),0) as 总差次,
-                                            isnull(Sum(convert(decimal(18,2),车均营收)),0) as 车均营收, 
-                                            isnull(Sum(convert(decimal(18,2),车均差次)),0) as 车均差次,
-                                            isnull(Sum(convert(decimal(18,2),车均在线时长)),0) as 车均在线时长 
+                                            convert(decimal(18,2),
+			                                isnull(Sum(convert(decimal(18,2),车均营收)),0)/
+			                                isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均营收,
+			                                convert(decimal(18,2),
+			                                isnull(Sum(convert(decimal(18,2),车均差次)),0)/
+			                                isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均差次,
+			                                convert(decimal(18,2),
+			                                isnull(Sum(convert(decimal(18,2),车均在线时长)),0)/
+			                                isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均在线时长
                                             from t_taxi_summary where 日期='" + date + "' and 车队 in (" + fleet + ") and 公司='" + orgName + "'");
                     //前一天数据
                     dataList2 = _dbMsSql.SqlQueryJson(@"select isnull(Sum(convert(decimal(18,2),上线司机数)),0) as 上线司机数,
                                             isnull(Sum(convert(decimal(18,2),上线车辆数)),0) as 上线车辆数, 
                                             isnull(Sum(convert(decimal(18,2),总差次)),0) as 总差次,
-                                            isnull(Sum(convert(decimal(18,2),车均营收)),0) as 车均营收, 
-                                            isnull(Sum(convert(decimal(18,2),车均差次)),0) as 车均差次,
-                                            isnull(Sum(convert(decimal(18,2),车均在线时长)),0) as 车均在线时长 
+                                            convert(decimal(18,2),
+			                                isnull(Sum(convert(decimal(18,2),车均营收)),0)/
+			                                isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均营收,
+			                                convert(decimal(18,2),
+			                                isnull(Sum(convert(decimal(18,2),车均差次)),0)/
+			                                isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均差次,
+			                                convert(decimal(18,2),
+			                                isnull(Sum(convert(decimal(18,2),车均在线时长)),0)/
+			                                isnull(Sum(convert(decimal(18,2),营运车辆总数)),0)) as 车均在线时长
                                             from t_taxi_summary where 日期='" + date2 + "' and 车队 in (" + fleet + ") and 公司='" + orgName + "'");
                 }
                 if (dataList.Count() > 2)

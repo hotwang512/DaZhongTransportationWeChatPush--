@@ -35,10 +35,14 @@ function loadDate() {
     var day1 = new Date();
     day1.setTime(day1.getTime() - 24 * 60 * 60 * 1000);
     var day = day1.getDate();
+    var month = day1.getMonth() + 1;
     if (day < 10) {
         day = "0" + day;
     }
-    var s1 = day1.getFullYear() + "-" + (day1.getMonth() + 1) + "-" + day;
+    if (month < 10) {
+        month = "0" + month;
+    }
+    var s1 = day1.getFullYear() + "-" + month + "-" + day;
     $("#DateSearch").val(s1);
 }
 function loadFleet(fleet) {
