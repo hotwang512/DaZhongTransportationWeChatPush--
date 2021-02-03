@@ -107,6 +107,7 @@
 
         .weui-input {
             height: 2em;
+            width: 90% !important;
         }
         .weui-cells_driving{
             font-size: 14px;color: #76776f;
@@ -296,7 +297,7 @@
         </div>
         <div class="weui-cell">
             <div class="weui-cell__hd">
-                <label class="weui-label" style="width: 125px;">车号/班次号<font style="color:red"> *</font>：</label>
+                <label class="weui-label" style="width: 115px;">车号/班次号<font style="color:red;display:none;"> *</font>：</label>
             </div>
             <div class="weui-cell__bd">
                 <input class="weui-input" value="@bhs.GoCarNo" type="text" id="goCarNo" placeholder="请输入车号/班次号">
@@ -304,8 +305,8 @@
         </div>
     </div>
     <hr>
-    <div class="weui-cell" style="font-size:14px;margin-left: 5%;">
-        本人郑重承诺以上所填信息属实，一切后果由本人承担。
+    <div class="weui-cell" style="font-size:14px;margin-left: 5%;color: red;">
+        * 本人郑重承诺以上所填信息属实，一切后果由本人承担。
         @*<div class="weui-cell__hd">
             
         </div>*@
@@ -397,6 +398,38 @@
                 layer.msg('请输入车号/班次号', { time: 1000 });
                 return;
             }
+            if ($("#check_2020").is(":checked") == false && $("#backAdress").val() == "") {
+                layer.msg('请输返乡地址', { time: 1000 });
+                return;
+            }
+            var indexG = 0;
+            var indexB = 0;
+            for (var i = 0; i < 4; i++) {
+                var drivingG = $(".checkdriving").eq(i).is(":checked");
+                if (drivingG == false) {
+                    indexG = indexG + 1;
+                }
+            }
+            for (var i = 4; i < 8; i++) {
+                var drivingB = $(".checkdriving").eq(i).is(":checked");
+                if (drivingB == false) {
+                    indexB = indexB + 1;
+                }
+            }
+            if (indexG == 4) {
+                layer.msg('请选择返乡交通工具', { time: 1000 });
+                return;
+            }
+            //if ($("#Vguid").val() != "" && $("#Vguid").val() != null) {
+            //    if (indexB == 4) {
+            //        layer.msg('请选择回沪交通工具', { time: 1000 });
+            //        return;
+            //    }
+            //    if ($("#check_2020").is(":checked") == false && $("#goCarNo").val() == "") {
+            //        layer.msg('请输入车号/班次号', { time: 1000 });
+            //        return;
+            //    }
+            //}
 
             var oDate1 = new Date($("#to_2020").val());
             var oDate2 = new Date($("#back_2020").val());
