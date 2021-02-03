@@ -394,14 +394,7 @@
                 layer.msg('请选择' + year + '年返乡情况', { time: 1000 });
                 return;
             }
-            if ($("#check_2020").is(":checked") == false && $("#backCarNo").val() == "") {
-                layer.msg('请输入车号/班次号', { time: 1000 });
-                return;
-            }
-            if ($("#check_2020").is(":checked") == false && $("#backAdress").val() == "") {
-                layer.msg('请输返乡地址', { time: 1000 });
-                return;
-            }
+            
             var indexG = 0;
             var indexB = 0;
             for (var i = 0; i < 4; i++) {
@@ -416,8 +409,16 @@
                     indexB = indexB + 1;
                 }
             }
-            if (indexG == 4) {
+            if ($("#check_2020").is(":checked") == false && indexG == 4) {
                 layer.msg('请选择返乡交通工具', { time: 1000 });
+                return;
+            }
+            if ($("#check_2020").is(":checked") == false && $("#backCarNo").val() == "") {
+                layer.msg('请输入车号/班次号', { time: 1000 });
+                return;
+            }
+            if ($("#check_2020").is(":checked") == false && $("#backAdress").val() == "") {
+                layer.msg('请输返乡地址', { time: 1000 });
                 return;
             }
             //if ($("#Vguid").val() != "" && $("#Vguid").val() != null) {
