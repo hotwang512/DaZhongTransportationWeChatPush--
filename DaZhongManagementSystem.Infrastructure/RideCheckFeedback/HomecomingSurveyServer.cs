@@ -54,7 +54,12 @@ namespace DaZhongManagementSystem.Infrastructure.RideCheckFeedback
                         StartDate = hs.StartDate,
                         EndDate = hs.EndDate,
                         ChangeDate = hs.ChangeDate,
-                        ChangeUser = hs.CreatedUser
+                        ChangeUser = hs.CreatedUser,
+                        CheckDrivingG = hs.CheckDrivingG,
+                        CheckDrivingB = hs.CheckDrivingB,
+                        BackCarNo = hs.BackCarNo,
+                        BackAdress = hs.BackAdress,
+                        GoCarNo = hs.GoCarNo
                     },
                     c => c.Vguid == hs.Vguid);
             }

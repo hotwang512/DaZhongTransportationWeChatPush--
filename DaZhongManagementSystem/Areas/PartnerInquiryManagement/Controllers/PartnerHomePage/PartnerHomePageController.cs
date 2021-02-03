@@ -130,7 +130,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
                     var count = _dbMsSql.SqlQuery<int>(@"select count(上线司机数) from  t_taxi_summary where 日期='" + date + "' and 公司 in (" + fleet + ")").FirstOrDefault();
                     if(count == 0)
                     {
-                        //没有数据时,避免除0报错
+                        //没有数据时,避免除0报错或者用nullif(0,0)函数
                         count = 1;
                     }
                     //最新数据

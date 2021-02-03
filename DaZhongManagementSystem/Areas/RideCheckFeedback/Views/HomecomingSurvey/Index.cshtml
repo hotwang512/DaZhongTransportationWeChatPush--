@@ -10,6 +10,24 @@
         endDate = bhs.EndDate == null ? "" : bhs.EndDate.Value.ToString("yyyy-MM-dd");
     }
     string whetherReturnHome = bhs.WhetherReturnHome == "1" ? "checked=\"checked\"" : "";
+    List<string> drivingG = new List<string>() { "", "", "", "" };//返乡
+    List<string> drivingB = new List<string>() { "", "", "", "" };//回沪
+    if (bhs.CheckDrivingG != "" && bhs.CheckDrivingG != null)
+    {
+        drivingG.Clear();
+        drivingB.Clear();
+        var dgList = bhs.CheckDrivingG.Split(new char[1] { ',' });
+        var dbList = bhs.CheckDrivingB.Split(new char[1] { ',' });
+        for (int i = 0; i < 4; i++)
+        {
+            var dg = dgList[i] == "1" ? "checked=\"checked\"" : "";
+            drivingG.Add(dg);
+            var db = dbList[i] == "1" ? "checked=\"checked\"" : "";
+            drivingB.Add(db);
+        }
+    }
+
+    //string driving = "0" == "1" ? "checked=\"checked\"" : "";
 }
 
 <html>
@@ -90,6 +108,9 @@
         .weui-input {
             height: 2em;
         }
+        .weui-cells_driving{
+            font-size: 14px;color: #76776f;
+        }
     </style>
 </head>
 <body ontouchstart="" style="">
@@ -102,7 +123,7 @@
         <input id="CreatedUser" type="hidden" value="@bhs.CreatedUser" />
         <input id="Year" type="hidden" value="@bhs.Year" />
         <!-- 车牌号码 -->
-        <div class="weui-cell">
+        <div class="weui-cell" style="display:none">
             <div class="weui-cell__hd">
                 <label class="weui-label">车牌号码<font style="color:red"> *</font>：</label>
             </div>
@@ -111,21 +132,21 @@
                 <input class="weui-input" value="@bhs.LicensePlate" style="width: 80%" type="text" id="cphm" maxlength="6" placeholder="请输入车牌号码" onkeyup="value = value.replace(/[\W]/g, '') ">
             </div>
         </div>
-        <hr>
+
         <!-- 姓名 -->
         <div class="weui-cell">
             <div class="weui-cell__hd">
-                <label class="weui-label">姓名<font style="color:red"> *</font>：</label>
+                <label class="weui-label" style="text-align: left;margin-left: 10px;width: 75px;">姓名<font style="color:red"> *</font>：</label>
             </div>
             <div class="weui-cell__bd">
                 <input class="weui-input" value="@bhs.Name" type="text" id="name" readonly="readonly" placeholder="请输入姓名">
             </div>
         </div>
         <hr>
-        <!-- 2020年返乡情况-->
+        <!-- 2021年返乡情况-->
         <div class="weui-cell">
             <div class="weui-cell__bd">
-                <label class="weui-label" style="width:150px;margin-left: -9%">@DateTime.Now.Year.ToString()年返乡情况</label>
+                <label class="weui-label" style="width:153px;margin-left: -9%">@DateTime.Now.Year.ToString()年返乡情况</label>
             </div>
             <div class="weui-cell__ft">
                 <div class="weui-cells weui-cells_checkbox">
@@ -146,6 +167,71 @@
                 <input class="weui-input" type="date" value="@startDate" id="to_2020" onchange="dateChanage(this,'请选择返乡日期')">
             </div>
         </div>
+        <div class="weui-cell">
+            <table>
+                <tr>
+                    <td colspan="3">
+                        <div class="weui-cell__bd">
+                            <label class="weui-label" style="width:173px;">返乡交通工具(可多选)</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="24%">
+                        <div class="weui-cells weui-cells_checkbox weui-cells_driving" style="">
+                            <label class="weui-cell weui-check__label">
+                                自驾
+                                <input type="checkbox" @drivingG[0] class="weui-check checkdriving" name="check_2020" onchange="" id="check_driving">
+                                <i class="weui-icon-checked"></i>
+                            </label>
+                        </div>
+                    </td>
+                    <td width="26%">
+                        <div class="weui-cells weui-cells_checkbox weui-cells_driving">
+                            <label class="weui-cell weui-check__label">
+                                长途客车
+                                <input type="checkbox" @drivingG[1] class="weui-check checkdriving" name="check_2020" onchange="" id="check_bus">
+                                <i class="weui-icon-checked"></i>
+                            </label>
+                        </div>
+                    </td>
+                    <td width="26%">
+                        <div class="weui-cells weui-cells_checkbox weui-cells_driving">
+                            <label class="weui-cell weui-check__label">
+                                动车/高铁
+                                <input type="checkbox" @drivingG[2] class="weui-check checkdriving" name="check_2020" onchange="" id="check_highSpeed">
+                                <i class="weui-icon-checked"></i>
+                            </label>
+                        </div>
+                    </td>
+                    <td width="24%">
+                        <div class="weui-cells weui-cells_checkbox weui-cells_driving">
+                            <label class="weui-cell weui-check__label">
+                                飞机
+                                <input type="checkbox" @drivingG[3] class="weui-check checkdriving" name="check_2020" onchange="" id="check_airplane">
+                                <i class="weui-icon-checked"></i>
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label" style="width: 125px;">车号/班次号<font style="color:red"> *</font>：</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" value="@bhs.BackCarNo" type="text" id="backCarNo" placeholder="请输入车号/班次号">
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label" style="width: 122px;">返乡目的地<font style="color:red"> *</font>：</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" value="@bhs.BackAdress" type="text" id="backAdress" placeholder="请输入地址">
+            </div>
+        </div>
         <!-- 回沪情况 -->
         <div class="weui-cell">
             <div class="weui-cell__hd">
@@ -155,7 +241,76 @@
                 <input class="weui-input" type="date" value="@endDate" id="back_2020" onchange="dateChanage(this,'请选择回沪日期')">
             </div>
         </div>
+        <div class="weui-cell">
+            <table>
+                <tr>
+                    <td colspan="3">
+                        <div class="weui-cell__bd">
+                            <label class="weui-label" style="width:173px;">回沪交通工具(可多选)</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="24%">
+                        <div class="weui-cells weui-cells_checkbox weui-cells_driving" style="">
+                            <label class="weui-cell weui-check__label">
+                                自驾
+                                <input type="checkbox" @drivingB[0] class="weui-check checkdriving" name="check_2020" onchange="" id="check_drivingB">
+                                <i class="weui-icon-checked"></i>
+                            </label>
+                        </div>
+                    </td>
+                    <td width="26%">
+                        <div class="weui-cells weui-cells_checkbox weui-cells_driving">
+                            <label class="weui-cell weui-check__label">
+                                长途客车
+                                <input type="checkbox" @drivingB[1] class="weui-check checkdriving" name="check_2020" onchange="" id="check_busB">
+                                <i class="weui-icon-checked"></i>
+                            </label>
+                        </div>
+                    </td>
+                    <td width="26%">
+                        <div class="weui-cells weui-cells_checkbox weui-cells_driving">
+                            <label class="weui-cell weui-check__label">
+                                动车/高铁
+                                <input type="checkbox" @drivingB[2] class="weui-check checkdriving" name="check_2020" onchange="" id="check_highSpeedB">
+                                <i class="weui-icon-checked"></i>
+                            </label>
+                        </div>
+                    </td>
+                    <td width="24%">
+                        <div class="weui-cells weui-cells_checkbox weui-cells_driving">
+                            <label class="weui-cell weui-check__label">
+                                飞机
+                                <input type="checkbox" @drivingB[3] class="weui-check checkdriving" name="check_2020" onchange="" id="check_airplaneB">
+                                <i class="weui-icon-checked"></i>
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            @*<div class="weui-cell__ft">
+
+            </div>*@
+            
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label" style="width: 125px;">车号/班次号<font style="color:red"> *</font>：</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" value="@bhs.GoCarNo" type="text" id="goCarNo" placeholder="请输入车号/班次号">
+            </div>
+        </div>
     </div>
+    <hr>
+    <div class="weui-cell" style="font-size:14px;margin-left: 5%;">
+        本人郑重承诺以上所填信息属实，一切后果由本人承担。
+        @*<div class="weui-cell__hd">
+            
+        </div>*@
+    </div>
+    <hr>
     <div class="weui-footer" style="margin-top: 5%;">
         <button type="button" id="sumbit" onclick="sumbit()" class="layui-btn layui-btn-lg layui-btn-normal" style="width:75%">提交</button>
     </div>
@@ -179,15 +334,40 @@
                 $("#" + id2).attr("disabled", "disabled");
                 $("#" + id1).parent().attr("style", "background-color:#dfdfdf");
                 $("#" + id2).parent().attr("style", "background-color:#dfdfdf");
+                $("#backAdress").attr('placeholder', placeholder);
+                $("#backAdress").val("");
+                $("#backAdress").attr("readonly", "readonly");
+                $("#backAdress").parent().attr("style", "background-color:#dfdfdf");
+                $("#backCarNo").attr('placeholder', placeholder);
+                $("#backCarNo").val("");
+                $("#backCarNo").attr("readonly", "readonly");
+                $("#backCarNo").parent().attr("style", "background-color:#dfdfdf");
+                $("#goCarNo").attr('placeholder', placeholder);
+                $("#goCarNo").val("");
+                $("#goCarNo").attr("readonly", "readonly");
+                $("#goCarNo").parent().attr("style", "background-color:#dfdfdf");
+                $(".checkdriving").attr("disabled", "disabled");
+                $('.checkdriving').attr("checked", false);
 
             } else {
                 /* $($(item).parent().parent()).attr("style","background-color:white"); */
-                //$("#" + id1).attr('placeholder', '请选择返乡日期');
-                //$("#" + id2).attr('placeholder', '请选择回沪日期');
+                $("#" + id1).attr('placeholder', '');
+                $("#" + id2).attr('placeholder', '');
                 $("#" + id1).removeAttr("disabled");
                 $("#" + id1).parent().attr("style", "background-color:white");
                 $("#" + id2).removeAttr("disabled");
                 $("#" + id2).parent().attr("style", "background-color:white");
+                $("#backAdress").attr('placeholder', '请输入地址');
+                $("#backAdress").removeAttr("readonly");
+                $("#backAdress").parent().attr("style", "background-color:white");
+                $("#backCarNo").attr('placeholder', '请输入车号/班次号');
+                $("#backCarNo").removeAttr("readonly");
+                $("#backCarNo").parent().attr("style", "background-color:white");
+                $("#goCarNo").attr('placeholder', '请输入车号/班次号');
+                $("#goCarNo").removeAttr("readonly");
+                $("#goCarNo").parent().attr("style", "background-color:white");
+                $(".checkdriving").removeAttr("disabled");
+                //$('.checkdriving').attr("checked", false)
             }
         }
         if ('@bhs.WhetherReturnHome' == "1") {
@@ -196,21 +376,25 @@
 
         function sumbit() {
             var year = '@DateTime.Now.Year.ToString()';
-            if ($("#cphm").val() == "") {
-                layer.msg('请输入车牌号码', { time: 1000 });
-                return;
-            }
-            if ($("#cphm").val().length > 6) {
-                layer.msg('车牌号码过长，请重新输入', { time: 1000 });
-                $("#cphm").val("");
-                return;
-            }
+            //if ($("#cphm").val() == "") {
+            //    layer.msg('请输入车牌号码', { time: 1000 });
+            //    return;
+            //}
+            //if ($("#cphm").val().length > 6) {
+            //    layer.msg('车牌号码过长，请重新输入', { time: 1000 });
+            //    $("#cphm").val("");
+            //    return;
+            //}
             if ($("#name").val() == "") {
                 layer.msg('请输入姓名', { time: 1000 });
                 return;
             }
             if ($("#check_2020").is(":checked") == false && ($("#to_2020").val() == "" || $("#back_2020").val() == "")) {
                 layer.msg('请选择' + year + '年返乡情况', { time: 1000 });
+                return;
+            }
+            if ($("#check_2020").is(":checked") == false && $("#backCarNo").val() == "") {
+                layer.msg('请输入车号/班次号', { time: 1000 });
                 return;
             }
 
@@ -229,12 +413,29 @@
             form.append("LicensePlate", $("#cphm").val());
             form.append("Name", $("#name").val());
             var returnHome = $("#check_2020").is(":checked") ? "1" : "0";
+            var checkdrivingG = "";//返乡
+            var checkdrivingB = "";//回沪
+            for (var i = 0; i < 8; i++) {
+                if (i < 4) {
+                    checkdrivingG += ($(".checkdriving").eq(i).is(":checked") ? "1" : "0") + ",";
+                } else {
+                    checkdrivingB += ($(".checkdriving").eq(i).is(":checked") ? "1" : "0") + ",";
+                }
+            }
+            checkdrivingG = checkdrivingG.substring(0, checkdrivingG.length - 1);
+            checkdrivingB = checkdrivingB.substring(0, checkdrivingB.length - 1);
             form.append("WhetherReturnHome", returnHome);
             form.append("StartDate", $("#to_2020").val());
             form.append("EndDate", $("#back_2020").val());
             form.append("Vguid", $("#Vguid").val());
             form.append("Year", $("#Year").val());
             form.append("CreatedUser", $("#CreatedUser").val());
+            //新增字段
+            form.append("CheckDrivingG", checkdrivingG);
+            form.append("CheckDrivingB", checkdrivingB);
+            form.append("BackCarNo", $("#backCarNo").val());
+            form.append("BackAdress", $("#backAdress").val());
+            form.append("GoCarNo", $("#goCarNo").val());
             $.ajax({
                 url: '/RideCheckFeedback/HomecomingSurvey/SaveHomecomingSurvey',
                 dataType: 'json',

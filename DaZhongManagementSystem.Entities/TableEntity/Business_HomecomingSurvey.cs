@@ -18,5 +18,11 @@ namespace DaZhongManagementSystem.Entities.TableEntity
         public string CreatedUser { get; set; }
         public DateTime? ChangeDate { get; set; }
         public string ChangeUser { get; set; }
+
+        public string CheckDrivingG { get; set; }
+        public string CheckDrivingB { get; set; }
+        public string BackCarNo { get; set; }
+        public string BackAdress { get; set; }
+        public string GoCarNo { get; set; }
     }
 }

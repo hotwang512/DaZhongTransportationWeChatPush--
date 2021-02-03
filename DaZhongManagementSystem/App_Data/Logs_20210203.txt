@@ -1,0 +1,4 @@
+
+-------------------------------header----------------------
+2021-02-03 09:23:01,086 [5] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 错误信息：实体映射出错。
+错误详情：Conversion failed when converting from a character string to uniqueidentifier.
