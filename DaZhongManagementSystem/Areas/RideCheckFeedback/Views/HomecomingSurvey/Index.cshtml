@@ -123,6 +123,9 @@
         <input id="Vguid" type="hidden" value="@bhs.Vguid" />
         <input id="CreatedUser" type="hidden" value="@bhs.CreatedUser" />
         <input id="Year" type="hidden" value="@bhs.Year" />
+
+        <input id="OrganizationName" type="hidden" value="@bhs.OrganizationName" />
+        <input id="Fleet" type="hidden" value="@bhs.Fleet" />
         <!-- 车牌号码 -->
         <div class="weui-cell" style="display:none">
             <div class="weui-cell__hd">
@@ -236,7 +239,7 @@
         <!-- 回沪情况 -->
         <div class="weui-cell">
             <div class="weui-cell__hd">
-                <label class="weui-label">回沪日期<font style="color:red"> *</font>：</label>
+                <label class="weui-label" style="width:92px">回沪日期<font style="color:red;display:none"> *</font>：</label>
             </div>
             <div class="weui-cell__bd">
                 <input class="weui-input" type="date" value="@endDate" id="back_2020" onchange="dateChanage(this,'请选择回沪日期')">
@@ -390,8 +393,8 @@
                 layer.msg('请输入姓名', { time: 1000 });
                 return;
             }
-            if ($("#check_2020").is(":checked") == false && ($("#to_2020").val() == "" || $("#back_2020").val() == "")) {
-                layer.msg('请选择' + year + '年返乡情况', { time: 1000 });
+            if ($("#check_2020").is(":checked") == false && $("#to_2020").val() == "") {
+                layer.msg('请选择' + year + '年返乡日期', { time: 1000 });
                 return;
             }
             
@@ -449,15 +452,39 @@
             var returnHome = $("#check_2020").is(":checked") ? "1" : "0";
             var checkdrivingG = "";//返乡
             var checkdrivingB = "";//回沪
+            var checkdrivingGR = "";
+            var checkdrivingBR = "";
             for (var i = 0; i < 8; i++) {
                 if (i < 4) {
-                    checkdrivingG += ($(".checkdriving").eq(i).is(":checked") ? "1" : "0") + ",";
+                    var isckeck = $(".checkdriving").eq(i).is(":checked") ? "1" : "0";
+                    checkdrivingG += isckeck + ",";
+                    if (isckeck == "1") {
+                        switch (i) {
+                            case 0: checkdrivingGR += "自驾,"; break;
+                            case 1: checkdrivingGR += "长途客车,"; break;
+                            case 2: checkdrivingGR += "动车/高铁,"; break;
+                            case 3: checkdrivingGR += "飞机,"; break;
+                            default: break;
+                        }
+                    }
                 } else {
-                    checkdrivingB += ($(".checkdriving").eq(i).is(":checked") ? "1" : "0") + ",";
+                    var isckeck = $(".checkdriving").eq(i).is(":checked") ? "1" : "0";
+                    checkdrivingB += isckeck + ",";
+                    if (isckeck == "1") {
+                        switch (i) {
+                            case 4: checkdrivingBR += "自驾,"; break;
+                            case 5: checkdrivingBR += "长途客车,"; break;
+                            case 6: checkdrivingBR += "动车/高铁,"; break;
+                            case 7: checkdrivingBR += "飞机,"; break;
+                            default: break;
+                        }
+                    }
                 }
             }
             checkdrivingG = checkdrivingG.substring(0, checkdrivingG.length - 1);
             checkdrivingB = checkdrivingB.substring(0, checkdrivingB.length - 1);
+            checkdrivingGR = checkdrivingGR.substring(0, checkdrivingGR.length - 1);
+            checkdrivingBR = checkdrivingBR.substring(0, checkdrivingBR.length - 1);
             form.append("WhetherReturnHome", returnHome);
             form.append("StartDate", $("#to_2020").val());
             form.append("EndDate", $("#back_2020").val());
@@ -470,6 +497,11 @@
             form.append("BackCarNo", $("#backCarNo").val());
             form.append("BackAdress", $("#backAdress").val());
             form.append("GoCarNo", $("#goCarNo").val());
+
+            form.append("OrganizationName", $("#OrganizationName").val());
+            form.append("Fleet", $("#Fleet").val());
+            form.append("CheckDrivingGR", checkdrivingGR);
+            form.append("CheckDrivingBR", checkdrivingBR);
             $.ajax({
                 url: '/RideCheckFeedback/HomecomingSurvey/SaveHomecomingSurvey',
                 dataType: 'json',

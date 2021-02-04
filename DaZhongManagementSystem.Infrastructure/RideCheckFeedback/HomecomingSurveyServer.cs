@@ -59,7 +59,11 @@ namespace DaZhongManagementSystem.Infrastructure.RideCheckFeedback
                         CheckDrivingB = hs.CheckDrivingB,
                         BackCarNo = hs.BackCarNo,
                         BackAdress = hs.BackAdress,
-                        GoCarNo = hs.GoCarNo
+                        GoCarNo = hs.GoCarNo,
+                        OrganizationName = hs.OrganizationName,
+                        Fleet = hs.Fleet,
+                        CheckDrivingGR = hs.CheckDrivingGR,
+                        CheckDrivingBR = hs.CheckDrivingBR
                     },
                     c => c.Vguid == hs.Vguid);
             }
@@ -95,7 +99,10 @@ namespace DaZhongManagementSystem.Infrastructure.RideCheckFeedback
             {
                 dept = CurrentUser.GetCurrentUser().Department;
             }
-            string sql = string.Format(@"usp_HomecomingSurvey_Total '{0}','{1}'", year, dept);
+            //查统计数据
+            //string sql = string.Format(@"usp_HomecomingSurvey_Total '{0}','{1}'", year, dept);
+            //查明细数据
+            string sql = string.Format(@"usp_HomecomingSurvey_ExportTotal '{0}','{1}'", year, dept);
             using (SqlSugarClient dbMsSql = SugarDao_MsSql.GetInstance())
             {
                 try

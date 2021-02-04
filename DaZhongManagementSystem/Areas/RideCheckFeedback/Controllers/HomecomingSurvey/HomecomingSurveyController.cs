@@ -7,6 +7,10 @@ using DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.HomecomingSurv
 using DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.RideCheckFeedback.BusinessLogic;
 using DaZhongManagementSystem.Entities.TableEntity;
 using DaZhongManagementSystem.Entities.UserDefinedEntity;
+using DaZhongManagementSystem.Areas.PartnerInquiryManagement.Models;
+using SqlSugar;
+using DaZhongManagementSystem.Infrastructure.SugarDao;
+using DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.OrganizationManagement.OrganizationManageLogic;
 
 namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.HomecomingSurvey
 {
@@ -14,10 +18,12 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.Homecoming
     {
         private HomecomingSurveyLogic _hsl;
         private RideCheckFeedbackLogic _logic;
+        public OrganizationManagementLogic _ol;
         public HomecomingSurveyController()
         {
             _hsl = new HomecomingSurveyLogic();
             _logic = new RideCheckFeedbackLogic();
+            _ol = new OrganizationManagementLogic();
         }
 
         public ActionResult Index(string code)
@@ -26,8 +32,11 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.Homecoming
             string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
             string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
             userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
-            //userInfo.UserId = "13524338060";
+            //userInfo.UserId = "18936495119";
             Business_Personnel_Information personInfoModel = _logic.GetUserInfo(userInfo.UserId);
+            Personnel_Info Personnel = getPersonnelInfo(personInfoModel);
+            Master_Organization organizationDetail = new Master_Organization();
+            organizationDetail = _ol.GetOrganizationDetail(personInfoModel.OwnedFleet.ToString());
             Business_HomecomingSurvey bhs = _hsl.GetHomecomingSurvey(userInfo.UserId, DateTime.Now.Year.ToString());
             if (bhs == null)
             {
@@ -36,9 +45,25 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.Homecoming
                 bhs.Year = DateTime.Now.Year.ToString();
                 bhs.CreatedUser = userInfo.UserId;
             }
+            bhs.OrganizationName = organizationDetail.OrganizationName;
+            if(Personnel != null)
+            {
+                bhs.Fleet = Personnel.MotorcadeName;
+                bhs.LicensePlate = Personnel.CabLicense;
+            }
             return View(bhs);
         }
-
+        public Personnel_Info getPersonnelInfo(Business_Personnel_Information personInfoModel)
+        {
+            Personnel_Info pi = new Personnel_Info();
+            using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance2())
+            {
+                pi = _dbMsSql.SqlQuery<Personnel_Info>(@"select Name,IdCard,CabLicense,CabVMLicense,MotorcadeName,Organization from [DZ_DW].[dbo].[Visionet_DriverInfo_View] where IdCard=@IDNumber
+                                        and status='1'"
+                                        , new { IDNumber = personInfoModel.IDNumber }).ToList().FirstOrDefault();
+            }
+            return pi;
+        }
         public ActionResult SaveHomecomingSurvey(Business_HomecomingSurvey bhs)
         {
             string result = "0";
