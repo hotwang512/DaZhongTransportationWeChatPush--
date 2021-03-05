@@ -85,6 +85,10 @@ var $page = function () {
                         jqxNotification("权益类型已存在，请重新输入！", null, "error");
                         return;
                     }
+                    if (msg.respnseInfo == "3") {
+                        jqxNotification("权益类型已发布，无法修改！", null, "error");
+                        return;
+                    }
                     if (msg.respnseInfo == "0") {
                         jqxNotification("保存失败！", null, "error");
                         return;

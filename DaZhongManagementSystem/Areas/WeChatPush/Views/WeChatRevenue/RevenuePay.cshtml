@@ -28,6 +28,8 @@
     <input type="hidden" id="txtIsExist" value="@ViewData["isExist"]" />
     <input type="hidden" id="txtVguid" value="@ViewData["vguid"]" />
     <input type="hidden" id="txtpushContentVguid" value="@ViewData["pushContentVguid"]" />
+    <input type="hidden" id="txtDriverId" value="@ViewData["driverId"]" />
+    <input type="hidden" id="txtOrganizationId" value="@ViewData["organizationId"]" />
     @{
         if (pushContentModel != null)
         {
@@ -92,13 +94,17 @@
                     @if (ViewData["isExist"] == "0" && !isValid)
                     {
                         <div class="f_nav">
-                            <button class="btn_wc">
+                            @*<button class="btn_wc">
                                 <img src="@Url.Content("~/Areas/WeChatPush/Views/_img/微信支付.png")" alt="" />
                                 <div>微信支付</div>
                             </button>
                             <button class="btn_qt">
                                 <img src="@Url.Content("~/Areas/WeChatPush/Views/_img/支付.png")" alt="" />
                                 <div>其他支付</div>
+                            </button>*@
+                            <button class="btn_qt">
+                                <img src="@Url.Content("~/Areas/WeChatPush/Views/_img/支付.png")" alt="" />
+                                <div>支付</div>
                             </button>
                         </div>
                     }

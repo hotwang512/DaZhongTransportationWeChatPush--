@@ -9,13 +9,14 @@ using DaZhongManagementSystem.Entities.UserDefinedEntity;
 using DaZhongManagementSystem.Infrastructure.DailyLogManagement;
 using DaZhongManagementSystem.Infrastructure.SugarDao;
 using SqlSugar;
+using SyntacticSugar;
+using System.Net;
 
 namespace DaZhongManagementSystem.Infrastructure.WeChatRevenue
 {
     public class WeChatRevenueServer
     {
         private LogLogic _logLogic;
-
         public WeChatRevenueServer()
         {
             _logLogic = new LogLogic();
@@ -471,7 +472,7 @@ namespace DaZhongManagementSystem.Infrastructure.WeChatRevenue
         /// </summary>
         /// <param name="pushContentVguid"></param>
         /// <returns></returns>
-        public bool IsValid(Guid pushContentVguid)
+        public bool IsValid(Guid pushContentVguid, string billNo)
         {
             using (var db = SugarDao_MsSql.GetInstance())
             {
@@ -480,14 +481,52 @@ namespace DaZhongManagementSystem.Infrastructure.WeChatRevenue
                 {
                     if (dt.PeriodOfValidity != null && DateTime.Now > dt.PeriodOfValidity)
                     {
-                        return true; //已过有效期
+                        //已过有效期,发送验证消息
+                        sendQRCodeMessage(billNo);
+                        return true; 
                     }
                 }
                 return false;
             }
         }
 
-
+        public static void sendQRCodeMessage(string billNo)
+        {
+            var resultData = "";
+            var url = ConfigSugar.GetAppString("ClosePayQRCode");
+            //Developer,Product 开发,正式
+            var data = "{" +
+                            "\"billNo\":\"{billNo}\",".Replace("{billNo}", billNo) +
+                            "\"RunEnvironment\":\"{RunEnvironment}\"".Replace("{RunEnvironment}", "Developer") +
+                            "}";
+            try
+            {
+                WebClient wc = new WebClient();
+                wc.Headers.Clear();
+                wc.Headers.Add("Content-Type", "application/json;charset=utf-8");
+                wc.Encoding = System.Text.Encoding.UTF8;
+                resultData = wc.UploadString(new Uri(url), data);
+                //var modelData = resultData.JsonToModel<QRCodeRevenueInfo>();
+                //if (modelData.Code == "0")
+                //{
+                //    //接口调用成功,跳转进入支付界面
+                //    models.isSuccess = true;
+                //    models.respnseInfo = modelData.QRCodeRevenue.BillQRCodeURL;
+                //}
+                //else
+                //{
+                //    //接口调用失败,支付二维码失效
+                //    sendQRCodeMessage(modelData.QRCodeRevenue.BillNo);
+                //    models.isSuccess = false;
+                //    models.respnseInfo = modelData.message;
+                //}
+                LogHelper.WriteLog(string.Format("Data:{0},result:{1}", data, resultData));
+            }
+            catch (Exception ex)
+            {
+                LogHelper.WriteLog(string.Format("Data:{0},result:{1},error:{2}", data, resultData, ex.ToString()));
+            }
+        }
         /// <summary>
         /// 将支付历史表中营收状态为未匹配的重新插入到营收表(ThirdPartyPublicPlatformPayment)中
         /// </summary>

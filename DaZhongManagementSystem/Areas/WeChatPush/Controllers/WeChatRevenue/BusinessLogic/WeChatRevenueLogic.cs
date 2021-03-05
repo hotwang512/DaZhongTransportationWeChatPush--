@@ -246,9 +246,9 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue.Bus
         /// </summary>
         /// <param name="pushContentVguid"></param>
         /// <returns></returns>
-        public bool IsValid(Guid pushContentVguid)
+        public bool IsValid(Guid pushContentVguid,string billNo)
         {
-            return _weChatRevenueServer.IsValid(pushContentVguid);
+            return _weChatRevenueServer.IsValid(pushContentVguid, billNo);
         }
 
         /// <summary>

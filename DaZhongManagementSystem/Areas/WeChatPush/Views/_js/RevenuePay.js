@@ -64,10 +64,41 @@ $(".btn_wc").on("click", function () {
     });
 });
 
+//进页面调接口获取支付连接地址
+var urlPay = "";
+var billNo = "";
+startWxPay2();
 //点击其他支付
 $(".btn_qt").on("click", function () {
-    alert("功能暂未开通");
+    //alert("功能暂未开通");
     //  window.location.href = "/WeChatPush/WeChatRevenue/AliPay";
+    $(".btn_qt").attr({ "disabled": "disabled" });
+    $.ajax({
+        url: "/WeChatPush/WeChatRevenue/IsValid",
+        data: { pushContentVguid: $("#txtpushContentVguid").val(), billNo: billNo },
+        type: "post",
+        dataType: "json",
+        success: function (msg) {
+            switch (msg.respnseInfo) {
+                case "1":
+                    alert("消息已过有效期");
+                    break;
+                case "0":
+                    if ($("#txtPayException").val() == "1") {
+                        alert("车牌号为空，支付失败！");
+                    } else {
+                        //var revenue = parseFloat($(".n7_num").text());
+                        //var total_fee = parseFloat($(".n8_num").text());
+                        //startWxPay(revenue, total_fee);
+                        //跳转进入支付界面
+                        saveAndNavigation();
+                        
+                    }
+
+                    break;
+            }
+        }
+    });
 });
 
 function startWxPay(revenue, total_fee) {
@@ -84,6 +115,44 @@ function startWxPay(revenue, total_fee) {
                 callpay(res);
             } else {
                 alert("写入支付信息失败，请重试!")
+            }
+        }
+    });
+}
+function startWxPay2() {
+    $.ajax({
+        type: "POST",
+        url: "/WeChatPush/WeChatRevenue/GetPaySignWX",
+        data: { driverId: $("#txtDriverId").val(), organizationId: $("#txtOrganizationId").val() },
+        async:false,
+        beforeSend: function () {
+            //$(".btn_wc").attr({ "disabled": "disabled" });
+        },
+        success: function (res) {
+            if (res.isSuccess == true) {
+                //$(".btn_wc").removeAttr("disabled");
+                //callpay(res);
+                var data = res.respnseInfo.split(",");
+                urlPay = data[0];
+                billNo = data[1];
+            } else {
+                //alert("扫码处理失败，请重试！")
+                alert(res.respnseInfo);
+            }
+        }
+    });
+}
+function saveAndNavigation() {
+    $.ajax({
+        type: "POST",
+        url: "/WeChatPush/WeChatRevenue/SavePaymentHistory",
+        data: { driverId: $("#txtDriverId").val(), revenueFee: parseFloat($(".n7_num").text()),personVguid: $("#txtVguid").val(), pushContentVguid: $("#txtpushContentVguid").val(), revenueType: 2 },
+        async: false,
+        success: function (res) {
+            if (res.success == true) {
+                window.location.href = urlPay;
+            } else {
+                //alert("扫码处理失败，请重试！")
             }
         }
     });

@@ -6,7 +6,9 @@ using DaZhongManagementSystem.Common.LogHelper;
 using DaZhongManagementSystem.Common.WeChatPush;
 using DaZhongManagementSystem.Entities.TableEntity;
 using DaZhongManagementSystem.Entities.UserDefinedEntity;
+using DaZhongManagementSystem.Infrastructure.SugarDao;
 using DaZhongManagementSystem.Models.APIModel;
+using SqlSugar;
 using SyntacticSugar;
 using System;
 using System.Collections.Generic;
@@ -784,6 +786,49 @@ namespace DaZhongManagementSystem.Controllers
             return result;
         }
 
+        /// <summary>
+        /// 二维码缴费结束线上结果返回
+        /// </summary>
+        public JsonResult QRCodePayResult(string billNo, string PayStatus, string PayTarget, string TotalAmount, string PayMessage)
+        {
+            ExecutionResult result = new ExecutionResult();
+            try
+            {
+                //获取支付状态,更新支付历史表
+                using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance())
+                {
+                    var data = _dbMsSql.Queryable<Business_PaymentHistory_Information>().Where(x => x.Remarks == billNo).FirstOrDefault();
+                    if(data != null)
+                    {
+                        var status = "";
+                        switch (PayStatus)
+                        {
+                            case "PAID": status = "1"; break;//已支付
+                            case "UNPAID": status = "2"; break;//未支付
+                            case "REFUND": status = "3"; break;//已退款
+                            case "CLOSED": status = "4"; break;//已关闭
+                            case "UNKNOWN": status = "5"; break;//未知
+                            default: break;
+                        }
+                        data.PaymentStatus = status;
+                        data.PaymentType = PayTarget;
+                        data.RevenueReceivable = TotalAmount.TryToDecimal();
+                        data.ChangeDate = DateTime.Now;
+                        _dbMsSql.Update<Business_PaymentHistory_Information>(data, i => i.Remarks == billNo);
+                        result.Success = true;
+                    }
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.Message = ex.Message;
+                LogHelper.WriteLog(ex.Message);
+            }
+            return Json(result);
+        }
+        
 
 
         //public JsonResult WeChatRegistered(string SECURITYKEY, string pushparam)

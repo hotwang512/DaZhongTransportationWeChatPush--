@@ -86,27 +86,36 @@ namespace DaZhongManagementSystem.Areas.SecondaryCleaningManagement.Controllers.
                     }
                     if (isEdit)
                     {
-                        equity.ChangeDate = DateTime.Now;
-                        equity.ChangeUser = CurrentUser.GetCurrentUser().LoginName;
-                        var data = new
+                        var status = _db.Queryable<Business_EquityAllocation>().Where(x => x.VGUID == equity.VGUID).FirstOrDefault().Status;
+                        if (status == "已发布")
                         {
-                            RightsName = equity.RightsName,
-                            Description = equity.Description,
-                            Type = equity.Type,
-                            ValidType = equity.ValidType,
-                            StartValidity = equity.StartValidity,
-                            EndValidity = equity.EndValidity,
-                            PushObject = equity.PushObject,
-                            PushPeople = pushPeople,
-                            //Status = equity.Status,
-                            Period = equity.Period
-                        };
-                        model.isSuccess = _db.Update<Business_EquityAllocation>(data, i => i.VGUID == equity.VGUID);
-                        //同时更新权益展示表,先删除再新增
-                        var eVguid = equity.VGUID.ToString();
-                        _db.Delete<Business_MyRights>(i => i.EquityVGUID == eVguid);
-                        InsertMyRights(_db, equity, equity.PushObject);
-                        //UpdateMyRights(_db, equity);
+                            model.isSuccess = false;
+                            model.respnseInfo = "3";
+                        }
+                        else
+                        {
+                            equity.ChangeDate = DateTime.Now;
+                            equity.ChangeUser = CurrentUser.GetCurrentUser().LoginName;
+                            var data = new
+                            {
+                                RightsName = equity.RightsName,
+                                Description = equity.Description,
+                                Type = equity.Type,
+                                ValidType = equity.ValidType,
+                                StartValidity = equity.StartValidity,
+                                EndValidity = equity.EndValidity,
+                                PushObject = equity.PushObject,
+                                PushPeople = pushPeople,
+                                //Status = equity.Status,
+                                Period = equity.Period
+                            };
+                            model.isSuccess = _db.Update<Business_EquityAllocation>(data, i => i.VGUID == equity.VGUID);
+                            //同时更新权益展示表,先删除再新增
+                            var eVguid = equity.VGUID.ToString();
+                            _db.Delete<Business_MyRights>(i => i.EquityVGUID == eVguid);
+                            InsertMyRights(_db, equity, equity.PushObject);
+                            //UpdateMyRights(_db, equity);
+                        }
                     }
                     else
                     {

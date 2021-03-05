@@ -300,6 +300,8 @@
     <Compile Include="Areas\WeChatPush\Controllers\WeChatHistoryController.cs" />
     <Compile Include="Areas\WeChatPush\Controllers\WeChatRevenue\BusinessLogic\WeChatRevenueLogic.cs" />
     <Compile Include="Areas\WeChatPush\Controllers\WeChatRevenue\WeChatRevenueController.cs" />
+    <Compile Include="Areas\WeChatPush\Models\DriverInfo.cs" />
+    <Compile Include="Areas\WeChatPush\Models\QRCodeRevenueInfo.cs" />
     <Compile Include="Areas\WeChatPush\WeChatPushAreaRegistration.cs" />
     <Compile Include="Areas\WeChatPush\Controllers\WeChatValidationController.cs" />
     <Compile Include="Areas\WeChatPush\WeChatValidationBusiness\WeChatValidationLogic.cs" />
@@ -2505,7 +2507,6 @@
     <Folder Include="Areas\WeChatPay\Models\" />
     <Folder Include="Areas\WeChatPay\Views\Shared\" />
     <Folder Include="Areas\WeChatPay\Views\_css\" />
-    <Folder Include="Areas\WeChatPush\Models\" />
     <Folder Include="Areas\WeChatPush\Views\Shared\" />
     <Folder Include="LogFile\" />
     <Folder Include="Service\" />

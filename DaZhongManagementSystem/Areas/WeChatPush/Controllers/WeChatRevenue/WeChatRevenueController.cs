@@ -9,6 +9,14 @@ using DaZhongManagementSystem.Entities.TableEntity;
 using DaZhongManagementSystem.Entities.UserDefinedEntity;
 using JQWidgetsSugar;
 using DaZhongManagementSystem.Common.LogHelper;
+using SqlSugar;
+using DaZhongManagementSystem.Infrastructure.SugarDao;
+using DaZhongManagementSystem.Areas.WeChatPush.Models;
+using System.Linq;
+using System.Net;
+using SyntacticSugar;
+using DaZhongManagementSystem.Infrastructure.WeChatRevenue;
+using DaZhongTransitionLiquidation.Common.Pub;
 
 namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
 {
@@ -21,7 +29,6 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
         private WeChatRevenueLogic _weChatRevenueLogic;
         private WeChatExerciseLogic _wl;
         private ConfigManagementLogic _configManagementLogic;
-
         public WeChatRevenueController()
         {
 
@@ -42,8 +49,13 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
             string accessToken = WeChatTools.GetAccessoken();
             string userInfoStr = WeChatTools.GetUserInfoByCode(accessToken, code);
             var userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr); //用户ID
+            //userInfo.UserId = "18936495119";
             var personInfoModel = _wl.GetUserInfo(userInfo.UserId); //获取人员表信息 
             ViewData["vguid"] = personInfoModel.Vguid;
+            
+            var driverInfo = getDriverInfo(personInfoModel);
+            ViewData["driverId"] = driverInfo.DriverId;
+            ViewData["organizationId"] = driverInfo.OrganizationId;
             //Business_Personnel_Information personInfoModel = new Business_Personnel_Information();
             //personInfoModel.Vguid = Guid.Parse("B0167926-C8AF-4AAE-9B18-573EEEDFE740");
             //ViewData["vguid"] = personInfoModel.Vguid;
@@ -144,7 +156,17 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
             return View();
         }
 
-
+        public DriverInfo getDriverInfo(Business_Personnel_Information personInfoModel)
+        {
+            DriverInfo pi = new DriverInfo();
+            using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance2())
+            {
+                pi = _dbMsSql.SqlQuery<DriverInfo>(@"select DriverId,OrganizationId from [DZ_DW].[dbo].[Visionet_DriverInfo_View] where IdCard=@IDNumber
+                                        and status='1'"
+                                        , new { IDNumber = personInfoModel.IDNumber }).ToList().FirstOrDefault();
+            }
+            return pi;
+        }
         private decimal FormatData(decimal amount)
         {
             bool negativeNumber = false;
@@ -259,10 +281,10 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
         /// </summary>
         /// <param name="pushContentVguid"></param>
         /// <returns></returns>
-        public JsonResult IsValid(Guid pushContentVguid)
+        public JsonResult IsValid(Guid pushContentVguid,string billNo)
         {
             var models = new ActionResultModel<string>();
-            models.isSuccess = _weChatRevenueLogic.IsValid(pushContentVguid);
+            models.isSuccess = _weChatRevenueLogic.IsValid(pushContentVguid, billNo);
             models.respnseInfo = models.isSuccess ? "1" : "0";
             return Json(models);
         }
@@ -336,6 +358,70 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
             return Json(new { success = addsuccess, data = wxPaySign.GetValues() }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetPaySignWX(string driverId, string organizationId)
+        {
+            var models = new ActionResultModel<string>();
+            var modelData = new QRCodeRevenueInfo();
+            var url = ConfigSugar.GetAppString("QRCodeRevenue");
+            //Developer,Product 开发,正式
+            var data = "{" +
+                            "\"OperatorDeviceName\":\"{OperatorDeviceName}\",".Replace("{OperatorDeviceName}", "WXQYH") +
+                            "\"OrganizationId\":\"{OrganizationId}\",".Replace("{OrganizationId}", organizationId) +
+                            "\"DriverID\":\"{DriverID}\",".Replace("{DriverID}", driverId) +
+                            "\"RunEnvironment\":\"{RunEnvironment}\"".Replace("{RunEnvironment}", "Developer") +
+                            "}";
+            try
+            {
+                WebClient wc = new WebClient();
+                wc.Headers.Clear();
+                wc.Headers.Add("Content-Type", "application/json;charset=utf-8");
+                wc.Encoding = System.Text.Encoding.UTF8;
+                var resultData = wc.UploadString(new Uri(url), data);
+                modelData = resultData.JsonToModel<QRCodeRevenueInfo>();
+                if (modelData.Code == "0")
+                {
+                    //接口调用成功,获取支付界面url
+                    models.isSuccess = true;
+                    models.respnseInfo = modelData.QRCodeRevenue.BillQRCodeURL +","+ modelData.QRCodeRevenue.BillNo;
+                    var key = PubGet.GetUserKey + driverId;
+                    CacheManager<QRCodeRevenue>.GetInstance().Add(key, modelData.QRCodeRevenue, 8 * 60 * 60 * 1000);
+                }
+                else
+                {
+                    //接口调用失败,支付二维码失效
+                    WeChatRevenueServer.sendQRCodeMessage(modelData.QRCodeRevenue.BillNo);
+                    models.isSuccess = false;
+                    models.respnseInfo = modelData.message;
+                }
+                LogHelper.WriteLog(string.Format("Data:{0},result:{1}", data,  resultData));
+            }
+            catch (Exception ex)
+            {
+                LogHelper.WriteLog(string.Format("Data:{0},result:{1},error:{2}", data, modelData.message, ex.ToString()));
+            }
+            return Json(models, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult SavePaymentHistory(string driverId,string revenueFee, Guid personVguid, Guid pushContentVguid, int revenueType)
+        {
+            var cm = CacheManager<QRCodeRevenue>.GetInstance()[PubGet.GetUserKey + driverId];
+            var paymentHistoryInfo = new Business_PaymentHistory_Information();
+            paymentHistoryInfo.RevenueReceivable = decimal.Parse(revenueFee); ;
+            paymentHistoryInfo.PaymentPersonnel = personVguid;
+            paymentHistoryInfo.PaymentAmount = decimal.Parse(cm.PayDebtAmount);
+            paymentHistoryInfo.VGUID = Guid.NewGuid();
+            paymentHistoryInfo.RevenueType = revenueType;
+            paymentHistoryInfo.WeChatPush_VGUID = pushContentVguid;
+            paymentHistoryInfo.Remarks = cm.BillNo;  //商户订单号
+            paymentHistoryInfo.CreateDate = DateTime.Now;
+            paymentHistoryInfo.CreateUser = "sysadmin_Revenue";
+            paymentHistoryInfo.PayDate = cm.BillDate.TryToDate();
+            paymentHistoryInfo.PaymentStatus = "2";//待支付或未支付
+            bool addsuccess = _weChatRevenueLogic.AddPaymentHistory(paymentHistoryInfo);
+
+            return Json(new { success = addsuccess }, JsonRequestBehavior.AllowGet);
+        }
 
         public JsonResult gettest()
         {
