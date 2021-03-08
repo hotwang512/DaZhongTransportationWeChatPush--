@@ -816,6 +816,12 @@ namespace DaZhongManagementSystem.Controllers
                         data.ChangeDate = DateTime.Now;
                         _dbMsSql.Update<Business_PaymentHistory_Information>(data, i => i.Remarks == billNo);
                         result.Success = true;
+                        result.Message = "支付状态更新成功";
+                    }
+                    else
+                    {
+                        result.Success = true;
+                        result.Message = "该单号未找到支付数据";
                     }
                 }
                 

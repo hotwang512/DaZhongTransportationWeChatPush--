@@ -497,7 +497,7 @@ namespace DaZhongManagementSystem.Infrastructure.WeChatRevenue
             //Developer,Product 开发,正式
             var data = "{" +
                             "\"billNo\":\"{billNo}\",".Replace("{billNo}", billNo) +
-                            "\"RunEnvironment\":\"{RunEnvironment}\"".Replace("{RunEnvironment}", "Developer") +
+                            "\"RunEnvironment\":\"{RunEnvironment}\"".Replace("{RunEnvironment}", "Product") +
                             "}";
             try
             {

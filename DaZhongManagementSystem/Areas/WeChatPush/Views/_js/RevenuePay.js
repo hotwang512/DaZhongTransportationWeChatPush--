@@ -72,7 +72,9 @@ startWxPay2();
 $(".btn_qt").on("click", function () {
     //alert("功能暂未开通");
     //  window.location.href = "/WeChatPush/WeChatRevenue/AliPay";
-    $(".btn_qt").attr({ "disabled": "disabled" });
+
+    //$(".btn_qt").attr({ "disabled": "disabled" });
+    $("#txtpushContentVguid").val("83F2B171-7C89-477A-B438-0000C249BDFF");
     $.ajax({
         url: "/WeChatPush/WeChatRevenue/IsValid",
         data: { pushContentVguid: $("#txtpushContentVguid").val(), billNo: billNo },

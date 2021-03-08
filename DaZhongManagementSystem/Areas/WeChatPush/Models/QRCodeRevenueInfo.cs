@@ -9,7 +9,7 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Models
     {
         public string Code { get; set; }
         public string message { get; set; }
-        public QRCodeRevenue QRCodeRevenue { get; set; }
+        public QRCodeRevenue data { get; set; }
     }
 
     public class QRCodeRevenue

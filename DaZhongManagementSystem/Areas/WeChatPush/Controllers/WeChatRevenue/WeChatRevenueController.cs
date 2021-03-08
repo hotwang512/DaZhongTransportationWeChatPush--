@@ -54,8 +54,11 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
             ViewData["vguid"] = personInfoModel.Vguid;
             
             var driverInfo = getDriverInfo(personInfoModel);
+            //ViewData["driverId"] = "21033";
+            //ViewData["organizationId"] = "55";
             ViewData["driverId"] = driverInfo.DriverId;
             ViewData["organizationId"] = driverInfo.OrganizationId;
+
             //Business_Personnel_Information personInfoModel = new Business_Personnel_Information();
             //personInfoModel.Vguid = Guid.Parse("B0167926-C8AF-4AAE-9B18-573EEEDFE740");
             //ViewData["vguid"] = personInfoModel.Vguid;
@@ -368,7 +371,7 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
                             "\"OperatorDeviceName\":\"{OperatorDeviceName}\",".Replace("{OperatorDeviceName}", "WXQYH") +
                             "\"OrganizationId\":\"{OrganizationId}\",".Replace("{OrganizationId}", organizationId) +
                             "\"DriverID\":\"{DriverID}\",".Replace("{DriverID}", driverId) +
-                            "\"RunEnvironment\":\"{RunEnvironment}\"".Replace("{RunEnvironment}", "Developer") +
+                            "\"RunEnvironment\":\"{RunEnvironment}\"".Replace("{RunEnvironment}", "Product") +
                             "}";
             try
             {
@@ -382,14 +385,14 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
                 {
                     //接口调用成功,获取支付界面url
                     models.isSuccess = true;
-                    models.respnseInfo = modelData.QRCodeRevenue.BillQRCodeURL +","+ modelData.QRCodeRevenue.BillNo;
+                    models.respnseInfo = modelData.data.BillQRCodeURL +","+ modelData.data.BillNo;
                     var key = PubGet.GetUserKey + driverId;
-                    CacheManager<QRCodeRevenue>.GetInstance().Add(key, modelData.QRCodeRevenue, 8 * 60 * 60 * 1000);
+                    CacheManager<QRCodeRevenue>.GetInstance().Add(key, modelData.data, 8 * 60 * 60 * 1000);
                 }
                 else
                 {
                     //接口调用失败,支付二维码失效
-                    WeChatRevenueServer.sendQRCodeMessage(modelData.QRCodeRevenue.BillNo);
+                    WeChatRevenueServer.sendQRCodeMessage(modelData.data.BillNo);
                     models.isSuccess = false;
                     models.respnseInfo = modelData.message;
                 }
