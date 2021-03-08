@@ -500,7 +500,7 @@ namespace DaZhongManagementSystem.Infrastructure.WeChatRevenue
                             "\"RunEnvironment\":\"{RunEnvironment}\"".Replace("{RunEnvironment}", "Product") +
                             "}";
             try
-            {
+            { 
                 WebClient wc = new WebClient();
                 wc.Headers.Clear();
                 wc.Headers.Add("Content-Type", "application/json;charset=utf-8");
