@@ -423,7 +423,7 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
             paymentHistoryInfo.CreateDate = DateTime.Now;
             paymentHistoryInfo.CreateUser = "sysadmin_Revenue";
             paymentHistoryInfo.PayDate = cm.BillDate.TryToDate();
-            paymentHistoryInfo.PaymentStatus = "2";//待支付或未支付
+            paymentHistoryInfo.PaymentStatus = "3";//待支付或未支付
             bool addsuccess = _weChatRevenueLogic.AddPaymentHistory(paymentHistoryInfo);
 
             return Json(new { success = addsuccess }, JsonRequestBehavior.AllowGet);

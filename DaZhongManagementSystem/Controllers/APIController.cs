@@ -803,9 +803,9 @@ namespace DaZhongManagementSystem.Controllers
                         var status = "";
                         switch (PayStatus)
                         {
-                            case "PAID": status = "1"; break;//已支付
-                            case "UNPAID": status = "2"; break;//未支付
-                            case "REFUND": status = "3"; break;//已退款
+                            case "PAID": status = "1"; break;//支付成功
+                            case "UNPAID": status = "3"; break;//待支付
+                            case "REFUND": status = "6"; break;//已退款
                             case "CLOSED": status = "4"; break;//已关闭
                             case "UNKNOWN": status = "5"; break;//未知
                             default: break;
