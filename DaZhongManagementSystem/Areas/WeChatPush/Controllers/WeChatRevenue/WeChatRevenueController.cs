@@ -17,6 +17,7 @@ using System.Net;
 using SyntacticSugar;
 using DaZhongManagementSystem.Infrastructure.WeChatRevenue;
 using DaZhongTransitionLiquidation.Common.Pub;
+using DaZhongManagementSystem.Areas.WeChatPush.Controllers.ShortMsgLogic;
 
 namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
 {
@@ -29,9 +30,10 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
         private WeChatRevenueLogic _weChatRevenueLogic;
         private WeChatExerciseLogic _wl;
         private ConfigManagementLogic _configManagementLogic;
+        private RevenueLogic _rl;
         public WeChatRevenueController()
         {
-
+            _rl = new RevenueLogic();
             _wl = new WeChatExerciseLogic();
             _pl = new PushDetailLogic();
             _weChatRevenueLogic = new WeChatRevenueLogic();
@@ -52,12 +54,13 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
             //userInfo.UserId = "18936495119";
             var personInfoModel = _wl.GetUserInfo(userInfo.UserId); //获取人员表信息 
             ViewData["vguid"] = personInfoModel.Vguid;
-            
-            var driverInfo = getDriverInfo(personInfoModel);
+
+            var driverInfo = _rl.GetDriverMsg(personInfoModel);
+            //var driverInfo = getDriverInfo(personInfoModel);
             //ViewData["driverId"] = "21033";
             //ViewData["organizationId"] = "55";
-            ViewData["driverId"] = driverInfo.DriverId;
-            ViewData["organizationId"] = driverInfo.OrganizationId;
+            ViewData["driverId"] = driverInfo.Id;
+            ViewData["organizationId"] = driverInfo.OrganizationID;
 
             //Business_Personnel_Information personInfoModel = new Business_Personnel_Information();
             //personInfoModel.Vguid = Guid.Parse("B0167926-C8AF-4AAE-9B18-573EEEDFE740");
