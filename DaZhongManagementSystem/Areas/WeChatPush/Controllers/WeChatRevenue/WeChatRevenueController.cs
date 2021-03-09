@@ -86,7 +86,7 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
 
             #endregion
 
-            //var configList = _configManagementLogic.GetConfigList();
+            //var configList = _configManagementLogic.GetConfigList(); 
             //var fee = configList[13].ConfigValue;
             //ViewData["driverPay"] = fee;
             //var driverPayfee = double.Parse(fee.Trim('%')) / 100;            //获取司机支付的手续费
