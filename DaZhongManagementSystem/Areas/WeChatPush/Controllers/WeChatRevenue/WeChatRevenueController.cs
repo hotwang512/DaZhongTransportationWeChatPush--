@@ -1,23 +1,23 @@
-﻿using System;
-using System.Web.Mvc;
-using DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.WeChatExercise.BusinessLogic;
+﻿using DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.WeChatExercise.BusinessLogic;
 using DaZhongManagementSystem.Areas.Systemmanagement.Controllers.ConfigManagement.BusinessLogic;
 using DaZhongManagementSystem.Areas.WeChatPush.Controllers.PushDetailShow.BusinessLogic;
+using DaZhongManagementSystem.Areas.WeChatPush.Controllers.ShortMsgLogic;
 using DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue.BusinessLogic;
+using DaZhongManagementSystem.Areas.WeChatPush.Models;
+using DaZhongManagementSystem.Common.LogHelper;
 using DaZhongManagementSystem.Common.WeChatPush;
 using DaZhongManagementSystem.Entities.TableEntity;
 using DaZhongManagementSystem.Entities.UserDefinedEntity;
-using JQWidgetsSugar;
-using DaZhongManagementSystem.Common.LogHelper;
-using SqlSugar;
 using DaZhongManagementSystem.Infrastructure.SugarDao;
-using DaZhongManagementSystem.Areas.WeChatPush.Models;
-using System.Linq;
-using System.Net;
-using SyntacticSugar;
 using DaZhongManagementSystem.Infrastructure.WeChatRevenue;
 using DaZhongTransitionLiquidation.Common.Pub;
-using DaZhongManagementSystem.Areas.WeChatPush.Controllers.ShortMsgLogic;
+using JQWidgetsSugar;
+using SqlSugar;
+using SyntacticSugar;
+using System;
+using System.Linq;
+using System.Net;
+using System.Web.Mvc;
 
 namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
 {
@@ -48,10 +48,11 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
         {
             #region 获取人员表信息
 
-            string accessToken = WeChatTools.GetAccessoken();
-            string userInfoStr = WeChatTools.GetUserInfoByCode(accessToken, code);
-            var userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr); //用户ID
-            //userInfo.UserId = "18936495119";
+            //string accessToken = WeChatTools.GetAccessoken();
+            //string userInfoStr = WeChatTools.GetUserInfoByCode(accessToken, code);
+            //var userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr); //用户ID
+            U_WeChatUserID userInfo = new U_WeChatUserID();
+            userInfo.UserId = "WangCunbiao";
             var personInfoModel = _wl.GetUserInfo(userInfo.UserId); //获取人员表信息 
             ViewData["vguid"] = personInfoModel.Vguid;
 
@@ -78,10 +79,10 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
 
             #region 获取openid
 
-            var openInfoStr = WeChatTools.ConvertToOpenidByUserId(accessToken, userInfo.UserId);
-            var openInfo = Common.JsonHelper.JsonToModel<U_OpenInfo>(openInfoStr);
-            var openidExt = openInfo.openid;
-            ViewData["openid"] = openidExt;
+            //var openInfoStr = WeChatTools.ConvertToOpenidByUserId(accessToken, userInfo.UserId);
+            //var openInfo = Common.JsonHelper.JsonToModel<U_OpenInfo>(openInfoStr);
+            //var openidExt = openInfo.openid;
+            //ViewData["openid"] = openidExt;
 
             #endregion
 
@@ -89,8 +90,8 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
             //var fee = configList[13].ConfigValue;
             //ViewData["driverPay"] = fee;
             //var driverPayfee = double.Parse(fee.Trim('%')) / 100;            //获取司机支付的手续费
-
-            string pushContentVguid = Request.QueryString["Vguid"]; //推送的主键
+            string pushContentVguid = "CCA89587-50BA-4B89-B87B-B53603B74F1B"; //推送的主键
+            //string pushContentVguid = Request.QueryString["Vguid"]; //推送的主键
             ViewData["pushContentVguid"] = pushContentVguid;
             var pushContentModel = _pl.GetPushDetail(pushContentVguid);
             bool isValidTime = false; //未过有效期
@@ -287,7 +288,7 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
         /// </summary>
         /// <param name="pushContentVguid"></param>
         /// <returns></returns>
-        public JsonResult IsValid(Guid pushContentVguid,string billNo)
+        public JsonResult IsValid(Guid pushContentVguid, string billNo)
         {
             var models = new ActionResultModel<string>();
             models.isSuccess = _weChatRevenueLogic.IsValid(pushContentVguid, billNo);
@@ -364,7 +365,7 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
             return Json(new { success = addsuccess, data = wxPaySign.GetValues() }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetPaySignWX(string driverId, string organizationId)
+        public JsonResult GetPaySignWX(string driverId, string organizationId, string revenueFee, Guid personVguid, Guid pushContentVguid, int revenueType)
         {
             var models = new ActionResultModel<string>();
             var modelData = new QRCodeRevenueInfo();
@@ -388,9 +389,10 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
                 {
                     //接口调用成功,获取支付界面url
                     models.isSuccess = true;
-                    models.respnseInfo = modelData.data.BillQRCodeURL +","+ modelData.data.BillNo;
-                    var key = PubGet.GetUserKey + driverId;
-                    CacheManager<QRCodeRevenue>.GetInstance().Add(key, modelData.data, 8 * 60 * 60 * 1000);
+                    models.respnseInfo = modelData.data.BillQRCodeURL + "," + modelData.data.BillNo;
+                    //var key = PubGet.GetUserKey + driverId;
+                    //CacheManager<QRCodeRevenue>.GetInstance().Add(key, modelData.data, 8 * 60 * 60 * 1000);
+                    SavePaymentHistory(driverId, revenueFee, personVguid,  pushContentVguid,  revenueType, modelData.data);
                 }
                 else
                 {
@@ -399,7 +401,7 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
                     models.isSuccess = false;
                     models.respnseInfo = modelData.message;
                 }
-                LogHelper.WriteLog(string.Format("Data:{0},result:{1}", data,  resultData));
+                LogHelper.WriteLog(string.Format("Data:{0},result:{1}", data, resultData));
             }
             catch (Exception ex)
             {
@@ -409,9 +411,9 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
         }
 
         [HttpPost]
-        public JsonResult SavePaymentHistory(string driverId,string revenueFee, Guid personVguid, Guid pushContentVguid, int revenueType)
+        public void SavePaymentHistory(string driverId, string revenueFee, Guid personVguid, Guid pushContentVguid, int revenueType, QRCodeRevenue cm)
         {
-            var cm = CacheManager<QRCodeRevenue>.GetInstance()[PubGet.GetUserKey + driverId];
+            //var cm = CacheManager<QRCodeRevenue>.GetInstance()[PubGet.GetUserKey + driverId];
             var paymentHistoryInfo = new Business_PaymentHistory_Information();
             paymentHistoryInfo.RevenueReceivable = decimal.Parse(revenueFee); ;
             paymentHistoryInfo.PaymentPersonnel = personVguid;
@@ -426,7 +428,7 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
             paymentHistoryInfo.PaymentStatus = "3";//待支付或未支付
             bool addsuccess = _weChatRevenueLogic.AddPaymentHistory(paymentHistoryInfo);
 
-            return Json(new { success = addsuccess }, JsonRequestBehavior.AllowGet);
+            //return Json(new { success = addsuccess }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult gettest()

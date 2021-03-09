@@ -48,9 +48,9 @@
             <nav>
                 <ul>
                     @*<li class="nav_1">
-                        <div>历史欠款</div>
-                        <div class="n1_num">@revenueInfo.HistoricalArrears</div>
-                    </li>*@
+                            <div>历史欠款</div>
+                            <div class="n1_num">@revenueInfo.HistoricalArrears</div>
+                        </li>*@
                     <li class="nav_2">
                         <div>上期结余金额</div>
                         <div class="n2_num">@revenueInfo.TheBalance</div>
@@ -72,7 +72,7 @@
             <div class="h_bottom" id="paymentTitle">
                 <span>支付</span>
             </div>
-            <nav id="paymentContent" style="height:106px;">
+            <nav id="paymentContent" style="height: 6rem;">
                 <ul>
 
                     <li class="nav_7">
@@ -89,12 +89,12 @@
                     </li>
                 </ul>
             </nav>
-                <footer>
-                    <div id="spDriverPay" style="height: 2rem; color: red; font-size: 1rem; margin-left: 0.5rem;"></div>
-                    @if (ViewData["isExist"] == "0" && !isValid)
-                    {
-                        <div class="f_nav">
-                            @*<button class="btn_wc">
+            <footer>
+                <div id="spDriverPay" style="height: 2rem; color: red; font-size: 1rem; margin-left: 0.5rem;"></div>
+                @if (ViewData["isExist"] == "0" && !isValid)
+                {
+                    <div class="f_nav">
+                        @*<button class="btn_wc">
                                 <img src="@Url.Content("~/Areas/WeChatPush/Views/_img/微信支付.png")" alt="" />
                                 <div>微信支付</div>
                             </button>
@@ -102,13 +102,16 @@
                                 <img src="@Url.Content("~/Areas/WeChatPush/Views/_img/支付.png")" alt="" />
                                 <div>其他支付</div>
                             </button>*@
-                            <button class="btn_qt">
+                        @*<button class="btn_qt">
                                 <img src="@Url.Content("~/Areas/WeChatPush/Views/_img/支付.png")" alt="" />
                                 <div>支付</div>
-                            </button>
-                        </div>
-                    }
-                </footer>
+                            </button>*@
+                        @*<button class="btn_qt">支付</button>*@
+                        @*<div class="btn_qt">支付</div>*@
+                        <input class="btn_qt" type="button" value="支付" />
+                    </div>
+                }
+            </footer>
 
         }
         else
@@ -122,10 +125,10 @@
         }
     }
     <input type="hidden" id="isValid" value="@isValid" />
-    <input type="hidden" id="txtOpenId" value="@ViewData["openid"]" />
+    @*<input type="hidden" id="txtOpenId" value="@ViewData["openid"]" />*@
     <script src="@Url.Content("~/_theme/js/jquery-2.0.3.min.js")"></script>
-    <script src="@Url.Content("~/_theme/_js/jweixin-1.0.0.js")"></script>
-    <script src="@Url.Content("~/Areas/WeChatPush/Views/_js/WeChatHistory/app.js")"></script>
+    @*<script src="@Url.Content("~/_theme/_js/jweixin-1.0.0.js")"></script>*@
+    @*<script src="@Url.Content("~/Areas/WeChatPush/Views/_js/WeChatHistory/app.js")"></script>*@
     @*  <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>*@
     <script src="@Url.Content("~/Areas/WeChatPush/Views/_js/RevenuePay.js?v=3333")"></script>
 

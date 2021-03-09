@@ -131,7 +131,6 @@ footer {
         outline: none;
         border: none;
         font-size: 1rem;
-        
         border-radius: 0.3rem;
     }
 
@@ -153,9 +152,21 @@ footer {
     }
 
 .btn_qt {
-    background: #ffffff;
-    display: flex;
+    background: #007fc0;
+    text-align: center;
+    width: 100%;
+    height: 34px;
+    color: white;
+    font-size: 18px;
+    border: 1px solid #007fc0;
+    position: absolute;
+    bottom: 0px;
 }
+
+    .btn_qt:hover {
+        background: #01a9ff;
+        border: 1px solid #01a9ff;
+    }
 
     .btn_qt img {
         /*margin-left: 1rem;
