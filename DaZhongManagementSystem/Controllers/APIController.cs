@@ -864,7 +864,7 @@ namespace DaZhongManagementSystem.Controllers
                     string respText1 = "";
                     string respText2 = "";
                     string respText3 = "";
-                    string userid = "";
+                    string userid = ""; 
                     if (userDetail.userid != null)
                     {
                         //手机号是userid
