@@ -863,7 +863,7 @@ namespace DaZhongManagementSystem.Controllers
                     U_UserInfo userDetail2 = JsonHelper.JsonToModel<U_UserInfo>(GetUserInfoByUserID2);//用户信息IDNumber
                     string respText1 = "";
                     string respText2 = "";
-                    string respText3 = "";
+                    string respText3 = ""; 
                     string userid = ""; 
                     if (userDetail.userid != null)
                     {
