@@ -8,7 +8,7 @@ namespace DaZhongManagementSystem.Entities.UserDefinedEntity
     public class U_WeChatUserID
     {
         public string UserId { get; set; }
-
+        public string mobile { get; set; }
         public string DeviceId { get; set; }
     }
 }

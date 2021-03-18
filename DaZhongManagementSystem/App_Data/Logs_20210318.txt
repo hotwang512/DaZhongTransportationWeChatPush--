@@ -1,0 +1,16 @@
+
+-------------------------------header----------------------
+2021-03-18 13:48:46,658 [56] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 接口名称:根据身份证删除本地用户,WeChatTools.DeleteUser  时间:2021-03-18 13:48:46  参数:  结果:False
+2021-03-18 13:48:46,671 [56] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 接口名称:根据手机号删除微信用户,WeChatTools.DeleteUser  时间:2021-03-18 13:48:46  参数:18936495121  结果:"{\"errcode\":60111,\"errmsg\":\"userid not found, hint: [1616046419_147_e2e5106a04f47b286d5567be1958d32e], from ip: 140.206.133.46, more info at https://open.work.weixin.qq.com/devtool/query?e=60111\"}"
+2021-03-18 13:48:46,672 [56] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 接口名称:根据身份证删除微信用户,WeChatTools.DeleteUser  时间:2021-03-18 13:48:46  参数:  结果:"{\"errcode\":60111,\"errmsg\":\"userid not found, hint: [1616046428_147_4c7637a7488655074bb843f904ae17ba], from ip: 140.206.133.46, more info at https://open.work.weixin.qq.com/devtool/query?e=60111\"}"
+2021-03-18 13:48:46,672 [56] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 接口名称:根据手机号查询userid删除微信用户,WeChatTools.DeleteUser  时间:2021-03-18 13:48:46  参数:  结果:null
+2021-03-18 13:48:46,672 [56] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 接口名称:根据手机号查询userid,WeChatTools.GetUserId  时间:2021-03-18 13:48:46  参数:18936495121  结果:
+
+-------------------------------header----------------------
+2021-03-18 13:57:06,884 [11] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 接口名称:根据身份证删除本地用户,WeChatTools.DeleteUser  时间:2021-03-18 13:57:04  参数:  结果:False
+2021-03-18 13:57:09,022 [11] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 接口名称:根据手机号删除微信用户,WeChatTools.DeleteUser  时间:2021-03-18 13:57:06  参数:18936495121  结果:"手机号是userid,未查找到人员数据"
+2021-03-18 13:57:09,055 [11] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 接口名称:根据身份证删除微信用户,WeChatTools.DeleteUser  时间:2021-03-18 13:57:09  参数:  结果:"身份证是userid,未查找到人员数据"
+2021-03-18 13:57:09,486 [11] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 接口名称:根据手机号查询userid删除微信用户,WeChatTools.DeleteUser  时间:2021-03-18 13:57:09  参数:  结果:"通过手机号,未查找到人员数据"
+2021-03-18 13:57:10,832 [11] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 接口名称:根据手机号查询userid,WeChatTools.GetUserId  时间:2021-03-18 13:57:10  参数:18936495121  结果:
+
+-------------------------------footer----------------------

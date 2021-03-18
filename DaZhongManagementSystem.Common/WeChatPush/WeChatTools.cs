@@ -162,7 +162,7 @@ namespace DaZhongManagementSystem.Common.WeChatPush
             return respText;
         }
         /// <summary>
-        /// 创建微信通讯录中的用户
+        /// 查询微信通讯录中的用户ID
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="user"></param>

@@ -1,6 +1,0 @@
-
--------------------------------header----------------------
-2019-05-22 14:28:30,556 [12] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 用户打开注册二次验证页面：Code为-QFtZALAYxA624u735seRmLfk-ePXXSFbIjav5NNlx0k-UserID为-18555892652-打开注册页面时间为:2019/5/22 14:28:30
-2019-05-22 14:28:40,072 [12] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 用户打开注册二次验证页面：Code为-WPGeYGmHEuqgrYJ8hjNFp21QRSAOXSmpgByM6ENx_84-UserID为-18555892652-打开注册页面时间为:2019/5/22 14:28:40
-
--------------------------------footer----------------------

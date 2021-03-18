@@ -1,7 +1,0 @@
-
--------------------------------header----------------------
-2019-07-29 09:19:22,194 [11] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -40001
-2019-07-29 09:19:22,724 [11] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -40001
-2019-07-29 09:19:22,875 [11] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -40001
-
--------------------------------footer----------------------

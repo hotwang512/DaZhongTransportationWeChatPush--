@@ -732,6 +732,7 @@ namespace DaZhongManagementSystem.Infrastructure.DraftManagement
             var db = SugarDao_MsSql.GetInstance();
             db.Delete<Business_Payroll_Information>(it => it.PushVGUID == null);   //删除推送为空的数据
             dt = db.Queryable<Business_Payroll_Information>().Where("1=2").ToDataTable();
+            db.Dispose();
             string connectionString = ConfigSugar.GetAppString("msSqlLinck");
             using (SqlBulkCopy sqlbulkcopy = new SqlBulkCopy(connectionString, SqlBulkCopyOptions.UseInternalTransaction))
             {
@@ -753,7 +754,7 @@ namespace DaZhongManagementSystem.Infrastructure.DraftManagement
                 }
                 finally
                 {
-                    db.Dispose();
+                    //db.Dispose();
                 }
             }
         }
@@ -769,6 +770,7 @@ namespace DaZhongManagementSystem.Infrastructure.DraftManagement
             var db = SugarDao_MsSql.GetInstance();
             db.Delete<Car_Maintain>(it => it.PushVGUID == null);   //删除推送为空的数据
             dt = db.Queryable<Car_Maintain>().Where("1=2").ToDataTable();
+            db.Dispose();
             string connectionString = ConfigSugar.GetAppString("msSqlLinck");
             using (SqlBulkCopy sqlbulkcopy = new SqlBulkCopy(connectionString, SqlBulkCopyOptions.UseInternalTransaction))
             {
@@ -790,7 +792,7 @@ namespace DaZhongManagementSystem.Infrastructure.DraftManagement
                 }
                 finally
                 {
-                    db.Dispose();
+                    //db.Dispose();
                 }
             }
         }
@@ -803,6 +805,7 @@ namespace DaZhongManagementSystem.Infrastructure.DraftManagement
             DataTable dt = new DataTable();
             var db = SugarDao_MsSql.GetInstance();
             dt = db.Queryable<Car_Maintain>().Where("1=2").ToDataTable();
+            db.Dispose();
             return dt;
         }
 

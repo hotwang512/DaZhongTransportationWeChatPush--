@@ -162,6 +162,15 @@ namespace DaZhongManagementSystem.Infrastructure.BasicDataManagement
             }
         }
 
+        public bool DeletePersonByID(string iDNumber)
+        {
+            using (SqlSugarClient dbMsSql = SugarDao_MsSql.GetInstance())
+            {
+                var isDelete = dbMsSql.Delete<Business_Personnel_Information>(x=>x.IDNumber == iDNumber);
+                return isDelete;
+            }
+        }
+
         /// <summary>
         /// 更新用户部门
         /// </summary>

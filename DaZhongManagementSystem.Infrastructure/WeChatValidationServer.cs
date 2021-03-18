@@ -200,7 +200,7 @@ namespace DaZhongManagementSystem.Infrastructure
                     _dbMsSql.BeginTran();
                     _dbMsSql.DisableInsertColumns = new[] { "TranslationOwnedFleet" };
                     Business_Personnel_Information personInfoDetail = new Business_Personnel_Information();
-                    personInfoDetail = _dbMsSql.Queryable<Business_Personnel_Information>().Where(i => i.IDNumber == personInfo.IDNumber || i.PhoneNumber == personInfo.PhoneNumber).SingleOrDefault();
+                    personInfoDetail = _dbMsSql.Queryable<Business_Personnel_Information>().Where(i => i.IDNumber == personInfo.IDNumber).SingleOrDefault();
                     if (personInfoDetail != null)//更新
                     {
                         var model = new

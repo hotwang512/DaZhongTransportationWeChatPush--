@@ -52,7 +52,8 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
             string userInfoStr = WeChatTools.GetUserInfoByCode(accessToken, code);
             var userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr); //用户ID
             //U_WeChatUserID userInfo = new U_WeChatUserID();
-            //userInfo.UserId = "WangCunbiao";
+            //userInfo.UserId = "18936495119";
+            //userInfo.UserId = "WangCunbiao"; 
             var personInfoModel = _wl.GetUserInfo(userInfo.UserId); //获取人员表信息 
             ViewData["vguid"] = personInfoModel.Vguid;
 

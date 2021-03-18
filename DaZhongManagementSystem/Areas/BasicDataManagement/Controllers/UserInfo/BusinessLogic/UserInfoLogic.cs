@@ -195,6 +195,18 @@ namespace DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.UserInfo
 
         }
 
+        internal bool DeletePersonInfo(string iDNumber)
+        {
+            try
+            {
+                return _us.DeletePersonByID(iDNumber);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public string getNulldata(DataTable dt)
         {
             try

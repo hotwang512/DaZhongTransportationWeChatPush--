@@ -33,6 +33,8 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue.Bus
         {
             //获取司机ID和车辆ID
             var driverModel = _rl.GetDriverMsg(personModel);
+            //driverModel.OrganizationID = 55;
+            //driverModel.Id = 21033;
             //获取营收信息
             var paymentModel = _rl.GetRevenueAPI_PaymentMonthlyData(driverModel);
             U_Revenue revenue = new U_Revenue();

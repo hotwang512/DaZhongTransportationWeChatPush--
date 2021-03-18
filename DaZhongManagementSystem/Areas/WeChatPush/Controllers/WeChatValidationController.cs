@@ -113,6 +113,12 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers
         {
             var model = new ActionResultModel<string>();
             model.isSuccess = false;
+            //获取微信官方人员信息
+            U_WeChatUserID userIDInfo = new U_WeChatUserID();
+            var userInfo = Common.WeChatPush.WeChatTools.GetUserInfoByUserID(accessToken, userID);
+            userIDInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfo);
+            //取微信端手机号存入人员信息
+            mobilePhone = userIDInfo.mobile;
             string checkUser = _wl.CheckUser(userModel, userID, position, mobilePhone);
             if (checkUser == "1")
             {

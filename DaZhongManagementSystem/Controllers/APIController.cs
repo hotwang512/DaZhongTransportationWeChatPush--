@@ -8,6 +8,7 @@ using DaZhongManagementSystem.Entities.TableEntity;
 using DaZhongManagementSystem.Entities.UserDefinedEntity;
 using DaZhongManagementSystem.Infrastructure.SugarDao;
 using DaZhongManagementSystem.Models.APIModel;
+using Newtonsoft.Json.Linq;
 using SqlSugar;
 using SyntacticSugar;
 using System;
@@ -128,12 +129,13 @@ namespace DaZhongManagementSystem.Controllers
         public JsonResult UserInformation(string SECURITYKEY, string code)
         {
             ExecutionResult result = new ExecutionResult();
+            string userInfoStr = "";
             try
             {
                 if (API_Authentication(SECURITYKEY))
                 {
                     string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
-                    string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
+                    userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
                     U_WeChatUserID userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID  _logic;
                     result.Result = new RideCheckFeedbackLogic().GetUserInfo(userInfo.UserId);
                     result.Success = true;
@@ -148,7 +150,7 @@ namespace DaZhongManagementSystem.Controllers
                 result.Message = ex.Message;
                 LogHelper.WriteLog(ex.Message);
             }
-            ExecHistry("UserInformation", code, JsonHelper.ModelToJson(result));
+            ExecHistry("UserInformation", code + ",WeChat-Code:" + userInfoStr, JsonHelper.ModelToJson(result));
             return Json(result);
         }
 
@@ -798,7 +800,7 @@ namespace DaZhongManagementSystem.Controllers
                 using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance())
                 {
                     var data = _dbMsSql.Queryable<Business_PaymentHistory_Information>().Where(x => x.Remarks == billNo).FirstOrDefault();
-                    if(data != null)
+                    if (data != null)
                     {
                         var status = "";
                         switch (PayStatus)
@@ -824,7 +826,7 @@ namespace DaZhongManagementSystem.Controllers
                         result.Message = "该单号未找到支付数据";
                     }
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -834,8 +836,86 @@ namespace DaZhongManagementSystem.Controllers
             }
             return Json(result);
         }
-        
 
+        /// <summary>
+        /// 根据手机号,身份证号删除人员信息
+        /// </summary>
+        /// <param name="SECURITYKEY">加密值</param>
+        /// <param name="phoneNumber">手机号码</param>
+        /// /// <param name="IDNumber">身份证号</param>
+        /// <returns></returns>
+        public JsonResult DeleteUserInfo(string SECURITYKEY, string phoneNumber, string IDNumber)
+        {
+            ExecutionResult result = new ExecutionResult();
+            try
+            {
+                if (API_Authentication(SECURITYKEY))
+                {
+                    result.Result = "";
+                    //删除本地人员表中信息
+                    UserInfoLogic userInfoLogic = new UserInfoLogic();
+                    var isDelete = userInfoLogic.DeletePersonInfo(IDNumber);
+                    //删除微信官方后台人员信息
+                    string accessToken = WeChatTools.GetAccessoken(true);
+                    string GetUserInfoByUserID = WeChatTools.GetUserInfoByUserID(accessToken, phoneNumber);
+                    string GetUserInfoByUserID2 = WeChatTools.GetUserInfoByUserID(accessToken, IDNumber);
+                    U_UserInfo userDetail = JsonHelper.JsonToModel<U_UserInfo>(GetUserInfoByUserID);//用户信息phoneNumber
+                    U_UserInfo userDetail2 = JsonHelper.JsonToModel<U_UserInfo>(GetUserInfoByUserID2);//用户信息IDNumber
+                    string respText1 = "";
+                    string respText2 = "";
+                    string respText3 = "";
+                    string userid = "";
+                    if (userDetail.userid != null)
+                    {
+                        //手机号是userid
+                        respText1 = WeChatTools.DeleteUser(accessToken, phoneNumber);
+                    }
+                    else
+                    {
+                        respText1 = "手机号是userid,未查找到人员数据";
+                    }
+                    if (userDetail2.userid != null)
+                    {
+                        //身份证是userid
+                        respText2 = WeChatTools.DeleteUser(accessToken, IDNumber);
+                    }
+                    else
+                    {
+                        respText2 = "身份证是userid,未查找到人员数据";
+                    }
+                    //根据手机号查询userid
+                    var useridJ = WeChatTools.GetUserId(accessToken, phoneNumber);
+                    JObject useridJson = JObject.Parse(useridJ);
+                    try
+                    {
+                        userid = useridJson["userid"].ToString();
+                        respText3 = WeChatTools.DeleteUser(accessToken, userid);
+                    }
+                    catch (Exception)
+                    {
+                        respText3 = "通过手机号,未查找到人员数据";
+                    }
+                    result.Success = isDelete;
+                    result.Result = respText1 + ";" + respText2 + ";" + respText3;
+                    ExecHistry("根据身份证删除本地用户,WeChatTools.DeleteUser", IDNumber, isDelete.ToString());
+                    ExecHistry("根据手机号删除微信用户,WeChatTools.DeleteUser", phoneNumber, respText1);
+                    ExecHistry("根据身份证删除微信用户,WeChatTools.DeleteUser", IDNumber, respText2);
+                    ExecHistry("根据手机号查询userid删除微信用户,WeChatTools.DeleteUser", userid, respText3);
+                    ExecHistry("根据手机号查询userid,WeChatTools.GetUserId", phoneNumber, userid);
+                }
+                else
+                {
+                    result.Message = "SECURITYKEY 无效！";
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = ex.Message;
+                LogHelper.WriteLog(ex.Message);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 
         //public JsonResult WeChatRegistered(string SECURITYKEY, string pushparam)
         //{

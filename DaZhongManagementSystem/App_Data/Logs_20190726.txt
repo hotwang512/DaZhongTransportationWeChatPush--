@@ -1,9 +1,0 @@
-
--------------------------------header----------------------
-2019-07-26 10:55:51,218 [12] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 用户打开注册二次验证页面：Code为-IdOi7KOQNOvKMaV9diU1beRE0qAMkacz_V2XaGlkm84-UserID为-15800567938-打开注册页面时间为:2019/7/26 10:55:51
-2019-07-26 11:07:27,566 [12] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 用户打开注册二次验证页面：Code为-IdOi7KOQNOvKMaV9diU1beRE0qAMkacz_V2XaGlkm84-UserID为--打开注册页面时间为:2019/7/26 11:07:27
-2019-07-26 11:24:05,504 [12] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -40001
-2019-07-26 11:24:05,744 [12] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -40001
-2019-07-26 11:24:05,924 [12] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -40001
-
--------------------------------footer----------------------

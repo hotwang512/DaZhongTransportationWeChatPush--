@@ -33,7 +33,7 @@ if (fee == "0%" || fee == "") {
 } else {
 
     var span = '<div style="font-size:32px;float:left;padding:0 5px 0 5px;">' + fee + '</div>';
-    $("#spDriverPay").html("<div style='float:left;line-height:45px;'>实际缴费金额包含微信手续费</div>" + span + "<div style='float:left;line-height:45px;'>!<div>");
+    $("#spDriverPay").html("<div style='float:left;line-height:45px;'>实际缴费金额包含手续费</div>" + span + "<div style='float:left;line-height:45px;'>!<div>");
 
 }
 
