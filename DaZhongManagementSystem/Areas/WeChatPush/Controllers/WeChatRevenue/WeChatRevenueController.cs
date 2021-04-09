@@ -402,7 +402,7 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
                     //接口调用失败,支付二维码失效
                     WeChatRevenueServer.sendQRCodeMessage(modelData.data.BillNo);
                     models.isSuccess = false;
-                    models.respnseInfo = modelData.message;
+                    models.respnseInfo = "接口调用失败";
                 }
                 LogHelper.WriteLog(string.Format("Data:{0},result:{1}", data, resultData));
             }
@@ -418,8 +418,9 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
         {
             //var cm = CacheManager<QRCodeRevenue>.GetInstance()[PubGet.GetUserKey + driverId];
             var paymentHistoryInfo = new Business_PaymentHistory_Information();
-            paymentHistoryInfo.RevenueReceivable = decimal.Parse(revenueFee); ;
+            paymentHistoryInfo.RevenueReceivable = decimal.Parse(revenueFee); 
             paymentHistoryInfo.PaymentPersonnel = personVguid;
+            paymentHistoryInfo.ActualAmount = decimal.Parse(cm.TotalAmount);
             paymentHistoryInfo.PaymentAmount = decimal.Parse(cm.PayDebtAmount);
             paymentHistoryInfo.VGUID = Guid.NewGuid();
             paymentHistoryInfo.RevenueType = revenueType;
