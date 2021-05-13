@@ -36,7 +36,7 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.SurveyVacc
             string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
             string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
             userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
-            userInfo.UserId = "18936495119";
+            //userInfo.UserId = "18936495119";
             Business_Personnel_Information personInfoModel = _logic.GetUserInfo(userInfo.UserId);
             Personnel_Info Personnel = getPersonnelInfo(personInfoModel);
             Master_Organization organizationDetail = new Master_Organization();
