@@ -243,6 +243,7 @@
     <Compile Include="Areas\RideCheckFeedback\Controllers\RideCheckFeedback\BusinessLogic\RideCheckFeedbackLogic.cs" />
     <Compile Include="Areas\RideCheckFeedback\Controllers\RideCheckFeedback\RideCheckFeedbackController.cs" />
     <Compile Include="Areas\ReportManagement\Controllers\RideCheckFeedbackReport\RideCheckFeedbackReportController.cs" />
+    <Compile Include="Areas\RideCheckFeedback\Controllers\SurveyVaccination\SurveyVaccinationController.cs" />
     <Compile Include="Areas\RideCheckFeedback\Controllers\VehicleRepairComplaints\BusinessLogic\Business_VehicleRepairComplaintsLogic.cs" />
     <Compile Include="Areas\RideCheckFeedback\Controllers\VehicleRepairComplaints\VehicleRepairComplaints.cs" />
     <Compile Include="Areas\RideCheckFeedback\RideCheckFeedbackAreaRegistration.cs" />
@@ -2289,6 +2290,7 @@
     <Content Include="Areas\SecondaryCleaningManagement\Views\CouponSetDetail\Index.cshtml" />
     <Content Include="Areas\SecondaryCleaningManagement\Views\CleaningInfo\Index.cshtml" />
     <Content Include="Areas\ReportManagement\Views\CleaningReport\Index.cshtml" />
+    <Content Include="Areas\RideCheckFeedback\Views\SurveyVaccination\Index.cshtml" />
     <None Include="Properties\PublishProfiles\DaZhong.pubxml" />
     <Content Include="ReportTemplate\PushTemplate.xlsx" />
     <Content Include="ReportTemplate\ScoreTemplate.xlsx" />

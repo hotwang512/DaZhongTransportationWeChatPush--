@@ -1,0 +1,11 @@
+
+-------------------------------header----------------------
+2021-05-13 09:43:48,243 [6] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 当前车牌号：沪GU6368,当前年月:2022,当前Code：b0b9d625-ec79-421c-be68-0012a62b9d9b,是否清洗：False,身份证：341223199503242518
+2021-05-13 09:43:48,259 [6] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 当前车牌号：沪GU6368,当前年月:2022,当前Code：b0b9d625-ec79-421c-be68-0012a62b9d9b,是否清洗：False,身份证：341223199503242518
+2021-05-13 09:43:48,259 [6] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 当前车牌号：沪GU6368,当前年月:2022,当前Code：b0b9d625-ec79-421c-be68-0012a62b9d9b,是否清洗：False,身份证：341223199503242518
+
+-------------------------------header----------------------
+2021-05-13 09:56:52,345 [10] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 接口名称:WeChatTextPush  时间:2021-05-13 09:56:52  参数:{"Title":"二级清洗","Message":"您已于2021/5/13 9:56:47，在上海市徐汇区大众大厦(徐虹中路)进行座位套更换(部份)扫码操作，请前往进行更换","Url":"","Image":"","PushPeople":null,"PushPeoples":"18936495119","founder":"18936495119"}  结果:{"Success":true,"Message":"{\"errcode\":0,\"errmsg\":\"ok\",\"invaliduser\":\"\"}","Result":null}
+2021-05-13 09:56:53,637 [10] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 当前车牌号：沪GU6368,当前年月:2026,当前Code：b0b9d625-ec79-421c-be68-0012a62b9d9b,是否清洗：True,身份证：341223199503242518
+2021-05-13 09:56:55,225 [10] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 当前车牌号：沪GU6368,当前年月:2026,当前Code：b0b9d625-ec79-421c-be68-0012a62b9d9b,是否清洗：True,身份证：341223199503242518
+2021-05-13 09:56:56,341 [10] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 当前车牌号：沪GU6368,当前年月:2026,当前Code：b0b9d625-ec79-421c-be68-0012a62b9d9b,是否清洗：True,身份证：341223199503242518

@@ -1,0 +1,19 @@
+
+-------------------------------header----------------------
+2021-05-12 15:25:09,958 [6] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - System.IO.DirectoryNotFoundException: 未能找到路径“C:\UpLoadFile\SurveyVaccination\18936495119孟卧龙0.jpg”的一部分。
+   在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   在 System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
+   在 System.IO.FileStream..ctor(String path, FileMode mode)
+   在 System.Web.HttpPostedFile.SaveAs(String filename)
+   在 DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.SurveyVaccination.SurveyVaccinationController.SaveImageFile(HttpFileCollection fileData, String userID, String name) 位置 F:\NewDZWeChat（可迁入版本）\DaZhongManagementSystem\Areas\RideCheckFeedback\Controllers\SurveyVaccination\SurveyVaccinationController.cs:行号 161
+   在 DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.SurveyVaccination.SurveyVaccinationController.SaveSurveyVaccination(Business_SurveyVaccination bsv) 位置 F:\NewDZWeChat（可迁入版本）\DaZhongManagementSystem\Areas\RideCheckFeedback\Controllers\SurveyVaccination\SurveyVaccinationController.cs:行号 94
+
+-------------------------------header----------------------
+2021-05-12 16:47:56,880 [12] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - System.ArgumentNullException: 值不能为 null。
+参数名: input
+   在 System.Text.RegularExpressions.Regex.Matches(String input)
+   在 System.Text.RegularExpressions.Regex.Matches(String input, String pattern)
+   在 DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.SurveyVaccination.SurveyVaccinationController.SaveSurveyVaccination(Business_SurveyVaccination bsv) 位置 F:\NewDZWeChat（可迁入版本）\DaZhongManagementSystem\Areas\RideCheckFeedback\Controllers\SurveyVaccination\SurveyVaccinationController.cs:行号 111
+
+-------------------------------footer----------------------

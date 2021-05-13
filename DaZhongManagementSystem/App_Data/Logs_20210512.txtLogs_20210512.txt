@@ -1,0 +1,4 @@
+
+-------------------------------header----------------------
+2021-05-12 16:51:57,624 [9] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.SurveyVaccination.SurveyVaccinationController.SaveSurveyVaccination(Business_SurveyVaccination bsv)

@@ -851,12 +851,21 @@ namespace DaZhongManagementSystem.Controllers
             {
                 if (API_Authentication(SECURITYKEY))
                 {
+                    string accessToken = WeChatTools.GetAccessoken(true);
                     result.Result = "";
                     //删除本地人员表中信息
                     UserInfoLogic userInfoLogic = new UserInfoLogic();
-                    var isDelete = userInfoLogic.DeletePersonInfo(IDNumber);
+                    Business_Personnel_Information personInfo = userInfoLogic.GetPerson(IDNumber);
+                    var userID = "";
+                    if(personInfo != null)
+                    {
+                        userID = personInfo.UserID;
+                        if(userID != "")
+                        {
+                            WeChatTools.DeleteUser(accessToken, userID);
+                        }
+                    }
                     //删除微信官方后台人员信息
-                    string accessToken = WeChatTools.GetAccessoken(true);
                     string GetUserInfoByUserID = WeChatTools.GetUserInfoByUserID(accessToken, phoneNumber);
                     string GetUserInfoByUserID2 = WeChatTools.GetUserInfoByUserID(accessToken, IDNumber);
                     U_UserInfo userDetail = JsonHelper.JsonToModel<U_UserInfo>(GetUserInfoByUserID);//用户信息phoneNumber
@@ -895,9 +904,10 @@ namespace DaZhongManagementSystem.Controllers
                     {
                         respText3 = "通过手机号,未查找到人员数据";
                     }
-                    result.Success = isDelete;
+                    var isDelete = userInfoLogic.DeletePersonInfo(IDNumber);
+                    result.Success = true;
                     result.Result = respText1 + ";" + respText2 + ";" + respText3;
-                    ExecHistry("根据身份证删除本地用户,WeChatTools.DeleteUser", IDNumber, isDelete.ToString());
+                    ExecHistry("根据身份证删除本地用户", IDNumber, isDelete.ToString());
                     ExecHistry("根据手机号删除微信用户,WeChatTools.DeleteUser", phoneNumber, respText1);
                     ExecHistry("根据身份证删除微信用户,WeChatTools.DeleteUser", IDNumber, respText2);
                     ExecHistry("根据手机号查询userid删除微信用户,WeChatTools.DeleteUser", userid, respText3);

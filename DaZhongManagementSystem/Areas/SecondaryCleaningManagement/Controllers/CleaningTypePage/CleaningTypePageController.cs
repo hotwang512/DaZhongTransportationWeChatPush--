@@ -2,6 +2,7 @@
 using DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.WeChatExercise.BusinessLogic;
 using DaZhongManagementSystem.Areas.PartnerInquiryManagement.Models;
 using DaZhongManagementSystem.Areas.SecondaryCleaningManagement.Models;
+using DaZhongManagementSystem.Common.LogHelper;
 using DaZhongManagementSystem.Common.WeChatPush;
 using DaZhongManagementSystem.Entities.TableEntity;
 using DaZhongManagementSystem.Entities.UserDefinedEntity;
@@ -35,7 +36,7 @@ namespace DaZhongManagementSystem.Areas.SecondaryCleaningManagement.Controllers.
             string userInfoStr = WeChatTools.GetUserInfoByCode(accessToken, code);
             userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
             //userInfo.UserId = "13671595340";//合伙人
-            //userInfo.UserId = "18936495119";//司机
+            userInfo.UserId = "18936495119";//司机
             Business_Personnel_Information personInfoModel = GetUserInfo(userInfo.UserId);//获取人员表信息
             var key = PubGet.GetUserKey + personInfoModel.Vguid;
             var csche = CacheManager<Business_Personnel_Information>.GetInstance().Get(key);
@@ -87,7 +88,7 @@ namespace DaZhongManagementSystem.Areas.SecondaryCleaningManagement.Controllers.
             {
                 //一辆车一月一次免费二级清洗
                 var newDate = DateTime.Now;
-                var data = _db.Queryable<Business_SecondaryCleaning>().Where(x => x.CabLicense == cabLicense).ToList();
+                var data = _db.Queryable<Business_SecondaryCleaning>().Where(x => x.CabLicense == cabLicense && x.Type == "1").ToList();
                 foreach (var item in data)
                 {
                     var year = item.OperationDate.Year;
@@ -95,7 +96,8 @@ namespace DaZhongManagementSystem.Areas.SecondaryCleaningManagement.Controllers.
                     if (year == newDate.Year && month == newDate.Month)
                     {
                         isCleaning = true;
-                    }
+                        LogHelper.WriteLog(string.Format("当前车牌号：{0},当前年月:{1},当前Code：{2},是否清洗：{3},身份证：{4}", cabLicense, year + month, code, isCleaning, cm.IDNumber));
+                    } 
                 }
             }
             model.isSuccess = isCleaning;

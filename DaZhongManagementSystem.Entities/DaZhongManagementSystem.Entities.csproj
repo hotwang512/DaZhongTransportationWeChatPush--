@@ -73,6 +73,7 @@
     <Compile Include="TableEntity\Business_RideCheckFeedback_Attachment.cs" />
     <Compile Include="TableEntity\Business_ScanData_Information.cs" />
     <Compile Include="TableEntity\Business_ScanHistory_Information.cs" />
+    <Compile Include="TableEntity\Business_SurveyVaccination.cs" />
     <Compile Include="TableEntity\Business_VehicleRepairComplaints.cs" />
     <Compile Include="TableEntity\Business_WeChatPushDetail_Information.cs" />
     <Compile Include="TableEntity\Business_WeChatPush_Information.cs" />
