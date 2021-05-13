@@ -36,7 +36,7 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.SurveyVacc
             string accessToken = Common.WeChatPush.WeChatTools.GetAccessoken();
             string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
             userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
-            //userInfo.UserId = "18936495119";
+            userInfo.UserId = "18936495119";
             Business_Personnel_Information personInfoModel = _logic.GetUserInfo(userInfo.UserId);
             Personnel_Info Personnel = getPersonnelInfo(personInfoModel);
             Master_Organization organizationDetail = new Master_Organization();
@@ -95,17 +95,19 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.SurveyVacc
                         bsv.VGUID = Guid.NewGuid();
                         bsv.CreatedTime = DateTime.Now;
                         bsv.CreatedUser = bsv.Name;
+                        bsv.ChangeUser = bsv.Name;
+                        bsv.ChangeTime = DateTime.Now;
                         bsv.Attachment = newUrlName;
                         _dbMsSql.Insert(bsv);
                     }
                     else
                     {
-                        var index = Regex.Matches(bsv.Attachment, ";").Count;
-                        if (index == 1)
+                        var index = 0;
+                        if(bsv.Attachment != "" && bsv.Attachment != null)
                         {
-                            newUrlName = bsv.Attachment + newUrlName;
+                            index = Regex.Matches(bsv.Attachment, ";").Count;
                         }
-                        if(index == 2 && newUrlName == "")
+                        if(index == 1 && newUrlName == "")
                         {
                             newUrlName = bsv.Attachment;
                         }
@@ -142,18 +144,16 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.SurveyVacc
                 //保存上传文件
                 var urlName = "";
                 string url = "/UpLoadFile/SurveyVaccination/";//文件保存路径
-                for (int i = 0; i < fileData.Count; i++)
+                HttpPostedFile file = fileData[0];
+                //string newName = userID.Trim() + name.Trim() + DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg";
+                string newName = name.Trim() + userID.Trim() + ".jpg";
+                string path = Path.Combine(Server.MapPath(url), newName);
+                if (System.IO.File.Exists(path))
                 {
-                    HttpPostedFile file = fileData[i];
-                    string newName = userID.Trim() + name.Trim() + DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + i + ".jpg";
-                    string path = Path.Combine(Server.MapPath(url), newName);
-                    //if (System.IO.File.Exists(path))
-                    //{
-                    //    System.IO.File.Delete(path);
-                    //}
-                    file.SaveAs(path);
-                    urlName += (url+ newName) + ";";
+                    System.IO.File.Delete(path);
                 }
+                file.SaveAs(path);
+                urlName = url + newName;
                 return urlName;            
             }
             catch (Exception ex)

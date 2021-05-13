@@ -9,3 +9,18 @@
 2021-05-13 09:56:53,637 [10] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 当前车牌号：沪GU6368,当前年月:2026,当前Code：b0b9d625-ec79-421c-be68-0012a62b9d9b,是否清洗：True,身份证：341223199503242518
 2021-05-13 09:56:55,225 [10] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 当前车牌号：沪GU6368,当前年月:2026,当前Code：b0b9d625-ec79-421c-be68-0012a62b9d9b,是否清洗：True,身份证：341223199503242518
 2021-05-13 09:56:56,341 [10] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 当前车牌号：沪GU6368,当前年月:2026,当前Code：b0b9d625-ec79-421c-be68-0012a62b9d9b,是否清洗：True,身份证：341223199503242518
+
+-------------------------------header----------------------
+2021-05-13 13:45:42,149 [8] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - SqlSugar.SqlSugarException: 错误信息          ： 【SqlDateTime 溢出。必须介于 1/1/1753 12:00:00 AM 和 12/31/9999 11:59:59 PM 之间。】
+ORM生成的Sql ： 【insert into [Business_SurveyVaccination] ([VGUID],[IsInoculation],[FirstDate],[FirstAddress],[SecondDate],[SecondAddress],[Attachment],[UserID],[Name],[CreatedUser],[CreatedTime],[ChangeUser],[ChangeTime] ) values(@VGUID,@IsInoculation,@FirstDate,@FirstAddress,@SecondDate,@SecondAddress,@Attachment,@UserID,@Name,@CreatedUser,@CreatedTime,@ChangeUser,@ChangeTime);select 'true';】
+函数参数         ： 【{"VGUID":"159c0129-7ff2-4d28-9063-0eddb525bf4b","IsInoculation":"1","FirstDate":null,"FirstAddress":null,"SecondDate":null,"SecondAddress":null,"Attachment":"","UserID":"18936495119","Name":"孟卧龙  ","CreatedUser":"孟卧龙  ","CreatedTime":"\/Date(1620884741711)\/","ChangeUser":null,"ChangeTime":"\/Date(-62135596800000)\/"}】
+
+   在 SqlSugar.SqlSugarClient.Insert[T](T entity, Boolean isIdentity)
+   在 DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.SurveyVaccination.SurveyVaccinationController.SaveSurveyVaccination(Business_SurveyVaccination bsv) 位置 F:\NewDZWeChat（可迁入版本）\DaZhongManagementSystem\Areas\RideCheckFeedback\Controllers\SurveyVaccination\SurveyVaccinationController.cs:行号 99
+
+-------------------------------header----------------------
+2021-05-13 13:48:01,707 [8] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - System.ArgumentNullException: 值不能为 null。
+参数名: input
+   在 System.Text.RegularExpressions.Regex.Matches(String input)
+   在 System.Text.RegularExpressions.Regex.Matches(String input, String pattern)
+   在 DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.SurveyVaccination.SurveyVaccinationController.SaveSurveyVaccination(Business_SurveyVaccination bsv) 位置 F:\NewDZWeChat（可迁入版本）\DaZhongManagementSystem\Areas\RideCheckFeedback\Controllers\SurveyVaccination\SurveyVaccinationController.cs:行号 105

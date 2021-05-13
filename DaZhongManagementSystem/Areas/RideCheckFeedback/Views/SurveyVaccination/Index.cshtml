@@ -198,7 +198,7 @@
             </div>
         </div>
         <div class="weui-cell ishide">
-            <div id='imageInfo' class="weui-cell__bd">
+            <div id='imageInfo' class="weui-cell__bd" style="text-align: center;">
                 @if (bsv.Attachment != "" && bsv.Attachment != null)
                 {
                     var urlList = bsv.Attachment.Split(new char[1] { ';' });
@@ -209,10 +209,28 @@
                             <img class='imageInoculation' style='width: 150px;height: 100px;' src='@item' />
                         }
                     }
-                    <button id='deletebtn' style='' onclick='deleteFun()'>×</button>
                 }
             </div>
         </div>
+
+        <div class="weui-cell ishide">
+            <div class="weui-cell__hd" style="width:100px">
+                <label class="weui-label" style="">实例图片：</label>
+            </div>
+            <div class="weui-cell__bd" style="font-size:12px;margin-left: 5%;color: red;">
+                附件图片来源:打开健康云APP，点击"接种记录",进行截图并上传。
+            </div>
+        </div>
+        <div class="weui-cell ishide">
+            <div id='' class="weui-cell__bd" style="text-align: center;">
+                <img class='imageInoculation' onclick="imgShow('#outerdiv', '#innerdiv', '#bigimg', $(this));" style='width: 100px;height: 150px;' src='/UpLoadFile/SurveyVaccination/接种记录示例.jpg' />
+            </div>
+        </div>
+        <div id="outerdiv" style="position:fixed;top:0;left:0;background:rgba(0,0,0,0.7);z-index:2;width:100%;height:100%;display:none;">
+            <div id="innerdiv" style="position:absolute;">
+                <img id="bigimg" style="border:5px solid #fff;" src="" />
+            </div>
+        </div>    
         <hr>
         <div class="weui-cell" style="font-size:14px;margin-left: 5%;color: red;">
             * 本人郑重承诺以上所填信息属实，一切后果由本人承担。
@@ -228,29 +246,28 @@
             var imgFile = [];
             //上传图片
             function imageUpload(event) {
-                if ($(".imageInoculation").length == 2) {
-                    alert("只能上传两张图片,请先清除");
-                    return;
-                }
+                //if ($(".imageInoculation").length == 2) {
+                //    alert("只能上传张图片,请先清除");
+                //    return;
+                //}
                 var fil = event.files;
-                if (fil.length > 2) {
-                    alert("只能上传两张图片");
+                if (fil.length > 1) {
+                    alert("只能上传一张图片");
                     return;
                 }
-                for (var i = 0; i < fil.length; i++) {
-                    reads(fil[i], i);
-                    imgFile.push(fil[i]);
-                }
-                if (fil.length > 0 && $("#deletebtn").length == 0) {
-                    $("#imageInfo").append("<button id='deletebtn' style='' onclick='deleteFun()'>×</button>");
-                }
+                reads(fil[0]);
+                imgFile.push(fil[0]);
+                //if (fil.length > 0 && $("#deletebtn").length == 0) {
+                //    $("#imageInfo").append("<button id='deletebtn' style='' onclick='deleteFun()'>×</button>");
+                //}
             }
-            function reads(fil,i) {
+            function reads(fil) {
+                $("#imageInfo").empty();
                 var reader = new FileReader();
                 reader.readAsDataURL(fil);
                 reader.onload = function () {
                     //&nbsp;&nbsp;<span onclick='deleteFun("+ i +")' style='font-size: 30px;color: red;'>×</span>
-                    $("#imageInfo").append("<img class='imageInoculation' style='width: 150px;height: 100px;' src='" + reader.result + "'>&nbsp;&nbsp;");
+                    $("#imageInfo").append("<img class='imageInoculation' style='width: 150px;height: 100px;' src='" + reader.result + "'>");
                 };
             }
 
@@ -371,6 +388,46 @@
                             layer.alert('提交失败，请稍后重试！', { icon: 2 })
                         }
                     }
+                });
+            }
+
+
+            function imgShow(outerdiv, innerdiv, bigimg, _this) {
+                var src = _this.attr("src");//获取当前点击的pimg元素中的src属性  
+                $(bigimg).attr("src", src);//设置#bigimg元素的src属性  
+
+                /*获取当前点击图片的真实大小，并显示弹出层及大图*/
+                $("<img/>").attr("src", src).load(function () {
+                    var windowW = $(window).width();//获取当前窗口宽度  
+                    var windowH = $(window).height();//获取当前窗口高度  
+                    var realWidth = this.width;//获取图片真实宽度  
+                    var realHeight = this.height;//获取图片真实高度  
+                    var imgWidth, imgHeight;
+                    var scale = 1.0;//缩放尺寸，当图片真实宽度和高度大于窗口宽度和高度时进行缩放  
+
+                    if (realHeight > windowH * scale) {//判断图片高度  
+                        imgHeight = windowH * scale;//如大于窗口高度，图片高度进行缩放  
+                        imgWidth = imgHeight / realHeight * realWidth;//等比例缩放宽度  
+                        if (imgWidth > windowW * scale) {//如宽度扔大于窗口宽度  
+                            imgWidth = windowW * scale;//再对宽度进行缩放  
+                        }
+                    } else if (realWidth > windowW * scale) {//如图片高度合适，判断图片宽度  
+                        imgWidth = windowW * scale;//如大于窗口宽度，图片宽度进行缩放  
+                        imgHeight = imgWidth / realWidth * realHeight;//等比例缩放高度  
+                    } else {//如果图片真实高度和宽度都符合要求，高宽不变  
+                        imgWidth = realWidth;
+                        imgHeight = realHeight;
+                    }
+                    $(bigimg).css("width", imgWidth);//以最终的宽度对图片缩放  
+
+                    var w = (windowW - imgWidth) / 2;//计算图片与窗口左边距  
+                    var h = (windowH - imgHeight) / 2;//计算图片与窗口上边距  
+                    $(innerdiv).css({ "top": h, "left": w });//设置#innerdiv的top和left属性  
+                    $(outerdiv).fadeIn("fast");//淡入显示#outerdiv及.pimg  
+                });
+
+                $(outerdiv).click(function () {//再次点击淡出消失弹出层  
+                    $(this).fadeOut("fast");
                 });
             }
         </script>
