@@ -24,3 +24,7 @@ ORM生成的Sql ： 【insert into [Business_SurveyVaccination] ([VGUID],[IsInoculati
    在 System.Text.RegularExpressions.Regex.Matches(String input)
    在 System.Text.RegularExpressions.Regex.Matches(String input, String pattern)
    在 DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.SurveyVaccination.SurveyVaccinationController.SaveSurveyVaccination(Business_SurveyVaccination bsv) 位置 F:\NewDZWeChat（可迁入版本）\DaZhongManagementSystem\Areas\RideCheckFeedback\Controllers\SurveyVaccination\SurveyVaccinationController.cs:行号 105
+
+-------------------------------header----------------------
+
+-------------------------------footer----------------------
