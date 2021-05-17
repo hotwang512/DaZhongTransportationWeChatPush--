@@ -4,6 +4,7 @@ using System.Web;
 using Aspose.Pdf.Drawing;
 using System.IO;
 using System;
+using System.Web.Mvc;
 
 namespace DaZhongManagementSystem.Common
 {
@@ -74,10 +75,12 @@ namespace DaZhongManagementSystem.Common
         {
             string rootPath = BuildExportTemplate(dataSource);
             Workbook wk = new Workbook(rootPath);
-            WorkbookDesigner designer = new WorkbookDesigner(wk);
-            designer.SetDataSource(dataSource);
-            designer.Process();
-            designer.Workbook.Save(HttpContext.Current.Response, fileName, ContentDisposition.Attachment, designer.Workbook.SaveOptions);
+            CreateExportData(wk, dataSource, fileName);
+
+            //WorkbookDesigner designer = new WorkbookDesigner(wk);
+            //designer.SetDataSource(dataSource);
+            //designer.Process();
+            //designer.Workbook.Save(HttpContext.Current.Response, fileName, ContentDisposition.Attachment, designer.Workbook.SaveOptions);
             try
             {
                 File.Delete(rootPath);
@@ -86,6 +89,28 @@ namespace DaZhongManagementSystem.Common
             {
 
             }
+        }
+
+        public static void CreateExportData(Workbook workbook, DataTable dataSource, string fileName)
+        {
+            Worksheet sheet = workbook.Worksheets[0]; //工作表 
+            Cells cells = sheet.Cells;
+            int Colnum = dataSource.Columns.Count;//表格列数 
+            int Rownum = dataSource.Rows.Count;//表格行数 
+            for (int i = 0; i < Rownum; i++)
+            {
+                for (int k = 0; k < Colnum; k++)
+                {
+                    cells[2 + i, k].PutValue(dataSource.Rows[i][k].ToString());
+                }
+            }
+            MemoryStream excel = workbook.SaveToStream();
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.ContentType = "application/vnd.ms-excel";
+            HttpContext.Current.Response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}", fileName));
+
+            excel.WriteTo(HttpContext.Current.Response.OutputStream);
+            HttpContext.Current.Response.End();
         }
 
         public static string BuildExportTemplate(DataTable dataSource)
@@ -127,22 +152,34 @@ namespace DaZhongManagementSystem.Common
             cells[2, 0].PutValue("&=[table].OrganizationName");
             cells[2, 0].SetStyle(styleData);
             cells.Merge(0, 1, 2, 1);
-            cells.SetColumnWidth(1, 12);//设置DID行为隐藏行;
-            cells[0, 1].PutValue("姓名");
+            cells.SetColumnWidth(1, 15);//设置DID行为隐藏行;
+            //cells[0, 1].PutValue("姓名");
+            cells[0, 1].PutValue("车队");
             cells[0, 1].SetStyle(styleHeader);
             cells[1, 1].SetStyle(styleHeader);
-            cells[2, 1].PutValue("&=[table].Name");
+            //cells[2, 1].PutValue("&=[table].Name");
+            cells[2, 1].PutValue("&=[table].MotorcadeName");
             cells[2, 1].SetStyle(styleData);
             cells.Merge(0, 2, 2, 1);
-            cells.SetColumnWidth(2, 20);//设置DID行为隐藏行;
-            cells[0, 2].PutValue("身份证号码");
+            cells.SetColumnWidth(2, 12);//设置DID行为隐藏行;
+            //cells[0, 2].PutValue("身份证号码");
+            cells[0, 2].PutValue("姓名");
             cells[0, 2].SetStyle(styleHeader);
             cells[1, 2].SetStyle(styleHeader);
-            cells[2, 2].PutValue("&=[table].IDNumber");
+            //cells[2, 2].PutValue("&=[table].IDNumber");
+            cells[2, 2].PutValue("&=[table].Name");
             cells[2, 2].SetStyle(styleData);
-            int dynamicColumnCount = (dataSource.Columns.Count - 3) / 2 + 3;
+            cells.Merge(0, 3, 2, 1);
+            cells.SetColumnWidth(3, 20);//设置DID行为隐藏行;
+            cells[0, 3].PutValue("身份证号码");
+            cells[0, 3].SetStyle(styleHeader);
+            cells[1, 3].SetStyle(styleHeader);
+            cells[2, 3].PutValue("&=[table].IDNumber");
+            cells[2, 3].SetStyle(styleData);
+            int dynamicColumnCount = (dataSource.Columns.Count - 4) / 2 + 4;
+            //int dynamicColumnCount = dataSource.Columns.Count;
             int index = 0;
-            for (int i = 3; i < dynamicColumnCount; i++)
+            for (int i = 4; i < dynamicColumnCount; i++)
             {
                 var colIndex = i + index;
 

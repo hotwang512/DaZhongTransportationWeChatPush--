@@ -154,6 +154,9 @@ var $page = function () {
                     if (obj == "OrganizationName") {
                         colArray.push({ text: '公司/部门', width: 200, datafield: 'OrganizationName', align: 'center', cellsAlign: 'center' });
                     }
+                    else if (obj == "MotorcadeName") {
+                        colArray.push({ text: '车队', width: 200, datafield: 'MotorcadeName', align: 'center', cellsAlign: 'center' });
+                    }
                     else if (obj == "Name") {
                         colArray.push({ text: '姓名', width: 150, datafield: 'Name', align: 'center', cellsAlign: 'center' });
                     }

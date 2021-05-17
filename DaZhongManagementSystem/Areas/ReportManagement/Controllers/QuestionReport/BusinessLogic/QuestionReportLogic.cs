@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using DaZhongManagementSystem.Common;
 using System.Data;
+using DaZhongManagementSystem.Areas.PartnerInquiryManagement.Models;
 
 namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.QuestionReport.BusinessLogic
 {
@@ -141,10 +142,66 @@ namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.QuestionRep
         {
             return _ss.GetExerciseTotalSource(startDate, endDate, dept);
         }
-        public void ExportExerciseTotalReport(string startDate, string endDate, string dept)
+        public void ExportExerciseTotalReport(string startDate, string endDate, string dept, List<Personnel_Info> motorList)
         {
             var sources = _ss.GetExerciseTotalSource(startDate, endDate, dept);
-            ExportExcel.ExportExcels("答题统计.xls", sources);
+            List<Dictionary<string, object>> dic = new List<Dictionary<string, object>>();
+            foreach (DataRow dr in sources.Rows)
+            {
+                var idNumber = dr["IDNumber"].ToString();
+                var motorcadeName = "";
+                foreach (var item in motorList)
+                {
+                    if (idNumber == item.IdCard)
+                    {
+                        motorcadeName = item.MotorcadeName;
+                        break;
+                    }
+                }
+                Dictionary<string, object> drow = new Dictionary<string, object>();
+                foreach (DataColumn dc in sources.Columns)
+                {
+                    drow.Add(dc.ColumnName, dr[dc.ColumnName]);
+                    if (dc.ColumnName == "OrganizationName")
+                    {
+                        //if (motorcadeName == null || motorcadeName == "")
+                        //{
+                        //    motorcadeName = "无车队";
+                        //}
+                        drow.Add("MotorcadeName", motorcadeName);
+                    }
+                }
+                dic.Add(drow);
+            }
+            var newSources = ToDataTable(dic);
+            ExportExcel.ExportExcels("答题统计.xls", newSources);
+        }
+        /// <summary>
+        /// 键值集合List转换成datatable
+        /// </summary>
+        /// <param name="data">数据源</param>
+        /// <returns></returns>
+        DataTable ToDataTable(List<Dictionary<string, object>> data)
+        {
+
+            DataTable dt = new DataTable();
+
+            foreach (var item in data[0].Keys)
+            {//循环添加列
+                dt.Columns.Add(new DataColumn(item));
+            }
+            foreach (var item in data)
+            {//把数据填充到行
+                DataRow dr = dt.NewRow();
+                foreach (var ii in item)
+                {
+                    dr[ii.Key] = ii.Value;
+                }
+                //把数据添加到datatable
+                dt.Rows.Add(dr);
+            }
+
+            return dt;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.OrganizationManagement.OrganizationManageLogic;
 using DaZhongManagementSystem.Areas.BasicDataManagement.Controllers.WeChatExercise.BusinessLogic;
 using DaZhongManagementSystem.Areas.PartnerInquiryManagement.Models;
+using DaZhongManagementSystem.Common.LogHelper;
 using DaZhongManagementSystem.Entities.TableEntity;
 using DaZhongManagementSystem.Entities.UserDefinedEntity;
 using DaZhongManagementSystem.Entities.View;
@@ -110,9 +111,12 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
             {
                 #region 查询车辆信息
                 var date = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd");//昨天
+                //date = "2021-05-12";
                 //dataList = _dbMsSql.SqlQueryJson(@"select * from t_taxi_summary where 日期=@Date",new { Date = date });
                 var date1 = date.TryToDate();
                 var date2 = date1.AddDays(-1).ToString("yyyy-MM-dd");//前天
+                //date1 = date.TryToDate();
+                //date2 = date1.AddDays(-1).ToString("yyyy-MM-dd");//前天
                 if (fleet == "0")
                 {
                     fleet = fleetAll;
@@ -128,7 +132,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
                 if (cm.DepartmenManager == "12")
                 {
                     var count = _dbMsSql.SqlQuery<int>(@"select count(上线司机数) from  t_taxi_summary where 日期='" + date + "' and 公司 in (" + fleet + ")").FirstOrDefault();
-                    if(count == 0)
+                    if (count == 0)
                     {
                         //没有数据时,避免除0报错或者用nullif(0,0)函数
                         count = 1;
@@ -138,7 +142,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
                                             isnull(Sum(convert(decimal(18,2),上线车辆数)),0) as 上线车辆数, 
                                             isnull(Sum(convert(decimal(18,2),总差次)),0) as 总差次,
                                             convert(decimal(18,2),
-			                                isnull(Sum(convert(decimal(18,2),车均营收)),0)/"+ count + @") as 车均营收,
+			                                isnull(Sum(convert(decimal(18,2),车均营收)),0)/" + count + @") as 车均营收,
 			                                convert(decimal(18,2),
 			                                isnull(Sum(convert(decimal(18,2),车均差次)),0)/" + count + @") as 车均差次,
 			                                convert(decimal(18,2),
@@ -155,6 +159,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
 			                                convert(decimal(18,2),
 			                                isnull(Sum(convert(decimal(18,2),车均在线时长)),0)/" + count + @") as 车均在线时长
                                             from t_taxi_summary where 日期='" + date2 + "' and 公司 in (" + fleet + ")");
+                    LogHelper.WriteLog(string.Format("级别：{0},查询日期:{1},上线司机总数：{2},查询日期最新数据：{3}", cm.DepartmenManager, date, count, dataList));
                 }
                 else
                 {
@@ -186,6 +191,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
 			                                convert(decimal(18,2),
 			                                isnull(Sum(convert(decimal(18,2),车均在线时长)),0)/" + count + @") as 车均在线时长
                                             from t_taxi_summary where 日期='" + date2 + "' and 车队 in (" + fleet + ") and 公司='" + orgName + "'");
+                    LogHelper.WriteLog(string.Format("级别：{0},查询日期:{1},上线司机总数：{2},查询日期最新数据：{3}", cm.DepartmenManager, date, count, dataList));
                 }
                 if (dataList.Count() > 2)
                 {
@@ -377,7 +383,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
                 if (description != "" && level == "12" && description != "全部" && description != "R")
                 {
                     //查所配置公司备注
-                    var description2 = getSqlInValue(description,"");
+                    var description2 = getSqlInValue(description, "");
                     fleetList = _dbMsSql.SqlQuery<string>(@"select distinct Remark from DZ_Organization where OrganizationName in (" + description2 + ") and status=0").ToList();
                 }
                 else if (description == "全部" && level == "12")

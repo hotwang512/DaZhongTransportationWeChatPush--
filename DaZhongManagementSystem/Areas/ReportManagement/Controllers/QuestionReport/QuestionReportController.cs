@@ -9,6 +9,9 @@ using DaZhongManagementSystem.Controllers;
 using System.Data;
 using DaZhongManagementSystem.Common.Tools;
 using DaZhongManagementSystem.Models;
+using SqlSugar;
+using DaZhongManagementSystem.Infrastructure.SugarDao;
+using DaZhongManagementSystem.Areas.PartnerInquiryManagement.Models;
 
 namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.QuestionReport
 {
@@ -87,14 +90,32 @@ namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.QuestionRep
         public CJsonResult ExerciseTotalReportSource(string startDate, string endDate, string dept)
         {
             var source = _sl.ExerciseTotalReport(startDate, endDate, dept);
-
+            List<Personnel_Info> motorList = new List<Personnel_Info>();
+            using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance2())
+            {
+                motorList = _dbMsSql.SqlQuery<Personnel_Info>(@"select MotorcadeName,IdCard from [DZ_DW].[dbo].[Visionet_DriverInfo_View]");
+            }
             List<Dictionary<string, object>> dic = new List<Dictionary<string, object>>();
             foreach (DataRow dr in source.Rows)
             {
+                var idNumber = dr["IDNumber"].ToString();
+                var motorcadeName = "";
+                foreach (var item in motorList)
+                {
+                    if(idNumber == item.IdCard)
+                    {
+                        motorcadeName = item.MotorcadeName;
+                        continue;
+                    }
+                }
                 Dictionary<string, object> drow = new Dictionary<string, object>();
                 foreach (DataColumn dc in source.Columns)
                 {
                     drow.Add(dc.ColumnName, dr[dc.ColumnName]);
+                    if(dc.ColumnName == "OrganizationName")
+                    {
+                        drow.Add("MotorcadeName", motorcadeName);
+                    }
                 }
                 dic.Add(drow);
             }
@@ -102,7 +123,12 @@ namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.QuestionRep
         }
         public void ExportExerciseTotalReport(string startDate, string endDate, string dept)
         {
-            _sl.ExportExerciseTotalReport(startDate, endDate, dept);
+            List<Personnel_Info> motorList = new List<Personnel_Info>();
+            using (SqlSugarClient _dbMsSql = SugarDao_MsSql.GetInstance2())
+            {
+                motorList = _dbMsSql.SqlQuery<Personnel_Info>(@"select MotorcadeName,IdCard from [DZ_DW].[dbo].[Visionet_DriverInfo_View]");
+            }
+            _sl.ExportExerciseTotalReport(startDate, endDate, dept, motorList);
         }
 
         /// <summary>
