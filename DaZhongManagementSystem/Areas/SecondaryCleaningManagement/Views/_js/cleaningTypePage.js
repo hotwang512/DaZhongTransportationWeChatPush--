@@ -1,6 +1,6 @@
 ﻿var code = $("#UserVGUID").val();
 var vguid = getQueryString("VGUID");//公司VGUID
-    vguid = "153dd969-ab80-441c-b881-4dba7120748e";//测试
+//vguid = "153dd969-ab80-441c-b881-4dba7120748e";//测试
 var phoneNumber = $("#PhoneNumber").val();
 var isCleaning = false;
 var type = "";//清洗类型

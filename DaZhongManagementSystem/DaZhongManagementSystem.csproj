@@ -2167,6 +2167,8 @@
     <Content Include="_theme\_js\jquery.gritter.min.js" />
     <Content Include="_theme\_js\jweixin-1.0.0.js" />
     <Content Include="_theme\_js\menueCookie.js" />
+    <Content Include="_theme\_js\pivot.css" />
+    <Content Include="_theme\_js\pivot.js" />
     <Content Include="_theme\_js\tool.js" />
     <Content Include="Areas\BasicDataManagement\Views\Web.config" />
     <Content Include="Areas\BasicDataManagement\Views\UserInfo\UserInfo.cshtml" />

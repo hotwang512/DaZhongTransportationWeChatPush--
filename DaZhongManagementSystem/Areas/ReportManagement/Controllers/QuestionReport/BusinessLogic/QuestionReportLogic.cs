@@ -185,7 +185,7 @@ namespace DaZhongManagementSystem.Areas.ReportManagement.Controllers.QuestionRep
         {
 
             DataTable dt = new DataTable();
-
+            dt.TableName = "table";
             foreach (var item in data[0].Keys)
             {//循环添加列
                 dt.Columns.Add(new DataColumn(item));
