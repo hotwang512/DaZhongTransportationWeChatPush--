@@ -62,7 +62,7 @@ function loadVehicleMaintenance(carID) {
     $.ajax({
         url: "/PartnerInquiryManagement/CheckScheduling/GetVehicleMaintenanceInfo",
         type: "post",
-        data: { fleet: $("#FleetSelect").val(), type: $("#MaintainType").val(), status: $("#MaintainStatus").val(), idCard: carID,code:code },
+        data: { fleet: $("#FleetSelect").val(), type: $("#MaintainType").val(), status: $("#MaintainStatus").val(), idCard: carID, code: code + "K" },
         dataType: "json",
         success: function (msg) {
             if (msg != null) {
@@ -88,8 +88,10 @@ function createMaintainDiv(data) {
         var isYanche = $.trim(data[i].Yanche);//是否验车
         var isStatus = $.trim(data[i].Status);//是否过期
         var mobilePhone = $.trim(data[i].MobilePhone);//手机号
+        var isMaintenance = $.trim(data[i].IsMaintenance);//是否已保养
         var color = "";
         var yanche = "";
+        var baoyang = "";
         var status = "";
         switch (maintainLevel) {
             case "1": color = "rgba(0, 191, 191, 1)"; break;
@@ -101,13 +103,19 @@ function createMaintainDiv(data) {
             yanche = '<div class="ax_default primary_button2" style="background-color: rgba(184, 116, 26, 1);margin-left: 2px;">' +
                     '<span style="margin-left: 16px;color: #FFFFFF;">验车</span></div>'
         }
+        if (isMaintenance == "1") {
+            baoyang = '<div class="ax_default primary_button2" style="background-color: red;margin-left: 2px;">' +
+                    '<span style="margin-left: 10px;color: #FFFFFF;">已保养</span></div>'
+        }
         if (isStatus == "0") {
-            status = '<div id="" class="u474_div" phone="' + mobilePhone + '" name="' + driverName + '" date="' + maintainDate + '" time="' + maintainTime + '" place="' + maintainAddress + '" lb="' + maintainLevel + '" ' + '" isYanche="' + isYanche + '" ' +
-            'onclick="sendMessage(this)" ' +
-            'style="line-height: 20px;text-align: center;"><span style="">保养提醒</span></div>';
+            if (isMaintenance == "0") {
+                status = '<div id="" class="u474_div" phone="' + mobilePhone + '" name="' + driverName + '" date="' + maintainDate + '" time="' + maintainTime + '" place="' + maintainAddress + '" lb="' + maintainLevel + '" ' + '" isYanche="' + isYanche + '" ' +
+                'onclick="sendMessage(this)" ' +
+                'style="line-height: 20px;text-align: center;"><span style="">保养提醒</span></div>';
+            }
 
             html += '<div class="mainCheck">' +
-                        '<div class="mainlabel">车队：' + fleet + '</div>' + yanche + '<div class="ax_default primary_button2" style="background-color: ' + color + ';">' +
+                        '<div class="mainlabel">车队：' + fleet + '</div>' + yanche + baoyang + '<div class="ax_default primary_button2" style="background-color: ' + color + ';">' +
                         '<span style="margin-left: 6px;color: #FFFFFF;">' + maintainLevel + '级保养</span></div>' +
                         '<div class="mainlabel">' + driverName + '&nbsp;&nbsp;&nbsp;' + carId + '</div>' +
                         '<div class="mainlabel"><span>保养时间：</span>' + maintainDate + '&nbsp;' + maintainTime + '</div>' + status +

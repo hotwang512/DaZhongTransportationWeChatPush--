@@ -46,27 +46,71 @@
                 </div>
             </header>
             <nav>
-                <ul>
-                    @*<li class="nav_1">
-                            <div>历史欠款</div>
-                            <div class="n1_num">@revenueInfo.HistoricalArrears</div>
-                        </li>*@
-                    <li class="nav_2">
-                        <div>上期结余金额</div>
-                        <div class="n2_num">@revenueInfo.TheBalance</div>
-                    <li class="nav_3">
-                        <div>本期应缴金额</div>
-                        <div class="n3_num">@revenueInfo.AmountDue</div>
-                    </li>
-                    <li class="nav_4">
-                        <div>本期已缴金额</div>
-                        <div class="n4_num">@revenueInfo.CurrentPayment</div>
-                    </li>
-                    <li class="nav_5">
-                        <div>当前结余金额</div>
-                        <div class="n5_num">@revenueInfo.CurrentAccountBalance</div>
-                    </li>
-                </ul>
+                <div class="menue_header">
+                    <table style="cursor: pointer;">
+                        <tr>
+                            <td class="menue_text_header">上期结余金额</td>
+                            <td align="right" style="width: 80px; font-weight: normal;padding-right: 0.5rem ">@revenueInfo.TheBalance</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="menue_header">
+                    <table style="cursor: pointer;">
+                        <tr>
+                            <td class="menue_text_header">本期应缴金额  ▽</td>
+                            <td align="right" style="width: 80px; font-weight: normal;padding-right: 0.5rem ">@revenueInfo.AmountDue</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="menue_body" style="height:200px;overflow:auto;background-color:#f0f0f0;margin-top: 0px;display:none;">
+                    <table>
+                        @if (revenueInfo.PaymentInfoList.Count > 0)
+                        {
+                            foreach (var item in revenueInfo.PaymentInfoList)
+                            {
+                                <tr class="menue_item" id="">
+                                    <td class="menue_text">@item.NAME</td>
+                                    <td class="menue_text">@item.VALUE</td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                </div>
+                <div class="menue_header">
+                    <table style="cursor: pointer;">
+                        <tr>
+                            <td class="menue_text_header">本期已缴金额  ▽</td>
+                            <td align="right" style="width: 80px; font-weight: normal; padding-right: 0.5rem">@revenueInfo.CurrentPayment</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="menue_body" style="height:200px;overflow:auto;background-color:#f0f0f0;margin-top: 0px;display:none;">
+                    <table>
+                       @if (revenueInfo.PaidAmountInfoList.Count > 0)
+                       {
+                           foreach (var item in revenueInfo.PaidAmountInfoList)
+                           {
+                            <tr class="menue_item" id="">
+                                <td class="menue_text">@item.NAME</td>
+                                <td class="menue_text">@item.VALUE</td>
+                            </tr>
+                           }
+                       }
+                    </table>
+                </div>
+
+
+
+                <div class="menue_header">
+                    <table style="cursor: pointer;">
+                        <tr>
+                            <td class="menue_text_header">当前结余金额</td>
+                            <td align="right" style="width: 80px; font-weight: normal; padding-right: 0.5rem">@revenueInfo.CurrentAccountBalance</td>
+                        </tr>
+                    </table>
+                </div>
+
+               
             </nav>
 
             <div class="h_bottom" id="paymentTitle">

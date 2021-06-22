@@ -54,7 +54,7 @@ function loadDriverScore() {
     $.ajax({
         url: "/PartnerInquiryManagement/DriverManagement/GetDriverScore",
         type: "post",
-        data: { fleet: $("#u235_input").val(), code: code },
+        data: { fleet: $("#u235_input").val(), code: code+"K" },
         dataType: "json",
         async: false,
         success: function (msg) {
@@ -70,7 +70,7 @@ function loadAnswerStatus() {
     $.ajax({
         url: "/PartnerInquiryManagement/DriverManagement/getAnswerStatus",
         type: "post",
-        data: { fleet: $("#u235_input").val(), code: code },
+        data: { fleet: $("#u235_input").val(), code: code+"K" },
         dataType: "json",
         success: function (msg) {
             if (msg != null) {

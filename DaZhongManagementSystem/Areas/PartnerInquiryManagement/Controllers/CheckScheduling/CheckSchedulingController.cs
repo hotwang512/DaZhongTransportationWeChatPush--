@@ -35,7 +35,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Che
                 }
                 if(cm.DepartmenManager == "12")
                 {
-                    resultInfo = _dbMsSql.SqlQuery<VehicleMaintenanceInfo>(@"SELECT  MotorcadeName,Name,CabLicense,MaintenanceType,Date,Time,Address,Yanche,vm.Status,MobilePhone
+                    resultInfo = _dbMsSql.SqlQuery<VehicleMaintenanceInfo>(@"SELECT  MotorcadeName,Name,CabLicense,MaintenanceType,Date,Time,Address,Yanche,vm.Status,MobilePhone,'' as isMaintenance
                               FROM VehicleMaintenanceInfo vm
                               left join [DZ_DW].[dbo].[Visionet_DriverInfo_View] vdv on vm.carNo=vdv.CabVMLicense
                               where vdv.Organization in (" + fleet + @") 
@@ -51,7 +51,21 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Che
                               and vm.Status='0' 
                               order by MotorcadeName asc,Date asc,Time asc,MaintenanceType asc", new { OrgName = orgName}).ToList();
                 }
-               
+                var svbillList = _dbMsSql.SqlQuery<SHDZWX_VIEW_SVBILL>(@"select SV_FTYPE,VEHICLE_NO,CONVERT(date, BILL_DATE, 23) as BILL_DATE from SHDZWX_VIEW_SVBILL where SV_FTYPE='1'").ToList();
+                foreach (var item in resultInfo)
+                {
+                    var dateMin = item.Date.TryToDate().AddDays(-7);
+                    var dateMax = item.Date.TryToDate().AddDays(+7);
+                    var isAny = svbillList.Any(x => x.VEHICLE_NO == item.CabLicense && x.BILL_DATE >= dateMin && x.BILL_DATE <= dateMax);
+                    if(isAny == true)
+                    {
+                        item.IsMaintenance = "1";
+                    }
+                    else
+                    {
+                        item.IsMaintenance = "0";
+                    }
+                }
                 if (type != "0" && type != "")
                 {
                     if (type == "4")//验车

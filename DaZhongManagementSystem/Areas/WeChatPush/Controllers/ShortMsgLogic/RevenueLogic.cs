@@ -188,9 +188,14 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.ShortMsgLogic
             try
             {
                 WebClient wc = new WebClient();
+                //测试数据
+                //driverModel.OrganizationID = 17904;
+                //driverModel.Id = 55;
+                //driverModel.EmployeeNo = "993594";
                 var data = "{" +
                             "\"OrganizationId\":\"{OrganizationId}\",".Replace("{OrganizationId}", driverModel.OrganizationID.ToString()) +
-                            "\"DriverID\":\"{DriverID}\"".Replace("{DriverID}", driverModel.Id.ToString()) +
+                            "\"DriverID\":\"{DriverID}\",".Replace("{DriverID}", driverModel.Id.ToString()) +
+                            "\"EmployeeNo\":\"{EmployeeNo}\"".Replace("{EmployeeNo}", driverModel.EmployeeNo.ToString()) +
                             "}";
                 wc.Headers.Clear();
                 wc.Headers.Add("Content-Type", "application/json;charset=utf-8");

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DaZhongManagementSystem.Entities.TableEntity.RevenueAPIModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -49,5 +50,14 @@ namespace DaZhongManagementSystem.Entities.UserDefinedEntity
         /// 费用-合计缴费金额，只能是正数
         /// </summary>
         public string Fee_TotalAmount { get; set; }
+        /// <summary>
+        /// 本期应缴明细
+        /// </summary>
+        //public List<PaymentInfoList> paymentInfo { get; set; }
+        public List<ResultDetail> PaymentInfoList = new List<ResultDetail>();
+        /// <summary>
+        /// 本期已缴明细
+        /// </summary>
+        public List<ResultDetail> PaidAmountInfoList = new List<ResultDetail>();
     }
 }

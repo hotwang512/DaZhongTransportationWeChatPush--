@@ -101,7 +101,7 @@ function loadRegulationsInfo(carID) {
     $.ajax({
         url: "/PartnerInquiryManagement/CarManagement/GetElectronicInfo",
         type: "post",
-        data: { fleet: $("#u416_input").val(), date: $("#DateSearch").val(), carID: carID, code: code },
+        data: { fleet: $("#u416_input").val(), date: $("#DateSearch").val(), carID: carID, code: code+"K" },
         dataType: "json",
         success: function (msg) {
             if (msg != null) {
@@ -118,7 +118,7 @@ function loadAccidentInfo(carID) {
     $.ajax({
         url: "/PartnerInquiryManagement/CarManagement/GetAccidentInfo",
         type: "post",
-        data: { fleet: $("#u416_input").val(), date: $("#DateSearch").val(), carID: carID, code: code },
+        data: { fleet: $("#u416_input").val(), date: $("#DateSearch").val(), carID: carID, code: code+"K" },
         dataType: "json",
         success: function (msg) {
             if (msg != null) {
@@ -135,7 +135,7 @@ function loadOperationInfo(carID) {
     $.ajax({
         url: "/PartnerInquiryManagement/CarManagement/GetOperationInfo",
         type: "post",
-        data: { fleet: $("#u416_input").val(), date: $("#DateSearch").val(), carID: carID, code: code },
+        data: { fleet: $("#u416_input").val(), date: $("#DateSearch").val(), carID: carID, code: code+"K" },
         dataType: "json",
         success: function (msg) {
             if (msg != null) {

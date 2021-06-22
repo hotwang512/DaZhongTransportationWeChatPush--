@@ -210,6 +210,7 @@
     <Compile Include="Areas\PartnerInquiryManagement\Models\DriverScore.cs" />
     <Compile Include="Areas\PartnerInquiryManagement\Models\Electronic_police.cs" />
     <Compile Include="Areas\PartnerInquiryManagement\Models\Personnel_Info.cs" />
+    <Compile Include="Areas\PartnerInquiryManagement\Models\SHDZWX_VIEW_SVBILL.cs" />
     <Compile Include="Areas\PartnerInquiryManagement\Models\VehicleMaintenanceInfo.cs" />
     <Compile Include="Areas\PartnerInquiryManagement\Models\Visionet_CabInfo.cs" />
     <Compile Include="Areas\PartnerInquiryManagement\PartnerInquiryManagementAreaRegistration.cs" />

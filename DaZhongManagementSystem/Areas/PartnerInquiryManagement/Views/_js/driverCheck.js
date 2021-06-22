@@ -72,7 +72,7 @@ function loadTaxiSummaryInfo() {
     $.ajax({
         url: "/PartnerInquiryManagement/DriverCheck/GetTaxiSummaryInfo",
         type: "post",
-        data: { code: code },
+        data: { code: code+"K" },
         dataType: "json",
         //traditional: true,
         success: function (msg) {
@@ -89,7 +89,7 @@ function loadCarViolationInfo() {
     $.ajax({
         url: "/PartnerInquiryManagement/DriverCheck/GetCarViolationInfo",
         type: "post",
-        data: { code: code },
+        data: { code: code+"K" },
         dataType: "json",
         //traditional: true,
         success: function (msg) {
@@ -102,7 +102,7 @@ function loadAccidentInfo() {
     $.ajax({
         url: "/PartnerInquiryManagement/DriverCheck/GetAccidentInfo",
         type: "post",
-        data: { code: code },
+        data: { code: code+"K" },
         dataType: "json",
         success: function (msg) {
             $("#accidentCount").text(msg.length);
@@ -114,7 +114,7 @@ function loadBaseData() {
     $.ajax({
         url: "/PartnerInquiryManagement/DriverCheck/GetBaseData",
         type: "post",
-        data: { code: code },
+        data: { code: code+"K" },
         dataType: "json",
         //traditional: true,
         success: function (msg) {
@@ -152,7 +152,7 @@ function loadVehicleMaintenanceInfo() {
     $.ajax({
         url: "/PartnerInquiryManagement/DriverCheck/GetVehicleMaintenanceInfo",
         type: "post",
-        data: { code: code },
+        data: { code: code+"K" },
         dataType: "json",
         //traditional: true,
         success: function (msg) {

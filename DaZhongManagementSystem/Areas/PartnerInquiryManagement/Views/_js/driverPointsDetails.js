@@ -50,7 +50,7 @@ var $page = function () {
            data: {
                "fleet": $("#u264_input").val(),
                "name": $("#SearchByName").val(),
-               "code": code
+               "code": code+"K"
            },
            url: "/PartnerInquiryManagement/DriverPointsDetails/GetPointsListBySearch"    //获取数据源的路径
        };

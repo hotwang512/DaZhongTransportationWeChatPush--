@@ -38,7 +38,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
             string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
             userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
             //userInfo.UserId = "13671595340";//合伙人
-            //userInfo.UserId = "15921961501";//司机
+            //userInfo.UserId = "18936495119";//司机
             Business_Personnel_Information personInfoModel = GetUserInfo(userInfo.UserId);//获取人员表信息
             if (personInfoModel.DepartmenManager == 10 || personInfoModel.DepartmenManager == 11)
             {
@@ -61,7 +61,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
                     organizationDetail = _ol.GetOrganizationDetail(personInfoModel.OwnedFleet.ToString());
                     Personnel.OldMotorcadeName = personInfoModel.OwnedFleet;//公司
                     Personnel.OldOrganization = personInfoModel.OwnedCompany;//车队
-                    var key = PubGet.GetUserKey + personInfoModel.Vguid;
+                    var key = PubGet.GetUserKey + personInfoModel.Vguid + "K";
                     var csche = CacheManager<Personnel_Info>.GetInstance().Get(key);
                     if (csche != null)
                     {
@@ -95,7 +95,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
         }
         public JsonResult GetTaxiSummaryInfo(string fleet, string code)
         {
-            var cm = CacheManager<Personnel_Info>.GetInstance()[PubGet.GetUserKey + code];
+            var cm = CacheManager<Personnel_Info>.GetInstance()[PubGet.GetUserKey + code + "K"];
             var orgName = cm.Organization;
             var fleetAll = getSqlInValue(cm.MotorcadeName, code);
             if (cm.DepartmenManager == "12")
@@ -230,7 +230,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
         public JsonResult GetVehicleMaintenanceInfo(string fleet, string code)
         {
             //保养
-            var cm = CacheManager<Personnel_Info>.GetInstance()[PubGet.GetUserKey + code];
+            var cm = CacheManager<Personnel_Info>.GetInstance()[PubGet.GetUserKey + code + "K"];
             var orgName = cm.Organization;
             var fleetAll = getSqlInValue(cm.MotorcadeName, code);
             List<VehicleMaintenanceInfo> resultInfo = new List<VehicleMaintenanceInfo>();
@@ -246,7 +246,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
                 }
                 if (cm.DepartmenManager == "12")
                 {
-                    resultInfo = _dbMsSql.SqlQuery<VehicleMaintenanceInfo>(@"SELECT  MotorcadeName,Name,CabLicense,MaintenanceType,Date,Time,Address,Yanche,vm.Status,MobilePhone
+                    resultInfo = _dbMsSql.SqlQuery<VehicleMaintenanceInfo>(@"SELECT Top(5) MotorcadeName,Name,CabLicense,MaintenanceType,Date,Time,Address,Yanche,vm.Status,MobilePhone 
                               FROM VehicleMaintenanceInfo vm
                               left join [DZ_DW].[dbo].[Visionet_DriverInfo_View] vdv on vm.carNo=vdv.CabVMLicense
                               where vdv.Organization in (" + fleet + @") 
@@ -255,12 +255,27 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
                 }
                 else
                 {
-                    resultInfo = _dbMsSql.SqlQuery<VehicleMaintenanceInfo>(@"SELECT  MotorcadeName,Name,CabLicense,MaintenanceType,Date,Time,Address,Yanche,vm.Status,MobilePhone
+                    resultInfo = _dbMsSql.SqlQuery<VehicleMaintenanceInfo>(@"SELECT Top(5)  MotorcadeName,Name,CabLicense,MaintenanceType,Date,Time,Address,Yanche,vm.Status,MobilePhone 
                               FROM VehicleMaintenanceInfo vm
                               left join [DZ_DW].[dbo].[Visionet_DriverInfo_View] vdv on vm.carNo=vdv.CabVMLicense
                               where vdv.Organization=@OrgName  and vdv.MotorcadeName in (" + fleet + @")  
                               and vm.Status='0'
                               order by MotorcadeName asc,Date asc,Time asc,MaintenanceType asc", new { OrgName = orgName }).ToList();
+                }
+                var svbillList = _dbMsSql.SqlQuery<SHDZWX_VIEW_SVBILL>(@"select SV_FTYPE,VEHICLE_NO,CONVERT(date, BILL_DATE, 23) as BILL_DATE from SHDZWX_VIEW_SVBILL where SV_FTYPE='1'").ToList();
+                foreach (var item in resultInfo)
+                {
+                    var dateMin = item.Date.TryToDate().AddDays(-7);
+                    var dateMax = item.Date.TryToDate().AddDays(+7);
+                    var isAny = svbillList.Any(x => x.VEHICLE_NO == item.CabLicense && x.BILL_DATE >= dateMin && x.BILL_DATE <= dateMax);
+                    if (isAny == true)
+                    {
+                        item.IsMaintenance = "1";
+                    }
+                    else
+                    {
+                        item.IsMaintenance = "0";
+                    }
                 }
             }
             return Json(resultInfo, JsonRequestBehavior.AllowGet);
@@ -268,7 +283,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
         public JsonResult GetCarViolationInfo(string fleet, string code)
         {
             //电子警察违章
-            var cm = CacheManager<Personnel_Info>.GetInstance()[PubGet.GetUserKey + code];
+            var cm = CacheManager<Personnel_Info>.GetInstance()[PubGet.GetUserKey + code + "K"];
             var orgName = cm.Organization;
             var fleetAll = getSqlInValue(cm.MotorcadeName, code);
             List<Electronic_police> resultInfo = new List<Electronic_police>();
@@ -328,7 +343,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
             Personnel.Organization = organizationDetail.Description;
             //Personnel.Organization = "第一服务中心";
             Personnel.MotorcadeName = ownedCompany;//车队
-            var key = PubGet.GetUserKey + personInfoModel.Vguid;
+            var key = PubGet.GetUserKey + personInfoModel.Vguid + "K";
             var csche = CacheManager<Personnel_Info>.GetInstance().Get(key);
             if (csche != null)
             {
@@ -361,7 +376,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
             Personnel.MotorcadeName = ownedCompany;//当前分公司
             Personnel.MotorcadeNameRemark = ownedCompanyRemark;//当前分公司备注
             Personnel.DepartmenManager = "12";
-            var key = PubGet.GetUserKey + personInfoModel.Vguid;
+            var key = PubGet.GetUserKey + personInfoModel.Vguid + "K";
             var csche = CacheManager<Personnel_Info>.GetInstance().Get(key);
             if (csche != null)
             {
@@ -434,7 +449,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Par
         public string GetTaxiInfo(string code)
         {
             var dataList = "";
-            var cm = CacheManager<Personnel_Info>.GetInstance()[PubGet.GetUserKey + code];
+            var cm = CacheManager<Personnel_Info>.GetInstance()[PubGet.GetUserKey + code + "K"];
             var cabVMLicense = cm.CabVMLicense;
             JObject jObject = new JObject();
             var value1_1 = "";

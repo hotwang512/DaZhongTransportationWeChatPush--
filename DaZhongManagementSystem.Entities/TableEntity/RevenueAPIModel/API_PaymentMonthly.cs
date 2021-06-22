@@ -54,5 +54,20 @@ namespace DaZhongManagementSystem.Entities.TableEntity.RevenueAPIModel
         /// 合计缴费金额
         /// </summary>
         public decimal totalAmount { get; set; }
+        /// <summary>
+        /// 本期应缴明细
+        /// </summary>
+        //public List<PaymentInfoList> paymentInfo { get; set; }
+        public List<ResultDetail> PaymentInfoList = new List<ResultDetail>();
+        /// <summary>
+        /// 本期已缴明细
+        /// </summary>
+        public List<ResultDetail> PaidAmountInfoList = new List<ResultDetail>();
+    }
+
+    public class ResultDetail
+    {
+        public string NAME { get; set; }
+        public decimal VALUE { get; set; }
     }
 }

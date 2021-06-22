@@ -65,6 +65,9 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue.Bus
                 revenue.TotalAmount = (paymentModel.totalAmount * -1).ToString("F2");
                 revenue.Fee_CurrentAccountBalance = paymentModel.PayDebtAmount >= 0 ? paymentModel.PayDebtAmount.ToString("f2") : (paymentModel.PayDebtAmount * -1).ToString("F2");  //本期欠款
                 revenue.Fee_TotalAmount = paymentModel.totalAmount >= 0 ? paymentModel.totalAmount.ToString("F2") : (paymentModel.totalAmount * -1).ToString("F2");
+
+                revenue.PaymentInfoList = paymentModel.PaymentInfoList;
+                revenue.PaidAmountInfoList = paymentModel.PaidAmountInfoList;
             }
             return revenue;
         }

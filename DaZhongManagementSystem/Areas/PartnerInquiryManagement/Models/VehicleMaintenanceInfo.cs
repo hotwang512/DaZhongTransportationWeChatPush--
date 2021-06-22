@@ -17,5 +17,6 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Models
         public string Yanche { get; set; }
         public string Status { get; set; }
         public string MobilePhone { get; set; }
+        public string IsMaintenance { get; set; }
     }
 }

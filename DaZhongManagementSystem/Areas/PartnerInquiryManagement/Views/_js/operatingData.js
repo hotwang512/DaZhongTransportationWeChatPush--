@@ -63,7 +63,7 @@ function loadTaxiSummaryInfo() {
     $.ajax({
         url: "/PartnerInquiryManagement/OperatingData/GetTaxiSummaryInfo",
         type: "post",
-        data: { fleet: $("#u164_input").val(), dateSearch: $("#DateSearch").val(), code: code },
+        data: { fleet: $("#u164_input").val(), dateSearch: $("#DateSearch").val(), code: code+"K" },
         dataType: "json",
         //traditional: true,
         success: function (msg) {

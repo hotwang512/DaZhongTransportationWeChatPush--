@@ -51,7 +51,7 @@ function loadRegulationsInfo(carID) {
     $.ajax({
         url: "/PartnerInquiryManagement/DriverCheckDetails/GetElectronicInfo",
         type: "post",
-        data: { code: code },
+        data: { code: code+"K" },
         dataType: "json",
         success: function (msg) {
             if (msg != null) {
@@ -66,7 +66,7 @@ function loadAccidentInfo(carID) {
     $.ajax({
         url: "/PartnerInquiryManagement/DriverCheckDetails/GetAccidentInfo",
         type: "post",
-        data: { code: code },
+        data: { code: code + "K" },
         dataType: "json",
         success: function (msg) {
             if (msg != null) {

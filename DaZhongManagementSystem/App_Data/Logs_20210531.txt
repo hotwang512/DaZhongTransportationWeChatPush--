@@ -1,0 +1,66 @@
+
+-------------------------------header----------------------
+2021-05-31 10:15:07,739 [61] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 10:15:22,867 [61] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 10:15:24,082 [61] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -0:{"success":false,"message":"驾驶员当前无应缴营收信息!","data":{}}
+
+-------------------------------footer----------------------
+
+-------------------------------header----------------------
+2021-05-31 10:17:53,089 [63] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 10:17:53,173 [63] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 10:17:53,355 [63] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -0:{"success":false,"message":"驾驶员当前无应缴营收信息!","data":{}}
+2021-05-31 10:59:12,402 [63] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 10:59:26,750 [63] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 10:59:27,629 [63] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -0:{"success":false,"message":"驾驶员当前无应缴营收信息!","data":{}}
+
+-------------------------------footer----------------------
+
+-------------------------------header----------------------
+2021-05-31 15:58:26,496 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 15:58:26,619 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 15:58:27,735 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -0:{"success":false,"message":"驾驶员当前无应缴营收信息!","data":{}}
+2021-05-31 15:59:37,146 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 15:59:37,233 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 15:59:37,353 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -0:{"success":false,"message":"驾驶员当前无应缴营收信息!","data":{}}
+2021-05-31 16:00:45,043 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:00:45,121 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:00:45,241 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -0:{"success":false,"message":"驾驶员当前无应缴营收信息!","data":{}}
+2021-05-31 16:05:54,594 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:06:08,956 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:06:09,119 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -0:{"success":false,"message":"驾驶员当前无应缴营收信息!","data":{}}
+2021-05-31 16:15:59,812 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:15:59,907 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:16:00,510 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -0:{"success":false,"message":"驾驶员当前无应缴营收信息!","data":{}}
+2021-05-31 16:18:43,928 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:18:58,311 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:18:58,461 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -0:{"success":false,"message":"驾驶员当前无应缴营收信息!","data":{}}
+2021-05-31 16:21:40,980 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:21:41,046 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:21:41,226 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -0:{"success":false,"message":"驾驶员当前无应缴营收信息!","data":{}}
+2021-05-31 16:22:49,945 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:23:04,317 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:23:04,438 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -0:{"success":false,"message":"驾驶员当前无应缴营收信息!","data":{}}
+2021-05-31 16:26:02,302 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:26:02,405 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:26:03,036 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -0:{"success":false,"message":"驾驶员当前无应缴营收信息!","data":{}}
+2021-05-31 16:30:46,581 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:31:00,956 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:31:01,137 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -0:{"success":false,"message":"驾驶员当前无应缴营收信息!","data":{}}
+2021-05-31 16:39:46,786 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:40:01,135 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:40:01,706 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -0:{"success":false,"message":"驾驶员当前无应缴营收信息!","data":{}}
+2021-05-31 16:41:30,978 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:41:31,072 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:41:31,222 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -0:{"success":false,"message":"驾驶员当前无应缴营收信息!","data":{}}
+2021-05-31 16:45:03,086 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:45:03,153 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:45:03,905 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -0:{"success":false,"message":"驾驶员当前无应缴营收信息!","data":{}}
+2021-05-31 16:46:42,591 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:46:56,942 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:46:57,123 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -0:{"success":false,"message":"驾驶员当前无应缴营收信息!","data":{}}
+2021-05-31 16:58:51,073 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:59:05,456 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-05-31 16:59:06,030 [81] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -0:{"success":false,"message":"驾驶员当前无应缴营收信息!","data":{}}
+
+-------------------------------footer----------------------

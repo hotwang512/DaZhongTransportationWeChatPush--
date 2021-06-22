@@ -61,7 +61,7 @@ function loadGrid() {
             "fleet": $("#u264_input").val(),
             "name": $("#SearchByName").val(),
             "date": $("#DateSearch").val(),
-            "code": code
+            "code": code+"K"
         },
         url: "/PartnerInquiryManagement/DriverJobTraning/GetOwnedCompanyList"    //获取数据源的路径
     };

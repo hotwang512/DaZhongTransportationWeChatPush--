@@ -75,12 +75,12 @@ namespace DaZhongManagementSystem.Common
         {
             string rootPath = BuildExportTemplate(dataSource);
             Workbook wk = new Workbook(rootPath);
-            CreateExportData(wk, dataSource, fileName);
+            //CreateExportData(wk, dataSource, fileName);
 
-            //WorkbookDesigner designer = new WorkbookDesigner(wk);
-            //designer.SetDataSource(dataSource);
-            //designer.Process();
-            //designer.Workbook.Save(HttpContext.Current.Response, fileName, ContentDisposition.Attachment, designer.Workbook.SaveOptions);
+            WorkbookDesigner designer = new WorkbookDesigner(wk);
+            designer.SetDataSource(dataSource);
+            designer.Process();
+            designer.Workbook.Save(HttpContext.Current.Response, fileName, ContentDisposition.Attachment, designer.Workbook.SaveOptions);
             try
             {
                 File.Delete(rootPath);

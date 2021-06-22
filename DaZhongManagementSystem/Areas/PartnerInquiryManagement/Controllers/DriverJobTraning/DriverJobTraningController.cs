@@ -53,7 +53,7 @@ namespace DaZhongManagementSystem.Areas.PartnerInquiryManagement.Controllers.Dri
                           from[dbo].[Business_Personnel_Information] p
                           left join Business_ExercisesAnswer_Information eai on p.Vguid = eai.BusinessPersonnelVguid and convert(varchar, eai.CreatedDate, 23) >= @Date
                           left join Business_Exercises_Infomation ei on eai.BusinessExercisesVguid = ei.Vguid    and convert(varchar, ei.CreatedDate, 23) >= @Date
-                          where p.ApprovalStatus = '2'  and OwnedFleetin (" + ownedFleetAll + @")
+                          where p.ApprovalStatus = '2'  and OwnedFleet in (" + ownedFleetAll + @")
                           )a PIVOT(MAX(Result) FOR sDate IN([Status])) AS T ", new { Date = date, OwnedFleet = ownedFleet });
                 }
                 else

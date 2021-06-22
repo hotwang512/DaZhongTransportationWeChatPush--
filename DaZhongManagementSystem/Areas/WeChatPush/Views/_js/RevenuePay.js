@@ -206,3 +206,18 @@ function saveAndNavigation() {
 //        jsApiCall(res);
 //    }
 //}
+
+
+
+$(".menue_header").on('click', function () {
+    var displayVal = $(this).next(".menue_body").css("display");
+    switch (displayVal) {
+        case "block":
+            $(this).next(".menue_body").hide(300);
+            break;
+        case "none":
+            $(this).next(".menue_body").show(300);
+            $(".menue_body").not($(this).next(".menue_body")).hide(300);
+            break;
+    }
+});
