@@ -59,11 +59,13 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue.Bus
                 //revenue.TheBalance = paymentModel.DebtAmount.ToString("F2");
                 revenue.AmountDue = paymentModel.DueAmount.ToString("F2");  //应缴金额
                 revenue.CurrentPayment = paymentModel.PaidAmount.ToString("F2");  //本期缴款
-                revenue.CurrentAccountBalance = (paymentModel.PayDebtAmount * -1).ToString("F2");  //本期欠款
+                //revenue.CurrentAccountBalance = (paymentModel.PayDebtAmount * -1).ToString("F2");  //本期欠款
+                revenue.CurrentAccountBalance = (paymentModel.PayDebtAmount).ToString("F2");  //本期欠款
                 revenue.Fee = paymentModel.fee;
                 revenue.FeeMoney = paymentModel.feeMoney.ToString("F2");
                 revenue.TotalAmount = (paymentModel.totalAmount * -1).ToString("F2");
-                revenue.Fee_CurrentAccountBalance = paymentModel.PayDebtAmount >= 0 ? paymentModel.PayDebtAmount.ToString("f2") : (paymentModel.PayDebtAmount * -1).ToString("F2");  //本期欠款
+                //revenue.Fee_CurrentAccountBalance = paymentModel.PayDebtAmount >= 0 ? paymentModel.PayDebtAmount.ToString("f2") : (paymentModel.PayDebtAmount * -1).ToString("F2");  //本期欠款
+                revenue.Fee_CurrentAccountBalance = paymentModel.PayDebtAmount >= 0 ? "0" : (paymentModel.PayDebtAmount * -1).ToString("F2");  //本期欠款
                 revenue.Fee_TotalAmount = paymentModel.totalAmount >= 0 ? paymentModel.totalAmount.ToString("F2") : (paymentModel.totalAmount * -1).ToString("F2");
 
                 revenue.PaymentInfoList = paymentModel.PaymentInfoList;

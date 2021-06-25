@@ -62,15 +62,16 @@
                         </tr>
                     </table>
                 </div>
-                <div class="menue_body" style="height:200px;overflow:auto;background-color:#f0f0f0;margin-top: 0px;display:none;">
+                <div class="menue_body" style="height:100px;overflow:auto;background-color:#f0f0f0;margin-top: 0px;display:none;">
                     <table>
                         @if (revenueInfo.PaymentInfoList.Count > 0)
                         {
                             foreach (var item in revenueInfo.PaymentInfoList)
                             {
+                                var value = Math.Round(item.VALUE, 2);
                                 <tr class="menue_item" id="">
                                     <td class="menue_text">@item.NAME</td>
-                                    <td class="menue_text">@item.VALUE</td>
+                                    <td class="menue_text">@value</td>
                                 </tr>
                             }
                         }
@@ -84,18 +85,19 @@
                         </tr>
                     </table>
                 </div>
-                <div class="menue_body" style="height:200px;overflow:auto;background-color:#f0f0f0;margin-top: 0px;display:none;">
+                <div class="menue_body" style="height:100px;overflow:auto;background-color:#f0f0f0;margin-top: 0px;display:none;">
                     <table>
-                       @if (revenueInfo.PaidAmountInfoList.Count > 0)
-                       {
-                           foreach (var item in revenueInfo.PaidAmountInfoList)
-                           {
-                            <tr class="menue_item" id="">
-                                <td class="menue_text">@item.NAME</td>
-                                <td class="menue_text">@item.VALUE</td>
+                        @if (revenueInfo.PaidAmountInfoList.Count > 0)
+                        {
+                            foreach (var item in revenueInfo.PaidAmountInfoList)
+                            {
+                                var value = Math.Round(item.VALUE, 2);
+                                <tr class="menue_item" id="">
+                                    <td class="menue_text">@item.NAME</td>
+                                    <td class="menue_text">@value</td>
                             </tr>
-                           }
-                       }
+                            }
+                        }
                     </table>
                 </div>
 
@@ -110,7 +112,7 @@
                     </table>
                 </div>
 
-               
+
             </nav>
 
             <div class="h_bottom" id="paymentTitle">
