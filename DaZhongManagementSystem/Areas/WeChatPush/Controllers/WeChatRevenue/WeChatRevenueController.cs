@@ -52,7 +52,7 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
             string userInfoStr = WeChatTools.GetUserInfoByCode(accessToken, code);
             var userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr); //用户ID
             //U_WeChatUserID userInfo = new U_WeChatUserID();
-            //userInfo.UserId = "18936495119";
+            userInfo.UserId = "18936495119";
             //userInfo.UserId = "WangCunbiao"; 
             var personInfoModel = _wl.GetUserInfo(userInfo.UserId); //获取人员表信息 
             ViewData["vguid"] = personInfoModel.Vguid;
@@ -93,8 +93,8 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
             //var driverPayfee = double.Parse(fee.Trim('%')) / 100;            //获取司机支付的手续费
 
 
-            //string pushContentVguid = "CCA89587-50BA-4B89-B87B-B53603B74F1B"; //推送的主键
-            string pushContentVguid = Request.QueryString["Vguid"]; //推送的主键
+            string pushContentVguid = "CCA89587-50BA-4B89-B87B-B53603B74F1B"; //推送的主键
+            //string pushContentVguid = Request.QueryString["Vguid"]; //推送的主键
             ViewData["pushContentVguid"] = pushContentVguid;
             var pushContentModel = _pl.GetPushDetail(pushContentVguid);
             bool isValidTime = false; //未过有效期

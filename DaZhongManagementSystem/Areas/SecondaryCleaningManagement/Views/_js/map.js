@@ -6,10 +6,10 @@ map.centerAndZoom("上海", 15);
 //根据输入地址搜素位置
 var ac = new BMapGL.Autocomplete(    //建立一个自动完成的对象
     {
-        "input": "CompanyName",
+        "input": "Address",
         "location": map
     });
-var comVal = $("#CompanyName").val();
+var comVal = $("#Address").val();
 ac.setInputValue(comVal);
 var myValue = comVal;
 if (myValue != "" && myValue != null) {
@@ -34,12 +34,12 @@ function searchCompany() {
         //if (comVal != "") {
         //    str = comVal;
         //}
-        $("#CompanyName").innerHTML = str;
+        $("#Address").innerHTML = str;
     });
     ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
         var _value = e.item.value;
         myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
-        $("#CompanyName").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+        $("#Address").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
         setPlace();
     });
 }

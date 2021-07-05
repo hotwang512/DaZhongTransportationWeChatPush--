@@ -77,11 +77,12 @@
                     <td style="text-align: right; width: 90px;">公司名称：</td>
                     <td style="width: 210px;">
                         <input id="CompanyName" name="CompanyName" type="text" onfocus="searchCompany()" class="input_text form-control" validatetype="required" style="text-align: left;" value="@cleaningModel.CompanyName" />
-                        <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:210px;height:auto; display:none;"></div>
+                        
                     </td>
                     <td style="text-align: right; width: 90px;">公司地址：</td>
                     <td style="width: 210px;">
-                        <textarea id="Address" name="Address" rows="2" cols="1" type="text" class="input_text form-control" style="text-align: left;" readonly="readonly" />@cleaningModel.Address</textarea>
+                        <textarea id="Address" name="Address" rows="2" cols="1" type="text" class="input_text form-control" style="text-align: left;"  />@cleaningModel.Address</textarea>
+                        <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:210px;height:auto; display:none;"></div>
                     </td>
                     <td style="text-align: right; width: 90px;">地理位置：</td>
                     <td>

@@ -1,4 +1,5 @@
-﻿var selector = {
+﻿$(".input_text").attr("autocomplete", "new-password");
+var selector = {
     $grid: function () { return $("#UserInfoList") },
     $userInfoDialog: function () { return $("#UserInfoDialog") },
     $myModalLabel_title: function () { return $("#myModalLabel_title") },
