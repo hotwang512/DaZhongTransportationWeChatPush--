@@ -118,20 +118,25 @@
             <div class="h_bottom" id="paymentTitle">
                 <span>支付</span>
             </div>
-            <nav id="paymentContent" style="height: 6rem;">
+            <nav id="paymentContent" style="height: 8.4rem;">
                 <ul>
 
                     <li class="nav_7">
                         <div>当前应缴金额</div>
-                        <div class="n7_num">@revenueInfo.Fee_CurrentAccountBalance</div>@* *@
+                        <div id="CurrentAccountBalanceF" class="n7_num">@revenueInfo.Fee_CurrentAccountBalance</div>@* *@
+                    </li>
+                    <li class="nav_7">
+                        <div>自定义缴费金额</div>
+                        <div class="n7_num"><input id="CustomPay" name="CustomPay" type="number" oninput="changeCustomPay()" style="height: 45px;width: 260px;border: 0.5px solid #b3baba;text-align: right;font-size: 18px;"/></div>@* *@
                     </li>
                     <li class="nav_6">
                         <div>手续费(@revenueInfo.Fee)</div>
-                        <div class="n6_num">@revenueInfo.FeeMoney</div>@* *@
+                        <div id="FeeMoney" class="n6_num">@revenueInfo.FeeMoney</div>@* *@
+                        <input id="Fee" value="@revenueInfo.Fee" type="hidden" />
                     </li>
                     <li class="nav_8" style="font-weight:bold; ">
-                        <div>合计应缴金额</div>
-                        <div class="n8_num">@revenueInfo.Fee_TotalAmount</div>@* *@
+                        <div>合计缴费金额</div>
+                        <div id="TotalAmount" class="n8_num">@revenueInfo.Fee_TotalAmount</div>@* *@
                     </li>
                 </ul>
             </nav>
@@ -154,7 +159,7 @@
                             </button>*@
                         @*<button class="btn_qt">支付</button>*@
                         @*<div class="btn_qt">支付</div>*@
-                        <input class="btn_qt" type="button" value="支付" />
+                        <input class="btn_qt" type="button" value="去支付" />
                     </div>
                 }
             </footer>

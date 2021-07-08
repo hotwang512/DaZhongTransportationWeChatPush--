@@ -52,7 +52,7 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
             string userInfoStr = WeChatTools.GetUserInfoByCode(accessToken, code);
             var userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr); //用户ID
             //U_WeChatUserID userInfo = new U_WeChatUserID();
-            userInfo.UserId = "18936495119";
+            //userInfo.UserId = "18936495119";
             //userInfo.UserId = "WangCunbiao"; 
             var personInfoModel = _wl.GetUserInfo(userInfo.UserId); //获取人员表信息 
             ViewData["vguid"] = personInfoModel.Vguid;
@@ -368,7 +368,7 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
             return Json(new { success = addsuccess, data = wxPaySign.GetValues() }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetPaySignWX(string driverId, string organizationId, string revenueFee, Guid personVguid, Guid pushContentVguid, int revenueType)
+        public JsonResult GetPaySignWX(string driverId, string organizationId, string revenueFee, Guid personVguid, Guid pushContentVguid, int revenueType,string factPayAmount)
         {
             var models = new ActionResultModel<string>();
             var modelData = new QRCodeRevenueInfo();
@@ -378,7 +378,8 @@ namespace DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue
                             "\"OperatorDeviceName\":\"{OperatorDeviceName}\",".Replace("{OperatorDeviceName}", "WXQYH") +
                             "\"OrganizationId\":\"{OrganizationId}\",".Replace("{OrganizationId}", organizationId) +
                             "\"DriverID\":\"{DriverID}\",".Replace("{DriverID}", driverId) +
-                            "\"RunEnvironment\":\"{RunEnvironment}\"".Replace("{RunEnvironment}", "Product") +
+                            "\"RunEnvironment\":\"{RunEnvironment}\",".Replace("{RunEnvironment}", "Product") +
+                            "\"FactPayAmount\":\"{FactPayAmount}\"".Replace("{FactPayAmount}", factPayAmount) +
                             "}";
             try
             {

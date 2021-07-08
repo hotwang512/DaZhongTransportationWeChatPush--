@@ -27,6 +27,10 @@ if (parseFloat($(".n5_num").text()) >= 0) {
     $("#spDriverPay").show();
 }
 
+if (parseFloat($("#CurrentAccountBalanceF").text()) <= 0) {
+    $("#CustomPay").attr("readonly", "readonly");
+}
+
 var fee = $("#txtDriverPay").val();
 if (fee == "0%" || fee == "") {
     $("#spDriverPay").hide();
@@ -126,10 +130,22 @@ $(".btn_qt").on("click", function () {
 //    });
 //}
 function startWxPay2() {
+    var factPay = Number($("#CustomPay").val());
+    if (factPay == 0) {
+        factPay = $("#CurrentAccountBalanceF").text();
+    }
     $.ajax({
         type: "POST",
         url: "/WeChatPush/WeChatRevenue/GetPaySignWX",
-        data: { driverId: $("#txtDriverId").val(), organizationId: $("#txtOrganizationId").val(), revenueFee: parseFloat($(".n7_num").text()), personVguid: $("#txtVguid").val(), pushContentVguid: $("#txtpushContentVguid").val(), revenueType: 2 },
+        data: {
+            driverId: $("#txtDriverId").val(),
+            organizationId: $("#txtOrganizationId").val(),
+            revenueFee: parseFloat(factPay),
+            personVguid: $("#txtVguid").val(),
+            pushContentVguid:$("#txtpushContentVguid").val(),
+            revenueType: 2,
+            factPayAmount: factPay
+        },
         beforeSend: function () {
             //$(".btn_wc").attr({ "disabled": "disabled" });
         },
@@ -207,7 +223,38 @@ function saveAndNavigation() {
 //    }
 //}
 
+var initialFeeMoney = $("#FeeMoney").text();
+var initialTotalAmount = $("#TotalAmount").text();
+function changeCustomPay() {
+    var value1 = Number($("#CustomPay").val());//自定义缴费金额
+    var value2 = Number($("#CurrentAccountBalanceF").text());//当前应缴金额
+    var value3 = toPoint($("#Fee").val());//费率
+    var value4 = Number((value1 / (1 - value3) - value1).toFixed(2));//自定义缴费手续费
+    var value5 = Number((value1 + value4).toFixed(2));//实缴金额
+    if (value1 == 0) {
+        $("#FeeMoney").text(initialFeeMoney);
+        $("#TotalAmount").text(initialTotalAmount);
+    } else {
+        $("#FeeMoney").text(value4);
+        $("#TotalAmount").text(value5);
+    }
+    if (value1 > value2) {
+        $(".btn_qt").attr('disabled', "true");
+        $(".btn_qt").css('background', '#ccc');
+        $(".btn_qt").css('border', '#ccc');
 
+    } else {
+        $(".btn_qt").removeAttr("disabled");
+        $(".btn_qt").css('background', '#007fc0');
+        $(".btn_qt").css('border', '#007fc0');
+    }
+}
+
+function toPoint(percent) {
+    var str = percent.replace("%", "");
+    str = str / 100;
+    return str;
+}
 
 $(".menue_header").on('click', function () {
     var displayVal = $(this).next(".menue_body").css("display");

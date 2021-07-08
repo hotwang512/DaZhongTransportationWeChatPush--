@@ -1,0 +1,22 @@
+
+-------------------------------header----------------------
+2021-07-06 10:44:38,424 [10] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-06 10:44:38,721 [10] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-06 10:44:38,791 [10] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -0:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 DaZhongManagementSystem.Areas.WeChatPush.Controllers.ShortMsgLogic.RevenueLogic.GetRevenueAPI_PaymentMonthlyData(Driver driverModel) 位置 F:\NewDZWeChat（可迁入版本）\DaZhongManagementSystem\Areas\WeChatPush\Controllers\ShortMsgLogic\RevenueLogic.cs:行号 195
+2021-07-06 10:48:20,654 [10] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-06 10:48:20,733 [10] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-06 10:48:20,763 [10] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -0:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 DaZhongManagementSystem.Areas.WeChatPush.Controllers.ShortMsgLogic.RevenueLogic.GetRevenueAPI_PaymentMonthlyData(Driver driverModel) 位置 F:\NewDZWeChat（可迁入版本）\DaZhongManagementSystem\Areas\WeChatPush\Controllers\ShortMsgLogic\RevenueLogic.cs:行号 195
+2021-07-06 11:28:52,521 [10] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-06 11:28:52,621 [10] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-06 11:28:52,651 [10] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -0:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 DaZhongManagementSystem.Areas.WeChatPush.Controllers.ShortMsgLogic.RevenueLogic.GetRevenueAPI_PaymentMonthlyData(Driver driverModel) 位置 F:\NewDZWeChat（可迁入版本）\DaZhongManagementSystem\Areas\WeChatPush\Controllers\ShortMsgLogic\RevenueLogic.cs:行号 195
+2021-07-06 14:55:02,390 [10] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-06 14:55:16,789 [10] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-06 14:55:16,819 [10] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -0:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 DaZhongManagementSystem.Areas.WeChatPush.Controllers.ShortMsgLogic.RevenueLogic.GetRevenueAPI_PaymentMonthlyData(Driver driverModel) 位置 F:\NewDZWeChat（可迁入版本）\DaZhongManagementSystem\Areas\WeChatPush\Controllers\ShortMsgLogic\RevenueLogic.cs:行号 195
+2021-07-06 15:06:45,039 [10] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-06 15:06:59,470 [10] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-06 15:06:59,501 [10] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -0:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 DaZhongManagementSystem.Areas.WeChatPush.Controllers.ShortMsgLogic.RevenueLogic.GetRevenueAPI_PaymentMonthlyData(Driver driverModel) 位置 F:\NewDZWeChat（可迁入版本）\DaZhongManagementSystem\Areas\WeChatPush\Controllers\ShortMsgLogic\RevenueLogic.cs:行号 195

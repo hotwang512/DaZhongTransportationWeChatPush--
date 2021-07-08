@@ -1,0 +1,266 @@
+
+-------------------------------header----------------------
+2021-07-07 13:38:49,846 [8] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 13:38:50,115 [8] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 13:38:52,694 [8] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -55:{"code":0,"message":"","data":{"AccountPeriod":"2021年07月","EmployeeNo":993594,"Name":"李建国","DebtAmount":144.87,"DueAmount":2600.00,"PaymentInfoList":[{"NAME":"租金类费用","VALUE":2600.0}],"PaidAmount":2455.13,"PaidAmountInfoList":[{"NAME":"卡收","VALUE":90.00},{"NAME":"银行扣款","VALUE":2365.13}],"PayDebtAmount":0.0,"fee":"0.3%","feeMoney":0,"totalAmount":0},"success":true}
+2021-07-07 13:59:12,015 [8] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 13:59:26,388 [8] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 13:59:28,685 [8] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -55:{"code":0,"message":"","data":{"AccountPeriod":"2021年07月","EmployeeNo":993594,"Name":"李建国","DebtAmount":144.87,"DueAmount":2600.00,"PaymentInfoList":[{"NAME":"租金类费用","VALUE":2600.0}],"PaidAmount":2455.13,"PaidAmountInfoList":[{"NAME":"卡收","VALUE":90.00},{"NAME":"银行扣款","VALUE":2365.13}],"PayDebtAmount":0.0,"fee":"0.3%","feeMoney":0,"totalAmount":0},"success":true}
+2021-07-07 14:02:30,916 [8] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 14:02:31,096 [8] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 14:02:33,121 [8] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -55:{"code":0,"message":"","data":{"AccountPeriod":"2021年07月","EmployeeNo":993594,"Name":"李建国","DebtAmount":144.87,"DueAmount":2600.00,"PaymentInfoList":[{"NAME":"租金类费用","VALUE":2600.0}],"PaidAmount":2455.13,"PaidAmountInfoList":[{"NAME":"卡收","VALUE":90.00},{"NAME":"银行扣款","VALUE":2365.13}],"PayDebtAmount":0.0,"fee":"0.3%","feeMoney":0,"totalAmount":0},"success":true}
+2021-07-07 14:04:50,423 [8] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 14:04:50,514 [8] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 14:04:52,446 [8] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -55:{"code":0,"message":"","data":{"AccountPeriod":"2021年07月","EmployeeNo":993594,"Name":"李建国","DebtAmount":144.87,"DueAmount":2600.00,"PaymentInfoList":[{"NAME":"租金类费用","VALUE":2600.0}],"PaidAmount":2455.13,"PaidAmountInfoList":[{"NAME":"卡收","VALUE":90.00},{"NAME":"银行扣款","VALUE":2365.13}],"PayDebtAmount":0.0,"fee":"0.3%","feeMoney":0,"totalAmount":0},"success":true}
+2021-07-07 14:07:43,731 [8] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 14:07:58,099 [8] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 14:08:00,133 [8] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -55:{"code":0,"message":"","data":{"AccountPeriod":"2021年07月","EmployeeNo":993594,"Name":"李建国","DebtAmount":144.87,"DueAmount":2600.00,"PaymentInfoList":[{"NAME":"租金类费用","VALUE":2600.0}],"PaidAmount":2455.13,"PaidAmountInfoList":[{"NAME":"卡收","VALUE":90.00},{"NAME":"银行扣款","VALUE":2365.13}],"PayDebtAmount":0.0,"fee":"0.3%","feeMoney":0,"totalAmount":0},"success":true}
+2021-07-07 14:11:57,142 [8] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 14:11:57,219 [8] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 14:11:59,616 [8] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -55:{"code":0,"message":"","data":{"AccountPeriod":"2021年07月","EmployeeNo":993594,"Name":"李建国","DebtAmount":144.87,"DueAmount":2600.00,"PaymentInfoList":[{"NAME":"租金类费用","VALUE":2600.0}],"PaidAmount":2455.13,"PaidAmountInfoList":[{"NAME":"卡收","VALUE":90.00},{"NAME":"银行扣款","VALUE":2365.13}],"PayDebtAmount":0.0,"fee":"0.3%","feeMoney":0,"totalAmount":0},"success":true}
+2021-07-07 14:16:16,454 [8] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 14:16:30,851 [8] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 14:16:32,902 [8] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -55:{"code":0,"message":"","data":{"AccountPeriod":"2021年07月","EmployeeNo":993594,"Name":"李建国","DebtAmount":144.87,"DueAmount":2600.00,"PaymentInfoList":[{"NAME":"租金类费用","VALUE":2600.0}],"PaidAmount":2455.13,"PaidAmountInfoList":[{"NAME":"卡收","VALUE":90.00},{"NAME":"银行扣款","VALUE":2365.13}],"PayDebtAmount":0.0,"fee":"0.3%","feeMoney":0,"totalAmount":0},"success":true}
+
+-------------------------------header----------------------
+2021-07-07 15:51:16,267 [9] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 15:51:16,360 [9] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 15:51:18,880 [9] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -55:{"code":0,"message":"","data":{"AccountPeriod":"2021年07月","EmployeeNo":993594,"Name":"李建国","DebtAmount":144.87,"DueAmount":2600.00,"PaymentInfoList":[{"NAME":"租金类费用","VALUE":2600.0}],"PaidAmount":2455.13,"PaidAmountInfoList":[{"NAME":"卡收","VALUE":90.00},{"NAME":"银行扣款","VALUE":2365.13}],"PayDebtAmount":0.0,"fee":"0.3%","feeMoney":0,"totalAmount":0},"success":true}
+2021-07-07 16:01:04,291 [9] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 16:01:18,678 [9] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 16:01:20,998 [9] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -55:{"code":0,"message":"","data":{"AccountPeriod":"2021年07月","EmployeeNo":993594,"Name":"李建国","DebtAmount":144.87,"DueAmount":2600.00,"PaymentInfoList":[{"NAME":"租金类费用","VALUE":2600.0}],"PaidAmount":2455.13,"PaidAmountInfoList":[{"NAME":"卡收","VALUE":90.00},{"NAME":"银行扣款","VALUE":2365.13}],"PayDebtAmount":0.0,"fee":"0.3%","feeMoney":0,"totalAmount":0},"success":true}
+2021-07-07 16:06:07,828 [9] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 16:06:22,214 [9] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 16:06:24,123 [9] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -55:{"code":0,"message":"","data":{"AccountPeriod":"2021年07月","EmployeeNo":993594,"Name":"李建国","DebtAmount":144.87,"DueAmount":2600.00,"PaymentInfoList":[{"NAME":"租金类费用","VALUE":2600.0}],"PaidAmount":2455.13,"PaidAmountInfoList":[{"NAME":"卡收","VALUE":90.00},{"NAME":"银行扣款","VALUE":2365.13}],"PayDebtAmount":0.0,"fee":"0.3%","feeMoney":0,"totalAmount":0},"success":true}
+2021-07-07 16:07:30,929 [9] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 16:07:45,309 [9] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 16:07:47,238 [9] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -55:{"code":0,"message":"","data":{"AccountPeriod":"2021年07月","EmployeeNo":993594,"Name":"李建国","DebtAmount":144.87,"DueAmount":2600.00,"PaymentInfoList":[{"NAME":"租金类费用","VALUE":2600.0}],"PaidAmount":2455.13,"PaidAmountInfoList":[{"NAME":"卡收","VALUE":90.00},{"NAME":"银行扣款","VALUE":2365.13}],"PayDebtAmount":0.0,"fee":"0.3%","feeMoney":0,"totalAmount":0},"success":true}
+2021-07-07 16:09:50,098 [9] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 16:09:50,198 [9] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 16:09:52,122 [9] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -55:{"code":0,"message":"","data":{"AccountPeriod":"2021年07月","EmployeeNo":993594,"Name":"李建国","DebtAmount":144.87,"DueAmount":2600.00,"PaymentInfoList":[{"NAME":"租金类费用","VALUE":2600.0}],"PaidAmount":2455.13,"PaidAmountInfoList":[{"NAME":"卡收","VALUE":90.00},{"NAME":"银行扣款","VALUE":2365.13}],"PayDebtAmount":0.0,"fee":"0.3%","feeMoney":0,"totalAmount":0},"success":true}
+
+-------------------------------header----------------------
+2021-07-07 16:16:13,928 [14] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 16:16:14,056 [14] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 16:16:16,287 [14] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -55:{"code":0,"message":"","data":{"AccountPeriod":"2021年07月","EmployeeNo":993594,"Name":"李建国","DebtAmount":144.87,"DueAmount":2600.00,"PaymentInfoList":[{"NAME":"租金类费用","VALUE":2600.0}],"PaidAmount":2455.13,"PaidAmountInfoList":[{"NAME":"卡收","VALUE":90.00},{"NAME":"银行扣款","VALUE":2365.13}],"PayDebtAmount":0.0,"fee":"0.3%","feeMoney":0,"totalAmount":0},"success":true}
+2021-07-07 16:21:09,561 [14] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - Data:{"OperatorDeviceName":"WXQYH","OrganizationId":"0","DriverID":"0","RunEnvironment":"Developer","FactPayAmount":"500"},result:,error:System.ArgumentException: 无效的 JSON 基元: style>
+
+
+	table.cfdump_wddx,
+	table.cfdump_xml,
+	table.cfdump_struct,
+	table.cfdump_varundefined,
+	table.cfdump_array,
+	table.cfdump_query,
+	table.cfdump_cfc,
+	table.cfdump_object,
+	table.cfdump_binary,
+	table.cfdump_udf,
+	table.cfdump_udfbody,
+	table.cfdump_udfarguments {
+		font-size: xx-small;
+		font-family: verdana, arial, helvetica, sans-serif;
+	}
+
+	table.cfdump_wddx th,
+	table.cfdump_xml th,
+	table.cfdump_struct th,
+	table.cfdump_varundefined th,
+	table.cfdump_array th,
+	table.cfdump_query th,
+	table.cfdump_cfc th,
+	table.cfdump_object th,
+	table.cfdump_binary th,
+	table.cfdump_udf th,
+	table.cfdump_udfbody th,
+	table.cfdump_udfarguments th {
+		text-align: left;
+		color: white;
+		padding: 5px;
+	}
+
+	table.cfdump_wddx td,
+	table.cfdump_xml td,
+	table.cfdump_struct td,
+	table.cfdump_varundefined  td,
+	table.cfdump_array td,
+	table.cfdump_query td,
+	table.cfdump_cfc td,
+	table.cfdump_object td,
+	table.cfdump_binary td,
+	table.cfdump_udf td,
+	table.cfdump_udfbody td,
+	table.cfdump_udfarguments td {
+		padding: 3px;
+		background-color: #ffffff;
+		vertical-align : top;
+	}
+
+	table.cfdump_wddx {
+		background-color: #000000;
+	}
+	table.cfdump_wddx th.wddx {
+		background-color: #444444;
+	}
+
+
+	table.cfdump_xml {
+		background-color: #888888;
+	}
+	table.cfdump_xml th.xml {
+		background-color: #aaaaaa;
+	}
+	table.cfdump_xml td.xml {
+		background-color: #dddddd;
+	}
+
+	table.cfdump_struct {
+		background-color: #0000cc ;
+	}
+	table.cfdump_struct th.struct {
+		background-color: #4444cc ;
+	}
+	table.cfdump_struct td.struct {
+		background-color: #ccddff;
+	}
+
+	table.cfdump_varundefined {
+		background-color: #CC3300 ;
+	}
+	table.cfdump_varundefined th.varundefined {
+		background-color: #CC3300 ;
+	}
+	table.cfdump_varundefined td.varundefined {
+		background-color: #ccddff;
+	}
+
+	table.cfdump_array {
+		background-color: #006600 ;
+	}
+	table.cfdump_array th.array {
+		background-color: #009900 ;
+	}
+	table.cfdump_array td.array {
+		background-color: #ccffcc ;
+	}
+
+	table.cfdump_query {
+		background-color: #884488 ;
+	}
+	table.cfdump_query th.query {
+		background-color: #aa66aa ;
+	}
+	table.cfdump_query td.query {
+		background-color: #ffddff ;
+	}
+
+
+	table.cfdump_cfc {
+		background-color: #ff0000;
+	}
+	table.cfdump_cfc th.cfc{
+		background-color: #ff4444;
+	}
+	table.cfdump_cfc td.cfc {
+		background-color: #ffcccc;
+	}
+
+
+	table.cfdump_object {
+		background-color : #ff0000;
+	}
+	table.cfdump_object th.object{
+		background-color: #ff4444;
+	}
+
+	table.cfdump_binary {
+		background-color : #eebb00;
+	}
+	table.cfdump_binary th.binary {
+		background-color: #ffcc44;
+	}
+	table.cfdump_binary td {
+		font-size: x-small;
+	}
+	table.cfdump_udf {
+		background-color: #aa4400;
+	}
+	table.cfdump_udf th.udf {
+		background-color: #cc6600;
+	}
+	table.cfdump_udfarguments {
+		background-color: #dddddd;
+	}
+	table.cfdump_udfarguments th {
+		background-color: #eeeeee;
+		color: #000000;
+	}
+
+</style> 
+		<table class="cfdump_query">
+			<tr>
+			
+			
+				<th class="query" colspan="15">query</th>
+				</tr>
+			
+				<tr bgcolor="eeaaaa" >
+				<td class="query"  onClick="cfdump_toggleRow_qry(this);">&nbsp;</td>
+				
+				<td class="query">AccountPeriod</td>
+				
+				<td class="query">DebtAmount</td>
+				
+				<td class="query">DriverId</td>
+				
+				<td class="query">DueAmount</td>
+				
+				<td class="query">EmployeeNo</td>
+				
+				<td class="query">Enabled</td>
+				
+				<td class="query">FactPayAmount</td>
+				
+				<td class="query">IdCard</td>
+				
+				<td class="query">Name</td>
+				
+				<td class="query">OperationNo</td>
+				
+				<td class="query">OrganizationID</td>
+				
+				<td class="query">OriginalId</td>
+				
+				<td class="query">PaidAmount</td>
+				
+				<td class="query">PayDebtAmount</td>
+				
+				</tr>
+				
+				
+		</table>
+		。
+   在 System.Web.Script.Serialization.JavaScriptObjectDeserializer.BasicDeserialize(String input, Int32 depthLimit, JavaScriptSerializer serializer)
+   在 System.Web.Script.Serialization.JavaScriptSerializer.Deserialize(JavaScriptSerializer serializer, String input, Type type, Int32 depthLimit)
+   在 System.Web.Script.Serialization.JavaScriptSerializer.Deserialize[T](String input)
+   在 SyntacticSugar.TypeParseExtenions.JsonToModel[TEntity](String json)
+   在 DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue.WeChatRevenueController.GetPaySignWX(String driverId, String organizationId, String revenueFee, Guid personVguid, Guid pushContentVguid, Int32 revenueType, String factPayAmount)
+2021-07-07 16:21:29,048 [14] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 16:21:29,144 [14] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 16:21:31,081 [14] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -55:{"code":0,"message":"","data":{"AccountPeriod":"2021年07月","EmployeeNo":993594,"Name":"李建国","DebtAmount":144.87,"DueAmount":2600.00,"PaymentInfoList":[{"NAME":"租金类费用","VALUE":2600.0}],"PaidAmount":2455.13,"PaidAmountInfoList":[{"NAME":"卡收","VALUE":90.00},{"NAME":"银行扣款","VALUE":2365.13}],"PayDebtAmount":0.0,"fee":"0.3%","feeMoney":0,"totalAmount":0},"success":true}
+2021-07-07 16:24:05,750 [14] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 16:24:05,844 [14] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 16:24:07,749 [14] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -55:{"code":0,"message":"","data":{"AccountPeriod":"2021年07月","EmployeeNo":993594,"Name":"李建国","DebtAmount":144.87,"DueAmount":2600.00,"PaymentInfoList":[{"NAME":"租金类费用","VALUE":2600.0}],"PaidAmount":2455.13,"PaidAmountInfoList":[{"NAME":"卡收","VALUE":90.00},{"NAME":"银行扣款","VALUE":2365.13}],"PayDebtAmount":0.0,"fee":"0.3%","feeMoney":0,"totalAmount":0},"success":true}
+2021-07-07 16:43:42,424 [14] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - Data:{"OperatorDeviceName":"WXQYH","OrganizationId":"55","DriverID":"21033","RunEnvironment":"Developer","FactPayAmount":"500"},result:,error:System.Net.WebException: 远程服务器返回错误: (500) 内部服务器错误。
+   在 System.Net.WebClient.UploadDataInternal(Uri address, String method, Byte[] data, WebRequest& request)
+   在 System.Net.WebClient.UploadString(Uri address, String method, String data)
+   在 System.Net.WebClient.UploadString(Uri address, String data)
+   在 DaZhongManagementSystem.Areas.WeChatPush.Controllers.WeChatRevenue.WeChatRevenueController.GetPaySignWX(String driverId, String organizationId, String revenueFee, Guid personVguid, Guid pushContentVguid, Int32 revenueType, String factPayAmount)
+2021-07-07 16:44:04,214 [14] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 16:44:04,312 [14] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 16:44:06,620 [14] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -55:{"code":0,"message":"","data":{"AccountPeriod":"2021年07月","EmployeeNo":993594,"Name":"李建国","DebtAmount":144.87,"DueAmount":2600.00,"PaymentInfoList":[{"NAME":"租金类费用","VALUE":2600.0}],"PaidAmount":2455.13,"PaidAmountInfoList":[{"NAME":"卡收","VALUE":90.00},{"NAME":"银行扣款","VALUE":2365.13}],"PayDebtAmount":0.0,"fee":"0.3%","feeMoney":0,"totalAmount":0},"success":true}
+2021-07-07 16:53:54,053 [14] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 16:54:08,441 [14] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 在与 SQL Server 建立连接时出现与网络相关的或特定于实例的错误。未找到或无法访问服务器。请验证实例名称是否正确并且 SQL Server 已配置为允许远程连接。 (provider: Named Pipes Provider, error: 40 - 无法打开到 SQL Server 的连接)
+2021-07-07 16:56:59,860 [14] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - -55:{"code":0,"message":"","data":{"AccountPeriod":"2021年07月","EmployeeNo":993594,"Name":"李建国","DebtAmount":144.87,"DueAmount":2600.00,"PaymentInfoList":[{"NAME":"租金类费用","VALUE":2600.0}],"PaidAmount":2455.13,"PaidAmountInfoList":[{"NAME":"卡收","VALUE":90.00},{"NAME":"银行扣款","VALUE":2365.13}],"PayDebtAmount":0.0,"fee":"0.25%","feeMoney":0,"totalAmount":0},"success":true}
+
+-------------------------------footer----------------------
