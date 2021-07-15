@@ -130,6 +130,7 @@ $(".btn_qt").on("click", function () {
 //    });
 //}
 function startWxPay2() {
+    $(".btn_qt").attr('disabled', "true");
     var factPay = Number($("#CustomPay").val());
     if (factPay == 0) {
         factPay = $("#CurrentAccountBalanceF").text();
@@ -157,6 +158,7 @@ function startWxPay2() {
                 urlPay = data[0];
                 billNo = data[1];
                 window.location.href = urlPay;
+                $(".btn_qt").removeAttr("disabled");
                 //saveAndNavigation();
             } else {
                 //alert("扫码处理失败，请重试！")

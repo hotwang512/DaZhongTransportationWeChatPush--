@@ -1,4 +1,5 @@
-﻿var selector = {
+﻿$(".input_text").attr("autocomplete", "new-password");
+selector = {
     //$grid: function () { return $("#DraftInfoList") },
     $pushForm: function () { return $("#pushForm") },
     $importForm: function () { return $("#importForm") },
@@ -1438,7 +1439,7 @@ var $page = function () {
                datatype: "json",
                id: "vguid",//主键
                async: true,
-               data: { 'TranslationApprovalStatus': "已关注", "name": selector.$txtName_P().val(), "PhoneNumber": selector.$txtMobilePhone_P().val() },
+               data: { 'TranslationApprovalStatus': "'已关注','未匹配'", "name": selector.$txtName_P().val(), "PhoneNumber": selector.$txtMobilePhone_P().val() },
                url: "/BasicDataManagement/UserInfo/GetUserListBySearch"  //获取数据源的路径
            };
             var typeAdapter = new $.jqx.dataAdapter(source, {
@@ -1520,7 +1521,7 @@ var $page = function () {
                 datatype: "json",
                 id: "vguid",//主键
                 async: true,
-                data: { 'TranslationApprovalStatus': "已关注", "name": selector.$name_Search().val().trim(), "OwnedFleet": selector.$OwnedFleet().val().trim(), "PhoneNumber": selector.$MobilePhone_Search().val().trim(), "LabelName": checkedItems },
+                data: { 'TranslationApprovalStatus': "'已关注','未匹配'", "name": selector.$name_Search().val().trim(), "OwnedFleet": selector.$OwnedFleet().val().trim(), "PhoneNumber": selector.$MobilePhone_Search().val().trim(), "LabelName": checkedItems },
                 url: "/BasicDataManagement/UserInfo/GetUserListBySearch"  //获取数据源的路径
             };
             var typeAdapter = new $.jqx.dataAdapter(source, {
