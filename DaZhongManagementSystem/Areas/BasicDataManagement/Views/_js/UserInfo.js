@@ -374,7 +374,10 @@ var $page = function () {
 
     //加载团队表
     function LoadTable() {
-
+        var Status = selector.$Status_Search().val();
+        if (Status != "") {
+            Status = "'" + Status + "'";
+        }
         var UserInfoListSource =
         {
             datafields:
@@ -410,7 +413,7 @@ var $page = function () {
                 "IDNumber": selector.$userID_Search().val().trim(),
                 "PhoneNumber": selector.$mobilePhone_Search().val().trim(),
                 "OwnedFleet": selector.$OwnedFleet().val(),
-                "TranslationApprovalStatus": selector.$Status_Search().val()
+                "TranslationApprovalStatus": Status
             },
             url: "/BasicDataManagement/UserInfo/GetUserListBySearch"    //获取数据源的路径
         };
