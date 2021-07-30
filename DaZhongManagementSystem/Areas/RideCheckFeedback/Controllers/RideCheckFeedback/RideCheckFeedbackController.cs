@@ -8,6 +8,10 @@ using DaZhongManagementSystem.Controllers;
 using DaZhongManagementSystem.Entities.TableEntity;
 using DaZhongManagementSystem.Entities.UserDefinedEntity;
 using SyntacticSugar;
+using SqlSugar;
+using DaZhongManagementSystem.Infrastructure.SugarDao;
+using DaZhongManagementSystem.Common.LogHelper;
+using DaZhongManagementSystem.Areas.PartnerInquiryManagement.Models;
 
 namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.RideCheckFeedback
 {
@@ -28,7 +32,7 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.RideCheckF
             U_WeChatUserID userInfo = new U_WeChatUserID();
             string userInfoStr = Common.WeChatPush.WeChatTools.GetUserInfoByCode(accessToken, code);
             userInfo = Common.JsonHelper.JsonToModel<U_WeChatUserID>(userInfoStr);//用户ID
-            //userInfo.UserId = "13524338060";
+            //userInfo.UserId = "13671595340";
             Business_Personnel_Information personInfoModel = GetUserInfo(userInfo.UserId);//获取人员表信息
             //Business_Personnel_Information personInfoModel = GetUserInfo("WangCunBiao");//获取人员表信息
             Business_RideCheckFeedback rideCheckFeedback = new Business_RideCheckFeedback();
@@ -108,6 +112,25 @@ namespace DaZhongManagementSystem.Areas.RideCheckFeedback.Controllers.RideCheckF
             return Json(new { Success = true, Data = new { FilePath = reponseMessage.WebFilePath, FileName = fileName } }, JsonRequestBehavior.AllowGet);
         }
 
-
+        public string GetCompanyOfCar(string License)
+        {
+            var companyName = "";
+            using (SqlSugarClient dbMsSql2 = SugarDao_MsSql.GetInstance2())
+            {
+                try
+                {
+                    var companyInfo = dbMsSql2.SqlQuery<Visionet_CabInfo>(@"select Organization as Motorcade from [DZ_DW].[dbo].[Visionet_CabInfo_View] where CabLicense = @license", new { license = License }).ToList();
+                    if (companyInfo.Count == 1)
+                    {
+                        companyName = companyInfo[0].Motorcade;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogHelper.WriteLog(ex.Message);
+                }
+            }
+            return companyName;
+        }
     }
 }

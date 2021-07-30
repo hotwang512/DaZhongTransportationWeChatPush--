@@ -1,0 +1,3 @@
+
+-------------------------------header----------------------
+2021-07-30 14:10:45,741 [19] [ERROR] DaZhongManagementSystem.Common.LogHelper.Log4NetWriter - 拒绝了对对象 'Visionet_CabInfo' (数据库 'DZ_DW'，架构 'DZSrc')的 SELECT 权限。

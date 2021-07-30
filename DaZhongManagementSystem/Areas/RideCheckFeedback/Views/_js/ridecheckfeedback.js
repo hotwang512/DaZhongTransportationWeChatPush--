@@ -131,6 +131,9 @@ function basicInformation() {
     } else {
         $(".ss").eq(0).removeClass("active").css("background", "#999");
     }
+    if (txt_checkcarnumber != "" && txt_checkcarnumber != null) {
+        getCompanyOfCar("沪"+txt_checkcarnumber);
+    }
     //保存基本信息
     $.ajax({
         url: "/RideCheckFeedback/RideCheckFeedback/SaveRideCheckFeedbackItemInfor",
@@ -153,7 +156,24 @@ function basicInformation() {
     });
     activeSubmit();
 }
-
+//通过车牌找到所属公司
+function getCompanyOfCar(checkcarnumber) {
+    $.ajax({
+        url: "/RideCheckFeedback/RideCheckFeedback/GetCompanyOfCar",
+        data: {
+            License: checkcarnumber,
+        },
+        type: "POST",
+        success: function (data) {
+            if (data != "" && data != null) {
+                $("#txt_company").val(data);
+            } else {
+                $("#txt_company").val("");
+                alert("未查询到车辆信息");
+            }
+        }
+    });
+}
 //保存单选题
 function saveChoiceQuestion(inputs) {
     if (inputs == undefined) {

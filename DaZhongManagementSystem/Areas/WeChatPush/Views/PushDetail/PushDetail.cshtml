@@ -34,61 +34,61 @@
                 {
                     //<div id="divdown1"></div>
 
-            @Html.Raw(pushContentModel.Message)
-                    
+                    @Html.Raw(pushContentModel.Message)
+
                     if (pushContentModel.ExercisesVGUID.ToString() != "00000000-0000-0000-0000-000000000000")
                     {
                         string exerciseUrl = openHttpAddress + "/BasicDataManagement/WeChatExercise/Index?exerciseVguid=" + pushContentModel.ExercisesVGUID + "," + pushContentModel.VGUID;
                         var url = string.Format("https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type=code&scope=snsapi_base#wechat_redirect", corpId, exerciseUrl);
-            
-            
-            <a id="ableAnswer" style="display:none" href="@url">进入答题</a>
-            <div id="timer">
-                <a id="unableAnswer" style="display: none">
-                    <span>请仔细阅读培训资料,倒计时结束后方可答题,</span>
-                    <span>距离答题还有</span>
-                    <span style="color: red" class="minutes"></span><span style="color: red">分</span>
-                    <span style="color: red" class="seconds"></span><span style="color: red">秒！</span>
-                </a>
-            </div>
+
+
+                        <a id="ableAnswer" style="display:none" href="@url">进入答题</a>
+                        <div id="timer">
+                            <a id="unableAnswer" style="display: none">
+                                <span>请仔细阅读培训资料,倒计时结束后方可答题,</span>
+                                <span>距离答题还有</span>
+                                <span style="color: red" class="minutes"></span><span style="color: red">分</span>
+                                <span style="color: red" class="seconds"></span><span style="color: red">秒！</span>
+                            </a>
+                        </div>
                     }
 
-@*放大图片的div*@
-                    
-@*<div class='enlarge-blackground' style="height: 0;">
-                <div id="Bigimg" class="enlarge-img-box" style="position: fixed; top: 0; left: -18px; width: 100%; height: 100%; background: black; display: none; overflow: scroll">
-                    <div class="enlarge-div" style="width: 100%; margin-top: 40%; margin-left: 0px; height: auto">
+                    @*放大图片的div*@
+
+                    @*<div class='enlarge-blackground' style="height: 0;">
+                        <div id="Bigimg" class="enlarge-img-box" style="position: fixed; top: 0; left: -18px; width: 100%; height: 100%; background: black; display: none; overflow: scroll">
+                        <div class="enlarge-div" style="width: 100%; margin-top: 40%; margin-left: 0px; height: auto">
                         <img id="img" class='enlarge-img' style="width: 100%; height: 100%;" />
+                        </div>
+                        </div>
+                        </div>*@
+                    <div id="Bigimg" style="position: fixed; top: 0; left: -18px; width: 100%; height: 100%; background: black; display: none; overflow: scroll">
+                        <div style="width: 100%; margin-top: 40%; margin-left: 0px; height: auto">
+                            <img id="img" style="width: 100%; height: 100%;" />
+                        </div>
                     </div>
-                </div>
-            </div>*@
-            <div id="Bigimg" style="position: fixed; top: 0; left: -18px; width: 100%; height: 100%; background: black; display: none; overflow: scroll">
-                <div style="width: 100%; margin-top: 40%; margin-left: 0px; height: auto">
-                    <img id="img" style="width: 100%; height: 100%;" />
-                </div>
-            </div>
                 }
                 else
                 {
-            <div class="error" style="display: block">
-                <div>
-                    <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/Error.png")"  alt="Alternate Text" />
-                    <span>推送内容已过期！！</span>
-                </div>
-            </div>
+                    <div class="error" style="display: block">
+                        <div>
+                            <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/Error.png")" alt="Alternate Text" />
+                            <span>推送内容已过期！！</span>
+                        </div>
+                    </div>
                 }
             }
             else
             {
-            <div class="error" style="display: block">
-                <div>
-                    <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/Error.png")" alt="Alternate Text" />
-                    <span>推送内容已删除！！</span>
+                <div class="error" style="display: block">
+                    <div>
+                        <img src="@Url.Content("~/Areas/BasicDataManagement/Views/_img/Error.png")" alt="Alternate Text" />
+                        <span>推送内容已删除！！</span>
+                    </div>
                 </div>
-            </div>
             }
         }
-        <input type="hidden"  id="openHttpAddress" value="@openHttpAddress" />
+        <input type="hidden" id="openHttpAddress" value="@openHttpAddress" />
         <input type="hidden" id="countDownConfig" value="@countDownConfig" />
         <input type="hidden" id="isValid" value="@isValid" />
     </header>
